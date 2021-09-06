@@ -1,0 +1,86 @@
+@startuml
+  !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+  scale 2.0
+
+  LAYOUT_WITH_LEGEND()
+
+  Person_Ext(customer, "Cliente", "persona")
+
+  Person(operator, "Operador", "persona")
+  Person(adminstrator, "Administrador", "persona")
+  Person(hr, "RH", "persona")
+
+  System_Boundary(login_panel, "Login Panel") {
+    System(change_password, "Troca de senha")
+    System(forgot_password, "Esqueci minha senha")
+    System(validate_access, "Validação de acesso")
+  }
+
+  System_Boundary(customer_panel, "Customer Panel") {
+    System(escort_scheduling, "Agendamento de escolta")
+  }
+
+  System_Boundary(operator_panel, "Operator Panel") {
+    System_Boundary(escort_control, "Escort Control") {
+      System(vehicles, "Veículos")
+      System(arsenal, "Arsenal")
+      System(ideal_team, "Equipe ideal")
+      System(arsenal_choose, "Escolha do arsenal")
+      System(customer_notification, "Notificação para o cliente")
+    }
+  }
+
+  System_Boundary(adm_panel, "Administrator Panel") {
+    System_Boundary(arsenal_control, "Arsenal Control") {
+      System(stock, "Estoque")
+      System(localization, "Localização")
+    }
+
+    System_Boundary(operations, "Operations") {
+      System(hours_calc, "Cálculo de Horas (Missão)")
+      System(worked_hours, "Horas Trabalhadas")
+      System(arsenal_conference, "Conferência do Arsenal")
+      System(vehicle_conference, "Conferência do Veículo")
+      System(final_hour_calc, "Hora-Final (Base)")
+    }
+
+    System_Boundary(finance, "Finance") {
+      System(projections, "Projeções")
+    }
+  }
+
+  System_Boundary(human_resources, "Human Resources") {
+    System(team_approval, "Aprovação do time")
+  }
+
+  System_Boundary(notifications, "Notifications") {
+    System(email, "Envio de Email")
+  }
+
+  System_Ext(ibge, "API IBGE") {
+    System_Ext(states_cities, "Estados e Cidades")
+  }
+
+  'Customer'
+  Rel(customer, login_panel, " ")
+  Rel(operator, login_panel, " ")
+  Rel(hr, login_panel, " ")
+  Rel(adminstrator, login_panel, " ")
+
+  'Login'
+  Rel(login_panel, adm_panel, " ")
+  Rel(login_panel, operator_panel, " ")
+  Rel(login_panel, customer_panel, " ")
+  Rel(login_panel, human_resources, " ")
+
+  'Customer Panel'
+  Rel(customer_panel, ibge, " ")
+
+  'Notifications
+  Rel(login_panel, notifications, " ")
+  Rel(operator_panel, notifications, " ")
+  Rel(customer_panel, notifications, " ")
+  Rel(hr, notifications, " ")
+
+@enduml

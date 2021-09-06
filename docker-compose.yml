@@ -1,0 +1,21 @@
+version: '3'
+services:
+  db:
+    image: postgres:11-alpine
+    environment:
+      - POSTGRES_USER=${PG_USER}
+      - POSTGRES_PASSWORD=${PG_PASSWORD}
+  web:
+    build: .
+    command: bash -c "rm -f tmp/pids/server.pid && yarn install && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    tty: true
+    stdin_open: true
+    environment:
+      - PGHOST=${PG_HOST}
+      - PGUSER=${PG_USER}
+    volumes:
+      - .:/seven_facilities
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
