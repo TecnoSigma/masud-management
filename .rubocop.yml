@@ -1,0 +1,18 @@
+AllCops:
+  NewCops: enable
+  UseCache: false
+  Exclude:
+     - 'db/**/*'
+     - 'bin/**/*'
+     - 'config/routes.rb'
+     - 'spec/factories/*'
+Metrics/BlockLength:
+  Enabled: true
+  Exclude:
+    - 'spec/**/*'
+Documentation:
+  Enabled: false
+Naming/RescuedExceptionsVariableName:
+  Enabled: false
+Metrics/LineLength:
+  Max: 100
