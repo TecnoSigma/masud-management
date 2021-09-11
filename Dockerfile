@@ -1,4 +1,4 @@
-FROM ruby:2.7.0
+FROM ruby:2.6.6
 
 RUN apt install curl
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
