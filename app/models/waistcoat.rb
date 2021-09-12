@@ -1,0 +1,2 @@
+class Waistcoat < Clothing
+end
