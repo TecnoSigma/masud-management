@@ -14,4 +14,18 @@ RSpec.describe Customer, type: :model do
       expect(customer).to respond_to(:escorts)
     end
   end
+
+  describe 'validates presences' do
+    it 'of email' do
+      customer = FactoryBot.build(:customer, email: nil)
+
+      expect(customer).to be_invalid
+    end
+
+    it 'of password' do
+      customer = FactoryBot.build(:customer, password: nil)
+
+      expect(customer).to be_invalid
+    end
+  end
 end

@@ -23,7 +23,7 @@ clean:
 	rm -fr ./vendor/bundle
 	rm -rf .bundle
 
-restart-database:
+reset-db:
 	$(RUN) bundle exec rake db:drop
 	$(RUN) bundle exec rake db:create
 	$(RUN) bundle exec rake db:migrate

@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 2021_09_12_002110) do
 
   create_table "clothings", force: :cascade do |t|
     t.bigint "employee_id"
+    t.string "kind"
     t.bigint "status_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -34,6 +35,8 @@ ActiveRecord::Schema.define(version: 2021_09_12_002110) do
   end
 
   create_table "customers", force: :cascade do |t|
+    t.string "email"
+    t.string "password"
     t.bigint "status_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -41,9 +44,11 @@ ActiveRecord::Schema.define(version: 2021_09_12_002110) do
   end
 
   create_table "employees", force: :cascade do |t|
-    t.bigint "status_id"
+    t.string "email"
+    t.string "password"
     t.string "kind"
     t.bigint "team_id"
+    t.bigint "status_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["status_id"], name: "index_employees_on_status_id"
