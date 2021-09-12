@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  root 'welcome_page#welcome'
+  get 'painel_do_cliente/login', to: 'customer_panel#login'
 end

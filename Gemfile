@@ -7,6 +7,7 @@ ruby '2.6.6'
 
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'bootstrap', '~> 5.1.0'
+gem 'i18n'
 gem 'jbuilder', '~> 2.7'
 gem 'jquery-rails'
 gem 'pg', '>= 0.18', '< 2.0'

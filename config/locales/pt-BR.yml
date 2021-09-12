@@ -1,0 +1,9 @@
+pt-BR:
+  customer_panel:
+    login:
+      email: 'Email'
+      password: 'Senha'
+      email_placeholser: 'Digite seu email'
+      password_placeholder: 'Digite sua senha'
+      access_btn: 'Acessar dashboard'
+      forgot_my_password_lnk: 'Esqueci minha senha?'

@@ -368,6 +368,7 @@ DEPENDENCIES
   dotenv-rails
   factory_bot_rails
   faker
+  i18n
   jbuilder (~> 2.7)
   jquery-rails
   listen (~> 3.2)
