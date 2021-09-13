@@ -13,7 +13,7 @@ tests:
 console:
 	$(RUN) bundle exec rails c
 rubycritic:
-	$(RUN) bundle exec rubycritic
+	$(RUN) bundle exec rubycritic --format console --minimum-score 90
 rubocop:
 	$(RUN) bundle exec rubocop --cache false -A
 bash:
