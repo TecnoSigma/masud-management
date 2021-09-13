@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Arsenal, type: :model do
   describe 'validates relationships' do
     it 'validates relationship (N:1) between Status and Arsenal' do
-      arsenal= Arsenal.new
+      arsenal = Arsenal.new
 
       expect(arsenal).to respond_to(:status)
     end

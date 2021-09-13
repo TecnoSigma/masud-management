@@ -4,8 +4,11 @@ AllCops:
   Exclude:
      - 'db/**/*'
      - 'bin/**/*'
-     - 'config/routes.rb'
+     - 'config/*'
+     - 'config.ru'
+     - 'spec/spec_helper.rb'
      - 'spec/factories/*'
+     - 'Rakefile'
 Metrics/BlockLength:
   Enabled: true
   Exclude:

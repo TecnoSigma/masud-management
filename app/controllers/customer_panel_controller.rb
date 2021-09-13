@@ -1,22 +1,32 @@
+# frozen_string_literal: true
+
 class CustomerPanelController < ApplicationController
-  before_action :check_authorization, except: [:login, :check_credentials]
+  before_action :check_token, only: [:main]
 
   def login; end
-  def index; end
+
+  def main; end
 
   def check_credentials
     raise CustomerNotFound unless customer
-
-    check_authorization
+    raise UnauthorizedCustomer unless customer.active?
 
     session[:customer_token] = SecureRandom.uuid
 
-    redirect_to customer_panel_index_path
+    redirect_to customer_panel_main_path
   rescue CustomerNotFound, UnauthorizedCustomer => error
     redirect_to customer_panel_login_path, alert: error_message(error.class)
   end
 
   private
+
+  def check_token
+    redirect_to customer_panel_login_path unless tokenized?
+  end
+
+  def tokenized?
+    session[:customer_token].present?
+  end
 
   def error_message(error)
     return t('messages.errors.incorrect_customer_data') if error == CustomerNotFound
@@ -31,9 +41,5 @@ class CustomerPanelController < ApplicationController
 
   def customer
     @customer ||= Customer.find_by(customer_params)
-  end
-
-  def check_authorization
-    raise UnauthorizedCustomer unless customer.active?
   end
 end

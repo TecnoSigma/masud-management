@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Customer < ApplicationRecord
   validates :email,
             :password,
@@ -6,11 +8,11 @@ class Customer < ApplicationRecord
   belongs_to :status
   has_many :escorts
 
-  ACTIVE_STATUS = 'ativo'.freeze
+  ACTIVE_STATUS = 'ativo'
 
   private_constant :ACTIVE_STATUS
 
   def active?
-    self.status.name == ACTIVE_STATUS
+    status.name == ACTIVE_STATUS
   end
 end
