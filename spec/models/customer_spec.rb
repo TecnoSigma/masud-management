@@ -1,6 +1,26 @@
 require 'rails_helper'
 
 RSpec.describe Customer, type: :model do
+  describe '' do
+    it 'returns \'true\' whe customer is active' do
+      status = FactoryBot.create(:status, name: 'ativo')
+      customer = FactoryBot.create(:customer, status: status)
+
+      result = customer.active?
+
+      expect(result).to eq(true)
+    end
+
+    it 'returns \'false\' when customer isn\'t active' do
+      status = FactoryBot.create(:status, name: 'desativado')
+      customer = FactoryBot.create(:customer, status: status)
+
+      result = customer.active?
+
+      expect(result).to eq(false)
+    end
+  end
+
   describe 'validates relationships' do
     it 'validates relationship (N:1) between Status and Customer' do
       customer = Customer.new

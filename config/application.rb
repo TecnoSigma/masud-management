@@ -17,5 +17,9 @@ module SevenFacilities
     # the framework and any gems in your application.
 
     config.i18n.default_locale = 'pt-BR'
+
+    config.autoload_paths += %W[
+      #{Rails.root}/app/exceptions
+    ]
   end
 end

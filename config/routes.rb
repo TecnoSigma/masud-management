@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  get 'painel_do_cliente/login', to: 'customer_panel#login'
+  scope module: 'customer_panel', path: 'painel_do_cliente', as: 'customer_panel' do
+    get 'index'
+    get 'login'
+    post 'check_credentials'
+  end
 end

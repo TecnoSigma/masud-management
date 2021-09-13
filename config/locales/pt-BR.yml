@@ -1,4 +1,8 @@
 pt-BR:
+  messages:
+    errors:
+      incorrect_customer_data: 'Email e/ou senha inválidos!'
+      unauthorized_customer: 'Seu status atual não lhe permite o acesso. Por favor, contate-nos!'
   customer_panel:
     login:
       email: 'Email'

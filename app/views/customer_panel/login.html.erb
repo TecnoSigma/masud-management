@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class='col-lg-6 offset-lg-3 col-md-6 offset-md-3 col-sm-6 offset-sm-3 col-xs-12'>
     <%= render './partials/messages' %>
-    <%= form_with scope: 'user', url: painel_do_cliente_login_path do |f| %>
+    <%= form_with scope: 'customer', url: customer_panel_check_credentials_path do |f| %>
       <div class="mb-3">
         <label for="email" class="col-form-label-sm"><%= t('.email') %></label>
         <%= f.email_field :email,
@@ -17,7 +17,7 @@
                              placeholder: t('.password_placeholder') %>
       </div>
       <div class="mb-3">
-        <%= link_to painel_do_cliente_login_path, class: 'col-form-label-sm' do %>
+        <%= link_to customer_panel_login_path, class: 'col-form-label-sm' do %>
           <small><%= t('.forgot_my_password_lnk') %></small>
         <% end %>
       </div>

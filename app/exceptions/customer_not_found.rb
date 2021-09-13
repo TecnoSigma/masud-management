@@ -1,0 +1,1 @@
+class CustomerNotFound < StandardError; end

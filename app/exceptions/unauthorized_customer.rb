@@ -1,0 +1,1 @@
+class UnauthorizedCustomer < StandardError; end
