@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Customer, type: :model do
-  describe '' do
+  describe '#active?' do
     it 'returns \'true\' whe customer is active' do
       status = FactoryBot.create(:status, name: 'ativo')
       customer = FactoryBot.create(:customer, status: status)

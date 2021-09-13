@@ -9,6 +9,14 @@ class Employee < ApplicationRecord
 
   before_save :add_kind
 
+  ACTIVE_STATUS = 'ativo'
+
+  private_constant :ACTIVE_STATUS
+
+  def active?
+    status.name == ACTIVE_STATUS
+  end
+
   def add_kind
     class_name = self.class.name.downcase
 

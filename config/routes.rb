@@ -6,4 +6,10 @@ Rails.application.routes.draw do
     get 'login'
     post 'check_credentials'
   end
+
+  scope module: 'employee_panel', path: 'painel_administrativo', as: 'employee_panel' do
+    get 'main'
+    get 'login'
+    post 'check_credentials'
+  end
 end

@@ -29,8 +29,8 @@ class CustomerPanelController < ApplicationController
   end
 
   def error_message(error)
-    return t('messages.errors.incorrect_customer_data') if error == CustomerNotFound
-    return t('messages.errors.unauthorized_customer') if error == UnauthorizedCustomer
+    return t('messages.errors.incorrect_user_data') if error == CustomerNotFound
+    return t('messages.errors.unauthorized_user') if error == UnauthorizedCustomer
   end
 
   def customer_params

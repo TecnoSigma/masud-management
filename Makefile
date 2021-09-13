@@ -22,9 +22,11 @@ clean:
 	docker-compose down
 	rm -fr ./vendor/bundle
 	rm -rf .bundle
-
 reset-db:
 	$(RUN) bundle exec rake db:drop
 	$(RUN) bundle exec rake db:create
 	$(RUN) bundle exec rake db:migrate
 	$(RUN) bundle exec rake db:seed
+
+deploy:
+	git push heroku master

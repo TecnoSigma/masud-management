@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends apt-utils
 RUN apt-get install -y graphviz
 RUN npm install --global yarn
 
+COPY ~/.yarnrc ~/.yarnrc
 RUN mkdir /seven_facilities
 WORKDIR /seven_facilities
 COPY Gemfile /seven_facilities/Gemfile
