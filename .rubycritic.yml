@@ -1,9 +1,0 @@
-no_browser: true
-formats:
-  - console
-minimum_score: 90
-paths:
-  - 'app/controllers/'
-  - 'app/models/'
-  - 'app/exceptions/'
-  - 'lib/'
