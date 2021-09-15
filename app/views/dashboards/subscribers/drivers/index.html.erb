@@ -1,0 +1,57 @@
+<%= render './././partials/header' %>
+<%= render './././partials/logout' %>
+<div class="container-fluid">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <%= link_to t('breadcrumbs.dashboards.subscribers.login'), login_assinantes_path %>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        <%= link_to t('breadcrumbs.dashboards.subscribers.dashboard'), dashboards_assinantes_path %>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        <%= t('breadcrumbs.dashboards.subscribers.drivers') %>
+      </li>
+    </ol>
+  </nav>
+  <%= render './partials/messages' %>
+  <%= link_to t('.add_driver_btn'), dashboards_assinantes_motoristas_adicionar_path, class: 'btn btn-primary btn-sm' %>
+  <h4>
+    <b><%= t('.drivers') %></b>
+  </h4>
+  <table class="table">
+    <thead>
+      <th><%= t('.name') %></th>
+      <th><%= t('.cnh') %></th>
+      <th><%= t('.paid_activity') %></th>
+      <th><%= t('.associated_at') %></th>
+      <th><%= t('.status') %></th>
+      <th><%= t('.vehicles') %></th>
+      <th></th>
+    <thead>
+    <% if @drivers.present? %>
+      <% @drivers.each do |driver| %>
+        <tr>
+          <td><%= driver.name %></td>
+          <td><%= driver.license %></td>
+          <td><%= t("#{driver.paid_activity.to_s}") %></td>
+          <td><%= convert_date(driver.created_at) %></td>
+          <td><%= driver.status %></td>
+          <td><%= driver.vehicles.pluck(:license_plate).join(' | ') %></td>
+          <td>
+          <%= link_to driver_details_path(driver.id) do %>
+            <i class='material-icons'>view_headline</i>
+          <% end %>
+          <%= link_to edit_driver_path(driver), title: t('.edit_btn') do %>
+            <i class='material-icons'>edit</i>
+          <% end %>
+          <%= link_to remove_driver_path(driver), method: :delete, title: t('.remove_btn') do %>
+            <i class='material-icons'>delete_forever</i>
+          <% end %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </table>
+</div>
+<%= render './././partials/footer' %>

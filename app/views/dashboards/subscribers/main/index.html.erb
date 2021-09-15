@@ -1,0 +1,43 @@
+<%= render './././partials/header' %>
+<%= render './././partials/logout' %>
+<div class="container-fluid">
+  <%= render './././partials/photos_missing' %>
+</div>
+<section id="access_buttons">
+  <div class="container space-between">
+    <div>
+        <%= link_to dashboards_assinantes_monitoramento_path, title: t('.menu.monitoring') do %>
+        <%= image_tag 'camera.png' %>
+      <% end %>
+    </div>
+    <div>
+      <%= link_to dashboards_assinantes_veiculos_path, title: t('.menu.vehicles') do %>
+        <%= image_tag 'vehicles.svg' %>
+      <% end %>
+    </div>
+    <div>
+      <%= link_to dashboards_assinantes_angels_path, title: t('.menu.angels') do %>
+        <%= image_tag 'angels.svg' %>
+      <% end %>
+    </div>
+  </div>
+  <br>
+  <div class="container space-between">
+    <div>
+      <%= link_to dashboards_assinantes_motoristas_path, title: t('.menu.drivers') do %>
+        <%= image_tag 'driver.png' %>
+      <% end %>
+    </div>
+    <div>
+      <%= link_to dashboards_assinantes_informacoes_pessoais_path, title: t('.menu.informations') do %>
+        <%= image_tag 'personal_informations.svg' %>
+      <% end %>
+    </div>
+    <div>
+      <%= link_to dashboards_assinantes_chamados_path, title: t('.menu.support') do %>
+        <%= image_tag 'support.svg' %>
+      <% end %>
+    </div>
+  </div>
+</section>
+<%= render './././partials/footer' %>

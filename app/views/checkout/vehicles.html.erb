@@ -1,0 +1,104 @@
+<div class="container">
+  <div class='col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-12'>
+    <%= render './partials/messages' %>
+    <%= render './partials/information_rule', current_step: Hiring::STEPS[:vehicles] %>
+    <div>
+      <h3 class="form-title">
+        <%= t('.title') %>
+      </h3>
+      <hr>
+    </div>
+      <%= form_with scope: 'vehicle', method: :get, url: checkout_add_vehicles_path do |f| %>
+        <div>
+          <div class="alert alert-warning" role="alert">
+            <%= t('.message_1') %>
+          </div>
+          <div class="alert alert-warning" role="alert">
+            <%= t('.message_2') %>
+          </div>
+          <h4 class="form-subtitle">
+            <%= t('.subtitle.vehicles') %>
+          </h4>
+        </div>
+        <hr>
+        <table class="table small-text">
+          <thead>
+            <th><%= t('.brand') %></th>
+            <th><%= t('.model') %></th>
+            <th><%= t('.license_plate') %></th>
+            <th></th>
+          <thead>  
+          <% if @vehicle_list.present? %>
+            <tbody>
+              <% @vehicle_list.each do |vehicle| %>
+                <tr>
+                  <td><%= vehicle['brand'] %></td>
+                  <td><%= vehicle['kind'] %> </td>
+                  <td><%= vehicle['license_plate'] %></td>
+                  <td>
+                    <%= link_to checkout_remove_vehicles_path(vehicle: vehicle) do %>
+                      <i class='material-icons'>delete_forever</i>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          <% end %>
+        </table>
+        <div class="form-group">
+          <label><%= t('.brand') %></label>
+          <br>
+          <%= f.select :brand,
+                       options_for_select(VehicleBrand.actives.pluck(:brand)),
+                       { include_blank: ''},
+                       class: 'form-control medium-fields',
+                       required: required?(@vehicle_list) %>
+        </div>
+        <br>
+        <div class="form-group">
+          <label><%= t('.model') %></label>
+          <br>
+          <% #TODO Ajustar carregamento do tipo de carro %>
+          <%= f.select :kind,
+                       options_for_select([]),
+                       {},
+                       class: 'form-control medium-fields',
+                       required: required?(@vehicle_list) %>
+        </div>
+        <br>
+        <div class="form-group form-check">
+          <label><%= t('.mercosul_license_plate') %></label>
+          <br>
+          <%= f.radio_button :mercosul,
+                             'true',
+                             class: 'form-check-input',
+                             checked: false %>
+          <%= f.label t('.mercosul_true'), class: 'form-check-label' %>
+          <%= f.radio_button :mercosul,
+                             'false',
+                             class: 'form-check-input',
+                             checked: true %>
+          <%= f.label t('.mercosul_false'), class: 'form-check-label' %>
+        </div>
+        <div class="form-group">
+          <label><%= t('.license_plate') %></label>
+          <br>
+          <%= f.text_field :license_plate,
+                      class: 'medium-fields form-control',
+                      required: required?(@vehicle_list) %>
+        </div>
+        <br>
+        <%= f.submit t('.add_vehicle_btn'),
+                     class: 'btn btn-primary short-fields',
+                     id: 'add_vehicle_btn' %>
+        <% if @vehicle_list.present? %>
+          <%= link_to t('.next_step_resume_btn'),
+                     checkout_resumo_path,
+                     class: 'btn btn-primary short-fields',
+                     id: 'next_step_resume_btn' %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+<br>

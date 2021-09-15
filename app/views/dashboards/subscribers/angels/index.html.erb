@@ -1,0 +1,51 @@
+<%= render './././partials/header' %>
+<%= render './././partials/logout' %>
+<div class="container-fluid">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <%= link_to t('breadcrumbs.dashboards.subscribers.login'), login_assinantes_path %>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        <%= link_to t('breadcrumbs.dashboards.subscribers.dashboard'), dashboards_assinantes_path %>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        <%= t('breadcrumbs.dashboards.subscribers.angels') %>
+      </li>
+    </ol>
+  </nav>
+  <h4>
+    <b><%= t('.angels') %></b>
+  </h4>
+  <table class="table">
+    <thead>
+      <th><%= t('.name') %></th>
+      <th><%= t('.cpf') %></th>
+      <th><%= t('.status') %></th>
+      <th></th>
+    </thead>
+    <% @subscriber.angels.sort_by_name.each do |angel| %>
+      <tr>
+        <td><%= angel.name %></td>
+        <td><%= angel.cpf %></td>
+        <td>
+          <div title="<%= angel.status %>">
+            <i class='material-icons' style="color: <%= angel.activated? ? 'green' : 'red' %>">
+              <%= angel.activated? ? 'mood' : 'mood_bad' %>
+            </i>
+          </div>
+        </td>
+        <td>
+          <%= link_to dashboards_assinantes_angels_editar_path(angel: angel), title: t('.edit_btn') do %>
+            <i class='material-icons'>edit</i>
+          <% end %>
+          <%= link_to dashboards_assinantes_angels_remove_path(angel: angel), method: :delete, title: t('.remove_btn') do %>
+            <i class='material-icons'>delete_forever</i>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+  <%= link_to t('.add_angels_btn'), dashboards_assinantes_angels_adicionar_path, class: 'btn btn-primary btn-sm' %>
+</div>
+<%= render './././partials/footer' %>

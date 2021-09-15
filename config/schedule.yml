@@ -1,0 +1,20 @@
+subscription_activation:
+  cron: '0 * * * * *' # Runs once per minute
+  class: 'SubscriptionActivationJob'
+  queue: default
+subscription_reactivation:
+  cron: '0 0 * * * *' # Runs once per hour
+  class: 'SubscriptionReactivationJob'
+  queue: default
+subscription_deactivation:
+  cron: '0 0 6 * * *' # Runs once per day
+  class: 'SubscriptionDeactivationJob'
+  queue: default
+storage_upload_files:
+  cron: '0 0 * * * *' # Runs once per hour
+  class: 'StorageUploadJob'
+  queue: default
+storage_remove_files:
+  cron: '0 0 6 * * *' # Runs once per day
+  class: 'StorageRemoveJob'
+  queue: default

@@ -1,0 +1,2 @@
+class FoundSubscriberError < StandardError
+end

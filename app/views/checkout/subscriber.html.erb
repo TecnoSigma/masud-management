@@ -1,0 +1,45 @@
+<div class="container">
+  <div class='col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-12'>
+    <%= render './partials/messages' %>
+    <%= render './partials/information_rule', current_step: Hiring::STEPS[:identification] %>
+    <div>
+      <h3 class="form-title">
+        <%= t('.title') %>
+      </h3>
+      <hr>
+    </div>
+    <div>
+      <%= form_with scope: 'subscriber', class: 'form-inline', url: checkout_find_subscriber_data_path do |f| %>
+        <div>
+          <h4 class="form-subtitle">
+            <%= t('.subtitle') %>
+          </h4>
+          <hr>
+        </div>
+        <div class="form-group">
+          <label><%= t('.user') %></label>
+          <%= f.text_field :user,
+                           class: 'form-control short-fields',
+                           required: true%>
+        </div>
+        <div class="form-group">
+          <label><%= t('.password') %></label>
+          <%= f.password_field :password,
+                               class: 'form-control short-fields',
+                               required: true%>
+
+        </div>
+        <br>
+        <br>
+        <br>
+        <%= recaptcha_tags %>
+        <br>
+        <%= link_to t('.back_btn'), checkout_identificacao_path, class: 'btn btn-primary short-fields' %>
+        <%= f.submit t('.next_step_vehicle_btn'),
+                     class: 'btn btn-primary short-fields',
+                     id: 'next_step_vehicle_to_subscriber_btn' %>
+      <% end %>
+    </div>
+  </div>
+  <hr>
+</div>

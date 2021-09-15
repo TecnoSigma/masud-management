@@ -1,0 +1,34 @@
+<%= render './partials/header' %>
+<div class="vertical-center">
+  <div class="container">
+    <div class='col-lg-7 col-lg-offset-4 col-md-7 col-md-offset-4 col-sm-7 col-sm-offset-2 col-xs-12'>
+      <%= render './partials/messages' %>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item active"><%= t('breadcrumbs.logins.login') %></li>
+        </ol>
+     </nav>
+      <h3><%= t('.title') %></h3>
+      <hr>
+        <%= form_with scope: 'subscriber', url: login_assinantes_validate_access_path do |f| %>
+          <div class="form-group">
+            <label><%= t('.user') %></label>
+            <%= f.text_field :user,
+                             class: 'form-control medium-fields',
+                             required: true %>
+          </div>
+          <div class="form-group">
+            <%= f.password_field :password,
+                             class: 'form-control medium-fields',
+                             required: true %>
+            <small class="form-text text-muted"><%= link_to t('.forgot_my_password'), login_assinantes_esqueci_minha_senha_path %></small>
+          </div>
+          <br>
+          <%= recaptcha_tags %>
+          <br>
+          <%= f.submit t('.access_btn'), class: 'btn btn-outline-primary' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,89 @@
+<%= render './././partials/header' %>
+<%= render './././partials/logout' %>
+<div class="container-fluid">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <%= link_to t('breadcrumbs.dashboards.subscribers.login'), login_assinantes_path %>
+      </li>
+      <li class="breadcrumb-item" aria-current="page">
+        <%= link_to t('breadcrumbs.dashboards.subscribers.dashboard'), dashboards_assinantes_path %>
+      </li>
+      <li class="breadcrumb-item" aria-current="page">
+        <%= link_to t('breadcrumbs.dashboards.subscribers.drivers'), dashboards_assinantes_motoristas_path %>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        <%= t('breadcrumbs.dashboards.subscribers.details') %>
+      </li>
+    </ol>
+  </nav>
+  <%= render './partials/messages' %>
+  <div class='col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-12'>
+    <h4>
+      <b><%= "#{t('.driver_code')} #{@driver.code}" %></b>
+    </h4>
+    <hr>
+    <div>
+      <h4 class="form-subtitle">
+        <%= t('.subtitle.vehicle_data') %>
+      </h4>
+    </div>
+    <table class="table">
+    <th><%= t('.vehicles_data.license_plate') %></th>
+      <th><%= t('.vehicles_data.brand') %></th>
+      <th><%= t('.vehicles_data.kind') %></th>
+      <% @driver.vehicles.order(:license_plate).each do |vehicle| %>
+        <tr>
+          <td><%= vehicle.license_plate %></td>
+          <td><%= vehicle.brand %></td>
+          <td><%= vehicle.kind %></td>
+        </tr>
+      <% end %>
+    </table>
+    <div>
+      <h4 class="form-subtitle">
+        <%= t('.subtitle.personal_data') %>
+      </h4>
+    </div>
+    <hr>
+    <div class="form-group form-check">
+      <b><span><%= t('.name') %></span></b>
+      <%= @driver.name %>
+    </div>
+    <div class="form-group form-check">
+      <b><span><%= t('.license') %></span></b>
+      <%= @driver.license %>
+    </div>
+    <div class="form-group form-check">
+      <b><span><%= t('.paid_activity') %></span></b>
+      <%= t("#{@driver.paid_activity.to_s}") %>
+    </div>
+    <div class="form-group form-check">
+      <b><span><%= t('.expedition_date') %></span></b>
+      <%= formatted_date(@driver.expedition_date) %>
+    </div>
+    <div class="form-group form-check">
+      <b><span><%= t('.expiration_date') %></span></b>
+      <%= formatted_date(@driver.expiration_date) %>
+      <hr>
+    </div>
+    <div class="form-group form-check">
+      <%= t('.avatar') %>
+        <span class="small-text"><%= t('.line_2') %></span>
+      <%= image_tag @driver.avatar, class: 'photos' %>
+      <hr>
+    </div>
+    <div class="form-group form-check">
+      <b>
+        <%= t('.document') %>
+        <span class="small-text"><%= t('.line_2') %></span>
+      </b>
+      <%= image_tag @driver.document, class: 'photos' %>
+      <hr>
+    </div>
+    <%= link_to t('.edit_driver_btn'), edit_driver_path(@driver.id), class: 'btn btn-primary' %>
+  </div>
+</div>
+<br>
+<br>
+<%= render './././partials/footer' %>

@@ -1,0 +1,66 @@
+<%= render './././partials/header' %>
+<%= render './././partials/logout' %>
+<%= render './partials/messages' %>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <%= link_to t('breadcrumbs.dashboards.selleres.login'), login_representantes_path %>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+      <%= link_to t('breadcrumbs.dashboards.sellers.dashboard'), dashboards_representantes_path %>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+      <%= link_to t('breadcrumbs.dashboards.sellers.finance'), dashboards_representantes_financeiro_path %>                                                                               
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+      <%= t('breadcrumbs.dashboards.sellers.sales') %>
+    </li>
+  </ol>
+</nav>
+  <div class='col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-12'>
+    <h4>
+      <b>
+        <%= t('.seller_code') %>
+        <%= @seller.code %>
+      </b>
+    </h4>
+    <hr>
+    <div>
+      <h4 class="form-subtitle">
+        <%= t('.subtitle.sales') %>
+      </h4>
+    </div>
+    <br>
+    <div>
+      <h5>
+        <span class="order-labels pendent"><%= t('.pendent_sales', total: convert_float_to_currency(Order.totals_by_status(Status::ORDER_STATUSES[:pendent]))) %></span>
+        <span> | </span>
+        <span class="order-labels approved"><%= t('.approved_sales', total: convert_float_to_currency(Order.totals_by_status(Status::ORDER_STATUSES[:approved]))) %></span>
+        <span> | </span>
+        <span class="order-labels refused"><%= t('.refused_sales', total: convert_float_to_currency(Order.totals_by_status(Status::ORDER_STATUSES[:refused]))) %></span>
+      </h5>
+    <div>
+    <table id="orders" class="table striped center-text">
+      <th class="center-text"><%= t('.code') %></th>
+      <th class="center-text"><%= t('.price') %></th>
+      <th class="center-text"><%= t('.created_at') %></th>
+      <th class="center-text"><%= t('.approved_at') %></th>
+      <th class="center-text"><%= t('.status') %></th>
+      <% @orders.by_sale_date.each do |order| %>
+        <tr>
+          <td><%= order.code %></td>
+          <td><%= convert_float_to_currency(order.price) %></td>
+          <td><%= formatted_date(order.created_at) %></td>
+          <td><%= order.approved_at? ? formatted_date(order.approved_at) : '-' %></td>
+          <td><%= order.status %></td>
+        <tr>
+      <% end %>
+    </table>
+    <hr>
+    <%= will_paginate(@orders,
+                      previous_label: t('.pagination.arrow_left'),
+                      next_label: t('.pagination.arrow_right'),
+                      class: 'pagination') %>
+  </div>
+</div>
+<%= render './././partials/footer' %>

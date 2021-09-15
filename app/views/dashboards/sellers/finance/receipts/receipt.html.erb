@@ -1,0 +1,141 @@
+<table width="100%">
+  <tr>
+    <td style="padding-left: 40px">
+      <%= image_tag wicked_pdf_asset_base64('logo.png'), style: 'width: 50px' %>
+    </td>
+    <td width="60%" style="padding-left: 30px; text-decoration: underline">
+      <span style="font-size: 20px; font-weight: bold"><%= t('dashboards.sellers.finance.receipts.receipt.title') %></span>
+    </td>
+    <td width="20%">
+      <fieldset style="text-align: center">
+        <legend align="center"><%= t('dashboards.sellers.finance.receipts.receipt.receipt_number') %></legend>
+        <span><%= leading_zeros(number: @receipt.id, leading_zeros: Receipt::LEADING_ZEROS) %></span>
+      </fieldset>
+    </td>
+    <td width="20%">
+      <fieldset style="text-align: center">
+        <legend align="center"><%= t('dashboards.sellers.finance.receipts.receipt.serial_number') %></legend>
+        <span><%= @receipt.serial %></span>
+      </fieldset>
+    </td>
+  </tr>
+</table>
+<br>
+<table width="100%">
+  <tr>
+    <td width="60%">
+      <fieldset style="text-align: center">
+        <legend align="center"><%= t('dashboards.sellers.finance.receipts.receipt.service_taker') %></legend>
+        <span><%= t('dashboards.sellers.finance.receipts.receipt.company_name') %></span>
+      </fieldset>
+    </td>
+    <td width="40%">
+      <fieldset style="text-align: center">
+        <legend align="center"><%= t('dashboards.sellers.finance.receipts.receipt.document') %></legend>
+        <span><%= t('dashboards.sellers.finance.receipts.receipt.company_document') %></span>
+      </fieldset>
+    </td>
+  </tr>
+</table>
+<p style="text-align: justify">
+  <%= t('dashboards.sellers.finance.receipts.receipt.line_1a') %>
+  <strong><%= t('dashboards.sellers.finance.receipts.receipt.line_1b') %></strong>
+  <%= t('dashboards.sellers.finance.receipts.receipt.line_1c') %>
+  <strong><%= convert_float_to_currency(@receipt.amount_receivable) %></strong>
+  <%= "(#{extensive_number(@receipt.amount_receivable)})." %>
+</p>
+<p><%= t('dashboards.sellers.finance.receipts.receipt.line_2') %></p>
+<table width="100%">
+  <tr>
+    <td width="50%">
+      <fieldset style="height: 200px">
+        <legend align="center"><%= t('dashboards.sellers.finance.receipts.receipt.taxpayer_data') %></legend>
+        <table width="100%">
+          <tr>
+            <td width="20%" style="align-text: right"><span style="font-weight: bold"><%= t('dashboards.sellers.finance.receipts.receipt.code') %></span></td>
+            <td width="80%" style="align-text: left"><span style="font-weight: bold"><%= @seller.code %></span></td>
+          <tr>
+          <tr>
+            <td colspan="2"><hr></td> 
+          </tr>
+            <td width="20%" style="align-text: right"><span><%= t('dashboards.sellers.finance.receipts.receipt.name') %></span></td>
+            <td width="80%" style="align-text: left"><span><%= @seller.name %></span></td>
+          </tr>
+          <tr>
+            <td width="20%" style="align-text: right"><span><%= t('dashboards.sellers.finance.receipts.receipt.seller_document') %></span></td>
+            <td width="80%" style="align-text: left"><span><%= @seller.document %></span></td>
+          </tr>
+          <tr>
+            <td width="20%" style="align-text: right"><span><%= t('dashboards.sellers.finance.receipts.receipt.address') %></span></td>
+            <td width="80%" style="align-text: left"><span><%= @seller.location %></span></td>
+          </tr>
+          <tr>
+            <td width="20%" style="align-text: right"><span><%= t('dashboards.sellers.finance.receipts.receipt.city') %></span></td>
+            <td width="80%" style="align-text: left"><span><%= @seller.city %></span></td>
+          </tr>
+          <tr>
+            <td width="20%" style="align-text: right"><span><%= t('dashboards.sellers.finance.receipts.receipt.state') %></span></td>
+            <td width="80%" style="align-text: left"><span><%= @seller.state %></span></td>
+          </tr>
+        </table>
+      </fieldset>
+    </td>
+    <td witdh="50%">
+      <fieldset style="height: 200px">
+        <legend align="center"><%= t('dashboards.sellers.finance.receipts.receipt.demonstrative') %></legend>
+        <table width="100%">
+          <tr>
+            <td width="40%" style="text-align: center; text-decoration: underline; font-weight: bold"><%= t('dashboards.sellers.finance.receipts.receipt.description') %></td>
+            <td width="30%" style="text-align: center; text-decoration: underline; font-weight: bold"><%= t('dashboards.sellers.finance.receipts.receipt.maturities') %></td>
+            <td width="30%" style="text-align: center; text-decoration: underline; font-weight: bold"><%= t('dashboards.sellers.finance.receipts.receipt.discounts') %></td>
+          </tr>
+          <tr>
+            <td width="40%" style="text-align: center"><%= t('dashboards.sellers.finance.receipts.receipt.services_provided') %></td>
+            <td width="30%" style="text-align: center"><%= convert_float_to_currency(@receipt.credits['services']) %></td>
+            <td width="30%" style="text-align: center"></td>
+          </tr>
+          <tr>
+            <td width="40%" style="text-align: center"><%= t('dashboards.sellers.finance.receipts.receipt.inss_tribute') %></td>
+            <td width="30%" style="text-align: center"></td>
+            <td width="30%" style="text-align: center"><%= convert_float_to_currency(@receipt.debits['inss']) %></td>
+          </tr>
+          <tr>
+            <td width="40%" style="text-align: center"><%= t('dashboards.sellers.finance.receipts.receipt.irrf_tribute') %></td>
+            <td width="30%" style="text-align: center"></td>
+            <td width="30%" style="text-align: center"><%= convert_float_to_currency(@receipt.debits['irrf']) %></td>
+          </tr>
+          <tr>
+            <td width="100%" colspan="3" style="text-align: center"><hr></td>
+          </tr>
+          <tr>
+            <td width="40%" style="text-align: center; font-weight: bold"><%= t('dashboards.sellers.finance.receipts.receipt.subtotals') %></td>
+            <td width="30%" style="text-align: center; font-weight: bold"><%= convert_float_to_currency(@receipt.credit_subtotal) %></td>
+            <td width="30%" style="text-align: center; font-weight: bold"><%= convert_float_to_currency(@receipt.debit_subtotal) %></td>
+          </tr>
+          <tr>
+            <td width="100%" colspan="3" style="text-align: center"><hr></td>
+          </tr>
+          <tr>
+            <td width="40%" style="text-align: center; font-weight: bold; font-size: 18px"><%= t('dashboards.sellers.finance.receipts.receipt.amount_receivable') %></td>
+            <td width="30%" style="text-align: center; font-weight: bold; font-size: 18px"><%= convert_float_to_currency(@receipt.amount_receivable) %></td>
+            <td width="30%" style="text-align: center; font-weight: bold"></td>
+          </tr>
+        </table>
+      </fieldset>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <fieldset>
+        <legend align="center"><%= t('dashboards.sellers.finance.receipts.receipt.date_and_place') %></legend>
+        <span><%= @receipt.place %></span>
+      </fieldset>
+    </td>
+    <td>
+      <fieldset>
+        <legend align="center"><%= t('dashboards.sellers.finance.receipts.receipt.policyholder_signature') %></legend>
+        <span>&nbsp;</span>  
+      </fieldset>
+    </td>
+  </tr>
+</table>

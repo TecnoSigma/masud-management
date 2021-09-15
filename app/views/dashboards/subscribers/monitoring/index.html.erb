@@ -1,0 +1,44 @@
+<%= render './././partials/header' %>
+<%= render './././partials/logout' %>
+<div class="container-fluid">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <%= link_to t('breadcrumbs.dashboards.subscribers.login'), login_assinantes_path %>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        <%= link_to t('breadcrumbs.dashboards.subscribers.dashboard'), dashboards_assinantes_path %>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        <%= t('breadcrumbs.dashboards.subscribers.monitoring') %>
+      </li>
+    </ol>
+  </nav>
+  <h4>
+    <b><%= t('.monitoring') %></b>
+  </h4>
+  <table class="table">
+    <thead>
+      <th><%= t('.model') %></th>
+      <th><%= t('.license_plate') %></th>
+      <th><%= t('.drivers_name') %></th>
+      <th></th>
+    <thead>
+    <% if @subscriber.vehicles.present? %>
+      <% @subscriber.vehicles.order(:kind).each do |vehicle| %>
+        <tr>
+          <td><%= vehicle.kind %></td>
+          <td><%= vehicle.license_plate %></td>
+          <td><%= drivers_name(vehicle) %></td>
+          <td>
+            <% if vehicle.drivers.present? %>
+            <% #TODO Criar link para monitoramento do veículo %>
+              Monitorar
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </table>
+</div>
+<%= render './././partials/footer' %>

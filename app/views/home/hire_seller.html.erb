@@ -1,0 +1,140 @@
+<%= render './././partials/header' %>
+<div class="container-fluid">
+  <br><br><br><br><br>
+  <%= render './partials/messages' %>
+  <div class='col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-12'>
+    <h3>
+     <b><%= t('.title') %></b>
+    </h3>
+    <hr>
+    <%= form_with scope: 'new_seller', url: home_representantes_create_path do |f| %>
+      <div>
+        <h4 class="form-subtitle">
+          <%= t('.subtitle.personal_data') %>
+        </h4>
+      </div>
+      <hr>
+      <div class="form-group">
+        <label><%= t('.name') %></label>
+        <%= f.text_field :name,
+                         class: 'form-control',
+                         required: true %>
+      </div>
+      <div class="form-group">
+        <label><%= t('.document') %></label>
+        <%= f.text_field :document,
+                         class: 'form-control medium-fields',
+                         required: true %>
+      </div>
+      <br>
+      <div>
+        <h4 class="form-subtitle">
+          <%= t('subtitle.core') %>
+        </h4>
+      </div>
+      <hr>
+      <div class="form-group">
+        <label><%= t('.core_register') %></label>
+        <%= f.text_field :core_register,
+                         class: 'form-control medium-fields',
+                         required: true %>
+      </div>
+      <div class="form-group">
+        <label><%= t('.expedition_date') %></label>
+        <%= f.text_field :expedition_date,
+                         class: 'form-control medium-fields',
+                         required: true %>
+      </div>
+      <div class="form-group">
+        <label><%= t('.expiration_date') %></label>
+        <%= f.text_field :expiration_date,
+                         class: 'form-control medium-fields',
+                         required: true %>
+      </div>
+      <br>
+      <div>
+        <h4 class="form-subtitle">
+          <%= t('.subtitle.address') %>
+        </h4>
+      </div>
+      <hr>
+      <div class="form-group">
+        <label><%= t('.address') %></label>
+        <%= f.text_field :address,
+                         class: 'form-control',
+                         required: true %>
+      </div>
+      <div class="form-group">
+        <label><%= t('.number') %></label>
+        <%= f.text_field :number,
+                         class: 'form-control medium-fields',
+                         required: true %>
+      </div>
+      <div class="form-group">
+        <label><%= t('.complement') %></label>
+        <%= f.text_field :complement,
+                         class: 'form-control medium-fields' %>
+      </div>
+      <div class="form-group">
+        <label><%= t('.district') %></label>
+        <%= f.text_field :district,
+                         class: 'form-control',
+                         required: true %>
+      </div>
+      <div class="form-group">
+        <label><%= t('.city') %></label>
+        <%= f.text_field :city,
+                         class: 'form-control',
+                         required: true %>
+      </div>
+      <div class="form-group">
+        <label><%= t('.state') %></label>
+        <br>
+        <%= f.select :state,
+                     options_for_select(States.all_names),
+                     {},
+                     class: 'form-control medium-fields',
+                     required: true %>
+      </div>
+      <div class="form-group">
+        <label><%= t('.postal_code') %></label>
+        <%= f.text_field :postal_code,
+                         class: 'form-control medium-fields',
+                         required: true %>
+      </div>
+      <br>
+      <div>
+        <h4 class="form-subtitle">
+          <%= t('.subtitle.contact') %>
+        </h4>
+      </div>
+      <hr>
+      <div class="form-group">
+        <label><%= t('.email') %></label>
+        <%= f.text_field :email,
+                         class: 'form-control',
+                         required: true %>
+      </div>
+      <div class="form-group">
+        <label><%= t('.cellphone') %></label>
+        <%= f.text_field :cellphone,
+                         class: 'form-control medium-fields',
+                         required: true %>
+      </div>
+      <div class="form-group">
+        <label><%= t('.linkedin_url') %></label>
+        <%= f.text_field :linkedin,
+                         placeholder: t('.linkedin_placeholder'),
+                         class: 'form-control',
+                         required: true %>
+      </div>
+      <br>
+      <%= f.submit t('.send_data_btn'),
+                   class: 'btn btn-primary small-fields' %>
+    <% end %>
+    <br>
+    <br>
+    <br>
+  </div>
+</div>
+<%= render './././partials/footer' %>

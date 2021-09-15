@@ -1,0 +1,38 @@
+plans:
+  data:
+    - code: 'standard-angels'
+      name: 'Standard'
+      old_price: '89,90'
+      current_price:
+        unit: '59'
+        cents: '90'
+      features:
+        - 'vantagem a'
+        - 'vantagem b'
+        - 'vantagem c'
+        - 'vantagem d'
+        - 'vantagem e'
+    - code: 'master-angels'
+      name: 'Master'
+      old_price: '99,90'
+      current_price:
+        unit: '79'
+        cents: '90'
+      features:
+        - 'vantagem a'
+        - 'vantagem b'
+        - 'vantagem c'
+        - 'vantagem d'
+        - 'vantagem e'
+    - code: 'premium-angels'
+      name: 'Premium'
+      old_price: '119,90'
+      current_price:
+        unit: '99'
+        cents: '90'
+      features:
+        - 'vantagem a'
+        - 'vantagem b'
+        - 'vantagem c'
+        - 'vantagem d'
+        - 'vantagem e'

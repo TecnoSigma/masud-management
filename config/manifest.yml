@@ -1,0 +1,16 @@
+manifest:
+  name: 'Protector Angels' 
+  short_name: 'Protector Angels'
+  start_url: '/cameras/logins'
+  icons:
+    sizes:
+      - '192'
+      - '512'
+    folder: 'logotypes/'
+    file_prefix: 'logo-'
+    file_extension: '.png'
+    file_content_type: 'image/png'
+  theme_color: '#000000'
+  background_color: '#FFFFFF'
+  display: 'fullscreen'
+  orientation: 'portrait'

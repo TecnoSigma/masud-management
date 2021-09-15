@@ -1,0 +1,6 @@
+<br><br><br><br><br>
+<div class="logout">
+  <%= link_to t('.logout'), dashboards_assinantes_logout_path if @subscriber %>
+  <%= link_to t('.logout'), dashboards_representantes_logout_path if @seller %>
+</div>
+<br>

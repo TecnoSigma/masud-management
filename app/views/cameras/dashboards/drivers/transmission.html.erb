@@ -1,0 +1,27 @@
+<%= render './partials/header' %>
+<div class="rows">
+  <div id="camera-transmission" class="col-sm-offset-2 col-sm-8">
+    <div class="dashboard-logout">
+      <%= link_to t('.logout'), cameras_dashboards_motoristas_logout_path, class: 'dashboard-logout-link' %>
+    </div>
+    <br>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <%= link_to t('breadcrumbs.cameras.dashboards.driver.login'), cameras_dashboards_motoristas_login_path %>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+          <%= link_to t('breadcrumbs.cameras.dashboards.driver.dashboard'), cameras_dashboards_motoristas_path %>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+          <%= t('breadcrumbs.cameras.dashboards.driver.transmission') %>
+        </li>
+      </ol> 
+    </nav>
+    <%= render './partials/messages' %>
+    <h3><%= t('.drivers') %></h3>
+    <hr>
+    <%= render './partials/transmission' %>
+  </div>
+</div>
+<%= render './partials/footer' %>

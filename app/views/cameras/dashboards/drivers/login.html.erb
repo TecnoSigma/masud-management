@@ -1,0 +1,39 @@
+<%= render './partials/header' %>
+<div class="rows">
+  <div id="camera-login" class="col-sm-offset-2 col-sm-8">
+    <%= render './partials/messages' %>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active">
+          <%= t('breadcrumbs.cameras.dashboards.driver.login') %>
+        </li>
+      </ol>
+    </nav>
+    <h3><%= t('.access_data') %></h3>
+    <hr>
+    <%= form_with scope: 'driver', url: cameras_logins_validate_drivers_access_path do |f| %>
+      <div class="form-group">
+        <label><%= t('.license') %></label>
+        <%= f.text_field :driver_license,
+                         class: 'medium-fields form-control',
+                         required: true,
+                         id: 'driver_license' %>
+      </div>
+      <br>
+      <div class="form-group">
+        <label><%= t('.license_plate') %></label>
+        <%= f.text_field :license_plate,
+                         class: 'medium-fields form-control',
+                         required: true,
+                         id: 'license_plate' %>
+         <small><%= t('.obs') %></small>
+      </div>
+      <br>
+      <%= recaptcha_tags %>
+      <br>
+      <%= f.submit t('.access_dashboard_btn'),
+                   class: 'btn btn-primary short-fields' %>
+    <% end %>
+  </div>  
+</div>  
+<%= render './partials/footer' %>

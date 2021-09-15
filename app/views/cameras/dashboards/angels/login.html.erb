@@ -1,0 +1,42 @@
+<%= render './partials/header' %>
+<div class="rows">
+  <div id="camera-login" class="col-sm-offset-2 col-sm-8">
+    <%= render './partials/messages' %>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active">
+          <%= t('breadcrumbs.cameras.dashboards.driver.login') %>
+        </li>
+      </ol>
+    </nav>
+    <h3><%= t('.access_data') %></h3>
+    <hr>
+    <%= form_with scope: 'angel', url: cameras_logins_validate_angels_access_path do |f| %>
+      <div class="form-group">
+        <label><%= t('.document') %></label>
+        <%= f.text_field :document,
+                         class: 'medium-fields form-control',
+                         required: true,
+                         id: 'angel_document' %>
+      </div>
+      <br>
+      <div class="form-group">
+        <label><%= t('.driver') %></label>
+        <br>
+        <% #TODO Ajustar javascript para carregar a lista de motoristas %>
+        <%= f.select :driver,
+                     options_for_select([]),
+                     {},
+                     class: 'form-control medium-fields form-control',
+                     required: true,
+                     id: 'driver_names' %>
+      </div>
+      <br>
+      <%= recaptcha_tags %>
+      <br>
+      <%= f.submit t('.access_dashboard_btn'),
+                   class: 'btn btn-primary short-fields' %>
+    <% end %>
+  </div>
+</div>
+<%= render './partials/footer' %>

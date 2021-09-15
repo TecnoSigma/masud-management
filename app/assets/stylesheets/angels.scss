@@ -1,0 +1,116 @@
+#external-circle-on {
+   position: relative;
+   top: 50%;
+   transform: translateY(-50%);
+   margin: 0 auto;
+   width: 300px;
+   height: 300px;
+   border-radius: 50%;
+   background-color: #00ff00;
+   -webkit-box-shadow: 10px 10px 170px 20px rgba(0,255,0,0.5);
+   -moz-box-shadow: 10px 10px 170px 20px rgba(0,255,0,0.5);
+   box-shadow: 10px 10px 170px 20px rgba(0,255,0,0.5);
+}
+
+#internal-circle-on {
+   position: relative;
+   top: 150px;
+   transform: translateY(-50%);
+   margin: 0 auto;
+   width: 250px;
+   height: 250px;
+   border-radius: 50%;
+   background-color: #000;
+}
+
+#external-square-on {
+  position: relative;
+  top: -23.2px;
+  margin: 0 auto;
+  width: 60px;
+  height: 150px;
+  background-color: #000;
+}
+
+#internal-square-on {
+  position: relative;
+  top: -40px;
+  margin: 0 auto;
+  width: 30px;
+  height: 150px;
+  background-color: #00ff00;
+  -webkit-box-shadow: 10px 10px 170px 20px rgba(0,255,0,0.5);
+  -moz-box-shadow: 10px 10px 170px 20px rgba(0,255,0,0.5);
+  box-shadow: 10px 10px 170px 20px rgba(0,255,0,0.5);
+}
+
+#external-circle-off {
+   position: relative;
+   left: 47%;
+   transform: translateY(-50%);
+   margin: 0 auto;
+   width: 50px;
+   height: 50px;
+   border-radius: 50%;
+   background-color: #ff0000;
+   -webkit-box-shadow: 10px 10px 170px 20px rgba(255,0,0,0.5);
+   -moz-box-shadow: 10px 10px 170px 20px rgba(255,0,0,0.5);
+   box-shadow: 10px 10px 170px 20px rgba(255,0,0,0.5);
+}
+
+#internal-circle-off {
+   position: relative;
+   left: 0px;
+   top: 25px;
+   transform: translateY(-50%);
+   margin: 0 auto;
+   width: 40px;
+   height: 40px;
+   border-radius: 50%;
+   background-color: #000;
+}
+
+#external-square-off {
+  position: relative;
+  top: -5px;
+  margin: 0 auto;
+  width: 15px;
+  height: 20px;
+  background-color: #000;
+}
+
+#internal-square-off {
+  position: relative;
+  top: -5px;
+  margin: 0 auto;
+  width: 5px;
+  height: 20px;
+  background-color: #ff0000;
+  -webkit-box-shadow: 10px 10px 170px 20px rgba(255,0,0,0.5);
+  -moz-box-shadow: 10px 10px 170px 20px rgba(255,0,0,0.5);
+  box-shadow: 10px 10px 170px 20px rgba(255,0,0,0.5);
+}
+
+.frame {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  background-color: #000;
+}
+
+  .frame.inactive {
+    border-top: 80px solid #000;
+    border-right: 20px solid #000;
+    border-bottom: 20px solid #000;
+    border-left: 20px solid #000;
+  }
+
+  .frame.active {
+    border-top: 80px solid #007600;
+    border-right: 20px solid #007600;
+    border-bottom: 20px solid #007600;
+    border-left: 20px solid #007600;
+  }

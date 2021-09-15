@@ -1,0 +1,208 @@
+<section id="header">
+  <div id="logo">
+    <%= image_tag 'logo.png' %>
+  </div>
+  <div id="menu">
+    <ul class="nav justify-content-end">
+      <li class="nav-item">
+        <a class="nav-link" href="#company" id="company_lnk"><%= t('.menu.company') %></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#benefits" id="benefits_lnk"><%= t('.menu.benefits') %></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#subscribe_now" id="subscribe_now_lnk"><%= t('.menu.sign_it') %></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#jobs" id="jobs_link"><%= t('.menu.jobs') %></a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><%= t('.menu.control_panel') %></a>
+        <div class="dropdown-menu">
+          <%= link_to t('.menu.subscribers'), login_assinantes_path, class: 'dropdown-item' %>
+          <br><br>
+          <%= link_to t('.menu.angels'), cameras_dashboards_angels_login_path, class: 'dropdown-item' %>
+          <br><br>
+          <%= link_to t('.menu.drivers'), cameras_dashboards_motoristas_login_path, class: 'dropdown-item' %>
+          <br><br>
+          <%= link_to t('.menu.sellers'), login_representantes_path, class: 'dropdown-item' %>
+        </div>
+     </li>
+    </ul>
+  </div>
+</section>
+<section id="main_phrase">
+  <h1><%= t('.main_phrase') %></h1>
+</section>
+<section id="main">
+  <section id="home">
+    <%= image_tag 'home.png' %>
+  </section>
+  <section id="company">
+    <h1><%= t('.company.title') %></h1>
+    <p><%= t('.company.text_1') %></p>
+    <p><%= t('.company.text_2') %></p>
+    <hr>
+    <canvas id="violence_chart"></canvas>
+    <%= link_to t('.company.chart_source'),
+                t('.company.chart_data_link'),
+                target: '_blank' %>
+    <hr>
+    <p><%= t('.company.text_3') %></p>
+    <p><%= t('.company.text_4') %></p>
+  </section>
+  <section id="benefits">
+    <h1><%= t('.benefits.title') %></h1>
+    <br>
+    <table class="table table-striped">
+      <th><%= t('.benefits.benefit') %></th>
+      <th><%= t('.benefits.driver') %></th>
+      <th><%= t('.benefits.passenger') %></th>
+      <tr>
+        <td><%= t('.benefits.benefit_list.1.title') %></td>
+        <td><%= image_tag add_check(t('.benefits.benefit_list.1.driver')) %></td>
+        <td><%= image_tag add_check(t('.benefits.benefit_list.1.passenger')) %></td>
+      </tr>
+      <tr>
+        <td><%= t('.benefits.benefit_list.2.title') %></td>
+        <td><%= image_tag add_check(t('.benefits.benefit_list.2.driver')) %></td>
+        <td><%= image_tag add_check(t('.benefits.benefit_list.2.passenger')) %></td>
+      </tr>
+      <tr>
+        <td><%= t('.benefits.benefit_list.3.title') %></td>
+        <td><%= image_tag add_check(t('.benefits.benefit_list.3.driver')) %></td>
+        <td><%= image_tag add_check(t('.benefits.benefit_list.3.passenger')) %></td>
+      </tr>
+      <tr>
+        <td><%= t('.benefits.benefit_list.4.title') %></td>
+        <td><%= image_tag add_check(t('.benefits.benefit_list.4.driver')) %></td>
+        <td><%= image_tag add_check(t('.benefits.benefit_list.4.passenger')) %></td>
+      </tr>
+      <tr>
+        <td><%= t('.benefits.benefit_list.5.title') %></td>
+        <td><%= image_tag add_check(t('.benefits.benefit_list.5.driver')) %></td>
+        <td><%= image_tag add_check(t('.benefits.benefit_list.5.passenger')) %></td>
+      </tr>
+    </table>
+  </section>
+  <section id="subscribe_now">
+    <h1><%= t('.subscribe_now.title') %></h1>
+    <div>
+      <% PLAN_CONFIG[:plans][:data].each do |plan| %>
+        <div>
+          <div>
+            <h2 class="plan_name">
+              <span><%= t('.subscribe_now.plan') %></span><br>
+              <span><%= plan[:name] %></span>
+            </h2>
+          </div>
+          <div>
+            <span class="line_through">
+              <span class="old_price"><%= t('.subscribe_now.old_price', price: plan[:old_price]) %></span>
+            </span>
+          </div>
+          <div class="current_price">
+            <span>
+              <sup><%= t('.subscribe_now.currency') %></sup>
+              <span><%= plan[:current_price][:unit] %></span>
+              <sup><%= t('.subscribe_now.separator', cents: plan[:current_price][:cents]) %></sup>
+            </span>
+            <sup class="periodicity"><%= t('.subscribe_now.periodicity') %></sup>
+          </div>
+          <%= link_to controller: 'home',
+                      action: 'hire',
+                      plan: { name: plan[:name],
+                              price: price(plan[:current_price][:unit], plan[:current_price][:cents]),
+                              code: plan[:code] } do %>
+            <div class="hire"><%= t('.subscribe_now.hire') %></div>
+          <% end %>
+          <div class="features">
+            <% plan[:features].sort.each do |feature| %>
+              <span><%= feature %></span>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </section>
+  <section id="jobs">
+    <h1><%= t('.jobs.title') %></h1>
+    <p><%= t('.jobs.line') %></p>
+    <p>
+      <%= link_to t('.jobs.inform_your_data'), home_representantes_contratar_path, class: 'jobs_lnk' %>
+      <br><br>
+      <%= link_to t('.jobs.contract'), home_representantes_contrato_path(format: :pdf), targast: 'blank', class: 'jobs_contract_lnk' %>
+    </p>
+  </section>
+  <section id="footer">
+    <span><%= t('.social_medias.title') %></span>
+    <div class="social_medias">
+      <%= link_to APP_CONFIG[:social_medias][:facebook], target: '_blank', alt: t('.social_medias.facebook'), class: 'nav-link' do %>
+        <%= image_tag 'facebook.png' %>
+      <% end %>
+
+      <%= link_to APP_CONFIG[:social_medias][:twitter], target: '_blank', alt: t('.social_medias.twitter'), class: 'nav-link' do %>
+        <%= image_tag 'twitter.png' %>
+      <% end %>
+
+      <%= link_to APP_CONFIG[:social_medias][:instagram], target: '_blank', alt: t('.social_medias.instagram'), class: 'nav-link' do %>
+        <%= image_tag 'instagram.png' %>
+      <% end %>
+    </div>
+    <span><%= t('.footer.payment_methods') %></span>
+    <div class="payment_methods">
+      <div><%= image_tag 'american-express.svg', class: 'payment_methods_logo' %></div>
+      <div><%= image_tag 'mastercard.svg', class: 'payment_methods_logo' %></div>
+      <div><%= image_tag 'diners-club.svg', class: 'payment_methods_logo' %></div>
+      <div><%= image_tag 'visa.svg', class: 'payment_methods_logo' %></div>
+      <div><%= image_tag 'elo.svg', class: 'payment_methods_logo' %></div>
+    </div>
+    <div class="contract_link">
+      <%= link_to t('.footer.contract'), home_contrato_path(format: :pdf), target: 'blank' %>
+    </div>
+    <div class="company_info">
+      <p><%= t('.footer.company_info.line_1', current_year: DateTime.now.year) %></p>
+      <p><%= t('.footer.company_info.line_2') %></p>
+      <p><%= t('.footer.company_info.line_3') %></p>
+    </div>
+    <button type="button" class="btn btn-link sources_btn" data-toggle="modal" data-target="#source_modal">
+      <%= t('.footer.fonts_images_btn') %>
+    </button>
+    <br><br>
+  </section>
+  <section>
+    <div class="modal fade" id="source_modal" tabindex="-1" role="dialog" aria-labelledby="modal_title" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <p class="modal-title sources_title" id="modal_title"><%= t('.modal.title') %></p>
+          </div>
+          <div class="modal-body">
+            <p>
+              <%= t('.modal.image_source.label') %>
+              <ul>
+                <li><a href="<%= t('.modal.image_source.url.1') %>" target="_blank"><%= t('.modal.image_source.text.1') %></a></li>
+                <li><a href="<%= t('.modal.image_source.url.2') %>" target="_blank"><%= t('.modal.image_source.text.2') %></a></li>
+                <li><a href="<%= t('.modal.image_source.url.3') %>" target="_blank"><%= t('.modal.image_source.text.3') %></a></li>
+              </ul>
+            </p>
+            <p>
+              <%= t('.modal.icon_source.label') %>
+              <ul>
+                <li><a href="<%= t('.modal.icon_source.url.1') %>" target="_blank"><%= t('.modal.icon_source.text.1') %></a></li>
+                <li><a href="<%= t('.modal.icon_source.url.2') %>" target="_blank"><%= t('.modal.icon_source.text.2') %></a></li>
+                <li><a href="<%= t('.modal.icon_source.url.3') %>" target="_blank"><%= t('.modal.icon_source.text.3') %></a></li>
+                <li><a href="<%= t('.modal.icon_source.url.4') %>" target="_blank"><%= t('.modal.icon_source.text.4') %></a></li>
+                <li><a href="<%= t('.modal.icon_source.url.5') %>" target="_blank"><%= t('.modal.icon_source.text.5') %></a></li>
+              </ul>
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-light" data-dismiss="modal"><%= t('.modal.close_btn') %></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</section>
+<%= render './././partials/footer' %>

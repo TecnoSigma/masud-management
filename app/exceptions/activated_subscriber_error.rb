@@ -1,0 +1,2 @@
+class ActivatedSubscriberError < StandardError
+end

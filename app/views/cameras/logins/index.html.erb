@@ -1,0 +1,16 @@
+<%= render './partials/header' %>
+<div class="rows">
+  <div class="col-sm-offset-2 col-sm-8">
+    <br><br><br><br><br><br>
+    <h3><%= t('.inform_your_profile') %></h3>
+    <hr>
+    <div>
+      <%= link_to t('.i_am_angel'), cameras_dashboards_motoristas_login_path, class: 'btn btn-primary btn-lg btn-block' %>
+    </div>
+    <br><br>
+    <div>
+      <%= link_to t('.i_am_driver'), cameras_dashboards_motoristas_login_path, class: 'btn btn-primary btn-lg btn-block' %>
+    </div>
+  </div>
+</div>
+<%= render './partials/footer' %>

@@ -1,0 +1,12 @@
+social_medias:
+  facebook: 'http://facebook.com.br'
+  instagram: 'http://instagram.com'
+  twitter: 'http://twitter.com'
+freight:
+  discount: 0.7
+  frap: 'Nao'
+  weight: 0.1
+  modality: 3,
+  delivery_type: 'D'
+  insurance_type: 'N'
+  collection_value: 0.0

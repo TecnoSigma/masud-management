@@ -1,0 +1,76 @@
+@media screen and (max-width: 768px) {
+  #access_buttons {
+    margin-right: 100px;
+  }
+
+  #access_buttons div a img {
+    height: 80px;
+    width: 80px;
+    background-color: #cecece;
+    border: 0px;
+    border-radius: 5px;
+    box-shadow: 5px 5px 10px #888888;
+    padding: 10px;
+  }
+    #access_buttons div a img:hover {
+      background-color: #ffff89;
+     }
+
+  .logout {
+    float: left;
+    margin: -65px 0px 0px 350px;
+  }
+    .logout a {
+      font-size: 11px;
+      color: #fff;
+    }
+      .logout a:hover {
+        text-decoration: none;
+        color: #ffff00;
+      }
+}
+
+@media screen and (min-width: 769px) {
+  #access_buttons div div a img {
+    height: 150px;
+    width: 150px;
+    background-color: #cecece;
+    border: 0px;
+    border-radius: 5px;
+    box-shadow: 5px 5px 10px #888888;
+    padding: 10px;
+  }
+    #access_buttons div div a img:hover {
+      background-color: #ffff89;
+     }
+
+  .logout {
+    float: right;
+    margin-right: 30px;
+  }
+    .logout a {
+      color: #fff;
+    }
+      .logout a:hover {
+        text-decoration: none;
+        color: #ffff00;
+      }
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+.container {
+	max-width: 1000px;
+	margin: 0 auto;
+	display: flex;
+}
+
+.item {
+	margin: 5px;
+	padding: 0 10px;
+	background: tomato;
+	text-align: center;
+	font-size: 1.5em;
+}

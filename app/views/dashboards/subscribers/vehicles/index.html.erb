@@ -1,0 +1,48 @@
+<%= render './././partials/header' %>
+<%= render './././partials/logout' %>
+<div class="container-fluid">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <%= link_to t('breadcrumbs.dashboards.subscribers.login'), login_assinantes_path %>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        <%= link_to t('breadcrumbs.dashboards.subscribers.dashboard'), dashboards_assinantes_path %>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        <%= t('breadcrumbs.dashboards.subscribers.vehicles') %>
+      </li>
+    </ol>
+  </nav>
+  <%= render './././partials/photos_missing' %>
+  <h4>
+    <b><%= t('.vehicles') %></b>
+  </h4>
+    <table class="table">
+      <thead>
+        <th><%= t('.brand') %></th>
+        <th><%= t('.kind') %></th>
+        <th><%= t('.license_plate') %></th>
+        <th><%= t('.status') %></th>
+        <th></th>
+      </thead>
+    <% @subscriber.vehicles.sort_by_license_plate.each do |vehicle| %>
+      <tr>
+        <td><%= vehicle.brand %></td>
+        <td><%= vehicle.kind %></td>
+        <td><%= vehicle.license_plate %></td>
+        <td><%= vehicle.status %></td>
+        <td>
+          <%= link_to vehicle_details_path(vehicle.id) do %>
+            <i class='material-icons'>view_headline</i>
+          <% end %>
+          <%= link_to add_vehicle_photos_path(vehicle.id) do %>
+            <i class='material-icons'>add_a_photo</i>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+    </table>
+  </div>
+</div>
+<%= render './././partials/footer' %>

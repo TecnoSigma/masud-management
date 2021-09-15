@@ -1,0 +1,23 @@
+<section id="transmission">
+  <%= video_tag("driver.mp4", controls: true, autoplay: true, loop: true) %>
+</section>
+<section id="interaction">
+  <div class="rows">
+    <% if session[:passenger] %>
+      <div class="col-xs-6 col-sm-6 col-md-6">
+    <% else %>
+      <div class="col-xs-12 col-sm-12 col-md-12">
+    <% end %>
+      <a href="#" id="AlertBtn">
+        <%= image_tag 'alert.png', class: 'dashboard-button-image' %>
+      </a>
+    </div>
+    <% if session[:passenger] %>
+      <div class="col-xs-6 col-sm-6 col-md-6">
+        <a href="#" id="feedbackBtn">
+          <%= image_tag 'feedback.png', class: 'dashboard-button-image' %>
+        </a>
+      </div>
+    <% end %>
+  </div>
+</section>

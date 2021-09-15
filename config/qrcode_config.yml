@@ -1,0 +1,11 @@
+qrcode:
+  bit_depth: 1
+  border_modules: 4
+  color_mode: 0
+  color: 'white'
+  file: ~
+  fill: '#262626'
+  module_px_size: 6
+  resize_exactly_to: False
+  resize_gte_to: False
+  size: 256

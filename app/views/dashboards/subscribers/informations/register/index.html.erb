@@ -1,0 +1,119 @@
+<%= render './././partials/header' %>
+<%= render './././partials/logout' %>
+<div class="container-fluid">
+  <%= render './partials/messages' %>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <%= link_to t('breadcrumbs.dashboards.subscribers.login'), login_assinantes_path %>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        <%= link_to t('breadcrumbs.dashboards.subscribers.dashboard'), dashboards_assinantes_path %>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        <%= link_to t('breadcrumbs.dashboards.subscribers.informations'), dashboards_assinantes_informacoes_pessoais_path %>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        <%= t('breadcrumbs.dashboards.subscribers.register') %>
+      </li>
+    </ol>
+  </nav>
+  <div class='col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-12'>
+    <h4>
+      <b>
+        <%= t('.subscriber_code') %>
+        <%= @subscriber.code %>
+      </b>
+    </h4>
+    <hr>
+    <div>
+      <h4 class="form-subtitle">
+        <%= t('.subtitle.personal_data') %>
+      </h4>
+    </div>
+    <hr>
+    <div class="form-group form-check">
+      <b><span><%= t('.name') %></span></b>
+      <%= @subscriber.name %>
+    </div>
+    <div class="form-group form-check">
+      <b><span><%= t('.profile') %></span></b>
+      <%= translated_profile(@subscriber.kind) %>
+    </div>
+    <div class="form-group form-check">
+      <b><span><%= t('.document') %></span></b>
+      <%= @subscriber.document %>
+    </div>
+    <div class="form-group form-check">
+      <b><span><%= t('.responsible_name') %></span></b>
+      <%= @subscriber.responsible_name %>
+    </div>
+    <div class="form-group form-check">
+      <b><span><%= t('.responsible_cpf') %></span></b>
+      <%= @subscriber.responsible_cpf %>
+    </div>
+    <br>
+    <div>
+      <h4 class="form-subtitle">
+        <%= t('.subtitle.address') %>
+      </h4>
+    </div>
+    <hr>
+    <div class="form-group form-check">
+      <b><span><%= t('.address') %></span></b>
+      <%= @subscriber.address %>
+    </div>
+    <div class="form-group form-check">
+      <b><span><%= t('.number') %></span></b>
+      <%= @subscriber.number %>
+    </div>
+    <div class="form-group form-check">
+     <b><span><%= t('.complement') %></span></b>
+      <%= @subscriber.complement %>
+    </div>
+    <div class="form-group form-check">
+      <b><span><%= t('.district') %></span></b>
+      <%= @subscriber.district %>
+    </div>
+    <div class="form-group form-check">
+      <b><span><%= t('.city') %></span></b>
+      <%= @subscriber.city %>
+    </div>
+    <div class="form-group form-check">
+      <b><span><%= t('.state') %></span></b>
+      <%= @subscriber.state %>
+    </div>
+    <div class="form-group form-check">
+      <b><span><%= t('.postal_code') %></span></b>
+      <%= @subscriber.postal_code %>
+    </div>
+    <br>
+    <div>
+      <h4 class="form-subtitle">
+        <%= t('.subtitle.contact') %>
+      </h4>
+    </div>
+    <hr>
+    <div class="form-group form-check">
+      <b><span><%= t('.email') %></span></b>
+      <%= @subscriber.email %>
+    </div>
+    <div class="form-group form-check">
+      <b><span><%= t('.telephone') %></span></b>
+      <%= @subscriber.telephone %>
+    </div>
+    <div class="form-group form-check">
+      <b><span><%= t('.cellphone') %></span></b>
+      <%= @subscriber.cellphone %>
+    </div>
+    <hr>
+    <% # TODO Permitir edição de dados do Assinante %>
+    <%= link_to t('.edit_personal_informations_btn'),
+                dashboards_assinantes_informacoes_pessoais_cadastro_editar_path,
+                class: 'btn btn-primary short-fields' %>
+    <br>
+    <br>
+    <br>
+  </div>
+</div>
+<%= render './././partials/footer' %>

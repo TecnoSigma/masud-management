@@ -1,0 +1,22 @@
+title: 'Dados de homicídio, latrocínio e lesão corporal seguida de morte'
+subtitle: 'Brasil - 2019'
+legend: 'Mortes'
+violence_data:
+- month: 'Janeiro'
+  death: 3913
+- month: 'Fevereiro'
+  death: 3266
+- month: 'Março'
+  death: 3708
+- month: 'Abril'
+  death: 3645
+- month: 'Maio'
+  death: 3529
+- month: 'Junho'
+  death: 3217
+- month: 'Julho'
+  death: 3124
+- month: 'Agosto'
+  death: 3139
+- month: 'Setembro'
+  death: 3323

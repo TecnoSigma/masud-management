@@ -1,0 +1,128 @@
+<div class="container">
+  <div class='col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-12'>
+    <%= render './partials/messages' %>
+    <%= render './partials/information_rule', current_step: Hiring::STEPS[:resume] %>
+    <div>
+      <h3 class="form-title">
+        <%= t('.title') %>
+      </h3>
+      <hr>
+    </div>
+    <div id="resume">
+      <% if session['seller'] %>
+        <h4><%= t('.subtitle.seller') %></h4>
+        <p>
+          <b><span><%= t('.seller_name') %></span></b>
+          <%= session['seller']['name'] %>
+        </p>
+        <p>
+          <b><span><%= t('.seller_cpf') %></span></b>
+          <%= session['seller']['cpf'] %>
+        </p>
+        <hr>
+      <% end %>
+      <h4><%= t('.subtitle.plan_data') %></h4>
+      <p>
+        <b><span><%= t('.plan_name') %></span></b>
+        <%= session[:plan]['name'] %>
+      </p>
+      <p>
+        <b><span><%= t('.plan_price') %></span></b>
+        <%= convert_float_to_currency(session[:plan]['price']) %>
+      </p>
+      <p> 
+        <b><span><%= t('.vehicles_amount') %></span></b>
+        <%= session[:vehicle_list].count %>
+      </p>
+      <hr>
+       <h4><%= t('.subtitle.vehicle_data') %></h4>
+      <table class="table table-stripped small-text">
+        <thead>
+          <th><%= t('.brand') %></th>
+          <th><%= t('.kind') %></th>
+          <th><%= t('.license_plate') %></th>
+        </thead>
+        <% session[:vehicle_list].each do |vehicle| %>
+          <tr>
+            <td><%= vehicle['brand'] %></td>
+            <td><%= vehicle['kind'] %></td>
+            <td><%= vehicle['license_plate'] %></td>
+          </tr>
+        <% end %>
+      </table>
+      <hr>
+       <h4><%= t('.subtitle.subscriber_data') %></h4>
+      <p>
+        <b><span><%= t('.name') %></span></b>
+        <%= session[:subscriber]['name'] %>
+      </p>
+      <p>
+        <b><span><%= t('.responsible_cpf') %></span></b>
+        <%= session[:subscriber]['responsible_cpf'] %>
+      </p>
+      <p>
+        <b><span><%= t('.document') %></span></b>
+        <%= session[:subscriber]['document'] %>
+      </p>
+      <p>
+        <b><span><%= t('.responsible_name') %></span></b>
+        <%= session[:subscriber]['responsible_name'] %>
+      </p>
+      <hr>
+      <p>
+        <b><span><%= t('.address') %></span></b>
+        <%= session[:subscriber]['address'] %>
+      </p>
+      <p>
+        <b><span><%= t('.number') %></span></b>
+        <%= session[:subscriber]['number'] %>
+      </p>
+      <p>
+        <b><span><%= t('.complement') %></span></b>
+        <%= session[:subscriber]['complement'] %>
+      </p>
+      <p>
+        <b><span><%= t('.district') %></span></b>
+        <%= session[:subscriber]['district'] %>
+      </p>
+      <p>
+        <b><span><%= t('.city') %></span></b>
+        <%= session[:subscriber]['city'] %>
+      </p>
+      <p>
+        <b><span><%= t('.state') %></span></b>
+        <%= session[:subscriber]['state'] %>
+      </p>
+      <p>
+        <b><span><%= t('.postal_code') %></span></b>
+        <%= session[:subscriber]['postal_code'] %>
+      </p>
+      <hr>
+      <p>
+        <b><span><%= t('.telephone') %></span></b>
+        <%= session[:subscriber]['telephone'] %>
+      </p>
+      <p>
+        <b><span><%= t('.cellphone') %></span></b>
+        <%= session[:subscriber]['cellphone'] %>
+      </p>
+      <p>
+        <b><span><%= t('.email') %></span></b>
+        <%= session[:subscriber]['email'] %>
+      </p>
+      <hr>
+      <p>
+        <b><span><%= t('.user') %></span></b>
+        <%= session[:subscriber]['user'] %>
+      </p>
+      <hr>
+      <%= link_to t('.payment_btn'), checkout_pagamento_path, class: 'btn btn-primary short-fields' %>
+      <br><br>
+      <p class="minor-label">
+        <b><span><%= t('.contractor_ip') %></span></b>
+        <%= session[:subscriber]['ip'] %>
+      </p>
+    </div>
+  </div>
+  <hr>
+</div>
