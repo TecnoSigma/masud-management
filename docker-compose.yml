@@ -16,22 +16,8 @@ services:
       - PGHOST=${PG_HOST}
       - PGUSER=${PG_USER}
     volumes:
-      - .:/protector-angels
+      - .:/seven_facilities
     ports:
       - "3000:3000"
     depends_on:
       - db
-      - sidekiq
-      - redis
-  sidekiq:
-    build: .
-    volumes:
-      - .:/protector-angels
-    command: bundle exec sidekiq
-    depends_on:
-      - redis
-    environment:
-      - RAILS_ENV=${RAILS_ENV}
-      - REDIS_URL=${REDIS_URL}
-  redis:
-    image: redis

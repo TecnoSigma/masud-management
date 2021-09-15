@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Gateways::Storage::Bucket do
   describe '.create' do
     it 'creates new bucket in AWS storage' do
-      location="http://protector-angels.s3.amazonaws.com/"
+      location="http://seven_facilities.s3.amazonaws.com/"
 
       response = double()
 
@@ -16,7 +16,7 @@ RSpec.describe Gateways::Storage::Bucket do
     end
 
     it 'does not create new bucket when exist default bucket' do
-      location="http://protector-angels.s3.amazonaws.com/"
+      location="http://seven_facilities.s3.amazonaws.com/"
 
       response = double()
 
@@ -29,7 +29,7 @@ RSpec.describe Gateways::Storage::Bucket do
     end
 
     it 'does not create new bucket when exist occurs some errors' do
-      location="http://protector-angels.s3.amazonaws.com/"
+      location="http://seven_facilities.s3.amazonaws.com/"
 
       response = double()
 

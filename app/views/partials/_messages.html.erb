@@ -1,11 +1,8 @@
-<% unless flash[:alert].nil? %>
-  <div class="alert alert-danger centered-message" role="alert">
-    <%= flash[:alert] %>
-  </div>
+<% if flash[:alert] %>
+  <div class="alert alert-danger" role="alert"><%= flash[:alert] %></div>
 <% end %>
 
-<% unless flash[:notice].nil? %>
-  <div class="alert alert-success centered-message" role="alert">
-    <%= flash[:notice] %>
-  </div>
+<% if flash[:notice] %>
+  <div class="alert alert-success" role="alert"><%= flash[:notice] %></div>
 <% end %>
+

@@ -62,7 +62,7 @@ Rails.application.configure do
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
   # config.active_job.queue_adapter     = :resque
-  # config.active_job.queue_name_prefix = "protector-angels_#{Rails.env}"
+  # config.active_job.queue_name_prefix = "seven_facilities_#{Rails.env}"
 
   config.action_mailer.perform_caching = false
 
@@ -93,14 +93,14 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.action_mailer.delivery_method = :smtp                                             
-  config.action_mailer.smtp_settings = {                                                   
-    address: 'smtp.gmail.com',                                                             
-    port: 587,                                                                             
-    domain: 'gmail.com',                                                                   
-    authentication: 'plain',                                                               
-    enable_starttls_auto: true,                                                            
-    user_name: ENV['EMAIL_ACCOUNT'],                                                       
-    password: ENV['EMAIL_PASSWORD']                                                        
-  } 
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: 'smtp.gmail.com',
+    port: 587,
+    domain: 'gmail.com',
+    authentication: 'plain',
+    enable_starttls_auto: true,
+    user_name: ENV['EMAIL_ACCOUNT'],
+    password: ENV['EMAIL_PASSWORD']
+  }
 end

@@ -1,1 +1,21 @@
-require: rubocop-rails
+AllCops:
+  NewCops: enable
+  UseCache: false
+  Exclude:
+     - 'db/**/*'
+     - 'bin/**/*'
+     - 'config/*'
+     - 'config.ru'
+     - 'spec/spec_helper.rb'
+     - 'spec/factories/*'
+     - 'Rakefile'
+Metrics/BlockLength:
+  Enabled: true
+  Exclude:
+    - 'spec/**/*'
+Documentation:
+  Enabled: false
+Naming/RescuedExceptionsVariableName:
+  Enabled: false
+Metrics/LineLength:
+  Max: 100

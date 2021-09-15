@@ -15,9 +15,4 @@
 //= require turbolinks
 //= require jquery
 //= require bootstrap-sprockets
-//= require jquery.mask.min.js
-//= require password_strength
-//= require jquery_strength
-//= require Chart.min
 //= require_tree .
-//= require serviceworker-companion
