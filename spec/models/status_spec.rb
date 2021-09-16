@@ -1,46 +1,49 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Status, type: :model do
-  it 'returns hash containing allowed statuses' do
-    expected_result = { activated: 'ativado',
-                        pendent: 'pendente',
-                        deactivated: 'desativado',
-                        deleted: 'deletado',
-                        cancelled_by_company: 'cancelado pela empresa',
-                        cancelled_by_subscriber: 'cancelado pelo assinante' }
+  describe 'validates relationships' do
+    it 'validates relationship (1:N) between Status and Customer' do
+      status = Status.new
 
-    expect(Status::STATUSES).to eq(expected_result)
+      expect(status).to respond_to(:customers)
+    end
+
+    it 'validates relationship (1:N) between Status and Employee' do
+      status = Status.new
+
+      expect(status).to respond_to(:employees)
+    end
+
+    it 'validates relationship (1:N) between Status and Escort' do
+      status = Status.new
+
+      expect(status).to respond_to(:escorts)
+    end
+
+    it 'validates relationship (1:N) between Status and Vehicle' do
+      status = Status.new
+
+      expect(status).to respond_to(:vehicles)
+    end
+
+    it 'validates relationship (1:N) between Status and Arsenal' do
+      status = Status.new
+
+      expect(status).to respond_to(:arsenals)
+    end
+
+    it 'validates relationship (1:N) between Status and Clothing' do
+      status = Status.new
+
+      expect(status).to respond_to(:clothes)
+    end
   end
 
-  it 'returns hash containing allowed payment statuses' do
-    expected_result = {activated: "ACTIVE", deactivated: "SUSPENDED"}
+  it 'validates presence of name' do
+    status = FactoryBot.build(:status, name: nil)
 
-    expect(Status::PAYMENT_STATUSES).to eq(expected_result)
-  end
-
-  it 'returns hash containing allowed vehicle statuses' do
-    expected_result = { activated: 'ativado', without_photos: 'sem fotos' }
-
-    expect(Status::VEHICLE_STATUSES).to eq(expected_result)
-  end
-
-  it 'returns hash containing allowed ticket statuses' do
-    expected_result = { closed: 'concluído',
-                        finished: 'finalizado',
-                        in_treatment: 'em andamento',
-                        opened: 'aberto',
-                        recurrence: 'reincidente',
-                        waiting_company: 'aguardando resposta da Protector-Angels',
-                        waiting_subscriber: 'aguardando resposta do assinante' }
-
-    expect(Status::TICKET_STATUSES).to eq(expected_result)
-  end
-
-  it 'returns hash containing allowed order statuses' do
-    expected_result = { pendent: 'pendente',
-                        approved: 'aprovado',
-                        refused: 'recusado' }
-
-    expect(Status::ORDER_STATUSES).to eq(expected_result)
+    expect(status).to be_invalid
   end
 end

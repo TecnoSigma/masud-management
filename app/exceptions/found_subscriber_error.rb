@@ -1,2 +1,0 @@
-class FoundSubscriberError < StandardError
-end
