@@ -1,4 +1,4 @@
-FROM ruby:2.6.3
+FROM ruby:2.7.2
 RUN apt install curl
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
 RUN apt-get update -qq && apt-get install -y nodejs && apt-get install -y build-essential && apt-get install -y libpq-dev
