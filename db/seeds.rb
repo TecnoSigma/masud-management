@@ -11,6 +11,10 @@ if Rails.env.development?
                   password: '123456',
                   status: Status.find_by_name('ativo'))
 
+  Employee.create(email: 'ateliernannamartins@gmail.com',
+                  password: '123456',
+                  status: Status.find_by_name('ativo'))
+
   Team.create([
     { name: 'A' },
     { name: 'B' }
