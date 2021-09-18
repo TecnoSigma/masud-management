@@ -11,6 +11,7 @@ gem 'jquery-rails'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.11'
 gem 'rails', '~> 5.2.3'
+gem 'rest-client'
 gem 'rubycritic', require: false
 gem 'sass-rails', '~> 5.0'
 gem 'turbolinks', '~> 5'
