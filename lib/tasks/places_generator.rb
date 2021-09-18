@@ -3,8 +3,8 @@
 module Tasks
   class PlacesGenerator
     class << self
-      PLACES_API = 'https://servicodados.ibge.gov.br/api'.freeze
-      TABLES_LIST = %w(states cities).freeze
+      PLACES_API = 'https://servicodados.ibge.gov.br/api'
+      TABLES_LIST = %w[states cities].freeze
 
       private_constant :PLACES_API, :TABLES_LIST
 
@@ -36,9 +36,9 @@ module Tasks
 
       def generate_states!
         states_list = JSON
-          .parse(states.body)
-          .map { |state| [state['nome'], state['id']] }
-          .sort { |a, b| a <=> b }
+                      .parse(states.body)
+                      .map { |state| [state['nome'], state['id']] }
+                      .sort { |a, b| a <=> b }
 
         states_list.each do |state|
           State.create!(name: state.first, external_id: state.last)
@@ -58,9 +58,9 @@ module Tasks
           next unless response.respond_to?(:body) || response.body != '[]'
 
           cities = JSON
-            .parse(response.body)
-            .map { |city| city['nome'] }
-            .sort
+                   .parse(response.body)
+                   .map { |city| city['nome'] }
+                   .sort
 
           cities.each do |city|
             City.create(name: city, state: state)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class State < ApplicationRecord
   validates :name,
             :external_id,

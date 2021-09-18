@@ -2,7 +2,7 @@
 
 class PanelsController < ApplicationController
   before_action :check_token, only: [:main]
-  before_action :check_authorization, except: [:login, :check_credentials]
+  before_action :check_authorization, except: %i[login check_credentials]
 
   def login; end
 
@@ -10,8 +10,7 @@ class PanelsController < ApplicationController
     raise UserNotFound unless user
     raise UnauthorizedUser unless user.active?
 
-    session["#{user_type}_token".to_sym] = SecureRandom.uuid
-    session[:user_type] = user_type
+    create_sessions
 
     redirect_to send("#{user_type}_panel_main_path")
   rescue UserNotFound, UnauthorizedUser => error
@@ -20,6 +19,11 @@ class PanelsController < ApplicationController
   end
 
   private
+
+  def create_sessions
+    session["#{user_type}_token".to_sym] = SecureRandom.uuid
+    session[:user_type] = user_type
+  end
 
   def check_token
     redirect_to send("#{session[:user_type]}_panel_login_path") unless tokenized?
@@ -57,6 +61,6 @@ class PanelsController < ApplicationController
   end
 
   def authorized?
-    params["controller"].starts_with?(session[:user_type])
+    params['controller'].starts_with?(session[:user_type])
   end
 end

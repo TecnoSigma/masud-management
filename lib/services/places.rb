@@ -3,7 +3,7 @@
 module Services
   module Places
     class << self
-      PLACES_API = 'https://servicodados.ibge.gov.br/api'.freeze
+      PLACES_API = 'https://servicodados.ibge.gov.br/api'
 
       private_constant :PLACES_API
 

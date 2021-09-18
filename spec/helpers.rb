@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Helpers
   def add_vehicle_photos(vehicle)
     file_list = [Rack::Test::UploadedFile.new("#{Rails.root}/spec/fixtures/front_photo.jpg"),

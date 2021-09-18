@@ -61,7 +61,9 @@ RSpec.describe 'EmployeePanel', type: :request do
         post '/check_credentials',
              params: { customer: { email: customer.email, password: customer.password } }
 
-        expect(flash[:alert]).to eq('Seu status atual não lhe permite o acesso. Por favor, contate-nos!')
+        expect(flash[:alert]).to eq(
+          'Seu status atual não lhe permite o acesso. Por favor, contate-nos!'
+        )
       end
     end
   end

@@ -75,7 +75,6 @@ RSpec.describe Tasks::PlacesGenerator do
 
       response = double
 
-
       allow(response).to receive(:body) { cities_data }
       allow(described_class).to receive(:get) { response }
 

@@ -1,4 +1,6 @@
-require "rubycritic/rake_task"
+# frozen_string_literal: true
+
+require 'rubycritic/rake_task'
 
 RubyCritic::RakeTask.new do |task|
   task.name    = 'rubycritic'
@@ -6,4 +8,3 @@ RubyCritic::RakeTask.new do |task|
   task.options = '--minimum-score 90'
   task.verbose = true
 end
-
