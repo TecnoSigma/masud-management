@@ -2,7 +2,7 @@
 
 class PanelsController < ApplicationController
   before_action :check_token, only: [:main]
-  before_action :check_authorization, except: %i[login check_credentials]
+  before_action :check_authorization, except: %i[login logout check_credentials]
 
   def login; end
 
@@ -23,6 +23,10 @@ class PanelsController < ApplicationController
   def create_sessions
     session["#{user_type}_token".to_sym] = SecureRandom.uuid
     session[:user_type] = user_type
+
+    if user.respond_to?(:profiles)
+      session[:employee_profiles] = user.profiles.map { |profile| profile.kind }
+    end
   end
 
   def check_token

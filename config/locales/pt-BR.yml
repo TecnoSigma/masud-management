@@ -1,8 +1,15 @@
 pt-BR:
+  app_name: 'Seven Facilities'
   messages:
     errors:
       incorrect_user_data: 'Email e/ou senha inválidos!'
       unauthorized_user: 'Seu status atual não lhe permite o acesso. Por favor, contate-nos!'
+  employee_panel:
+    main:
+      logout_lnk: 'Logout'
+  customer_panel:
+    main:
+      logout_lnk: 'Logout'
   user_panel:
     login:
       email: 'Email'

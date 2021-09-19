@@ -39,13 +39,13 @@ RSpec.describe Employee, type: :model do
 
   describe 'validates presences' do
     it 'of email' do
-      employee = FactoryBot.build(:employee, :administrator, email: nil)
+      employee = FactoryBot.build(:employee, email: nil)
 
       expect(employee).to be_invalid
     end
 
     it 'of password' do
-      employee = FactoryBot.build(:employee, :administrator, password: nil)
+      employee = FactoryBot.build(:employee, password: nil)
 
       expect(employee).to be_invalid
     end
