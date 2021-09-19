@@ -6,8 +6,7 @@ class Employee < ApplicationRecord
             presence: true
 
   belongs_to :status
-
-  before_save :add_kind
+  has_and_belongs_to_many :profiles
 
   ACTIVE_STATUS = 'ativo'
 
@@ -15,13 +14,5 @@ class Employee < ApplicationRecord
 
   def active?
     status.name == ACTIVE_STATUS
-  end
-
-  def add_kind
-    class_name = self.class.name.downcase
-
-    return if class_name == 'employee'
-
-    self.kind = class_name
   end
 end

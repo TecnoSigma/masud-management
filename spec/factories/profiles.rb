@@ -1,26 +1,28 @@
 FactoryBot.define do
-  factory :employee do
-    email { Faker::Internet.email }
-    password { Faker::Internet.password }
-
+  factory :profile do
     trait :administrator do
+      name { 'Adminstrador' }
       kind { 'administrator' }
     end
 
     trait :agent do
+      name { 'Agente' }
       kind { 'agent' }
     end
 
     trait :approver do
+      name { 'Aprovador' }
       kind { 'approver' }
     end
 
     trait :lecturer do
+      name { 'Conferente' }
       kind { 'lecturer' }
     end
 
     trait :operator do
-      kind { 'oeprator' }
+      name { 'Operador' }
+      kind { 'operator' }
     end
   end
 end
