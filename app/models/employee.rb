@@ -2,12 +2,14 @@
 
 class Employee < ApplicationRecord
   validates :name,
-            :email,
-            :password,
             :admission_date,
             :rg,
             :cpf,
             presence: true
+
+  validates :email,
+            :password,
+            presence: true, if: :profile_with_access_permission?
 
   belongs_to :status
   has_and_belongs_to_many :profiles
@@ -18,5 +20,9 @@ class Employee < ApplicationRecord
 
   def active?
     status.name == ACTIVE_STATUS
+  end
+
+  def profile_with_access_permission?
+    self.class != Agent
   end
 end

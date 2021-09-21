@@ -17,6 +17,9 @@ Profile.create([
 # Create States and Cities
 Tasks::PlacesGenerator.call!
 
+# Create Agents
+Tasks::AgentsGenerator.call!
+
 if Rails.env.development?
   Customer.create(email: 'joao.barros@barros.com.br',
                   password: '123456',

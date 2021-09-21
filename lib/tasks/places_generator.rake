@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
-desc 'Creates states and cities register'
-task places_generator: :environment do
-  puts '- Starting places generation...'
+namespace :generator do
+  desc 'Creates states and cities register'
+  task places: :environment do
+    puts '- Starting places generation...'
 
-  Tasks::PlacesGenerator.call!
+    Tasks::PlacesGenerator.call!
 
-  puts '- Places generation finished!'
+    puts '- Places generation finished!'
+  end
 end
