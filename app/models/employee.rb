@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
 class Employee < ApplicationRecord
-  validates :email,
+  validates :name,
+            :email,
             :password,
+            :admission_date,
+            :rg,
+            :cpf,
             presence: true
 
   belongs_to :status

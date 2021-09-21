@@ -38,6 +38,12 @@ RSpec.describe Employee, type: :model do
   end
 
   describe 'validates presences' do
+    it 'of name' do
+      employee = FactoryBot.build(:employee, name: nil)
+
+      expect(employee).to be_invalid
+    end
+
     it 'of email' do
       employee = FactoryBot.build(:employee, email: nil)
 
@@ -46,6 +52,24 @@ RSpec.describe Employee, type: :model do
 
     it 'of password' do
       employee = FactoryBot.build(:employee, password: nil)
+
+      expect(employee).to be_invalid
+    end
+
+    it 'of admission_date' do
+      employee = FactoryBot.build(:employee, admission_date: nil)
+
+      expect(employee).to be_invalid
+    end
+
+    it 'of rg' do
+      employee = FactoryBot.build(:employee, rg: nil)
+
+      expect(employee).to be_invalid
+    end
+
+    it 'of cpf' do
+      employee = FactoryBot.build(:employee, cpf: nil)
 
       expect(employee).to be_invalid
     end

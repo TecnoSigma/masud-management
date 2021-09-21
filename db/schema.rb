@@ -50,6 +50,14 @@ ActiveRecord::Schema.define(version: 2021_09_19_150122) do
   end
 
   create_table "employees", force: :cascade do |t|
+    t.string "name"
+    t.string "codename"
+    t.date "admission_date"
+    t.date "resignation_date"
+    t.string "cvn_number"
+    t.date "cvn_validation_date"
+    t.string "rg"
+    t.string "cpf"
     t.string "email"
     t.string "password"
     t.bigint "team_id"

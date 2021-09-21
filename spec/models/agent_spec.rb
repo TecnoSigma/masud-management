@@ -32,4 +32,24 @@ RSpec.describe Agent, type: :model do
       expect(agent).to respond_to(:clothes)
     end
   end
+
+  describe 'validates presences' do
+    it 'of codename' do
+      agent = Agent.new(FactoryBot.attributes_for(:employee, :agent, codename: nil))
+
+      expect(agent).to be_invalid
+    end
+
+    it 'of cvn_number' do
+      agent = Agent.new(FactoryBot.attributes_for(:employee, :agent, cvn_number: nil))
+
+      expect(agent).to be_invalid
+    end
+
+    it 'of cvn_validation_date' do
+      agent = Agent.new(FactoryBot.attributes_for(:employee, :agent, cvn_validation_date: nil))
+
+      expect(agent).to be_invalid
+    end
+  end
 end
