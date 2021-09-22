@@ -1,5 +1,5 @@
 pt-BR:
-  app_name: 'Seven Facilities'
+  app_name: 'Masud Management'
   messages:
     errors:
       incorrect_user_data: 'Email e/ou senha inválidos!'

@@ -16,7 +16,7 @@ services:
       - PGHOST=${PG_HOST}
       - PGUSER=${PG_USER}
     volumes:
-      - .:/seven_facilities
+      - .:/masud-management
     ports:
       - "3000:3000"
     depends_on:
