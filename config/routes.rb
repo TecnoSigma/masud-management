@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   root 'panels#index'
   post 'check_credentials', to: 'panels#check_credentials'
 
-  scope module: 'customer_panel', path: 'painel_do_cliente', as: 'customer_panel' do
+  scope module: 'customer_panel', path: 'cliente', as: 'customer_panel' do
     get 'main'
     get 'login'
     get 'logout'
@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     get 'cities'
   end
 
-  scope module: 'employee_panel', path: 'painel_administrativo', as: 'employee_panel' do
+  scope module: 'employee_panel', path: 'gestao', as: 'employee_panel' do
     get 'main'
     get 'login'
     get 'logout'

@@ -4,17 +4,17 @@ pt-BR:
     errors:
       incorrect_user_data: 'Email e/ou senha inválidos!'
       unauthorized_user: 'Seu status atual não lhe permite o acesso. Por favor, contate-nos!'
-  employee_panel:
-    main:
-      logout_lnk: 'Logout'
   customer_panel:
-    main:
-      logout_lnk: 'Logout'
-  user_panel:
     login:
+      title: 'Área do Cliente'
       email: 'Email'
       password: 'Senha'
-      email_placeholser: 'Digite seu email'
-      password_placeholder: 'Digite sua senha'
-      access_btn: 'Acessar dashboard'
-      forgot_my_password_lnk: 'Esqueci minha senha?'
+      forgot_your_password_lnk: 'Esqueceu sua senha?'
+      login_btn: 'Login'
+  employee_panel:
+    login:
+      title: 'Área de Gestão'
+      email: 'Email'
+      password: 'Senha'
+      forgot_your_password_lnk: 'Esqueceu sua senha?'
+      login_btn: 'Login'

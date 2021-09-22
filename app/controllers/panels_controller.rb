@@ -5,7 +5,10 @@ class PanelsController < ApplicationController
   before_action :check_authorization, except: %i[index login logout check_credentials]
 
   def index; end
-  def login; end
+
+  def login
+    reset_session
+  end
 
   def check_credentials
     raise UserNotFound unless user
