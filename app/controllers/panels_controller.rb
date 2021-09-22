@@ -2,8 +2,9 @@
 
 class PanelsController < ApplicationController
   before_action :check_token, only: [:main]
-  before_action :check_authorization, except: %i[login logout check_credentials]
+  before_action :check_authorization, except: %i[index login logout check_credentials]
 
+  def index; end
   def login; end
 
   def check_credentials
