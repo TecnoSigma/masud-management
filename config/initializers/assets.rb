@@ -15,6 +15,7 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 
 Rails.application.config.assets.precompile += %w( layout.css
                                                   js/datatables-simple-demo.js
+                                                  js/jquery.min.js
                                                   js/scripts.js
                                                   demo/chart-area-demo.js
                                                   demo/chart-bar-demo.js
