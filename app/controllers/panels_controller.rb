@@ -3,12 +3,10 @@
 class PanelsController < ApplicationController
   before_action :check_token, only: [:main]
   before_action :check_authorization, except: %i[index login logout check_credentials]
+  before_action :reset_sessions, only: [:login]
 
   def index; end
-
-  def login
-    reset_session
-  end
+  def login; end
 
   def check_credentials
     raise UserNotFound unless user

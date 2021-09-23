@@ -21,37 +21,17 @@ Tasks::PlacesGenerator.call!
 Tasks::AgentsGenerator.call!
 
 if Rails.env.development?
+  # Teams
+  Team.create([{ name: 'A' }, { name: 'B' } ])
+
+  # Employees
+  FactoryBot.create(:employee, :admin)
+  FactoryBot.create(:employee, :agent)
+  FactoryBot.create(:employee, :lecturer)
+  FactoryBot.create(:employee, :operator)
+
+  # Customers
   Customer.create(email: 'joao.barros@barros.com.br',
                   password: '123456',
                   status: Status.find_by_name('ativo'))
-
-  Employee.create(email: 'admin@admin.com.br',
-                  profiles: [Profile.find_by_name('Adminstrador')],
-                  password: '123456',
-                  status: Status.find_by_name('ativo'))
-
-  Employee.create(email: 'agent@agent.com.br',
-                   profiles: [Profile.find_by_name('Agente')],
-                   password: '123456',
-                   status: Status.find_by_name('ativo'))
-
-  Employee.create(email: 'approver@approver.com.br',
-                   profiles: [Profile.find_by_name('Aprovador')],
-                   password: '123456',
-                   status: Status.find_by_name('ativo'))
-
-  Employee.create(email: 'lecturer@lecturer.com.br',
-                   profiles: [Profile.find_by_name('Conferente')],
-                   password: '123456',
-                   status: Status.find_by_name('ativo'))
-
-  Employee.create(email: 'operator@operator.com.br',
-                   profiles: [Profile.find_by_name('Operador')],
-                   password: '123456',
-                   status: Status.find_by_name('ativo'))
-
-  Team.create([
-    { name: 'A' },
-    { name: 'B' }
-  ])
 end

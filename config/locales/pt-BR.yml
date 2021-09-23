@@ -11,6 +11,8 @@ pt-BR:
       password: 'Senha'
       forgot_your_password_lnk: 'Esqueceu sua senha?'
       login_btn: 'Login'
+      email_placeholder: 'name@example.com'
+      password_placeholder: 'Senha'
   employee_panel:
     login:
       title: 'Área de Gestão'
@@ -18,3 +20,5 @@ pt-BR:
       password: 'Senha'
       forgot_your_password_lnk: 'Esqueceu sua senha?'
       login_btn: 'Login'
+      email_placeholder: 'name@example.com'
+      password_placeholder: 'Senha'

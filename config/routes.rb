@@ -2,6 +2,7 @@
 
 Rails.application.routes.draw do
   root 'panels#index'
+  get 'esqueceu_sua_senha', to: 'panels#forgot_your_password'
   post 'check_credentials', to: 'panels#check_credentials'
 
   scope module: 'customer_panel', path: 'cliente', as: 'customer_panel' do
