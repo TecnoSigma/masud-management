@@ -1,5 +1,5 @@
 pt-BR:
-  app_name: 'Masud Management'
+  app_name: 'Masud Segurança'
   messages:
     errors:
       incorrect_user_data: 'Email e/ou senha inválidos!'
