@@ -17,8 +17,6 @@ module ProtectorAngels
     # the framework and any gems in your application.
     config.i18n.default_locale = 'pt-BR'
 
-    config.serve_static_assets = true
-
     config.autoload_paths += %W[#{config.root}/lib]
     config.autoload_paths += %W[#{config.root}/app/exceptions]
   end
