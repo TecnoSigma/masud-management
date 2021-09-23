@@ -6,6 +6,8 @@ module Tasks
   class AgentsGenerator
     class << self
       def call!
+        sleep(2)
+
         CSV.foreach('././db/migrate/data/agents.csv', headers: true).map do |row|
           to_hash = row.to_hash
 

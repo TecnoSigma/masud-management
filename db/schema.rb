@@ -41,7 +41,12 @@ ActiveRecord::Schema.define(version: 2021_09_19_150122) do
   end
 
   create_table "customers", force: :cascade do |t|
+    t.string "company"
+    t.string "cnpj"
     t.string "email"
+    t.string "secondary_email"
+    t.string "tertiary_email"
+    t.string "telephone"
     t.string "password"
     t.bigint "status_id"
     t.datetime "created_at", null: false
@@ -107,6 +112,9 @@ ActiveRecord::Schema.define(version: 2021_09_19_150122) do
   end
 
   create_table "vehicles", force: :cascade do |t|
+    t.string "name"
+    t.string "license_plate"
+    t.string "color"
     t.bigint "status_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

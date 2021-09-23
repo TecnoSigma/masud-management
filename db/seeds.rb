@@ -17,8 +17,14 @@ Profile.create([
 # Create States and Cities
 Tasks::PlacesGenerator.call!
 
+# Create Customers
+Tasks::CustomersGenerator.call!
+
 # Create Agents
 Tasks::AgentsGenerator.call!
+
+# Create Vehicles
+Tasks::VehiclesGenerator.call!
 
 if Rails.env.development?
   # Teams
@@ -31,7 +37,5 @@ if Rails.env.development?
   FactoryBot.create(:employee, :operator)
 
   # Customers
-  Customer.create(email: 'joao.barros@barros.com.br',
-                  password: '123456',
-                  status: Status.find_by_name('ativo'))
+  FactoryBot.create(:customer, email: 'acme@acme.com.br', password: '123456', company: 'ACME')
 end

@@ -38,6 +38,18 @@ RSpec.describe Customer, type: :model do
   end
 
   describe 'validates presences' do
+    it 'of company' do
+      customer = FactoryBot.build(:customer, company: nil)
+
+      expect(customer).to be_invalid
+    end
+
+    it 'of cnpj' do
+      customer = FactoryBot.build(:customer, cnpj: nil)
+
+      expect(customer).to be_invalid
+    end
+
     it 'of email' do
       customer = FactoryBot.build(:customer, email: nil)
 
