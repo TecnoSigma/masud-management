@@ -32,7 +32,7 @@ class PanelsController < ApplicationController
   end
 
   def check_token
-    redirect_to send("#{session[:user_type]}_panel_login_path") unless tokenized?
+    redirect_to root_path unless tokenized?
   end
 
   def tokenized?

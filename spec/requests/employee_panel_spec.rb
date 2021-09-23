@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe 'EmployeePanel', type: :request do
   describe '#logout' do
     it 'redirects to customer login page' do
-      get '/painel_administrativo/logout'
+      get '/gestao/logout'
 
       expect(response).to redirect_to(employee_panel_login_path)
     end
@@ -17,7 +17,7 @@ RSpec.describe 'EmployeePanel', type: :request do
       allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
       allow_any_instance_of(EmployeePanelController).to receive(:authorized_profile?) { true }
 
-      get '/painel_administrativo/main'
+      get '/gestao/main'
 
       expect(response).to render_template(:main)
     end
@@ -25,7 +25,7 @@ RSpec.describe 'EmployeePanel', type: :request do
 
   describe '#login' do
     it 'renders to login page' do
-      get '/painel_administrativo/login'
+      get '/gestao/login'
 
       expect(response).to render_template(:login)
     end

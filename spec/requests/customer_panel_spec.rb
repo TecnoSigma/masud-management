@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe 'CustomerPanel', type: :request do
   describe '#logout' do
     it 'redirects to customer login page' do
-      get '/painel_do_cliente/logout'
+      get '/cliente/logout'
 
       expect(response).to redirect_to(customer_panel_login_path)
     end
@@ -16,7 +16,7 @@ RSpec.describe 'CustomerPanel', type: :request do
       allow_any_instance_of(CustomerPanelController).to receive(:tokenized?) { true }
       allow_any_instance_of(CustomerPanelController).to receive(:authorized?) { true }
 
-      get '/painel_do_cliente/main'
+      get '/cliente/main'
 
       expect(response).to render_template(:main)
     end
@@ -24,7 +24,7 @@ RSpec.describe 'CustomerPanel', type: :request do
 
   describe '#login' do
     it 'renders to login page' do
-      get '/painel_do_cliente/login'
+      get '/cliente/login'
 
       expect(response).to render_template(:login)
     end
