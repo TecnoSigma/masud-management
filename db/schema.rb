@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 2021_09_24_002149) do
     t.string "caliber"
     t.string "sinarm"
     t.string "situation"
-    t.integer "munition", default: 0
+    t.integer "quantity", default: 0
     t.date "registration_validity"
     t.boolean "linked_at_post", default: false
     t.bigint "employee_id"
