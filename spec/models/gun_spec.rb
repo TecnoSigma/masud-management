@@ -16,4 +16,50 @@ RSpec.describe Gun, type: :model do
       expect(gun).to respond_to(:employee)
     end
   end
+
+  describe 'validates presences' do
+    it 'of number' do
+      gun = Gun.new(FactoryBot.attributes_for(:arsenal, :gun, number: nil))
+
+      expect(gun).to be_invalid
+    end
+
+    it 'of kind' do
+      gun = Gun.new(FactoryBot.attributes_for(:arsenal, :gun, kind: nil))
+
+      expect(gun).to be_invalid
+    end
+
+    it 'of caliber' do
+      gun = Gun.new(FactoryBot.attributes_for(:arsenal, :gun, caliber: nil))
+
+      expect(gun).to be_invalid
+    end
+
+    it 'of sinarm' do
+      gun = Gun.new(FactoryBot.attributes_for(:arsenal, :gun, sinarm: nil))
+
+      expect(gun).to be_invalid
+    end
+
+    it 'of situation' do
+      gun = Gun.new(FactoryBot.attributes_for(:arsenal, :gun, situation: nil))
+
+      expect(gun).to be_invalid
+    end
+
+    it 'of registration_validity' do
+      gun = Gun.new(FactoryBot.attributes_for(:arsenal, :gun, registration_validity: nil))
+
+      expect(gun).to be_invalid
+    end
+  end
+
+  it 'validates when the default value of linked_at_post is \'false\'' do
+    gun = Gun.new
+
+    result = gun.linked_at_post
+
+    expect(result).to eq(false)
+  end
 end

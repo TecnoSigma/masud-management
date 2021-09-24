@@ -3,7 +3,9 @@ Status.create([
   { name: 'desativado' },
   { name: 'pendente' },
   { name: 'aceito' },
-  { name: 'recusado' }
+  { name: 'recusado' },
+  { name: 'regular' },
+  { name: 'irregular' }
 ])
 
 Profile.create([
