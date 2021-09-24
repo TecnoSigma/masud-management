@@ -16,18 +16,19 @@ ActiveRecord::Schema.define(version: 2021_09_24_002149) do
   enable_extension "plpgsql"
 
   create_table "arsenals", force: :cascade do |t|
+    t.string "type"
+    t.bigint "employee_id"
+    t.bigint "status_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "number"
     t.string "kind"
     t.string "caliber"
     t.string "sinarm"
     t.string "situation"
-    t.integer "quantity", default: 0
     t.date "registration_validity"
     t.boolean "linked_at_post", default: false
-    t.bigint "employee_id"
-    t.bigint "status_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer "quantity", default: 0
     t.index ["employee_id"], name: "index_arsenals_on_employee_id"
     t.index ["status_id"], name: "index_arsenals_on_status_id"
   end
