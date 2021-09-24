@@ -9,7 +9,7 @@ class Employee < ApplicationRecord
 
   validates :email,
             :password,
-            presence: true, if: :profile_with_access_permission?
+            presence: true, unless: :profile_with_access_permission?
 
   belongs_to :status
   has_and_belongs_to_many :profiles
@@ -23,6 +23,6 @@ class Employee < ApplicationRecord
   end
 
   def profile_with_access_permission?
-    self.class != Agent
+    self.class == Agent
   end
 end
