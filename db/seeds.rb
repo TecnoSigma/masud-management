@@ -26,6 +26,9 @@ Tasks::AgentsGenerator.call!
 # Create Vehicles
 Tasks::VehiclesGenerator.call!
 
+# Creates Tackles
+Tasks::TacklesGenerator.call!
+
 if Rails.env.development?
   # Teams
   Team.create([{ name: 'A' }, { name: 'B' } ])
