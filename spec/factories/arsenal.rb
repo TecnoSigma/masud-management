@@ -10,9 +10,9 @@ FactoryBot.define do
       registration_validity { 90.days.after }
     end
 
-    trait :irregular do
-      situation { FactoryBot.create(:status, name: 'irregular') }
-      registration_validity { 90.days.ago }
+    trait :munition do
+      kind { %w(12 38).sample }
+      quantity { Faker::Number.number(digits: 3) }
     end
   end
 end
