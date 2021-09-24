@@ -31,6 +31,12 @@ RSpec.describe Agent, type: :model do
 
       expect(agent).to respond_to(:clothes)
     end
+
+    it 'validates relationship (1:N) between Agent and Tackle' do
+      agent = Agent.new
+
+      expect(agent).to respond_to(:tackles)
+    end
   end
 
   describe 'validates presences' do

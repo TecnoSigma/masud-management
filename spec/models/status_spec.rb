@@ -10,6 +10,12 @@ RSpec.describe Status, type: :model do
       expect(status).to respond_to(:customers)
     end
 
+    it 'validates relationship (1:N) between Status and Tackle' do
+      status = Status.new
+
+      expect(status).to respond_to(:tackles)
+    end
+
     it 'validates relationship (1:N) between Status and Employee' do
       status = Status.new
 

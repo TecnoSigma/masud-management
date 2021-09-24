@@ -8,5 +8,6 @@ class Agent < Employee
 
   has_many :arsenals
   has_many :clothes
+  has_many :tackles
   belongs_to :team, optional: true
 end
