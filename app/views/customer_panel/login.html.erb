@@ -11,7 +11,7 @@
                 <h3 class="text-center font-weight-light my-4"><%= t('.title') %></h3>
               </div>
               <div class="card-body">
-                <%= form_with scope: 'employee', url: check_credentials_path do |f| %>
+                <%= form_with scope: 'customer', url: check_credentials_path do |f| %>
                   <div class="form-floating mb-3">
                     <%= f.email_field :email, class: 'form-control', id: 'inputEmail', placeholder: t('.email_placeholder') %>
                     <label for="inputEmail"><%= t('.email') %></label>
