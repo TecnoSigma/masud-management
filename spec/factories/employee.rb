@@ -10,7 +10,8 @@ FactoryBot.define do
     status { FactoryBot.create(:status, name: 'ativo') }
 
     trait :admin do
-      email { 'agent@agent.com.br' }
+      type { 'Administrator' }
+      email { 'admin@admin.com.br' }
       password { '123456' }
       team_id { nil }
       profiles { [FactoryBot.create(:profile, name: 'Administrador', kind: 'administrator'),
@@ -18,6 +19,7 @@ FactoryBot.define do
     end
 
     trait :agent do
+      type { 'Agent' }
       email { 'agent@agent.com.br' }
       password { '123456' }
       codename { name.split(' ').last }
@@ -27,6 +29,7 @@ FactoryBot.define do
     end
 
     trait :lecturer do
+      type { 'Lecturer' }
       email { 'lecturer@lecturer.com.br' }
       password { '123456' }
       team_id { nil }
@@ -34,6 +37,7 @@ FactoryBot.define do
     end
 
     trait :operator do
+      type { 'Operator' }
       email { 'operator@operator.com.br' }
       password { '123456' }
       team_id { nil }

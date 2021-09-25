@@ -26,9 +26,7 @@ class PanelsController < ApplicationController
     session["#{user_type}_token".to_sym] = SecureRandom.uuid
     session[:user_type] = user_type
 
-    if user.respond_to?(:profiles)
-      session[:employee_profiles] = user.profiles.map { |profile| profile.kind }
-    end
+    session[:employee_profile] = user.type if user.respond_to?(:type)
   end
 
   def check_token

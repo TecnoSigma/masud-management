@@ -22,10 +22,10 @@ RSpec.describe Status, type: :model do
       expect(status).to respond_to(:employees)
     end
 
-    it 'validates relationship (1:N) between Status and Escort' do
+    it 'validates relationship (1:N) between Status and Service' do
       status = Status.new
 
-      expect(status).to respond_to(:escorts)
+      expect(status).to respond_to(:services)
     end
 
     it 'validates relationship (1:N) between Status and Vehicle' do

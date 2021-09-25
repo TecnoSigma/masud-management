@@ -14,7 +14,8 @@ class Employee < ApplicationRecord
   belongs_to :status
   has_and_belongs_to_many :profiles
 
-  ACTIVE_STATUS = 'ativo'
+  ACTIVE_STATUS = 'ativo'.freeze
+  MASTER_PROFILE = 'Administrator'.freeze
 
   private_constant :ACTIVE_STATUS
 

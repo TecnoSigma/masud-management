@@ -30,10 +30,10 @@ RSpec.describe Customer, type: :model do
       expect(customer).to respond_to(:status)
     end
 
-    it 'validates relationship (1:N) between Customer and Escort' do
+    it 'validates relationship (1:N) between Customer and Service' do
       customer = Customer.new
 
-      expect(customer).to respond_to(:escorts)
+      expect(customer).to respond_to(:services)
     end
   end
 

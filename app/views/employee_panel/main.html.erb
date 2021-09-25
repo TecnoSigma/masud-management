@@ -2,23 +2,3 @@
 
 <h1>Employee Panel</h1>
 <hr>
-<% if authorized_profile?(:administrator) %>
-  <h2>Administrador</h2>
-  <hr>
-<% end %>
-<% if authorized_profile?(:agent) %>
-  <h2>Agente</h2>
-  <hr>
-<% end %>
-<% if authorized_profile?(:approver) %>
-  <h2>Aprovador</h2>
-  <hr>
-<% end %>
-<% if authorized_profile?(:lecturer) %>
-  <h2>Conferente</h2>
-  <hr>
-<% end %>
-<% if authorized_profile?(:operator) %>
-  <h2>Operador</h2>
-  <hr>
-<% end %>

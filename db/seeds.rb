@@ -9,7 +9,7 @@ Status.create([
 ])
 
 Profile.create([
-  { name: 'Adminstrador', kind: 'administrator' },
+  { name: 'Administrador', kind: 'administrator' },
   { name: 'Agente', kind: 'agent' },
   { name: 'Aprovador', kind: 'approver' },
   { name: 'Conferente', kind: 'lecturer' },

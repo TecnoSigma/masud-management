@@ -1,5 +1,15 @@
 pt-BR:
   app_name: 'Masud Segurança'
+  error:
+    unauthorized:
+      code: '401'
+      title: 'Não autorizado'
+      message: 'O acesso a esse recurso foi negado.'
+    internal_server_error:
+      code: '500'
+      title: 'Erro interno'
+      message: 'Ocorreram erros em sua execução da ação.'
+    return_message: 'Retornar à pagína de login'
   messages:
     errors:
       incorrect_user_data: 'Email e/ou senha inválidos!'
