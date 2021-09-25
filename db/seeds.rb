@@ -8,14 +8,6 @@ Status.create([
   { name: 'irregular' }
 ])
 
-Profile.create([
-  { name: 'Administrador', kind: 'administrator' },
-  { name: 'Agente', kind: 'agent' },
-  { name: 'Aprovador', kind: 'approver' },
-  { name: 'Conferente', kind: 'lecturer' },
-  { name: 'Operador', kind: 'operator' }
-])
-
 # Create States and Cities
 Tasks::PlacesGenerator.call!
 

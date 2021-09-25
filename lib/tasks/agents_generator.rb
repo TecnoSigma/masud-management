@@ -18,8 +18,7 @@ module Tasks
             cvn_validation_date: to_hash['cvn_validation_date'].to_date,
             rg: to_hash['rg'],
             cpf: to_hash['cpf'],
-            status: Status.find_by_name('ativo'),
-            profiles: [Profile.find_by_kind('agent')])
+            status: Status.find_by_name('ativo'))
 
           puts "--- Agent #{to_hash['codename']} created!"
         end

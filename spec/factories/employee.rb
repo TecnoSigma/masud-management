@@ -14,8 +14,6 @@ FactoryBot.define do
       email { 'admin@admin.com.br' }
       password { '123456' }
       team_id { nil }
-      profiles { [FactoryBot.create(:profile, name: 'Administrador', kind: 'administrator'),
-                  FactoryBot.create(:profile, name: 'Aprovador', kind: 'approver')] }
     end
 
     trait :agent do
@@ -25,7 +23,6 @@ FactoryBot.define do
       codename { name.split(' ').last }
       cvn_number {  Faker::Base.regexify(/^\d{4}\/\d{4}$/) }
       cvn_validation_date { 60.days.after }
-      profiles { [FactoryBot.create(:profile, name: 'Agente', kind: 'agent')] }
     end
 
     trait :lecturer do
@@ -33,7 +30,6 @@ FactoryBot.define do
       email { 'lecturer@lecturer.com.br' }
       password { '123456' }
       team_id { nil }
-      profiles { [FactoryBot.create(:profile, name: 'Conferente', kind: 'lecturer')] }
     end
 
     trait :operator do
@@ -41,7 +37,6 @@ FactoryBot.define do
       email { 'operator@operator.com.br' }
       password { '123456' }
       team_id { nil }
-      profiles { [FactoryBot.create(:profile, name: 'Operador', kind: 'operator')] }
     end
   end
 end

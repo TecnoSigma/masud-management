@@ -29,12 +29,6 @@ RSpec.describe Employee, type: :model do
 
       expect(employee).to respond_to(:status)
     end
-
-    it 'validates relationship (N:N) between Profile and Employee' do
-      employee = Employee.new
-
-      expect(employee).to respond_to(:profiles)
-    end
   end
 
   describe 'validates presences' do

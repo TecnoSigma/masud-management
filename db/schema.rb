@@ -73,20 +73,6 @@ ActiveRecord::Schema.define(version: 2021_09_24_002149) do
     t.index ["team_id"], name: "index_employees_on_team_id"
   end
 
-  create_table "employees_profiles", id: false, force: :cascade do |t|
-    t.bigint "employee_id", null: false
-    t.bigint "profile_id", null: false
-    t.index ["employee_id"], name: "index_employees_profiles_on_employee_id"
-    t.index ["profile_id"], name: "index_employees_profiles_on_profile_id"
-  end
-
-  create_table "profiles", force: :cascade do |t|
-    t.string "name"
-    t.string "kind"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "services", force: :cascade do |t|
     t.string "type"
     t.date "job_date"

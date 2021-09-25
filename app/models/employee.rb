@@ -12,7 +12,6 @@ class Employee < ApplicationRecord
             presence: true, unless: :profile_with_access_permission?
 
   belongs_to :status
-  has_and_belongs_to_many :profiles
 
   ACTIVE_STATUS = 'ativo'.freeze
   MASTER_PROFILE = 'Administrator'.freeze
