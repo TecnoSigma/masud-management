@@ -6,7 +6,7 @@ disconnected: true
 filename: relationships
 filetype: pdf
 indirect: true
-inheritance: false
+inheritance: true
 markup: true
 notation: simple
 orientation: vertical

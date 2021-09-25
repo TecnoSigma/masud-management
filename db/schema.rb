@@ -40,8 +40,8 @@ ActiveRecord::Schema.define(version: 2021_09_24_002149) do
   end
 
   create_table "clothings", force: :cascade do |t|
+    t.string "type"
     t.bigint "employee_id"
-    t.string "kind"
     t.bigint "status_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 2021_09_24_002149) do
 
   create_table "employees", force: :cascade do |t|
     t.string "name"
+    t.string "type"
     t.string "codename"
     t.date "admission_date"
     t.date "resignation_date"
@@ -115,6 +116,7 @@ ActiveRecord::Schema.define(version: 2021_09_24_002149) do
   end
 
   create_table "tackles", force: :cascade do |t|
+    t.string "type"
     t.string "serial_number"
     t.bigint "employee_id"
     t.bigint "status_id"
