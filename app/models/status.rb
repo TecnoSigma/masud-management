@@ -8,6 +8,5 @@ class Status < ApplicationRecord
   has_many :escorts
   has_many :vehicles
   has_many :arsenals
-  has_many :clothes
   has_many :tackles
 end

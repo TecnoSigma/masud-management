@@ -13,11 +13,11 @@ RSpec.describe Waistcoat, type: :model do
     it 'validates relationship (N:1) between Employee and Waistcoat' do
       waistcoat = Waistcoat.new
 
-      expect(waistcoat).to respond_to(:employee)
+      expect(waistcoat).to respond_to(:agent)
     end
   end
 
   it 'validates inheritance of Waistcoat with Clothing' do
-    expect(described_class).to be < Clothing
+    expect(described_class).to be < Tackle
   end
 end

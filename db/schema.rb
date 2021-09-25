@@ -39,16 +39,6 @@ ActiveRecord::Schema.define(version: 2021_09_24_002149) do
     t.index ["state_id"], name: "index_cities_on_state_id"
   end
 
-  create_table "clothings", force: :cascade do |t|
-    t.string "type"
-    t.bigint "employee_id"
-    t.bigint "status_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["employee_id"], name: "index_clothings_on_employee_id"
-    t.index ["status_id"], name: "index_clothings_on_status_id"
-  end
-
   create_table "customers", force: :cascade do |t|
     t.string "company"
     t.string "cnpj"
@@ -117,11 +107,18 @@ ActiveRecord::Schema.define(version: 2021_09_24_002149) do
 
   create_table "tackles", force: :cascade do |t|
     t.string "type"
-    t.string "serial_number"
     t.bigint "employee_id"
     t.bigint "status_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "serial_number"
+    t.string "register_number"
+    t.string "brand"
+    t.date "fabrication_date"
+    t.date "validation_date"
+    t.date "bond_date"
+    t.string "protection_level"
+    t.string "situation"
     t.index ["employee_id"], name: "index_tackles_on_employee_id"
     t.index ["status_id"], name: "index_tackles_on_status_id"
   end

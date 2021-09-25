@@ -1,4 +1,4 @@
 # frozen_string_literal: true
 
-class Waistcoat < Clothing
+class Waistcoat < Tackle
 end
