@@ -80,20 +80,37 @@ ActiveRecord::Schema.define(version: 2021_09_24_002149) do
     t.index ["profile_id"], name: "index_employees_profiles_on_profile_id"
   end
 
-  create_table "escorts", force: :cascade do |t|
-    t.bigint "customer_id"
-    t.bigint "status_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["customer_id"], name: "index_escorts_on_customer_id"
-    t.index ["status_id"], name: "index_escorts_on_status_id"
-  end
-
   create_table "profiles", force: :cascade do |t|
     t.string "name"
     t.string "kind"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "services", force: :cascade do |t|
+    t.string "type"
+    t.date "job_date"
+    t.date "job_horary"
+    t.string "source_address"
+    t.string "source_number"
+    t.string "source_complement"
+    t.string "source_district"
+    t.string "source_city"
+    t.string "source_state"
+    t.string "destiny_address"
+    t.string "destiny_number"
+    t.string "destiny_complement"
+    t.string "destiny_district"
+    t.string "destiny_city"
+    t.string "destiy_state"
+    t.string "observation"
+    t.string "reason"
+    t.bigint "customer_id"
+    t.bigint "status_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_services_on_customer_id"
+    t.index ["status_id"], name: "index_services_on_status_id"
   end
 
   create_table "states", force: :cascade do |t|

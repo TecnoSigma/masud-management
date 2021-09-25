@@ -8,7 +8,7 @@ class Customer < ApplicationRecord
             presence: true
 
   belongs_to :status
-  has_many :escorts
+  has_many :services
 
   ACTIVE_STATUS = 'ativo'.freeze
   DEFAULT_PASSWORD = 'inicial1234'.freeze

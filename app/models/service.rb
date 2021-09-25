@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Escort < Service
+class Service < ApplicationRecord
   belongs_to :customer
   belongs_to :status
 end
