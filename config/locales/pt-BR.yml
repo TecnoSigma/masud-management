@@ -14,6 +14,8 @@ pt-BR:
     errors:
       incorrect_user_data: 'Email e/ou senha inválidos!'
       unauthorized_user: 'Seu status atual não lhe permite o acesso. Por favor, contate-nos!'
+      incorrect_job_day: 'A data do trabalho não pode ser menor que a data de hoje!'
+      invalid_status: 'Status inválido!'
   customer_panel:
     login:
       title: 'Área do Cliente'

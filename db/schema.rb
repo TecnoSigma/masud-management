@@ -75,8 +75,7 @@ ActiveRecord::Schema.define(version: 2021_09_24_002149) do
 
   create_table "services", force: :cascade do |t|
     t.string "type"
-    t.date "job_date"
-    t.date "job_horary"
+    t.datetime "job_day"
     t.string "source_address"
     t.string "source_number"
     t.string "source_complement"

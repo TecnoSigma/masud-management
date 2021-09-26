@@ -2,8 +2,7 @@ class CreateServices < ActiveRecord::Migration[5.2]
   def change
     create_table :services do |t|
       t.string :type
-      t.date :job_date
-      t.date :job_horary
+      t.datetime :job_day
       t.string :source_address
       t.string :source_number
       t.string :source_complement

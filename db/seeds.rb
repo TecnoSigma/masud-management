@@ -2,7 +2,8 @@ Status.create([
   { name: 'ativo' },
   { name: 'desativado' },
   { name: 'pendente' },
-  { name: 'aceito' },
+  { name: 'agendado' },
+  { name: 'confirmado' },
   { name: 'recusado' },
   { name: 'regular' },
   { name: 'irregular' }
