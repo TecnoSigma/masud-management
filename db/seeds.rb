@@ -39,4 +39,11 @@ if Rails.env.development?
 
   # Customers
   FactoryBot.create(:customer, email: 'acme@acme.com.br', password: '123456', company: 'ACME')
+  FactoryBot.create(:customer, email: 'xpto@xpto.com.br', password: '123456', company: 'XPTO')
+
+  (1..60).each do |_a|
+    FactoryBot.create(:service,
+                      [:scheduled, :confirmed, :refused].sample,
+                      customer: [Customer.first, Customer.last].sample)
+  end
 end

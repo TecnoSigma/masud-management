@@ -9,6 +9,7 @@ class Customer < ApplicationRecord
 
   belongs_to :status
   has_many :services
+  has_one :service_token
 
   ACTIVE_STATUS = 'ativo'.freeze
   DEFAULT_PASSWORD = 'inicial1234'.freeze

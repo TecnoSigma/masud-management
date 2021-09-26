@@ -8,5 +8,6 @@ FactoryBot.define do
     telephone { Faker::Base.regexify(/^\d{2} \d{4}-\d{4,5}$/) }
     password { Faker::Internet.password }
     status { FactoryBot.create(:status, name: 'ativo') }
+    service_token { FactoryBot.create(:service_token) }
   end
 end

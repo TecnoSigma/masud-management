@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :service do
-    job_day { 10.days.after }
+    job_day { [*1..20].sample.days.after }
     source_address { Faker::Address.street_name }
     source_number { Faker::Number.number(digits: 3) }
     source_complement { ['casa 1', 'apto 123', 'fundos'].sample }

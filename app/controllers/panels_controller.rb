@@ -12,6 +12,7 @@ class PanelsController < ApplicationController
     raise UserNotFound unless user
     raise UnauthorizedUser unless user.active?
 
+    create_token
     create_sessions
 
     redirect_to send("#{user_type}_panel_main_path")
@@ -22,8 +23,15 @@ class PanelsController < ApplicationController
 
   private
 
+  def create_token
+    service_token = ServiceToken.create(token: SecureRandom.uuid)
+
+    user.service_token = service_token
+    user.save!
+  end
+
   def create_sessions
-    session["#{user_type}_token".to_sym] = SecureRandom.uuid
+    session["#{user_type}_token".to_sym] = user.service_token.token
     session[:user_type] = user_type
 
     session[:employee_profile] = user.type if user.respond_to?(:type)
