@@ -30,10 +30,10 @@ RSpec.describe Customer, type: :model do
       expect(customer).to respond_to(:status)
     end
 
-    it 'validates relationship (1:N) between Customer and Service' do
+    it 'validates relationship (1:N) between Customer and Order' do
       customer = Customer.new
 
-      expect(customer).to respond_to(:services)
+      expect(customer).to respond_to(:orders)
     end
 
     it 'validates optional relationship (1:1) between Service Token and Customer' do
@@ -73,8 +73,8 @@ RSpec.describe Customer, type: :model do
     it 'lists customer escorts ordered by job day (desc)' do
       customer = FactoryBot.build(:customer)
 
-      FactoryBot.create(:service, :scheduled, job_day: 10.days.after, customer: customer)
-      FactoryBot.create(:service, :scheduled, job_day: 2.days.after, customer: customer)
+      FactoryBot.create(:order, :scheduled, job_day: 10.days.after, customer: customer)
+      FactoryBot.create(:order, :scheduled, job_day: 2.days.after, customer: customer)
 
       expected_result = [EscortScheduling.last, EscortScheduling.first]
 

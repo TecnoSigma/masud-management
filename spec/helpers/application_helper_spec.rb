@@ -5,7 +5,7 @@ RSpec.describe ApplicationHelper, type: :helper do
 
   describe '#convert_date_time' do
     it 'returns converted date in format dd/mm/yyyy - hh:mm:ss' do
-      scheduling = FactoryBot.create(:service, :scheduled)
+      scheduling = FactoryBot.create(:order, :scheduled)
 
       expected_result = DateTime.parse(scheduling.job_day.to_s).strftime('%d/%m/%Y - %H:%M')
 
@@ -17,7 +17,7 @@ RSpec.describe ApplicationHelper, type: :helper do
 
   describe '#order_color' do
     it 'returns font blue class when the order is scheduled' do
-      order = FactoryBot.create(:service, :scheduled)
+      order = FactoryBot.create(:order, :scheduled)
 
       expected_result = 'scheduled-order'
 
@@ -27,7 +27,7 @@ RSpec.describe ApplicationHelper, type: :helper do
     end
 
     it 'returns font green class when the order is confirmed' do
-      order = FactoryBot.create(:service, :confirmed)
+      order = FactoryBot.create(:order, :confirmed)
 
       expected_result = 'confirmed-order'
 
@@ -37,7 +37,7 @@ RSpec.describe ApplicationHelper, type: :helper do
     end
 
     it 'returns font red class when the order is refused' do
-      order = FactoryBot.create(:service, :refused)
+      order = FactoryBot.create(:order, :refused)
 
       expected_result = 'refused-order'
 

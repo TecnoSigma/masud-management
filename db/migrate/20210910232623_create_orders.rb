@@ -1,6 +1,6 @@
-class CreateServices < ActiveRecord::Migration[5.2]
+class CreateOrders < ActiveRecord::Migration[5.2]
   def change
-    create_table :services do |t|
+    create_table :orders do |t|
       t.string :type
       t.string :order_number
       t.datetime :job_day

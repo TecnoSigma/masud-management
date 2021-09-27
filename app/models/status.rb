@@ -5,7 +5,7 @@ class Status < ApplicationRecord
 
   has_many :customers
   has_many :employees
-  has_many :services
+  has_many :orders
   has_many :vehicles
   has_many :arsenals
   has_many :tackles

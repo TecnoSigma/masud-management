@@ -11,7 +11,7 @@ RSpec.describe EscortMission, type: :model do
     it 'of reason when status is \'recusado\'' do
       status = FactoryBot.create(:status, name: 'recusado')
       escort_mission = EscortMission.new(
-        FactoryBot.attributes_for(:service, :refused, status: status, reason: nil)
+        FactoryBot.attributes_for(:order, :refused, status: status, reason: nil)
       )
 
       expect(escort_mission).to be_invalid
@@ -22,7 +22,7 @@ RSpec.describe EscortMission, type: :model do
     it 'validates \'confirmado\'' do
       status = FactoryBot.create(:status, name: 'confirmado')
       escort_mission = EscortMission.new(
-        FactoryBot.attributes_for(:service, :confirmed, status: status)
+        FactoryBot.attributes_for(:order, :confirmed, status: status)
       )
 
       expect(escort_mission).to be_valid
@@ -31,7 +31,7 @@ RSpec.describe EscortMission, type: :model do
     it 'validates \'recusado\'' do
       status = FactoryBot.create(:status, name: 'recusado')
       escort_mission = EscortMission.new(
-        FactoryBot.attributes_for(:service, :refused, status: status)
+        FactoryBot.attributes_for(:order, :refused, status: status)
       )
 
       expect(escort_mission).to be_valid
@@ -42,7 +42,7 @@ RSpec.describe EscortMission, type: :model do
     it 'no validates \'agendado\'' do
       status = FactoryBot.create(:status, name: 'agendado')
       escort_mission = EscortMission.new(
-        FactoryBot.attributes_for(:service, :confirmed, status: status)
+        FactoryBot.attributes_for(:order, :confirmed, status: status)
       )
 
       expect(escort_mission).to be_invalid

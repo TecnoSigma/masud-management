@@ -47,7 +47,7 @@ pt-BR:
   partials:
     customer_menu:
      dashboard: 'Dashboard'
-     services: 'Serviços'
+     orders: 'Ordens de Serviço'
      escort: 'Escolta'
      list: 'Lista'
      new_scheduling: 'Novo Agendamento'

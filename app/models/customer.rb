@@ -8,7 +8,7 @@ class Customer < ApplicationRecord
             presence: true
 
   belongs_to :status
-  has_many :services
+  has_many :orders
   has_one :service_token
 
   ACTIVE_STATUS = 'ativo'.freeze
@@ -17,8 +17,8 @@ class Customer < ApplicationRecord
   private_constant :ACTIVE_STATUS
 
   def escorts
-    services.order(:job_day).select do |service|
-      service.type == 'EscortScheduling' || service.type == 'EscortMission'
+    orders.order(:job_day).select do |order|
+      order.type == 'EscortScheduling' || order.type == 'EscortMission'
     end
   end
 

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Service < ApplicationRecord
+class Order < ApplicationRecord
   validates :job_day,
             :source_address,
             :source_number,

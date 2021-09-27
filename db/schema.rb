@@ -73,17 +73,7 @@ ActiveRecord::Schema.define(version: 2021_09_26_044000) do
     t.index ["team_id"], name: "index_employees_on_team_id"
   end
 
-  create_table "service_tokens", force: :cascade do |t|
-    t.string "token"
-    t.bigint "customer_id"
-    t.bigint "employee_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["customer_id"], name: "index_service_tokens_on_customer_id"
-    t.index ["employee_id"], name: "index_service_tokens_on_employee_id"
-  end
-
-  create_table "services", force: :cascade do |t|
+  create_table "orders", force: :cascade do |t|
     t.string "type"
     t.string "order_number"
     t.datetime "job_day"
@@ -105,8 +95,18 @@ ActiveRecord::Schema.define(version: 2021_09_26_044000) do
     t.bigint "status_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["customer_id"], name: "index_services_on_customer_id"
-    t.index ["status_id"], name: "index_services_on_status_id"
+    t.index ["customer_id"], name: "index_orders_on_customer_id"
+    t.index ["status_id"], name: "index_orders_on_status_id"
+  end
+
+  create_table "service_tokens", force: :cascade do |t|
+    t.string "token"
+    t.bigint "customer_id"
+    t.bigint "employee_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_service_tokens_on_customer_id"
+    t.index ["employee_id"], name: "index_service_tokens_on_employee_id"
   end
 
   create_table "states", force: :cascade do |t|
