@@ -8,6 +8,7 @@
     <table id="datatablesSimple" role='datatable' class="stripe" width="100%">
       <thead>
         <tr>
+          <th><%= t('.order') %></th>
           <th><%= t('.job_day') %></th>
           <th><%= t('.source') %></th>
           <th><%= t('.destiny') %></th>
@@ -19,6 +20,7 @@
       </thead>
       <tfoot>
         <tr>
+          <th><%= t('.order') %></th>
           <th><%= t('.job_day') %></th>
           <th><%= t('.source') %></th>
           <th><%= t('.destiny') %></th>
@@ -31,6 +33,7 @@
       <tbody>
         <% @orders.each do |order| %>
           <tr class="<%= order_color(order) %>">
+            <td><%= order.order_number %></td>
             <td><%= convert_date_time(order.job_day) %></td>
             <td><%= order.source_state %></td>
             <td><%= order.destiny_state %></td>

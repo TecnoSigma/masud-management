@@ -20,6 +20,8 @@ class Service < ApplicationRecord
   belongs_to :customer
   belongs_to :status
 
+  before_create :create_order_number
+
   ALLOWED_STATUSES = {
     scheduled: 'agendado',
     confirmed: 'confirmado',
@@ -27,6 +29,10 @@ class Service < ApplicationRecord
   }.freeze
 
   private_constant :ALLOWED_STATUSES
+
+  def create_order_number
+    self.order_number = DateTime.now.strftime('%Y%m%d%H%M%S')
+  end
 
   def check_job_day
     return unless self.job_day

@@ -28,6 +28,7 @@ pt-BR:
     escort:
       list:
        escorts_list: 'Lista de Escoltas'
+       order: 'Pedido'
        job_day: 'Data do Trabalho'
        source: 'Origem'
        destiny: 'Destino'

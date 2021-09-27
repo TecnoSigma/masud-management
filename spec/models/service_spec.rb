@@ -150,4 +150,12 @@ RSpec.describe Service, type: :model do
       expect(result).to eq(true)
     end
   end
+
+  it 'creates an order number when a new order is created' do
+    service = FactoryBot.create(:service, :refused)
+
+    result = service.order_number
+
+    expect(result).to be_present
+  end
 end
