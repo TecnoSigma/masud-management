@@ -15,7 +15,7 @@ class PanelsController < ApplicationController
     create_token
     create_sessions
 
-    redirect_to send("#{user_type}_panel_main_path")
+    redirect_to send("#{user_type}_panel_dashboard_index_path")
   rescue UserNotFound, UnauthorizedUser => error
     redirect_to send("#{user_type}_panel_login_path"),
                 alert: error_message(error.class)
@@ -24,10 +24,12 @@ class PanelsController < ApplicationController
   private
 
   def create_token
-    service_token = ServiceToken.create(token: SecureRandom.uuid)
+    service_token = user.service_token
+    new_token = SecureRandom.uuid
 
-    user.service_token = service_token
-    user.save!
+    service_token ?
+      service_token.update(token: new_token) :
+      user.update(service_token: ServiceToken.create(token: new_token))
   end
 
   def create_sessions

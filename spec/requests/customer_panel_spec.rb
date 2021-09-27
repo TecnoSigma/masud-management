@@ -16,9 +16,9 @@ RSpec.describe 'CustomerPanel', type: :request do
       allow_any_instance_of(CustomerPanelController).to receive(:tokenized?) { true }
       allow_any_instance_of(CustomerPanelController).to receive(:authorized?) { true }
 
-      get '/cliente/main'
+      get '/cliente/dashboard/index'
 
-      expect(response).to render_template(:main)
+      expect(response).to render_template(:index)
     end
   end
 

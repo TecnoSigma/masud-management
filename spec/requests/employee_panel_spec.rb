@@ -18,9 +18,9 @@ RSpec.describe 'EmployeePanel', type: :request do
         allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
         allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'administrator' }
 
-        get '/gestao/main'
+        get '/gestao/dashboard/index'
 
-        expect(response).to redirect_to(employee_panel_administrator_dashboard_path)
+        expect(response).to redirect_to(employee_panel_administrator_dashboard_index_path)
       end
     end
 
@@ -30,9 +30,9 @@ RSpec.describe 'EmployeePanel', type: :request do
         allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
         allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'agent' }
 
-        get '/gestao/main'
+        get '/gestao/dashboard/index'
 
-        expect(response).to redirect_to(employee_panel_agent_dashboard_path)
+        expect(response).to redirect_to(employee_panel_agent_dashboard_index_path)
       end
     end
 
@@ -42,9 +42,9 @@ RSpec.describe 'EmployeePanel', type: :request do
         allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
         allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'lecturer' }
 
-        get '/gestao/main'
+        get '/gestao/dashboard/index'
 
-        expect(response).to redirect_to(employee_panel_lecturer_dashboard_path)
+        expect(response).to redirect_to(employee_panel_lecturer_dashboard_index_path)
       end
     end
 
@@ -54,9 +54,9 @@ RSpec.describe 'EmployeePanel', type: :request do
         allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
         allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
 
-        get '/gestao/main'
+        get '/gestao/dashboard/index'
 
-        expect(response).to redirect_to(employee_panel_operator_dashboard_path)
+        expect(response).to redirect_to(employee_panel_operator_dashboard_index_path)
       end
     end
 
@@ -66,7 +66,7 @@ RSpec.describe 'EmployeePanel', type: :request do
         allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
         allow_any_instance_of(EmployeePanelController).to receive(:profile) { raise StandardError }
 
-        get '/gestao/main'
+        get '/gestao/dashboard/index'
 
         expect(response).to redirect_to(employee_panel_login_path)
       end

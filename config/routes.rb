@@ -12,10 +12,12 @@ Rails.application.routes.draw do
     get 'logout'
     get 'states'
     get 'cities'
+
+    get 'dashboard/index'
+    get 'dashboard/escolta/lista', to: 'escort#list'
   end
 
   scope module: 'employee_panel', path: 'gestao', as: 'employee_panel' do
-    get 'main'
     get 'login'
     get 'logout'
 

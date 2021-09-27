@@ -34,3 +34,10 @@ pt-BR:
       login_btn: 'Login'
       email_placeholder: 'name@example.com'
       password_placeholder: 'Senha'
+  partials:
+    customer_menu:
+     dashboard: 'Dashboard'
+     services: 'Serviços'
+     escort: 'Escolta'
+     list: 'Lista'
+     new_scheduling: 'Novo Agendamento'

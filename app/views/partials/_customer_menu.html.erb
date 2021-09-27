@@ -1,0 +1,18 @@
+<div class="nav">
+  <a class="nav-link" href="/cliente/dashboard/main">
+   <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+   <%= t('.dashboard') %>
+  </a>
+  <div class="sb-sidenav-menu-heading"><%= t('.services') %></div>
+  <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+    <%= t('.escort') %>
+    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+  </a>
+  <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+    <nav class="sb-sidenav-menu-nested nav">
+      <%= link_to t('.list'), customer_panel_dashboard_escolta_lista_path, class: 'nav-link' %>
+      <%= link_to t('.new_scheduling'), customer_panel_dashboard_escolta_lista_path, class: 'nav-link' %>
+    </nav>
+  </div>
+</div>

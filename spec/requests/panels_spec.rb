@@ -11,7 +11,7 @@ RSpec.describe 'EmployeePanel', type: :request do
         post '/check_credentials',
              params: { customer: { email: customer.email, password: customer.password } }
 
-        expect(response).to redirect_to(customer_panel_main_path)
+        expect(response).to redirect_to(customer_panel_dashboard_index_path)
       end
 
       it 'creates customer token' do
