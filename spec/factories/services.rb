@@ -12,7 +12,7 @@ FactoryBot.define do
     destiny_complement { ['casa 1', 'apto 123', 'fundos'].sample }
     destiny_district { %w(Centro Lapa Sé).sample }
     destiny_city { FactoryBot.create(:city).name }
-    destiy_state { FactoryBot.create(:state).name }
+    destiny_state { FactoryBot.create(:state).name }
     observation { Faker::Lorem.sentence }
     status { FactoryBot.create(:status, name: 'agendado') }
     customer { FactoryBot.create(:customer) }

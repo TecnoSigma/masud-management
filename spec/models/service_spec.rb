@@ -79,7 +79,7 @@ RSpec.describe Service, type: :model do
     end
 
     it 'of destiy_state' do
-      service = FactoryBot.build(:service, destiy_state: nil)
+      service = FactoryBot.build(:service, destiny_state: nil)
 
       expect(service).to be_invalid
     end

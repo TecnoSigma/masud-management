@@ -14,7 +14,7 @@ class CreateServices < ActiveRecord::Migration[5.2]
       t.string :destiny_complement
       t.string :destiny_district
       t.string :destiny_city
-      t.string :destiy_state
+      t.string :destiny_state
       t.string :observation
       t.string :reason
       t.references :customer, index: true

@@ -11,7 +11,7 @@ class Service < ApplicationRecord
             :destiny_number,
             :destiny_district,
             :destiny_city,
-            :destiy_state,
+            :destiny_state,
             presence: true
 
   validate :check_job_day,
