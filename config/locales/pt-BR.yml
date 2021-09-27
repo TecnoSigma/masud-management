@@ -25,6 +25,15 @@ pt-BR:
       login_btn: 'Login'
       email_placeholder: 'name@example.com'
       password_placeholder: 'Senha'
+    escort:
+      list:
+       escorts_list: 'Lista de Escoltas'
+       job_day: 'Data do Trabalho'
+       source: 'Origem'
+       destiny: 'Destino'
+       observation: 'Observação'
+       status: 'Status'
+       details: 'detalhes'
   employee_panel:
     login:
       title: 'Área de Gestão'

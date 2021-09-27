@@ -20,7 +20,11 @@ class Service < ApplicationRecord
   belongs_to :customer
   belongs_to :status
 
-  ALLOWED_STATUSES = %w(agendado confirmado recusado).freeze
+  ALLOWED_STATUSES = {
+    scheduled: 'agendado',
+    confirmed: 'confirmado',
+    refused: 'recusado'
+  }.freeze
 
   private_constant :ALLOWED_STATUSES
 
@@ -35,6 +39,18 @@ class Service < ApplicationRecord
   def check_allowed_status
     error_message = I18n.t('messages.errors.invalid_status')
 
-    errors.add(:status, error_message) if ALLOWED_STATUSES.exclude?(self.status.name)
+    errors.add(:status, error_message) if ALLOWED_STATUSES.values.exclude?(self.status.name)
+  end
+
+  def scheduled?
+    self.status.name == ALLOWED_STATUSES[:scheduled]
+  end
+
+  def confirmed?
+    self.status.name == ALLOWED_STATUSES[:confirmed]
+  end
+
+  def refused?
+    self.status.name == ALLOWED_STATUSES[:refused]
   end
 end

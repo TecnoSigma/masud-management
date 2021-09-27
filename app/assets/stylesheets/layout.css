@@ -11691,3 +11691,20 @@ body {
   width: 50%;
   opacity: 50%;
 }
+
+/*orders*/
+.confirmed-order {
+  color: green;
+}
+
+.scheduled-order {
+  color: blue;
+}
+
+.refused-order {
+  color: red;
+}
+
+.btn-delete-scheduling {
+  color: red;
+}

@@ -2,7 +2,7 @@
 <div class="card mb-4">
   <div class="card-header">
     <i class="fas fa-table me-1"></i>
-    DataTable Example
+    <%= t('.escorts_list') %>
   </div>
   <div class="card-body">
     <table id="datatablesSimple" role='datatable' class="stripe" width="100%">
@@ -11,8 +11,9 @@
           <th><%= t('.job_day') %></th>
           <th><%= t('.source') %></th>
           <th><%= t('.destiny') %></th>
-          <th><%= t('observation') %></th>
+          <th><%= t('.observation') %></th>
           <th><%= t('.status') %></th>
+          <th></th>
           <th></th>
         </tr>
       </thead>
@@ -21,24 +22,29 @@
           <th><%= t('.job_day') %></th>
           <th><%= t('.source') %></th>
           <th><%= t('.destiny') %></th>
-          <th><%= t('observation') %></th>
+          <th><%= t('.observation') %></th>
           <th><%= t('.status') %></th>
+          <th></th>
           <th></th>
         </tr>
       </tfoot>
       <tbody>
-        <% @escorts.each do |escort| %>
-          <tr>
-            <td><%= escort.job_day %></td>
-            <td><%= escort.source_state %></td>
-            <td><%= escort.destiny_state %></td>
-            <td><%= escort.observation %></td>
-            <td><%= escort.status.name %></td>
-            <td><%= t('.details') %></td>
+        <% @orders.each do |order| %>
+          <tr class="<%= order_color(order) %>">
+            <td><%= convert_date_time(order.job_day) %></td>
+            <td><%= order.source_state %></td>
+            <td><%= order.destiny_state %></td>
+            <td><%= order.observation %></td>
+            <td><%= order.status.name %></td>
+            <td><i class="fas fa-align-justify me-1"></i></td>
+            <td>
+              <% if order.scheduled? %>
+                <i class="fas fa-times me-1 btn-delete-scheduling"></i>
+              <% end %>
+            </td>
           </tr>
-      <% end %>
+        <% end %>
       </tbody>
     </table>
   </div>
 </div>
-<!-- job_day: "2021-10-09 05:01:02", source_address: "Ponte Hélio Modesto", source_number: "780", source_complement: "apto 123", source_district: "Centro", source_city: "Bauru", source_state: "Paraná", destiny_address: "Avenida Eloah Tavares", destiny_number: "903", destiny_complement: "fundos", destiny_district: "Lapa", destiny_city: "Sorocaba", destiy_state: "Paraná", observation: "Molestiae impedit aut ut.", reason: "Unde dolores est voluptas." -->

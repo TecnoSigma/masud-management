@@ -2,7 +2,7 @@
 
 class CustomerPanel::EscortController < PanelsController
   def list
-    @escorts = customer.escorts
+    @orders = customer.escorts
   end
 
   private

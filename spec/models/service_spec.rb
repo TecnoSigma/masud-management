@@ -120,4 +120,34 @@ RSpec.describe Service, type: :model do
 
     expect(service).to be_invalid
   end
+
+  describe '#scheduled?' do
+    it 'returns \'true\' when the service is scheduled' do
+      service = FactoryBot.create(:service, :scheduled)
+
+      result = service.scheduled?
+
+      expect(result).to eq(true)
+    end
+  end
+
+  describe '#confirmed?' do
+    it 'returns \'true\' when the service is confirmed' do
+      service = FactoryBot.create(:service, :confirmed)
+
+      result = service.confirmed?
+
+      expect(result).to eq(true)
+    end
+  end
+
+  describe '#refused?' do
+    it 'returns \'true\' when the service is refused' do
+      service = FactoryBot.create(:service, :refused)
+
+      result = service.refused?
+
+      expect(result).to eq(true)
+    end
+  end
 end
