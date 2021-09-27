@@ -18,7 +18,7 @@ class Customer < ApplicationRecord
 
   def escorts
     orders.order(:job_day).select do |order|
-      order.type == 'EscortScheduling' || order.type == 'EscortMission'
+      order.type == 'EscortScheduling' || order.type == 'EscortService'
     end
   end
 

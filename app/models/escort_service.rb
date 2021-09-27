@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class EscortMission < Escort
-  validates :reason, presence: true, if: :refused_mission?
+class EscortService < Escort
+  validates :reason, presence: true, if: :refused_service?
 
   validate :check_allowed_internal_status
 
@@ -10,7 +10,7 @@ class EscortMission < Escort
 
   private_constant :ALLOWED_STATUSES, :REFUSE_STATUS
 
-  def refused_mission?
+  def refused_service?
     self.status.name == REFUSE_STATUS
   end
 

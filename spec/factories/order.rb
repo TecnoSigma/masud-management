@@ -24,12 +24,12 @@ FactoryBot.define do
   end
 
   trait :confirmed do
-    type { 'EscortMission' }
+    type { 'EscortService' }
     status { FactoryBot.create(:status, name: 'confirmado') }
   end
 
   trait :refused do
-    type { 'EscortMission' }
+    type { 'EscortService' }
     reason { Faker::Lorem.sentence }
     status { FactoryBot.create(:status, name: 'recusado') }
   end
