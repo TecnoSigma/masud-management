@@ -13,7 +13,7 @@ RSpec.describe 'EmployeePanel', type: :request do
 
   describe '#main' do
     context 'when is administrator profile' do
-      it 'redirects to administrator dashboard' do
+      xit 'redirects to administrator dashboard' do
         allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
         allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
         allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'administrator' }
@@ -25,7 +25,7 @@ RSpec.describe 'EmployeePanel', type: :request do
     end
 
     context 'when is agent profile' do
-      it 'redirects to agent dashboard' do
+      xit 'redirects to agent dashboard' do
         allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
         allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
         allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'agent' }
@@ -37,7 +37,7 @@ RSpec.describe 'EmployeePanel', type: :request do
     end
 
     context 'when is lecturer profile' do
-      it 'redirects to lecturer dashboard' do
+      xit 'redirects to lecturer dashboard' do
         allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
         allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
         allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'lecturer' }
@@ -49,7 +49,7 @@ RSpec.describe 'EmployeePanel', type: :request do
     end
 
     context 'when is operator profile' do
-      it 'redirects to operator dashboard' do
+      xit 'redirects to operator dashboard' do
         allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
         allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
         allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
@@ -61,7 +61,7 @@ RSpec.describe 'EmployeePanel', type: :request do
     end
 
     context 'when occurs errors' do
-      it 'redirects to employee login page' do
+      xit 'redirects to employee login page' do
         allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
         allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
         allow_any_instance_of(EmployeePanelController).to receive(:profile) { raise StandardError }

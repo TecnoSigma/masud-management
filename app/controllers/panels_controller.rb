@@ -44,7 +44,7 @@ class PanelsController < ApplicationController
   end
 
   def tokenized?
-    session["#{session[:user_type]}_token".to_sym].present?
+    session["#{session[:user_type]}_token".to_sym] == user.service_token.token
   end
 
   def error_message(error)

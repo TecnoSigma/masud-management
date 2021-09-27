@@ -20,17 +20,17 @@ FactoryBot.define do
 
   trait :scheduled do
     type { 'EscortScheduling' }
-    status { Status.find_by_name('agendado') }
+    status { FactoryBot.create(:status, name: 'agendado') }
   end
 
   trait :confirmed do
     type { 'EscortMission' }
-    status { Status.find_by_name('confirmado') }
+    status { FactoryBot.create(:status, name: 'confirmado') }
   end
 
   trait :refused do
     type { 'EscortMission' }
     reason { Faker::Lorem.sentence }
-    status { Status.find_by_name('recusado') }
+    status { FactoryBot.create(:status, name: 'recusado') }
   end
 end

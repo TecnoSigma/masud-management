@@ -16,6 +16,12 @@ class Customer < ApplicationRecord
 
   private_constant :ACTIVE_STATUS
 
+  def escorts
+    services.order(:job_day).select do |service|
+      service.type == 'EscortScheduling' || service.type == 'EscortMission'
+    end
+  end
+
   def active?
     status.name == ACTIVE_STATUS
   end

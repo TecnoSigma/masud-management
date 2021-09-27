@@ -68,4 +68,19 @@ RSpec.describe Customer, type: :model do
       expect(customer).to be_invalid
     end
   end
+
+  describe '#escorts' do
+    it 'lists customer escorts ordered by job day (desc)' do
+      customer = FactoryBot.build(:customer)
+
+      FactoryBot.create(:service, :scheduled, job_day: 10.days.after, customer: customer)
+      FactoryBot.create(:service, :scheduled, job_day: 2.days.after, customer: customer)
+
+      expected_result = [EscortScheduling.last, EscortScheduling.first]
+
+      result = customer.escorts
+
+      expect(result).to eq(expected_result)
+    end
+  end
 end
