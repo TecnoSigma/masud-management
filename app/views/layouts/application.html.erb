@@ -53,7 +53,9 @@
       <% end %>
       <div id="layoutSidenav_content">
         <main>
-          <%= yield %>
+          <div class="container-fluid px-4">
+           <%= yield %>
+          </div>
         </main>
         <% if session[:customer_token] || session[:employee_token] %>
           <%= render 'partials/footer' %>

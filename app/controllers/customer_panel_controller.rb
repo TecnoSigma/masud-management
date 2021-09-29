@@ -8,4 +8,14 @@ class CustomerPanelController < PanelsController
 
     redirect_to customer_panel_login_path
   end
+
+  def cities
+    cities = State.find(params['state_id']).cities.all.map(&:name).sort
+
+    render json: { 'cities' => cities }, status: :ok
+  rescue StandardError => e
+    Rails.logger.error("Message: #{e.message} - Backtrace: #{e.backtrace}")
+
+    render json: { 'cities' => [] }, status: :internal_server_error
+  end
 end

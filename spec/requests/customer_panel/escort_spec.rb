@@ -3,14 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe 'CustomerPanel::Escort', type: :request do
-  describe '#logout' do
-    it 'redirects to customer login page' do
-      get '/cliente/logout'
-
-      expect(response).to redirect_to(customer_panel_login_path)
-    end
-  end
-
   describe '#list' do
     it 'renders escorts list page' do
       customer = FactoryBot.create(:customer)

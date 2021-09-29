@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 namespace :generator do
-  desc 'Creates tackles'
-  task tackles: :environment do
-    puts '- Starting tackles generation...'
+  desc 'Creates places'
+  task places: :environment do
+    puts '- Starting places generation...'
 
-    Tasks::TacklesGenerator.call!
+    Tasks::PlacesGenerator.call!
 
-    puts '- Tackles generation finished!'
+    puts '- Places generation finished!'
   end
 end

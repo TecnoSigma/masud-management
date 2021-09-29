@@ -1,5 +1,8 @@
 pt-BR:
   app_name: 'Masud Segurança'
+  breadcrumbs:
+    escorts_list: 'Lista de Escoltas'
+    new_scheduling: 'Novo agendamento'
   error:
     unauthorized:
       code: '401'
@@ -27,14 +30,39 @@ pt-BR:
       password_placeholder: 'Senha'
     escort:
       list:
-       escorts_list: 'Lista de Escoltas'
-       order: 'Pedido'
-       job_day: 'Data do Trabalho'
-       source: 'Origem'
-       destiny: 'Destino'
+        title: 'Escoltas'
+        escorts_list: 'Lista de Escoltas'
+        order: 'Pedido'
+        job_day: 'Data do Trabalho'
+        source: 'Origem'
+        destiny: 'Destino'
+        observation: 'Observação'
+        status: 'Status'
+        details: 'detalhes'
+      new:
+       title: 'Escoltas'
+       job_day: 'Data da Escolta *'
+       address: 'Endereço *'
+       number: 'Número *'
+       complement: 'Complemento'
+       district: 'Bairro *'
+       city: 'Cidade *'
+       state: 'Estado *'
        observation: 'Observação'
-       status: 'Status'
-       details: 'detalhes'
+       job_day_placeholder: 'Data da Escolta'
+       address_placeholder: 'Endereço'
+       number_placeholder: 'Número'
+       complement_placeholder: 'Complemento'
+       district_placeholder: 'Bairro'
+       city_placeholder: 'Cidade'
+       state_placeholder: 'Estado'
+       observation_placeholder: 'Observação'
+       create_scheduling_btn: 'Criar Agendamento'
+       escort_date: 'Data da Escolta'
+       source_local: 'Local de Origem'
+       destiny_local: 'Local de Destino'
+       format_date_info: 'Utilize o formato dd/mm/yyyy'
+       required_fields: '(*) Campos obrigatórios'
   employee_panel:
     login:
       title: 'Área de Gestão'

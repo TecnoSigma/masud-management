@@ -1,0 +1,180 @@
+<h1 class="mt-4"><%= t('.title') %></h1>
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item active"><%= t('breadcrumbs.new_scheduling') %></li>
+</ol>
+<hr>
+<div id="layoutAuthentication">
+  <div id="layoutAuthentication_content">
+    <main>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-7">
+            <br>
+            <%= render './partials/messages' %>
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+              <div class="card-body">
+                <%= form_with scope: 'customer', url: check_credentials_path do |f| %>
+                  <p>
+                    <small><%= t('.required_fields') %></small>
+                  </p>
+                  <span><strong><%= t('.escort_date') %></span></strong>
+                  <br><br>
+                  <div class="form-floating mb-3">
+                    <%= f.text_field :job_day,
+                                     class: 'form-control',
+                                     id: 'inputJobDay',
+                                     placeholder: t('.job_day_placeholder'),
+                                     role: 'date',
+                                     required: true %>
+                    <label for="inputJobDay"><%= t('.job_day') %></label>
+                    <small><%= t('.format_date_info') %></small>
+                  </div>
+                  <br>
+                  <hr>
+                  <br>
+                  <span><strong><%= t('.source_local') %></strong></span>
+                  <br><br>
+                  <div class="form-floating mb-3">
+                    <%= f.select :source_state,
+                                 State.all.collect {|state| [ state.name, state.id ] },
+                                 { class: 'form-control custom-select',
+                                   prompt: t('.state') },
+                                   onchange: "listCities($(this).val(), document.getElementById('customer_source_city'))",
+                                   required:  true %>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <%= f.select :source_city,
+                                 [],
+                                 { class: 'form-control custom-select',
+                                   prompt: t('.city') },
+                                 required: true %>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <%= f.text_field :source_address,
+                                     class: 'form-control',
+                                     id: 'inputSourceAddress',
+                                     placeholder: t('.address_placeholder'),
+                                     required: true %>
+                    <label for="inputSourceAddress"><%= t('.address') %></label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <%= f.text_field :source_number,
+                                     class: 'form-control',
+                                     id: 'inputSourceNumber',
+                                     placeholder: t('.number_placeholder'),
+                                     required: true %>
+                    <label for="inputSourceNumber"><%= t('.number') %></label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <%= f.text_field :source_complement,
+                                     class: 'form-control',
+                                     id: 'inputSourceComplement',
+                                     placeholder: t('.complement_placeholder') %>
+                    <label for="inputSourceComplement"><%= t('.complement') %></label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <%= f.text_field :source_district,
+                                     class: 'form-control',
+                                     id: 'inputSourceDistrict',
+                                     placeholder: t('.district_placeholder'),
+                                     required: true %>
+                    <label for="inputSourceDistrict"><%= t('.district') %></label>
+                  </div>
+                  <br>
+                  <hr>
+                  <br>
+                  <span><strong><%= t('.destiny_local') %></strong></span>
+                  <br><br>
+                  <div class="form-floating mb-3">
+                    <%= f.select :destiny_state,
+                                 State.all.collect {|state| [ state.name, state.id ] },
+                                 { class: 'form-control custom-select',
+                                   prompt: t('.state') },
+                                   onchange: "listCities($(this).val(), document.getElementById('customer_destiny_city'))",
+                                   required: true %>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <%= f.select :destiny_city,
+                                 [],
+                                 { class: 'form-control custom-select',
+                                   prompt: t('.city') } %>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <%= f.text_field :destiny_address,
+                                     class: 'form-control',
+                                     id: 'inputDestinyAddress',
+                                     placeholder: t('.address_placeholder'),
+                                     required: true %>
+                    <label for="inputDestinyAddress"><%= t('.address') %></label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <%= f.text_field :destiny_number,
+                                     class: 'form-control',
+                                     id: 'inputDestinyNumber',
+                                     placeholder: t('.number_placeholder'),
+                                     required: true %>
+                    <label for="inputDestinyNumber"><%= t('.number') %></label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <%= f.text_field :destiny_complement,
+                                     class: 'form-control',
+                                     id: 'inputDestinyComplement',
+                                     placeholder: t('.complement_placeholder') %>
+                    <label for="inputDestinyComplement"><%= t('.complement') %></label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <%= f.text_field :destiny_district,
+                                     class: 'form-control',
+                                     id: 'inputDestinyDistrict',
+                                     placeholder: t('.district_placeholder') %>
+                    <label for="inputDestinyDistrict"><%= t('.district') %></label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <%= f.text_area :observation,
+                                    class: 'form-control',
+                                    id: 'inputObservation',
+                                    placeholder: t('.observation_placeholder') %>
+                    <label for="inputObservation"><%= t('.observation') %></label>
+                  </div>
+                  <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                    <%= f.submit t('.create_scheduling_btn'), class: 'btn btn-primary' %>
+                  </div>
+                <% end %>
+              </div>
+              <div class="card-footer text-center py-3"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+<script>
+  function listCities(state_id, receptorField) {
+    let citiesList = [];
+    let citiesTotal = 0;
+
+    Rails.ajax({
+      type: 'GET',
+      url: '/cliente/cities',
+      data: new URLSearchParams({'state_id': state_id}).toString(),
+      success: function (response) {
+        let citiesList = [];
+        let citiesLength = 0;
+        let citiesOptions = "";
+
+        citiesList = response.cities;
+        citiesLength = citiesList.length
+
+        for(let i = 0; i < citiesLength ; i++) {
+          citiesOptions += "<option>" + citiesList[i] + "</option>"
+        }
+
+        receptorField.innerHTML = citiesOptions;
+      },
+      error: function(xhr,status,error){
+        console.log(xhr);
+      }
+    });
+  }
+</script>

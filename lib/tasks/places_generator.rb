@@ -5,8 +5,29 @@ module Tasks
     class << self
       PLACES_API = 'https://servicodados.ibge.gov.br/api'
       TABLES_LIST = %w[states cities].freeze
+      DF_ADMIN_REGIONS = [
+        'Águas Claras',
+        'Arniqueira',
+        'Brazlândia',
+        'Candangolândia',
+        'Ceilândia',
+        'Cruzeiro',
+        'Fercal',
+        'Gama',
+        'Guará',
+        'Itapoã',
+        'Jardim Botânico',
+        'Lago Norte',
+        'Lago Sul',
+        'Núcleo Bandeirante',
+        'Paranoá',
+        'Park Way',
+        'Planaltina',
+        'Plano Piloto',
+        'Recanto das Emas'].freeze
 
-      private_constant :PLACES_API, :TABLES_LIST
+
+      private_constant :DF_ADMIN_REGIONS, :PLACES_API, :TABLES_LIST
 
       def call!
         raise PlacesGenerationError if states.body == '[]'
@@ -16,6 +37,8 @@ module Tasks
         generate_states!
         wait
         generate_cities!
+        wait
+        generate_admin_regions!
 
         true
       end
@@ -59,7 +82,7 @@ module Tasks
 
           cities = JSON
                    .parse(response.body)
-                   .map { |city| city['nome'] }
+            .map { |city| remove_accents(city['nome']).gsub('-',' ') }
                    .sort
 
           cities.each do |city|
@@ -74,12 +97,53 @@ module Tasks
         true
       end
 
+      def generate_admin_regions!
+        federal_district = State.find_by_name('Distrito Federal')
+
+        DF_ADMIN_REGIONS.each do |region|
+          formatted_region = remove_accents(region).gsub('-',' ')
+
+          City.create(name: formatted_region, state: federal_district)
+
+          puts "--- Admin Region of #{formatted_region} created!"
+        end
+
+        puts "-- #{DF_ADMIN_REGIONS.count} admin regions created!"
+      end
+
       def states
         @states ||= get('v1/localidades/estados')
       end
 
       def wait
         sleep(2)
+      end
+
+      def remove_accents(string)
+        accents = {
+          ['á','à','â','ä','ã'] => 'a',
+          ['Ã','Ä','Â','À','Á'] => 'A',
+          ['é','è','ê','ë'] => 'e',
+          ['Ë','É','È','Ê'] => 'E',
+          ['í','ì','î','ï'] => 'i',
+          ['Î','Ì'] => 'I',
+          ['ó','ò','ô','ö','õ'] => 'o',
+          ['Õ','Ö','Ô','Ò','Ó'] => 'O',
+          ['ú','ù','û','ü'] => 'u',
+          ['Ú','Û','Ù','Ü'] => 'U',
+          ['ç'] => 'c', ['Ç'] => 'C',
+          ['ñ'] => 'n', ['Ñ'] => 'N'
+        }
+
+        accents.each do |accent,rep|
+          accent.each do |letter|
+            string = string.gsub(letter, rep)
+          end
+        end
+
+        string = string.gsub(/[^a-zA-Z0-9\. ]/,"")
+        string = string.gsub(/[ ]+/," ")
+        string = string.gsub(/ /,"-")
       end
 
       def get(source)

@@ -29,4 +29,35 @@ RSpec.describe 'CustomerPanel', type: :request do
       expect(response).to render_template(:login)
     end
   end
+
+  describe '#cities' do
+    it 'returns cities list in JSON format' do
+      state = FactoryBot.create(:state)
+      city = FactoryBot.create(:city, state: state)
+
+      customer = FactoryBot.create(:customer)
+
+      allow_any_instance_of(PanelsController).to receive(:tokenized?) { true }
+      allow_any_instance_of(PanelsController).to receive(:authorized?) { true }
+      allow_any_instance_of(CustomerPanel::EscortController).to receive(:customer) { customer }
+
+      get '/cliente/cities', params: { state_id: state.id }
+
+      expect(response.body).to eq("{\"cities\":[\"#{city.name}\"]}")
+      expect(response).to have_http_status(200)
+    end
+
+   it 'returns empty list wehn occurs errors' do
+      customer = FactoryBot.create(:customer)
+
+      allow_any_instance_of(PanelsController).to receive(:tokenized?) { true }
+      allow_any_instance_of(PanelsController).to receive(:authorized?) { true }
+      allow_any_instance_of(CustomerPanel::EscortController).to receive(:customer) { customer }
+
+      get '/cliente/cities'
+
+      expect(response.body).to eq("{\"cities\":[]}")
+      expect(response).to have_http_status(500)
+    end
+  end
 end

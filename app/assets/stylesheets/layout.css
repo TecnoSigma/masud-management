@@ -209,7 +209,9 @@ strong {
 }
 
 small, .small {
-  font-size: 0.875em;
+  font-size: 0.800em;
+  font-style: italic;
+  color: #888;
 }
 
 mark, .mark {
@@ -361,6 +363,12 @@ select {
 }
 
 select {
+  height: calc(3.5rem + 2px);
+  width: 100%;
+  background: #FFF;
+  border: 1px solid #CCC;
+  border-radius: 4px;
+  padding: 16px 12px;
   word-wrap: normal;
 }
 select:disabled {

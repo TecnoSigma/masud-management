@@ -16,11 +16,11 @@
 //= require_tree .
 
 $(document).on('turbolinks:load', function() {
-  $("table[role='datatable']").each(function(){
-    $(this).DataTable({
-      "language": {
-        "url": "//cdn.datatables.net/plug-ins/1.11.3/i18n/pt_br.json"
-      }
-    });
-  });
+        $("table[role='datatable']").each(function(){
+                $(this).DataTable({
+                        "language": {
+                                "url": "//cdn.datatables.net/plug-ins/1.11.3/i18n/pt_br.json"
+                        }
+                });
+        });
 });

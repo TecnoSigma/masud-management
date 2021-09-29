@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
     get 'dashboard/index'
     get 'dashboard/escolta/lista', to: 'escort#list'
+    get 'dashboard/escolta/novo', to: 'escort#new'
   end
 
   scope module: 'employee_panel', path: 'gestao', as: 'employee_panel' do
