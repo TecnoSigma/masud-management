@@ -15,4 +15,131 @@ RSpec.describe 'CustomerPanel::Escort', type: :request do
       expect(response).to render_template(:list)
     end
   end
+
+  describe '#create' do
+    context 'when pass valid params' do
+      it 'creates a new escort' do
+        active_status = FactoryBot.create(:status, name: 'ativo')
+        scheduled_status= FactoryBot.create(:status, name: 'agendado')
+
+        customer = FactoryBot.create(:customer, status: active_status)
+
+        allow_any_instance_of(PanelsController).to receive(:tokenized?) { true }
+        allow_any_instance_of(PanelsController).to receive(:authorized?) { true }
+        allow_any_instance_of(CustomerPanel::EscortController).to receive(:customer) { customer }
+
+        escort_params = FactoryBot.attributes_for(:order,
+                                                  :scheduled,
+                                                  customer: customer,
+                                                  status: status)
+
+        post '/cliente/dashboard/escolta/create', params: { escort: escort_params }
+
+        result = Escort.last.customer
+
+        expect(result).to eq(customer)
+      end
+
+      it 'redirect to escort list' do
+        active_status = FactoryBot.create(:status, name: 'ativo')
+        scheduled_status = FactoryBot.create(:status, name: 'agendado')
+
+        customer = FactoryBot.create(:customer, status: active_status)
+
+        allow_any_instance_of(PanelsController).to receive(:tokenized?) { true }
+        allow_any_instance_of(PanelsController).to receive(:authorized?) { true }
+        allow_any_instance_of(CustomerPanel::EscortController).to receive(:customer) { customer }
+
+        escort_params = FactoryBot.attributes_for(:order,
+                                                  :scheduled,
+                                                  customer: customer,
+                                                  status: status)
+
+        post '/cliente/dashboard/escolta/create', params: { escort: escort_params }
+
+        expect(response).to redirect_to(customer_panel_dashboard_escolta_lista_path)
+      end
+
+      it 'shows success message' do
+        active_status = FactoryBot.create(:status, name: 'ativo')
+        scheduled_status = FactoryBot.create(:status, name: 'agendado')
+
+        customer = FactoryBot.create(:customer, status: active_status)
+
+        allow_any_instance_of(PanelsController).to receive(:tokenized?) { true }
+        allow_any_instance_of(PanelsController).to receive(:authorized?) { true }
+        allow_any_instance_of(CustomerPanel::EscortController).to receive(:customer) { customer }
+
+        escort_params = FactoryBot.attributes_for(:order,
+                                                  :scheduled,
+                                                  customer: customer,
+                                                  status: status)
+
+        post '/cliente/dashboard/escolta/create', params: { escort: escort_params }
+
+        expect(flash[:notice]).to eq('Agendamento criado com sucesso!')
+      end
+    end
+
+    context 'when pass invalid params' do
+      it 'no creates a new escort' do
+        active_status = FactoryBot.create(:status, name: 'ativo')
+
+        customer = FactoryBot.create(:customer, status: active_status)
+
+        allow_any_instance_of(PanelsController).to receive(:tokenized?) { true }
+        allow_any_instance_of(PanelsController).to receive(:authorized?) { true }
+        allow_any_instance_of(CustomerPanel::EscortController).to receive(:customer) { customer }
+
+        escort_params = FactoryBot.attributes_for(:order,
+                                                  :scheduled,
+                                                  job_day: nil,
+                                                  customer: customer)
+
+        post '/cliente/dashboard/escolta/create', params: { escort: escort_params }
+
+        result = Escort.count
+
+        expect(result).to eq(0)
+      end
+
+      it 'redirects to escort list' do
+        active_status = FactoryBot.create(:status, name: 'ativo')
+
+        customer = FactoryBot.create(:customer, status: active_status)
+
+        allow_any_instance_of(PanelsController).to receive(:tokenized?) { true }
+        allow_any_instance_of(PanelsController).to receive(:authorized?) { true }
+        allow_any_instance_of(CustomerPanel::EscortController).to receive(:customer) { customer }
+
+        escort_params = FactoryBot.attributes_for(:order,
+                                                  :scheduled,
+                                                  job_day: nil,
+                                                  customer: customer)
+
+        post '/cliente/dashboard/escolta/create', params: { escort: escort_params }
+
+        expect(response).to redirect_to(customer_panel_dashboard_escolta_lista_path)
+      end
+
+      it 'shows error message' do
+        active_status = FactoryBot.create(:status, name: 'ativo')
+
+        customer = FactoryBot.create(:customer, status: active_status)
+
+        allow_any_instance_of(PanelsController).to receive(:tokenized?) { true }
+        allow_any_instance_of(PanelsController).to receive(:authorized?) { true }
+        allow_any_instance_of(CustomerPanel::EscortController).to receive(:customer) { customer }
+
+        escort_params = FactoryBot.attributes_for(:order,
+                                                  :scheduled,
+                                                  job_day: nil,
+                                                  customer: customer)
+
+        post '/cliente/dashboard/escolta/create', params: { escort: escort_params }
+
+        expect(flash[:alert]).to eq('Falha ao criar agendamento!')
+      end
+    end
+  end
 end
