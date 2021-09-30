@@ -20,7 +20,10 @@ $(document).on('turbolinks:load', function() {
                 $(this).DataTable({
                         "language": {
                                 "url": "//cdn.datatables.net/plug-ins/1.11.3/i18n/pt_br.json"
-                        }
+                        },
+                        "paging": false,
+                        "showing": false,
+                        "info": false
                 });
         });
 });

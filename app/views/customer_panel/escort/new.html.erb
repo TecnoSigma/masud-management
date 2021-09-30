@@ -11,6 +11,7 @@
           <div class="col-lg-7">
             <br>
             <%= render './partials/messages' %>
+            <%= render './partials/scheduling_cancellation_info' %>
             <div class="card shadow-lg border-0 rounded-lg mt-5">
               <div class="card-body">
                 <%= form_with scope: 'customer', url: check_credentials_path do |f| %>
@@ -37,7 +38,7 @@
                   <div class="form-floating mb-3">
                     <%= f.select :source_state,
                                  State.all.collect {|state| [ state.name, state.id ] },
-                                 { class: 'form-control custom-select',
+                                 { class: 'form-control',
                                    prompt: t('.state') },
                                    onchange: "listCities($(this).val(), document.getElementById('customer_source_city'))",
                                    required:  true %>

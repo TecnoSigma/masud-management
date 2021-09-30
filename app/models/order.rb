@@ -28,6 +28,8 @@ class Order < ApplicationRecord
     refused: 'recusado'
   }.freeze
 
+  PER_PAGE_IN_CUSTOMER_DASHBOARD = 20.freeze
+
   private_constant :ALLOWED_STATUSES
 
   def create_order_number

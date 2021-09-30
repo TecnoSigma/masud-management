@@ -19,6 +19,8 @@ pt-BR:
       unauthorized_user: 'Seu status atual não lhe permite o acesso. Por favor, contate-nos!'
       incorrect_job_day: 'A data do trabalho não pode ser menor que a data de hoje!'
       invalid_status: 'Status inválido!'
+    info:
+            scheduling_cancellation: 'Importante: Todo agendamento poderá ser cancelado em até trẽs horas após a sua criação.'
   customer_panel:
     login:
       title: 'Área do Cliente'
@@ -38,6 +40,7 @@ pt-BR:
         destiny: 'Destino'
         observation: 'Observação'
         status: 'Status'
+        created_at: 'Criado em'
         details: 'detalhes'
       new:
        title: 'Escoltas'

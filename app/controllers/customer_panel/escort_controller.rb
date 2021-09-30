@@ -2,7 +2,10 @@
 
 class CustomerPanel::EscortController < PanelsController
   def list
-    @orders = customer.escorts
+    @orders = customer
+      .escorts
+      .paginate(per_page: Order::PER_PAGE_IN_CUSTOMER_DASHBOARD,
+                page: params[:page])
   end
 
   private

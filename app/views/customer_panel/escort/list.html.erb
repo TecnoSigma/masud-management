@@ -2,6 +2,7 @@
 <ol class="breadcrumb mb-4">
   <li class="breadcrumb-item active"><%= t('breadcrumbs.escorts_list') %></li>
 </ol>
+<%= render './partials/scheduling_cancellation_info' %>
 <div class="card mb-4">
   <div class="card-header">
     <i class="fas fa-table me-1"></i>
@@ -17,6 +18,7 @@
           <th><%= t('.destiny') %></th>
           <th><%= t('.observation') %></th>
           <th><%= t('.status') %></th>
+          <th><%= t('.created_at') %></th>
           <th></th>
           <th></th>
         </tr>
@@ -29,6 +31,7 @@
           <th><%= t('.destiny') %></th>
           <th><%= t('.observation') %></th>
           <th><%= t('.status') %></th>
+          <th><%= t('.created_at') %></th>
           <th></th>
           <th></th>
         </tr>
@@ -42,6 +45,7 @@
             <td><%= order.destiny_state %></td>
             <td><%= order.observation %></td>
             <td><%= order.status.name %></td>
+            <td><%= convert_date_time(order.created_at) %></td>
             <td><i class="fas fa-align-justify me-1"></i></td>
             <td>
               <% if order.scheduled? %>
@@ -52,5 +56,6 @@
         <% end %>
       </tbody>
     </table>
+    <%= will_paginate @orders, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
   </div>
 </div>
