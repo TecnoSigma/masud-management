@@ -1,3 +1,4 @@
+Status.destroy_all
 Status.create([
   { name: 'ativo' },
   { name: 'desativado' },
@@ -6,7 +7,8 @@ Status.create([
   { name: 'confirmado' },
   { name: 'recusado' },
   { name: 'regular' },
-  { name: 'irregular' }
+  { name: 'irregular' },
+  { name: 'cancelado pelo cliente' }
 ])
 
 # Create States and Cities
@@ -41,7 +43,7 @@ if Rails.env.development?
   FactoryBot.create(:customer, email: 'acme@acme.com.br', password: '123456', company: 'ACME')
   FactoryBot.create(:customer, email: 'xpto@xpto.com.br', password: '123456', company: 'XPTO')
 
-  (1..60).each do |_a|
+  (1..10).each do |_a|
     FactoryBot.create(:order,
                       [:scheduled, :confirmed, :refused].sample,
                       customer: [Customer.first, Customer.last].sample)

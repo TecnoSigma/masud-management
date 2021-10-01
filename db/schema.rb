@@ -91,6 +91,7 @@ ActiveRecord::Schema.define(version: 2021_09_26_044000) do
     t.string "destiny_state"
     t.string "observation"
     t.string "reason"
+    t.datetime "deleted_at"
     t.bigint "customer_id"
     t.bigint "status_id"
     t.datetime "created_at", null: false

@@ -1,0 +1,128 @@
+<h1 class="mt-4"><%= t('.title', order_number: @escort.order_number) %></h1>
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item">
+    <%= link_to t('breadcrumbs.escorts_list'), customer_panel_dashboard_escolta_lista_path %>
+  </li>
+  <li class="breadcrumb-item active"><%= t('breadcrumbs.show_escort', order_number: @escort.order_number) %></li>
+</ol>
+<hr>
+<div id="layoutAuthentication">
+  <div id="layoutAuthentication_content">
+    <main>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-7">
+            <br>
+            <%= render './partials/scheduling_cancellation_info' %>
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+              <div class="card-body">
+                <div class="form-floating mb-3">
+                  <p>
+                  <strong><%= t('.job_day') %></strong>
+                    <%= convert_date_time(@escort.job_day) %>
+                  </p>
+                </div>
+                <hr>
+                <h4><strong><%= t('.source_local') %></strong></h4>
+                <br>
+                <div class="form-floating mb-3">
+                  <p>
+                  <strong><%= t('.address') %></strong>
+                    <%= @escort.source_address %>
+                  </p>
+                </div>
+                <div class="form-floating mb-3">
+                <p>
+                  <strong><%= t('.number') %></strong>
+                    <%= @escort.source_number %>
+                  </p>
+                </div>
+                <div class="form-floating mb-3">
+                  <p>
+                  <strong><%= t('.complement') %></strong>
+                    <%= @escort.source_complement %>
+                  </p>
+                </div>
+                <div class="form-floating mb-3">
+                  <p>
+                  <strong><%= t('.district') %></strong>
+                    <%= @escort.source_district %>
+                  </p>
+                </div>
+                <div class="form-floating mb-3">
+                  <p>
+                  <strong><%= t('.city') %></strong>
+                    <%= @escort.source_city %>
+                  </p>
+                </div>
+                <div class="form-floating mb-3">
+                  <p>
+                  <strong><%= t('.state') %></strong>
+                    <%= @escort.source_state %>
+                  </p>
+                </div>
+                <hr>
+                <h4><strong><%= t('.destiny_local') %></strong></h4>
+                <br>
+                <div class="form-floating mb-3">
+                  <p>
+                  <strong><%= t('.address') %></strong>
+                    <%= @escort.destiny_address %>
+                  </p>
+                </div>
+                <div class="form-floating mb-3">
+                  <p>
+                  <strong><%= t('.number') %></strong>
+                    <%= @escort.destiny_number %>
+                  </p>
+                </div>
+                <div class="form-floating mb-3">
+                  <p>
+                  <strong><%= t('.complement') %></strong>
+                    <%= @escort.destiny_complement %>
+                  </p>
+                </div>
+                <div class="form-floating mb-3">
+                  <p>
+                  <strong><%= t('.district') %></strong>
+                    <%= @escort.destiny_district %>
+                  </p>
+                </div>
+                <div class="form-floating mb-3">
+                  <p>
+                  <strong><%= t('.city') %></strong>
+                    <%= @escort.destiny_city %>
+                  </p>
+                </div>
+                <div class="form-floating mb-3">
+                  <p>
+                  <strong><%= t('.state') %></strong>
+                    <%= @escort.destiny_state %>
+                    </p>
+                </div>
+                <div class="form-floating mb-3">
+                  <p>
+                  <strong><%= t('.observation') %></strong>
+                    <%= @escort.observation %>
+                  </p>
+                </div>
+                <br>
+                <%= link_to t('.back_btn'),
+                            customer_panel_dashboard_escolta_lista_path,
+                            class: 'btn btn-primary' %>
+                <%= link_to t('.cancel_btn'),
+                            { action: 'cancel',
+                              order_number: @escort.order_number,
+                              method: :delete
+                            },
+                            method: :delete,
+                            class: 'btn btn-danger' %>
+              </div>
+              <div class="card-footer text-center py-3"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

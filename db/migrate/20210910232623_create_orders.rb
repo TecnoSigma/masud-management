@@ -18,6 +18,7 @@ class CreateOrders < ActiveRecord::Migration[5.2]
       t.string :destiny_state
       t.string :observation
       t.string :reason
+      t.datetime :deleted_at
       t.references :customer, index: true
       t.references :status, index: true
 

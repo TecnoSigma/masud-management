@@ -14,9 +14,11 @@ Rails.application.routes.draw do
     get 'cities'
 
     get 'dashboard/index'
-    get 'dashboard/escolta/lista', to: 'escort#list'
-    get 'dashboard/escolta/novo', to: 'escort#new'
-    post 'dashboard/escolta/create', to: 'escort#create'
+    get 'dashboard/escolta/lista',                   to: 'escort#list'
+    get 'dashboard/escolta/novo',                    to: 'escort#new'
+    get 'dashboard/escolta/:order_number',           to: 'escort#show', as: 'escort_show'
+    post 'dashboard/escolta/create',                 to: 'escort#create'
+    delete 'dashboard/escolta/cancel/:order_number', to: 'escort#cancel', as: 'escort_cancel'
   end
 
   scope module: 'employee_panel', path: 'gestao', as: 'employee_panel' do

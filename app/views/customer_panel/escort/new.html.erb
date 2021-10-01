@@ -1,5 +1,8 @@
 <h1 class="mt-4"><%= t('.title') %></h1>
 <ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item">
+    <%= link_to t('breadcrumbs.escorts_list'), customer_panel_dashboard_escolta_lista_path %>
+  </li>
   <li class="breadcrumb-item active"><%= t('breadcrumbs.new_scheduling') %></li>
 </ol>
 <hr>
@@ -18,7 +21,7 @@
                   <p>
                     <small><%= t('.required_fields') %></small>
                   </p>
-                  <span><strong><%= t('.escort_date') %></span></strong>
+                  <span><strong><%= t('.escort_date') %></strong></span>
                   <br><br>
                   <div class="form-floating mb-3">
                     <%= f.text_field :job_day,
@@ -37,7 +40,7 @@
                   <br><br>
                   <div class="form-floating mb-3">
                     <%= f.select :source_state,
-                                 State.all.collect {|state| [ state.name, state.id ] },
+                                 State.all.collect {|state| [ state.name, state.name ] },
                                  { class: 'form-control',
                                    prompt: t('.state') },
                                    onchange: "listCities($(this).val(), document.getElementById('escort_source_city'))",
@@ -88,7 +91,7 @@
                   <br><br>
                   <div class="form-floating mb-3">
                     <%= f.select :destiny_state,
-                                 State.all.collect {|state| [ state.name, state.id ] },
+                                 State.all.collect {|state| [ state.name, state.name ] },
                                  { class: 'form-control custom-select',
                                    prompt: t('.state') },
                                    onchange: "listCities($(this).val(), document.getElementById('escort_destiny_city'))",
@@ -151,14 +154,14 @@
   </div>
 </div>
 <script>
-  function listCities(state_id, receptorField) {
+  function listCities(state_name, receptorField) {
     let citiesList = [];
     let citiesTotal = 0;
 
     Rails.ajax({
       type: 'GET',
       url: '/cliente/cities',
-      data: new URLSearchParams({'state_id': state_id}).toString(),
+      data: new URLSearchParams({'state_name': state_name}).toString(),
       success: function (response) {
         let citiesList = [];
         let citiesLength = 0;

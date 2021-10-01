@@ -41,7 +41,7 @@ RSpec.describe 'CustomerPanel', type: :request do
       allow_any_instance_of(PanelsController).to receive(:authorized?) { true }
       allow_any_instance_of(CustomerPanel::EscortController).to receive(:customer) { customer }
 
-      get '/cliente/cities', params: { state_id: state.id }
+      get '/cliente/cities', params: { state_name: state.name }
 
       expect(response.body).to eq("{\"cities\":[\"#{city.name}\"]}")
       expect(response).to have_http_status(200)

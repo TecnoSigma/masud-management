@@ -9,13 +9,13 @@ class CustomerPanel::EscortController < PanelsController
   end
 
   def create
-    escort = Escort.new(escort_params)
+    escort = EscortScheduling.new(escort_params)
 
     escort.validate!
     escort.save!
 
     redirect_to customer_panel_dashboard_escolta_lista_path,
-                notice: t('messages.successes.scheduling_creation_successfuly')
+                notice: t('messages.successes.scheduling_creation_successfully')
   rescue StandardError => error
     Rails.logger.error("Message: #{error.message} - Backtrace: #{error.backtrace}")
 
@@ -23,7 +23,37 @@ class CustomerPanel::EscortController < PanelsController
                 alert: t('messages.errors.scheduling_creation_failed')
   end
 
+  def cancel
+    escort
+      .update(
+        deleted_at: DateTime.now,
+        status: Status.find_by_name('cancelado pelo cliente')
+    )
+
+    redirect_to customer_panel_dashboard_escolta_lista_path,
+                notice: t('messages.successes.scheduling_cancelation_successfully')
+  rescue StandardError => error
+    Rails.logger.error("Message: #{error.message} - Backtrace: #{error.backtrace}")
+
+    redirect_to customer_panel_dashboard_escolta_lista_path,
+                alert: t('messages.errors.scheduling_cancelation_failed')
+  end
+
+  def show
+    @escort = escort
+  end
+
   private
+
+  def escort
+    customer
+      .escorts
+      .detect { |escort| escort.order_number == params['order_number'] }
+  end
+
+  def send_scheduling_notifications
+    #TODO: Criar notificação de confirmação de agendamento
+  end
 
   def escort_params
     params.require(:escort).permit(
