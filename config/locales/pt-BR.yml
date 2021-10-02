@@ -32,6 +32,9 @@ pt-BR:
     successes:
       scheduling_creation_successfully: 'Agendamento criado com sucesso!'
       scheduling_cancelation_successfully: 'Agendamento cancelado com sucesso!'
+  layouts:
+    application:
+      logout: 'Logout'
   customer_panel:
     login:
       title: 'Área do Cliente'
