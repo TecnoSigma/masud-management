@@ -35,6 +35,7 @@ pt-BR:
   layouts:
     application:
       logout: 'Logout'
+      logged_in_as: 'Logado como:'
   customer_panel:
     login:
       title: 'Área do Cliente'
