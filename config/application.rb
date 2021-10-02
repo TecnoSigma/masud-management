@@ -6,7 +6,7 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module ProtectorAngels
+module MasudManagement
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
@@ -19,5 +19,20 @@ module ProtectorAngels
 
     config.autoload_paths += %W[#{config.root}/lib]
     config.autoload_paths += %W[#{config.root}/app/exceptions]
+
+    # Notifications
+    unless Rails.env.test?
+      config.action_mailer.delivery_method = :smtp
+
+      config.action_mailer.smtp_settings = {
+        address: ENV['EMAIL_ADDRESS'],
+        port: 587,
+        domain: ENV['EMAIL_DOMAIN'],
+        authentication: 'plain',
+        enable_starttls_auto: true,
+        user_name: ENV['EMAIL_ACCOUNT'],
+        password: ENV['EMAIL_PASSWORD']
+      }
+    end
   end
 end

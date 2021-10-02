@@ -295,6 +295,8 @@ RSpec.describe 'CustomerPanel::Escort', type: :request do
         allow_any_instance_of(PanelsController).to receive(:tokenized?) { true }
         allow_any_instance_of(PanelsController).to receive(:authorized?) { true }
         allow_any_instance_of(CustomerPanel::EscortController).to receive(:customer) { customer }
+        allow(Notifications::Customers::Orders::Escort)
+          .to receive_message_chain(:scheduling, :deliver_now!) { true }
 
         escort_params = FactoryBot.attributes_for(:order,
                                                   :scheduled,
@@ -317,6 +319,8 @@ RSpec.describe 'CustomerPanel::Escort', type: :request do
         allow_any_instance_of(PanelsController).to receive(:tokenized?) { true }
         allow_any_instance_of(PanelsController).to receive(:authorized?) { true }
         allow_any_instance_of(CustomerPanel::EscortController).to receive(:customer) { customer }
+        allow(Notifications::Customers::Orders::Escort)
+          .to receive_message_chain(:scheduling, :deliver_now!) { true }
 
         escort_params = FactoryBot.attributes_for(:order,
                                                   :scheduled,
@@ -337,6 +341,8 @@ RSpec.describe 'CustomerPanel::Escort', type: :request do
         allow_any_instance_of(PanelsController).to receive(:tokenized?) { true }
         allow_any_instance_of(PanelsController).to receive(:authorized?) { true }
         allow_any_instance_of(CustomerPanel::EscortController).to receive(:customer) { customer }
+        allow(Notifications::Customers::Orders::Escort)
+          .to receive_message_chain(:scheduling, :deliver_now!) { true }
 
         escort_params = FactoryBot.attributes_for(:order,
                                                   :scheduled,

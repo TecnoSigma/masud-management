@@ -102,3 +102,9 @@ pt-BR:
      escort: 'Escolta'
      list: 'Lista'
      new_scheduling: 'Novo Agendamento'
+  notifications:
+    customer:
+      orders:
+        escort:
+          scheduling:
+            subject: 'Agendamento da Escolta %{order_number}'

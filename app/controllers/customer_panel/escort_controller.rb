@@ -14,6 +14,8 @@ class CustomerPanel::EscortController < PanelsController
     escort.validate!
     escort.save!
 
+    send_scheduling_notifications(customer, escort)
+
     redirect_to customer_panel_dashboard_escolta_lista_path,
                 notice: t('messages.successes.scheduling_creation_successfully')
   rescue StandardError => error
@@ -53,8 +55,30 @@ class CustomerPanel::EscortController < PanelsController
       .detect { |escort| escort.order_number == params['order_number'] }
   end
 
-  def send_scheduling_notifications
-    #TODO: Criar notificação de confirmação de agendamento
+  def send_scheduling_notifications(customer, escort)
+    emails_list.each do |email|
+      begin
+        Notifications::Customers::Orders::Escort
+          .scheduling(
+            customer: customer,
+            escort: escort,
+            email: email
+          )
+          .deliver_now!
+      rescue StandardError => error
+        Rails.logger.error("Message: #{error.message} - Backtrace: #{error.backtrace}")
+
+        next
+      end
+    end
+  end
+
+  def emails_list
+    [
+      customer.email,
+      customer.secondary_email,
+      customer.tertiary_email
+    ].compact
   end
 
   def escort_params
