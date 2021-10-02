@@ -25,15 +25,25 @@ class Order < ApplicationRecord
   ALLOWED_STATUSES = {
     scheduled: 'agendado',
     confirmed: 'confirmado',
-    refused: 'recusado'
+    refused: 'recusado',
+    cancelled_by_customer: 'cancelado pelo cliente'
   }.freeze
 
   PER_PAGE_IN_CUSTOMER_DASHBOARD = 20.freeze
+  CANCELLATION_DEADLINE = 3.0.freeze
 
-  private_constant :ALLOWED_STATUSES
+  private_constant :ALLOWED_STATUSES, :CANCELLATION_DEADLINE
 
   def create_order_number
     self.order_number = DateTime.now.strftime('%Y%m%d%H%M%S')
+  end
+
+  def deletable?
+    difference = TimeDifference
+      .between(self.created_at, DateTime.now)
+      .in_hours
+
+    CANCELLATION_DEADLINE >= difference
   end
 
   def check_job_day

@@ -24,6 +24,8 @@ class CustomerPanel::EscortController < PanelsController
   end
 
   def cancel
+    raise DeleteEscortSchedulingError unless escort.deletable?
+
     escort
       .update(
         deleted_at: DateTime.now,
@@ -32,7 +34,7 @@ class CustomerPanel::EscortController < PanelsController
 
     redirect_to customer_panel_dashboard_escolta_lista_path,
                 notice: t('messages.successes.scheduling_cancelation_successfully')
-  rescue StandardError => error
+  rescue DeleteEscortSchedulingError, StandardError => error
     Rails.logger.error("Message: #{error.message} - Backtrace: #{error.backtrace}")
 
     redirect_to customer_panel_dashboard_escolta_lista_path,

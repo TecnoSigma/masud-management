@@ -17,9 +17,11 @@ class Customer < ApplicationRecord
   private_constant :ACTIVE_STATUS
 
   def escorts
-    orders.order(:job_day).select do |order|
-      order.type == 'EscortScheduling' || order.type == 'EscortService'
-    end
+    (
+      [EscortScheduling.where(customer: self),
+       EscortService.where(customer: self)]
+    ).flatten
+     .sort { |a,b| a.job_day <=> b.job_day }
   end
 
   def active?

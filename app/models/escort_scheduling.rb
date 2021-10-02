@@ -3,13 +3,16 @@
 class EscortScheduling < Escort
   validate :check_allowed_internal_status
 
-  ALLOWED_STATUS = 'agendado'.freeze
+  ALLOWED_STATUSES = [
+    'agendado',
+    'cancelado pelo cliente'
+  ].freeze
 
-  private_constant :ALLOWED_STATUS
+  private_constant :ALLOWED_STATUSES
 
   def check_allowed_internal_status
     error_message = I18n.t('messages.errors.invalid_status')
 
-    errors.add(:status, error_message) unless ALLOWED_STATUS == self.status.name
+    errors.add(:status, error_message) if ALLOWED_STATUSES.exclude?(self.status.name)
   end
 end

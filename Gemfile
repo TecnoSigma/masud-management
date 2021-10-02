@@ -14,6 +14,7 @@ gem 'rails', '~> 5.2.3'
 gem 'rest-client'
 gem 'rubycritic', require: false
 gem 'sass-rails', '~> 5.0'
+gem 'time_difference'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 gem 'will_paginate', '~> 3.1.0'
