@@ -110,12 +110,14 @@
                 <%= link_to t('.back_btn'),
                             customer_panel_dashboard_escolta_lista_path,
                             class: 'btn btn-primary' %>
-                <%= link_to t('.cancel_btn'),
-                            { action: 'cancel',
-                              order_number: @escort.order_number,
-                            },
-                            method: :delete,
-                            class: 'btn btn-danger' %>
+                <% if @escort.scheduled? && @escort.deletable? %>
+                  <%= link_to t('.cancel_btn'),
+                              { action: 'cancel',
+                                order_number: @escort.order_number,
+                              },
+                              method: :delete,
+                              class: 'btn btn-danger' %>
+                <% end %>
               </div>
               <div class="card-footer text-center py-3"></div>
             </div>

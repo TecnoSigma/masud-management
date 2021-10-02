@@ -13,15 +13,16 @@ class Customer < ApplicationRecord
 
   ACTIVE_STATUS = 'ativo'.freeze
   DEFAULT_PASSWORD = 'inicial1234'.freeze
+  HIDDEN_STATUS = 'cancelado pelo cliente'.freeze
 
-  private_constant :ACTIVE_STATUS
+  private_constant :ACTIVE_STATUS, :HIDDEN_STATUS
 
   def escorts
-    (
-      [EscortScheduling.where(customer: self),
-       EscortService.where(customer: self)]
-    ).flatten
-     .sort { |a,b| a.job_day <=> b.job_day }
+    ([EscortScheduling.where(customer: self),
+       EscortService.where(customer: self)])
+      .flatten
+      .reject { |escort| escort.status.name == HIDDEN_STATUS }
+      .sort { |a,b| a.job_day <=> b.job_day }
   end
 
   def active?
