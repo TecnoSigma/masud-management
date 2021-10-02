@@ -6,6 +6,7 @@ class PanelsController < ApplicationController
   before_action :reset_sessions, only: [:login]
 
   def index; end
+
   def login; end
 
   def check_credentials
@@ -27,9 +28,11 @@ class PanelsController < ApplicationController
     service_token = user.service_token
     new_token = SecureRandom.uuid
 
-    service_token ?
-      service_token.update(token: new_token) :
+    if service_token
+      service_token.update(token: new_token)
+    else
       user.update(service_token: ServiceToken.create(token: new_token))
+    end
   end
 
   def create_sessions

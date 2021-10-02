@@ -57,7 +57,7 @@ RSpec.describe 'EmployeePanel::OperatorPanelController', type: :request do
         expect(response).to render_template(:dashboard)
       end
     end
-    
+
     context 'when occurs errors' do
       it 'redirects to 500 page' do
         allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }

@@ -58,7 +58,7 @@ RSpec.describe 'EmployeePanel::AdministratorPanelController', type: :request do
           .to render_template(file: "#{Rails.root}/app/views/error_pages/401.html.erb")
       end
     end
-    
+
     context 'when occurs errors' do
       it 'redirects to 500 page' do
         allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }

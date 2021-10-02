@@ -10,12 +10,12 @@ class CustomerPanelController < PanelsController
   end
 
   def cities
-    cities = State.
-      find_by_name(params['state_name'])
-      .cities
-      .all
-      .map(&:name)
-      .sort
+    cities = State
+             .find_by_name(params['state_name'])
+             .cities
+             .all
+             .map(&:name)
+             .sort
 
     render json: { 'cities' => cities }, status: :ok
   rescue StandardError => e

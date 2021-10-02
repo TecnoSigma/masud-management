@@ -15,9 +15,9 @@ Metrics/BlockLength:
   Enabled: true
   Exclude:
     - 'spec/**/*'
-Documentation:
+Style/Documentation:
   Enabled: false
 Naming/RescuedExceptionsVariableName:
   Enabled: false
-Metrics/LineLength:
+Layout:
   Max: 100

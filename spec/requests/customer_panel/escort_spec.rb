@@ -90,7 +90,6 @@ RSpec.describe 'CustomerPanel::Escort', type: :request do
       it 'no changes status to \'cancelado pelo cliente\'' do
         customer = FactoryBot.create(:customer)
         status = FactoryBot.create(:status, name: 'agendado')
-        cancellation_status = FactoryBot.create(:status, name: 'cancelado pelo cliente')
 
         allow_any_instance_of(PanelsController).to receive(:tokenized?) { true }
         allow_any_instance_of(PanelsController).to receive(:authorized?) { true }
@@ -110,17 +109,10 @@ RSpec.describe 'CustomerPanel::Escort', type: :request do
 
       it 'redirects to escorts list page' do
         customer = FactoryBot.create(:customer)
-        status = FactoryBot.create(:status, name: 'agendado')
-        cancellation_status = FactoryBot.create(:status, name: 'cancelado pelo cliente')
 
         allow_any_instance_of(PanelsController).to receive(:tokenized?) { true }
         allow_any_instance_of(PanelsController).to receive(:authorized?) { true }
         allow_any_instance_of(CustomerPanel::EscortController).to receive(:customer) { customer }
-
-        escort = FactoryBot.create(:order,
-                                   :scheduled,
-                                   customer: customer,
-                                   status: status)
 
         delete '/cliente/dashboard/escolta/cancel/any_invalid_order_number'
 
@@ -129,17 +121,10 @@ RSpec.describe 'CustomerPanel::Escort', type: :request do
 
       it 'shows error message' do
         customer = FactoryBot.create(:customer)
-        status = FactoryBot.create(:status, name: 'agendado')
-        cancellation_status = FactoryBot.create(:status, name: 'cancelado pelo cliente')
 
         allow_any_instance_of(PanelsController).to receive(:tokenized?) { true }
         allow_any_instance_of(PanelsController).to receive(:authorized?) { true }
         allow_any_instance_of(CustomerPanel::EscortController).to receive(:customer) { customer }
-
-        escort = FactoryBot.create(:order,
-                                   :scheduled,
-                                   customer: customer,
-                                   status: status)
 
         delete '/cliente/dashboard/escolta/cancel/any_invalid_order_number'
 
@@ -155,7 +140,6 @@ RSpec.describe 'CustomerPanel::Escort', type: :request do
         allow_any_instance_of(PanelsController).to receive(:tokenized?) { true }
         allow_any_instance_of(PanelsController).to receive(:authorized?) { true }
         allow_any_instance_of(CustomerPanel::EscortController).to receive(:customer) { customer }
-
 
         escort = FactoryBot.create(:order,
                                    :scheduled,
@@ -210,7 +194,6 @@ RSpec.describe 'CustomerPanel::Escort', type: :request do
       it 'no changes status to \'cancelado pelo cliente\'' do
         customer = FactoryBot.create(:customer)
         status = FactoryBot.create(:status, name: 'agendado')
-        cancellation_status = FactoryBot.create(:status, name: 'cancelado pelo cliente')
 
         allow_any_instance_of(PanelsController).to receive(:tokenized?) { true }
         allow_any_instance_of(PanelsController).to receive(:authorized?) { true }
@@ -288,7 +271,7 @@ RSpec.describe 'CustomerPanel::Escort', type: :request do
     context 'when pass valid params' do
       it 'creates a new escort' do
         active_status = FactoryBot.create(:status, name: 'ativo')
-        scheduled_status= FactoryBot.create(:status, name: 'agendado')
+        status = FactoryBot.create(:status, name: 'agendado')
 
         customer = FactoryBot.create(:customer, status: active_status)
 
@@ -312,7 +295,7 @@ RSpec.describe 'CustomerPanel::Escort', type: :request do
 
       it 'redirect to escort list' do
         active_status = FactoryBot.create(:status, name: 'ativo')
-        scheduled_status = FactoryBot.create(:status, name: 'agendado')
+        status = FactoryBot.create(:status, name: 'agendado')
 
         customer = FactoryBot.create(:customer, status: active_status)
 
@@ -334,7 +317,7 @@ RSpec.describe 'CustomerPanel::Escort', type: :request do
 
       it 'shows success message' do
         active_status = FactoryBot.create(:status, name: 'ativo')
-        scheduled_status = FactoryBot.create(:status, name: 'agendado')
+        status = FactoryBot.create(:status, name: 'agendado')
 
         customer = FactoryBot.create(:customer, status: active_status)
 

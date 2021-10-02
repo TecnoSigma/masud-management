@@ -37,7 +37,7 @@ RSpec.describe Customer, type: :model do
     end
 
     it 'validates optional relationship (1:1) between Service Token and Customer' do
-      customer= Customer.new
+      customer = Customer.new
 
       expect(customer).to respond_to(:service_token)
     end

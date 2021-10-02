@@ -14,8 +14,8 @@ class Employee < ApplicationRecord
   belongs_to :status
   has_one :service_token
 
-  ACTIVE_STATUS = 'ativo'.freeze
-  MASTER_PROFILE = 'Administrator'.freeze
+  ACTIVE_STATUS = 'ativo'
+  MASTER_PROFILE = 'Administrator'
 
   private_constant :ACTIVE_STATUS
 
@@ -24,6 +24,6 @@ class Employee < ApplicationRecord
   end
 
   def profile_with_access_permission?
-    self.class == Agent
+    instance_of?(Agent)
   end
 end

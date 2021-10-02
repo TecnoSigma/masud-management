@@ -47,7 +47,7 @@ RSpec.describe 'CustomerPanel', type: :request do
       expect(response).to have_http_status(200)
     end
 
-   it 'returns empty list wehn occurs errors' do
+    it 'returns empty list wehn occurs errors' do
       customer = FactoryBot.create(:customer)
 
       allow_any_instance_of(PanelsController).to receive(:tokenized?) { true }
@@ -56,7 +56,7 @@ RSpec.describe 'CustomerPanel', type: :request do
 
       get '/cliente/cities'
 
-      expect(response.body).to eq("{\"cities\":[]}")
+      expect(response.body).to eq('{"cities":[]}')
       expect(response).to have_http_status(500)
     end
   end

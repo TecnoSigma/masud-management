@@ -109,11 +109,11 @@ RSpec.describe Order, type: :model do
   end
 
   it 'no validates when status isn\'t allowed' do
-      status = FactoryBot.create(:status, name: 'invalid status')
-      order = FactoryBot.build(:order, status: status)
+    status = FactoryBot.create(:status, name: 'invalid status')
+    order = FactoryBot.build(:order, status: status)
 
-      expect(order).to be_invalid
-    end
+    expect(order).to be_invalid
+  end
 
   it 'no validates when job day is less than current day' do
     order = FactoryBot.build(:order, job_day: 1.day.ago)

@@ -53,7 +53,8 @@ RSpec.describe Operator, type: :model do
     end
 
     it 'of cvn_validation_date' do
-      operator = Operator.new(FactoryBot.attributes_for(:employee, :operator, cvn_validation_date: nil))
+      operator = Operator.new(FactoryBot.attributes_for(:employee, :operator,
+                                                        cvn_validation_date: nil))
 
       expect(operator).to be_invalid
     end

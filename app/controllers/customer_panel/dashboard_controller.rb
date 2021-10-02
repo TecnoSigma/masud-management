@@ -1,5 +1,9 @@
+# frozen_string_literal: true
+
 # frozen_string_litral: true
 
-class CustomerPanel::DashboardController < PanelsController
-  def index; end
+module CustomerPanel
+  class DashboardController < PanelsController
+    def index; end
+  end
 end

@@ -17,9 +17,9 @@ class EmployeePanelController < PanelsController
     return if Employee::MASTER_PROFILE == profile
 
     authorized = controller
-      .split('/')
-      .last
-      .start_with?(profile.downcase)
+                 .split('/')
+                 .last
+                 .start_with?(profile.downcase)
 
     rescue_unauthorized_error unless authorized
   rescue StandardError => error
