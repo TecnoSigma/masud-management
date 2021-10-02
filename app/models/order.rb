@@ -35,12 +35,12 @@ class Order < ApplicationRecord
   private_constant :ALLOWED_STATUSES, :CANCELLATION_DEADLINE
 
   def create_order_number
-    self.order_number = DateTime.now.strftime('%Y%m%d%H%M%S')
+    self.order_number = Time.zone.now.strftime('%Y%m%d%H%M%S')
   end
 
   def deletable?
     difference = TimeDifference
-      .between(self.created_at, DateTime.now)
+      .between(self.created_at, Time.zone.now)
       .in_hours
 
     CANCELLATION_DEADLINE >= difference

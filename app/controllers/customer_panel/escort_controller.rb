@@ -30,7 +30,7 @@ class CustomerPanel::EscortController < PanelsController
 
     escort
       .update(
-        deleted_at: DateTime.now,
+        deleted_at: Time.zone.now,
         status: Status.find_by_name('cancelado pelo cliente')
     )
 
@@ -65,7 +65,7 @@ class CustomerPanel::EscortController < PanelsController
             email: email
           )
           .deliver_now!
-      rescue StandardError => error
+      rescue Net::OpenTimeout, StandardError => error
         Rails.logger.error("Message: #{error.message} - Backtrace: #{error.backtrace}")
 
         next
