@@ -1,1 +1,13 @@
-<p><%= @company %></p>
+<%= render '././././partials/notifications/external_header' %>
+<p><%= "#{@greeting}," %></p>
+<br>
+<p><%= t('notifications.customer.orders.escort.scheduling.line_1') %></p>
+<p><%= t('notifications.customer.orders.escort.scheduling.line_2') %></p>
+<p><%= t('notifications.customer.orders.escort.scheduling.line_3') %></p>
+<br>
+<h3>
+  <strong>
+    <%= t('notifications.customer.orders.escort.scheduling.line_4', order_number: @order_number) %>
+  </strong>
+</h3>
+<%= render '././././partials/notifications/external_footer' %>

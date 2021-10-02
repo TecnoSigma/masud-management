@@ -1,5 +1,10 @@
 pt-BR:
   app_name: 'Masud Segurança'
+  greeting:
+    day: 'Bom dia'
+    afternoon: 'Boa tarde'
+    night: 'Boa noite'
+    general: 'Olá'
   breadcrumbs:
     escorts_list: 'Lista de Escoltas'
     new_scheduling: 'Novo agendamento'
@@ -97,14 +102,26 @@ pt-BR:
       password_placeholder: 'Senha'
   partials:
     customer_menu:
-     dashboard: 'Dashboard'
-     orders: 'Ordens de Serviço'
-     escort: 'Escolta'
-     list: 'Lista'
-     new_scheduling: 'Novo Agendamento'
+      dashboard: 'Dashboard'
+      orders: 'Ordens de Serviço'
+      escort: 'Escolta'
+      list: 'Lista'
+      new_scheduling: 'Novo Agendamento'
+    notifications:
+      external_footer:
+        line_1: 'Atenciosamente,'
+        line_2: 'Masud Segurança EIRELI'
+        line_3: 'Rua Maria Curupaiti, 1112 - Vila Ester'
+        line_4: 'São Paulo - SP'
+        line_5: 'Fone: (11) 2239-1085'
+        line_6: 'https://masudseguranca.com.br'
   notifications:
     customer:
       orders:
         escort:
           scheduling:
             subject: 'Agendamento da Escolta %{order_number}'
+            line_1: 'O agendamento de sua escolta foi feito com sucesso.'
+            line_2: 'Pedimos que aguarde a análise e posterior confirmação da execução do serviço.'
+            line_3: 'Em caso dúvidas, pedimos que, por favor, entre em contato conosco.'
+            line_4: 'Agendamento: %{order_number}'

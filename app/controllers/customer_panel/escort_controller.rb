@@ -14,7 +14,7 @@ class CustomerPanel::EscortController < PanelsController
     escort.validate!
     escort.save!
 
-    send_scheduling_notifications(customer, escort)
+    send_scheduling_notifications(escort.order_number)
 
     redirect_to customer_panel_dashboard_escolta_lista_path,
                 notice: t('messages.successes.scheduling_creation_successfully')
@@ -55,15 +55,11 @@ class CustomerPanel::EscortController < PanelsController
       .detect { |escort| escort.order_number == params['order_number'] }
   end
 
-  def send_scheduling_notifications(customer, escort)
+  def send_scheduling_notifications(order_number)
     emails_list.each do |email|
       begin
         Notifications::Customers::Orders::Escort
-          .scheduling(
-            customer: customer,
-            escort: escort,
-            email: email
-          )
+          .scheduling( order_number: order_number, email: email)
           .deliver_now!
       rescue Net::OpenTimeout, StandardError => error
         Rails.logger.error("Message: #{error.message} - Backtrace: #{error.backtrace}")
