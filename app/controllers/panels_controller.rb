@@ -2,10 +2,13 @@
 
 class PanelsController < ApplicationController
   before_action :check_token, only: [:main]
-  before_action :check_authorization, except: %i[index login logout check_credentials]
   before_action :reset_sessions, only: [:login]
+  before_action :check_authorization,
+                except: %i[index login logout check_credentials change_password update_password]
 
   def index; end
+
+  def change_password; end
 
   def login; end
 
@@ -22,7 +25,63 @@ class PanelsController < ApplicationController
                 alert: error_message(error.class)
   end
 
+  def update_password
+    @user = 'cliente' if params['customer_password']
+    @user = 'gestao' if params['employee_password']
+
+    raise ComparePasswordsError if same_passwords?
+    raise StrongPasswordError unless good_password?
+
+    if params['customer_password']
+      update_password!(Customer, @user)
+    elsif params['employee_password']
+      update_password!(Employee, @user)
+    else
+      raise StandardError
+    end
+  rescue ComparePasswordsError, StrongPasswordError, StandardError => error
+    password_error(error.class, @user)
+  end
+
   private
+
+  def update_password!(user_class, user)
+    user_class
+      .find_by(
+        email: user_password_params[:email], password: user_password_params[:current_password]
+      )
+      .update(password: user_password_params[:new_password])
+
+    redirect_to "/#{user}/dashboard/trocar_senha",
+                notice: t('messages.successes.password_changed_successfully')
+  rescue StandardError => error
+    Rails.logger.error("Message: #{error.message} - Backtrace: #{error.backtrace}")
+
+    redirect_to "/#{user}/dashboard/trocar_senha",
+                alert: t('messages.errors.change_password_failed')
+  end
+
+  def password_error(error, user)
+    if error == ComparePasswordsError
+      redirect_to "/#{user}/dashboard/trocar_senha", alert: t('messages.errors.same_passwords')
+    end
+
+    if error == StrongPasswordError
+      redirect_to "/#{user}/dashboard/trocar_senha", alert: t('messages.errors.weak_password')
+    end
+  end
+
+  def good_password?
+    strength = PasswordStrength.test('', user_password_params[:new_password])
+
+    return false unless strength.valid?
+
+    strength.good? || strength.strong?
+  end
+
+  def same_passwords?
+    user_password_params[:current_password] == user_password_params[:new_password]
+  end
 
   def create_token
     service_token = user.service_token
@@ -53,6 +112,16 @@ class PanelsController < ApplicationController
   def error_message(error)
     return t('messages.errors.incorrect_user_data') if error == UserNotFound
     return t('messages.errors.unauthorized_user') if error == UnauthorizedUser
+  end
+
+  def user_password_params
+    user = if params['customer_password']
+             params.require(:customer_password)
+           elsif params['employee_password']
+             params.require(:employee_password)
+           end
+
+    user.permit(:email, :current_password, :new_password)
   end
 
   def user_params

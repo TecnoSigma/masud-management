@@ -27,15 +27,21 @@ pt-BR:
       invalid_status: 'Status inválido!'
       scheduling_creation_failed: 'Falha ao criar agendamento!'
       scheduling_cancelation_failed: 'Falha ao cancelar agendamento!'
+      same_passwords: 'As senhas utilizadas são iguais!'
+      weak_password: 'A nova senha é muito fraca!... Tente outra!'
+      change_password_failed: 'Falha ao alterar a senha!'
     infos:
       scheduling_cancelation: 'Importante: Todo agendamento poderá ser cancelado em até trẽs horas após a sua criação.'
+      password_strength: 'Dica; Utilize letras, números e caracteres especiais (&, @, !, #) '
     successes:
       scheduling_creation_successfully: 'Agendamento criado com sucesso!'
       scheduling_cancelation_successfully: 'Agendamento cancelado com sucesso!'
+      password_changed_successfully: 'Senha alterada com sucesso!'
   layouts:
     application:
       logout: 'Logout'
       logged_in_as: 'Logado como:'
+      change_password: 'Trocar Senha'
   customer_panel:
     login:
       title: 'Área do Cliente'
@@ -119,6 +125,13 @@ pt-BR:
         line_4: 'São Paulo - SP'
         line_5: 'Fone: (11) 2239-1085'
         line_6: 'https://masudseguranca.com.br'
+    change_password:
+      title: 'Alteração de Senha'
+      current_email: 'Email'
+      old_password: 'Senha Antiga'
+      new_password: 'Nova Senha'
+      confirm_password: 'Confirme nova senha'
+      change_password_btn: 'Alterar Senha'
   notifications:
     customer:
       orders:

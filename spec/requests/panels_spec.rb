@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'EmployeePanel', type: :request do
+RSpec.describe 'Panel', type: :request do
   describe '#check_credentials' do
     context 'when customer is active' do
       it 'redirects to customer dashboard page' do
