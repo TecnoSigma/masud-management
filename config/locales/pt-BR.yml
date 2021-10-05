@@ -106,6 +106,7 @@ pt-BR:
         source_local: 'Local de Origem'
         destiny_local: 'Local de Destino'
   employee_panel:
+    login:
       title: 'Área de Gestão'
       email: 'Email'
       password: 'Senha'
