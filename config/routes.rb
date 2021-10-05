@@ -5,7 +5,12 @@ Rails.application.routes.draw do
 
   get 'esqueceu_sua_senha', to: 'panels#forgot_your_password'
   post 'check_credentials', to: 'panels#check_credentials'
+  post 'send_password',     to: 'panels#send_password'
   patch 'update_password',  to: 'panels#update_password'
+
+  get 'cliente/esqueceu_sua_senha', to: 'customer_panel#forgot_your_password'
+
+  get 'gestao/esqueceu_sua_senha', to: 'employee_panel#forgot_your_password'
 
   get 'cliente/dashboard/trocar_senha', to: 'customer_panel#change_password'
 

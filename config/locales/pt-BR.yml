@@ -30,6 +30,8 @@ pt-BR:
       same_passwords: 'As senhas utilizadas são iguais!'
       weak_password: 'A nova senha é muito fraca!... Tente outra!'
       change_password_failed: 'Falha ao alterar a senha!'
+      user_not_found: 'Usuário não enconstrado!'
+      send_password_failed: 'Falha ao enviar a senha!'
     infos:
       scheduling_cancelation: 'Importante: Todo agendamento poderá ser cancelado em até trẽs horas após a sua criação.'
       password_strength: 'Dica; Utilize letras, números e caracteres especiais (&, @, !, #) '
@@ -37,6 +39,7 @@ pt-BR:
       scheduling_creation_successfully: 'Agendamento criado com sucesso!'
       scheduling_cancelation_successfully: 'Agendamento cancelado com sucesso!'
       password_changed_successfully: 'Senha alterada com sucesso!'
+      password_sent_successfully: 'Senha enviada com sucesso!'
   layouts:
     application:
       logout: 'Logout'
@@ -117,6 +120,11 @@ pt-BR:
       escort: 'Escolta'
       list: 'Lista'
       new_scheduling: 'Novo Agendamento'
+    forgot_your_password:
+      title: 'Esqueceu sua senha?'
+      email: 'Email'
+      email_placeholder: 'name@example.com'
+      send_password_btn: 'Enviar Senha'
     notifications:
       external_footer:
         line_1: 'Atenciosamente,'
@@ -137,8 +145,15 @@ pt-BR:
       orders:
         escort:
           scheduling:
-            subject: 'Agendamento da Escolta %{order_number}'
+            subject: 'Masud Segurança - Agendamento da Escolta %{order_number}'
+            line_0: 'Olá,'
             line_1: 'O agendamento de sua escolta foi feito com sucesso.'
             line_2: 'Pedimos que aguarde a análise e posterior confirmação da execução do serviço.'
             line_3: 'Em caso dúvidas, pedimos que, por favor, entre em contato conosco.'
             line_4: 'Agendamento: %{order_number}'
+    user:
+      forgot_your_password:
+        subject: 'Masud Segurança - Senha de Acesso'
+        line_0: 'Olá,'
+        line_1: 'Segue abaixo a senha de acesso ao seu dashboard:'
+        line_2: 'Senha de acesso: %{password}'

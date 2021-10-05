@@ -5,7 +5,6 @@ module Notifications
     module Orders
       class Escort < ApplicationMailer
         def scheduling(order_number:, email:)
-          @greeting = Greeting.greet
           @order_number = order_number
 
           attachments.inline['logotype.jpeg'] = {

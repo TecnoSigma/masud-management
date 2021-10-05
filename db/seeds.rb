@@ -38,14 +38,15 @@ if Rails.env.development?
   FactoryBot.create(:employee, :operator)
 
   # Customers
-  FactoryBot.create(:customer, email: 'acme@acme.com.br', password: '123456', company: 'ACME')
+  FactoryBot.create(:customer, email: 'tecnooxossi@gmail.com', password: '123456', company: 'ACME')
   FactoryBot.create(:customer, email: 'xpto@xpto.com.br', password: '123456', company: 'XPTO')
 
-  (1..10).each do |_a|
+  (1..40).each do |_a|
     sleep(2)
 
     FactoryBot.create(:order,
                       [:scheduled, :confirmed, :refused].sample,
-                      customer: [Customer.first, Customer.last].sample)
+                      customer: [Customer.find_by_email('tecnooxossi@gmail.com'),
+                                 Customer.find_by_email('xpto@xpto.com.br')].sample)
   end
 end

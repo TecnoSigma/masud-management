@@ -4,13 +4,22 @@ class PanelsController < ApplicationController
   before_action :check_token, only: [:main]
   before_action :reset_sessions, only: [:login]
   before_action :check_authorization,
-                except: %i[index login logout check_credentials change_password update_password]
+                except: %i[index
+                           login
+                           logout
+                           check_credentials
+                           change_password
+                           update_password
+                           forgot_your_password
+                           send_password]
 
   def index; end
 
   def change_password; end
 
   def login; end
+
+  def forgot_your_password; end
 
   def check_credentials
     raise UserNotFound unless user
@@ -23,6 +32,40 @@ class PanelsController < ApplicationController
   rescue UserNotFound, UnauthorizedUser => error
     redirect_to send("#{user_type}_panel_login_path"),
                 alert: error_message(error.class)
+  end
+
+  def send_password
+    customer = Customer.find_by_email(user_password_params[:email])
+    employee = Employee.find_by_email(user_password_params[:email])
+
+    user = customer || employee
+
+    @type = 'cliente' if customer
+    @type = 'gestao' if employee
+
+    raise FindUserError unless user
+
+    Notifications::User
+      .forgot_your_password(email: user.email, password: user.password)
+      .deliver_now!
+
+    redirect_to "/#{@type}/esqueceu_sua_senha",
+                notice: t('messages.successes.password_sent_successfully')
+  rescue FindUserError, StandardError => error
+    error_message = case error.class
+                    when FindUserError
+                      t('messages.errors.user_not_found')
+                    when StandardError
+                      t('messages.errors.send_password_failed')
+                    else
+                      t('messages.errors.send_password_failed')
+                    end
+
+    if error.class == StandardError
+      Rails.logger.error("Message: #{error.message} - Backtrace: #{error.backtrace}")
+    end
+
+    redirect_to root_path, alert: error_message
   end
 
   def update_password
@@ -48,9 +91,10 @@ class PanelsController < ApplicationController
   def update_password!(user_class, user)
     user_class
       .find_by(
-        email: user_password_params[:email], password: user_password_params[:current_password]
+        email: user_new_password_params[:email],
+        password: user_new_password_params[:current_password]
       )
-      .update(password: user_password_params[:new_password])
+      .update(password: user_new_password_params[:new_password])
 
     redirect_to "/#{user}/dashboard/trocar_senha",
                 notice: t('messages.successes.password_changed_successfully')
@@ -72,7 +116,7 @@ class PanelsController < ApplicationController
   end
 
   def good_password?
-    strength = PasswordStrength.test('', user_password_params[:new_password])
+    strength = PasswordStrength.test('', user_new_password_params[:new_password])
 
     return false unless strength.valid?
 
@@ -80,7 +124,7 @@ class PanelsController < ApplicationController
   end
 
   def same_passwords?
-    user_password_params[:current_password] == user_password_params[:new_password]
+    user_new_password_params[:current_password] == user_new_password_params[:new_password]
   end
 
   def create_token
@@ -115,6 +159,10 @@ class PanelsController < ApplicationController
   end
 
   def user_password_params
+    params.require(:user).permit(:email)
+  end
+
+  def user_new_password_params
     user = if params['customer_password']
              params.require(:customer_password)
            elsif params['employee_password']

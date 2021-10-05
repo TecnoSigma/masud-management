@@ -19,7 +19,7 @@ RSpec.describe Notifications::Customers::Orders::Escort, type: :mailer do
 
       result = described_class.scheduling(order_number: order_number, email: email).subject
 
-      expect(result).to eq("Agendamento da Escolta #{order_number}")
+      expect(result).to eq("Masud Segurança - Agendamento da Escolta #{order_number}")
     end
 
     it 'renders #from' do
