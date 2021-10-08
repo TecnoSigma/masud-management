@@ -9,7 +9,7 @@ RSpec.describe ApplicationHelper, type: :helper do
     it 'returns escort link' do
       result = helper.escort_links
 
-      expected_result = "<a class=\"nav-link\" href=\"/gestao/admin/dashboard/escoltas/scheduled\">Agendadas</a><a class=\"nav-link\" href=\"/gestao/admin/dashboard/escoltas/confirmed\">Confirmadas</a><a class=\"nav-link\" href=\"/gestao/admin/dashboard/escoltas/refused\">Recusadas</a><a class=\"nav-link\" href=\"/gestao/admin/dashboard/escoltas/cancelled_by_customer\">Canceladas pelo Cliente</a>"
+      expected_result = '<a class="nav-link" href="/gestao/admin/dashboard/escoltas/scheduled">Agendadas</a><a class="nav-link" href="/gestao/admin/dashboard/escoltas/confirmed">Confirmadas</a><a class="nav-link" href="/gestao/admin/dashboard/escoltas/refused">Recusadas</a><a class="nav-link" href="/gestao/admin/dashboard/escoltas/cancelled_by_customer">Canceladas pelo Cliente</a>'
 
       expect(result).to eq(expected_result)
     end

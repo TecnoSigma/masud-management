@@ -4,7 +4,7 @@ module EmployeePanel
   class DashboardController < PanelsController
     before_action :router, only: [:index]
 
-    def index ; end
+    def index; end
 
     private
 

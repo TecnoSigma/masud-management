@@ -35,11 +35,11 @@ class Order < ApplicationRecord
 
   private_constant :CANCELLATION_DEADLINE
 
-  scope :filtered_escorts_by, ->(status) do
-    where(type: "EscortScheduling")
-      .or(Order.where(type: "EscortService"))
+  scope :filtered_escorts_by, lambda { |status|
+    where(type: 'EscortScheduling')
+      .or(Order.where(type: 'EscortService'))
       .select { |escort| escort.status.name == ALLOWED_STATUSES[status.to_sym] }
-  end
+  }
 
   def create_order_number
     self.order_number = Time.zone.now.strftime('%Y%m%d%H%M%S')
@@ -77,5 +77,9 @@ class Order < ApplicationRecord
 
   def refused?
     status.name == ALLOWED_STATUSES[:refused]
+  end
+
+  def escort?
+    type == 'EscortScheduling' || type == 'EscortService'
   end
 end

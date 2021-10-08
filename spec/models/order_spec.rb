@@ -262,13 +262,43 @@ RSpec.describe Order, type: :model do
           :order,
           :confirmed,
           type: 'EscortService',
-          customer: customer,
+          customer: customer
         )
 
         result = Order.filtered_escorts_by('confirmed')
 
         expect(result).not_to be_empty
       end
+    end
+  end
+
+  describe 'escort?' do
+    it 'returns \'true\' when order is an EscortScheduling' do
+      customer = FactoryBot.create(:customer)
+      order = FactoryBot.create(
+        :order,
+        :confirmed,
+        type: 'EscortScheduling',
+        customer: customer
+      )
+
+      result = order.escort?
+
+      expect(result).to eq(true)
+    end
+
+    it 'returns \'true\' when order is an EscortService' do
+      customer = FactoryBot.create(:customer)
+      order = FactoryBot.create(
+        :order,
+        :confirmed,
+        type: 'EscortService',
+        customer: customer
+      )
+
+      result = order.escort?
+
+      expect(result).to eq(true)
     end
   end
 end

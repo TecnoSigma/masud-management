@@ -13,7 +13,7 @@ RSpec.describe 'EmployeePanel::AgentPanelController', type: :request do
 
         get '/gestao/agente/dashboard'
 
-        expect(response).to render_template(:dashboard)
+        expect(response).to render_template('layouts/application')
       end
     end
 

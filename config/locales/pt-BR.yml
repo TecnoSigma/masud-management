@@ -32,6 +32,9 @@ pt-BR:
       change_password_failed: 'Falha ao alterar a senha!'
       user_not_found: 'Usuário não enconstrado!'
       send_password_failed: 'Falha ao enviar a senha!'
+      escort:
+        not_found: 'Escolta não encontrada!'
+        find_failed: 'Falha ao procurar escoltas!'
     infos:
       scheduling_cancelation: 'Importante: Todo agendamento poderá ser cancelado em até trẽs horas após a sua criação.'
       password_strength: 'Dica; Utilize letras, números e caracteres especiais (&, @, !, #) '
@@ -117,19 +120,37 @@ pt-BR:
     administrator_panel:
       dashboard:
         escorts:
-          title: 'Escoltas'
-          escorts_list: 'Lista de Escoltas'
-          order: 'Pedido'
-          customer_name: 'Cliente'
-          job_day: 'Data do Trabalho'
-          source: 'Origem'
-          destiny: 'Destino'
-          observation: 'Observação'
-          status: 'Status'
-          created_at: 'Criado em'
-          details: 'detalhes'
+          escorts:
+            title: 'Escoltas'
+            escorts_list: 'Lista de Escoltas'
+            order: 'Pedido'
+            customer_name: 'Cliente'
+            job_day: 'Data do Trabalho'
+            source: 'Origem'
+            destiny: 'Destino'
+            observation: 'Observação'
+            status: 'Status'
+            created_at: 'Criado em'
+            details: 'detalhes'
+          show:
+            title: 'Escoltas'
+            job_day: 'Data: '
+            status: 'Status: '
+            address: 'Endereço: '
+            number: 'Número: '
+            complement: 'Complemento: '
+            district: 'Bairro: '
+            city: 'Cidade: '
+            state: 'Estado: '
+            observation: 'Observação: '
+            back_btn: 'Voltar'
+            cancel_btn: 'Cancelar Agendamento'
+            escort_date: 'Data da Escolta'
+            source_local: 'Local de Origem'
+            destiny_local: 'Local de Destino'
   partials:
     admin_menu:
+        dashboard: 'Dashboard'
         orders: 'Serviços'
         escort:
           type: 'Escoltas'

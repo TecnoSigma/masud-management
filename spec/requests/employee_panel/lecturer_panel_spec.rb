@@ -13,7 +13,7 @@ RSpec.describe 'EmployeePanel::LecturerPanelController', type: :request do
 
         get '/gestao/conferente/dashboard'
 
-        expect(response).to render_template(:dashboard)
+        expect(response).to render_template('layouts/application')
       end
     end
 
