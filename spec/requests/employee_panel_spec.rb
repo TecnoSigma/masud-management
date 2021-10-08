@@ -11,68 +11,6 @@ RSpec.describe 'EmployeePanel', type: :request do
     end
   end
 
-  describe '#main' do
-    context 'when is administrator profile' do
-      xit 'redirects to administrator dashboard' do
-        allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
-        allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
-        allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'administrator' }
-
-        get '/gestao/dashboard/index'
-
-        expect(response).to redirect_to(employee_panel_administrator_dashboard_index_path)
-      end
-    end
-
-    context 'when is agent profile' do
-      xit 'redirects to agent dashboard' do
-        allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
-        allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
-        allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'agent' }
-
-        get '/gestao/dashboard/index'
-
-        expect(response).to redirect_to(employee_panel_agent_dashboard_index_path)
-      end
-    end
-
-    context 'when is lecturer profile' do
-      xit 'redirects to lecturer dashboard' do
-        allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
-        allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
-        allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'lecturer' }
-
-        get '/gestao/dashboard/index'
-
-        expect(response).to redirect_to(employee_panel_lecturer_dashboard_index_path)
-      end
-    end
-
-    context 'when is operator profile' do
-      xit 'redirects to operator dashboard' do
-        allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
-        allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
-        allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
-
-        get '/gestao/dashboard/index'
-
-        expect(response).to redirect_to(employee_panel_operator_dashboard_index_path)
-      end
-    end
-
-    context 'when occurs errors' do
-      xit 'redirects to employee login page' do
-        allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
-        allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
-        allow_any_instance_of(EmployeePanelController).to receive(:profile) { raise StandardError }
-
-        get '/gestao/dashboard/index'
-
-        expect(response).to redirect_to(employee_panel_login_path)
-      end
-    end
-  end
-
   describe '#logout' do
     it 'renders to login page' do
       get '/gestao/logout'

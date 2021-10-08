@@ -114,7 +114,30 @@ pt-BR:
       login_btn: 'Login'
       email_placeholder: 'name@example.com'
       password_placeholder: 'Senha'
+    administrator_panel:
+      dashboard:
+        escorts:
+          title: 'Escoltas'
+          escorts_list: 'Lista de Escoltas'
+          order: 'Pedido'
+          customer_name: 'Cliente'
+          job_day: 'Data do Trabalho'
+          source: 'Origem'
+          destiny: 'Destino'
+          observation: 'Observação'
+          status: 'Status'
+          created_at: 'Criado em'
+          details: 'detalhes'
   partials:
+    admin_menu:
+        orders: 'Serviços'
+        escort:
+          type: 'Escoltas'
+          scheduled: 'Agendadas'
+          confirmed: 'Confirmadas'
+          refused: 'Recusadas'
+          cancelled_by_customer: 'Canceladas pelo Cliente'
+          general_report: 'Relatório Geral'
     customer_menu:
       dashboard: 'Dashboard'
       orders: 'Ordens de Serviço'

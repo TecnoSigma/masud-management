@@ -34,9 +34,12 @@ Rails.application.routes.draw do
   scope module: 'employee_panel', path: 'gestao', as: 'employee_panel' do
     get 'login'
     get 'logout'
+    get 'dashboard/index'
 
     scope module: 'administrator_panel', path: 'admin', as: 'administrator' do
-      get 'dashboard'
+      get 'dashboard/index'
+      get 'dashboard/escoltas/:status', to: 'dashboard/escorts#escorts', as: 'dashboard_escorts'
+      get 'dashboard/escolta/:order_number', to: 'dashboard/escorts#show', as: 'dashboard_escort_show'
     end
 
     scope module: 'agent_panel', path: 'agente', as: 'agent' do

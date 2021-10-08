@@ -23,6 +23,11 @@ FactoryBot.define do
     status { FactoryBot.create(:status, name: 'agendado') }
   end
 
+  trait :cancelled_by_customer do
+    type { 'EscortScheduling' }
+    status { FactoryBot.create(:status, name: 'cancelado pelo cliente') }
+  end
+
   trait :confirmed do
     type { 'EscortService' }
     status { FactoryBot.create(:status, name: 'confirmado') }

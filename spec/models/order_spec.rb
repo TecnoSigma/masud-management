@@ -205,4 +205,70 @@ RSpec.describe Order, type: :model do
       expect(result).to eq(false)
     end
   end
+
+  describe 'validates scope that filter escorts by status' do
+    context 'agendado' do
+      it 'returns scheduled escorts' do
+        customer = FactoryBot.create(:customer)
+        FactoryBot.create(
+          :order,
+          :scheduled,
+          type: 'EscortScheduling',
+          customer: customer
+        )
+
+        result = Order.filtered_escorts_by('scheduled')
+
+        expect(result).not_to be_empty
+      end
+    end
+
+    context 'cancelado pelo cliente' do
+      it 'returns scheduled escorts' do
+        customer = FactoryBot.create(:customer)
+        FactoryBot.create(
+          :order,
+          :cancelled_by_customer,
+          type: 'EscortScheduling',
+          customer: customer
+        )
+
+        result = Order.filtered_escorts_by('cancelled_by_customer')
+
+        expect(result).not_to be_empty
+      end
+    end
+
+    context 'recusado' do
+      it 'returns scheduled escorts' do
+        customer = FactoryBot.create(:customer)
+        FactoryBot.create(
+          :order,
+          :refused,
+          type: 'EscortService',
+          customer: customer
+        )
+
+        result = Order.filtered_escorts_by('refused')
+
+        expect(result).not_to be_empty
+      end
+    end
+
+    context 'confirmado' do
+      it 'returns confirmed escorts' do
+        customer = FactoryBot.create(:customer)
+        FactoryBot.create(
+          :order,
+          :confirmed,
+          type: 'EscortService',
+          customer: customer,
+        )
+
+        result = Order.filtered_escorts_by('confirmed')
+
+        expect(result).not_to be_empty
+      end
+    end
+  end
 end

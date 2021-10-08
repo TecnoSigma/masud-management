@@ -19,6 +19,12 @@ class Employee < ApplicationRecord
 
   private_constant :ACTIVE_STATUS
 
+  def self.admin?(token)
+    employee = ServiceToken.find_by_token(token).employee
+
+    employee.instance_of?(Administrator)
+  end
+
   def active?
     status.name == ACTIVE_STATUS
   end

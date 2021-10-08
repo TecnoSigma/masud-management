@@ -3,6 +3,26 @@
 require 'rails_helper'
 
 RSpec.describe Employee, type: :model do
+  describe '.admin?' do
+    it 'returns \'true\' when employee is admin' do
+      service_token = FactoryBot.create(:service_token)
+      FactoryBot.create(:employee, :admin, service_token: service_token)
+
+      result = described_class.admin?(service_token.token)
+
+      expect(result).to eq(true)
+    end
+
+    it 'returns \'false\' when employee isn\'t admin' do
+      employee = FactoryBot.create(:employee, :operator)
+      service_token = FactoryBot.create(:service_token, employee: employee)
+
+      result = described_class.admin?(service_token.token)
+
+      expect(result).to eq(false)
+    end
+  end
+
   describe '#active?' do
     it 'returns \'true\' whe customer is active' do
       status = FactoryBot.create(:status, name: 'ativo')

@@ -1,0 +1,61 @@
+<h1 class="mt-4"><%= t('.title') %></h1>
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item active"><%= t('breadcrumbs.escorts_list') %></li>
+</ol>
+<%= render './partials/messages' %>
+<div class="card mb-4">
+  <div class="card-header">
+    <i class="fas fa-table me-1"></i>
+    <%= t('.escorts_list') %>
+  </div>
+  <div class="card-body">
+    <table id="datatablesEscort" role='datatable' class="stripe" width="100%">
+      <thead>
+        <tr>
+          <th><%= t('.order') %></th>
+          <th><%= t('.customer_name') %></th>
+          <th><%= t('.job_day') %></th>
+          <th><%= t('.source') %></th>
+          <th><%= t('.destiny') %></th>
+          <th><%= t('.observation') %></th>
+          <th><%= t('.status') %></th>
+          <th><%= t('.created_at') %></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <th><%= t('.order') %></th>
+          <th><%= t('.customer_name') %></th>
+          <th><%= t('.job_day') %></th>
+          <th><%= t('.source') %></th>
+          <th><%= t('.destiny') %></th>
+          <th><%= t('.observation') %></th>
+          <th><%= t('.status') %></th>
+          <th><%= t('.created_at') %></th>
+          <th></th>
+        </tr>
+      </tfoot>
+      <tbody>
+        <% @escorts.each do |escort| %>
+          <tr class="<%= order_color(escort) %>">
+            <td><%= escort.order_number %></td>
+            <td><%= link_to first_customer_name(escort.customer.company), root_path %></td>
+            <td><%= convert_date_time(escort.job_day) %></td>
+            <td><%= escort.source_state %></td>
+            <td><%= escort.destiny_state %></td>
+            <td><%= escort.observation %></td>
+            <td><%= escort.status.name %></td>
+            <td><%= convert_date_time(escort.created_at) %></td>
+            <td>
+              <%= link_to employee_panel_administrator_dashboard_escort_show_path(escort.order_number) do %>
+                <i class="fas fa-align-justify me-1"></i></td>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= will_paginate @escorts, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+  </div>
+</div>

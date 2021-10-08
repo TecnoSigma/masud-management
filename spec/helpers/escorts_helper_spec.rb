@@ -5,14 +5,13 @@ require 'rails_helper'
 RSpec.describe ApplicationHelper, type: :helper do
   include ApplicationHelper
 
-  describe '#first_customer_name' do
-    it 'returns first customer name' do
-      first_name = 'ACME'
-      customer_name = "#{first_name} S.A."
+  describe '#escort_links' do
+    it 'returns escort link' do
+      result = helper.escort_links
 
-      result = helper.first_customer_name(customer_name)
+      expected_result = "<a class=\"nav-link\" href=\"/gestao/admin/dashboard/escoltas/scheduled\">Agendadas</a><a class=\"nav-link\" href=\"/gestao/admin/dashboard/escoltas/confirmed\">Confirmadas</a><a class=\"nav-link\" href=\"/gestao/admin/dashboard/escoltas/refused\">Recusadas</a><a class=\"nav-link\" href=\"/gestao/admin/dashboard/escoltas/cancelled_by_customer\">Canceladas pelo Cliente</a>"
 
-      expect(result).to eq(first_name)
+      expect(result).to eq(expected_result)
     end
   end
 

@@ -4,11 +4,13 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   def rescue_unauthorized_error
-    render file: "#{public_error_path}/401.html.erb"
+    render file: "#{public_error_path}/401.html.erb",
+           status: :unauthorized
   end
 
   def rescue_internal_server_error
-    render file: "#{public_error_path}/500.html.erb"
+    render file: "#{public_error_path}/500.html.erb",
+           status: :internal_server_error
   end
 
   def reset_sessions
