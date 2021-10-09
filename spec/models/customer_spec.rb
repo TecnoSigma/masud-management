@@ -61,12 +61,6 @@ RSpec.describe Customer, type: :model do
 
       expect(customer).to be_invalid
     end
-
-    it 'of password' do
-      customer = FactoryBot.build(:customer, password: nil)
-
-      expect(customer).to be_invalid
-    end
   end
 
   describe '#escorts' do
@@ -82,5 +76,26 @@ RSpec.describe Customer, type: :model do
 
       expect(result).to eq(expected_result)
     end
+  end
+
+  it 'generates password when create a new customer' do
+    company = 'XPTO S.A.'
+    customer = FactoryBot.build(:customer, company: company, password: nil)
+
+    customer.save!
+
+    result = Customer.find_by_company(company).password
+
+    expect(result).to be_present
+  end
+
+  it 'returns allowed status to customers' do
+    activate_status = FactoryBot.create(:status, name: 'ativo')
+    deactivate_status = FactoryBot.create(:status, name: 'desativado')
+    other_status = FactoryBot.create(:status, name: 'other_status')
+
+    result = Customer.statuses
+
+    expect(result).to eq([activate_status, deactivate_status])
   end
 end

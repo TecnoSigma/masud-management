@@ -42,9 +42,10 @@ Rails.application.routes.draw do
       get 'dashboard/escoltas/:status',      to: 'dashboard/escorts#escorts', as: 'dashboard_escorts'
       get 'dashboard/escolta/:order_number', to: 'dashboard/escorts#show', as: 'dashboard_escort_show'
 
-      get 'dashboard/clientes',     to: 'dashboard/customers#list'
-      get 'dashboard/cliente/novo', to: 'dashboard/customers#new'
-      get 'dashboard/cliente/:id',  to: 'dashboard/customers#show', as: 'dashboard_customer_show'
+      get 'dashboard/clientes',        to: 'dashboard/customers#list'
+      get 'dashboard/cliente/novo',    to: 'dashboard/customers#new'
+      get 'dashboard/cliente/:id',     to: 'dashboard/customers#show', as: 'dashboard_customer_show'
+      post 'dashboard/cliente/create', to: 'dashboard/customers#create'
     end
 
     scope module: 'agent_panel', path: 'agente', as: 'agent' do

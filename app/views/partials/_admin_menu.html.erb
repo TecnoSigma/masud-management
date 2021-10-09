@@ -3,8 +3,8 @@
    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
    <%= t('.dashboard') %>
   </a>
-  <div class="sb-sidenav-menu-heading"><%= t('.orders') %></div>
 
+  <div class="sb-sidenav-menu-heading"><%= t('.orders') %></div>
   <!-- ESCORTS -->
   <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseEscorts" aria-expanded="false" aria-controls="collapseLayouts">
     <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
@@ -18,8 +18,8 @@
     </nav>
   </div>
 
+  <div class="sb-sidenav-menu-heading"><%= t('.external_management') %></div>
   <!-- CUSTOMERS -->
-  <div class="sb-sidenav-menu-heading"><%= t('.management') %></div>
   <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseCustomers" aria-expanded="false" aria-controls="collapseLayouts">
     <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
     <%= t('.customer.type') %>
@@ -31,4 +31,6 @@
       <%= link_to t('.customer.general_report'), root_path, class: 'nav-link' %>
     </nav>
   </div>
+
+  <div class="sb-sidenav-menu-heading"><%= t('.internal_management') %></div>
 </div>

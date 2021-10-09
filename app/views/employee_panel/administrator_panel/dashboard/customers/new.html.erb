@@ -1,0 +1,91 @@
+<h1 class="mt-4"><%= t('.title') %></h1>
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item">
+    <%= link_to t('breadcrumbs.customers_list'), employee_panel_administrator_dashboard_clientes_path %>
+  </li>
+  <li class="breadcrumb-item active"><%= t('breadcrumbs.new_customer') %></li>
+</ol>
+<hr>
+<div id="layoutAuthentication">
+  <div id="layoutAuthentication_content">
+    <main>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-7">
+            <br>
+            <%= render './partials/messages' %>
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+              <div class="card-body">
+                <%= form_with scope: 'customer', url: employee_panel_administrator_dashboard_cliente_create_path do |f| %>
+                  <p>
+                    <small><%= t('.required_fields') %></small>
+                  </p>
+                  <span><strong><%= t('.customer_data') %></strong></span>
+                  <br><br>
+                  <div class="form-floating mb-3">
+                    <%= f.text_field :company,
+                                     class: 'form-control',
+                                     id: 'inputCompany',
+                                     placeholder: t('.company_placeholder'),
+                                     required: true %>
+                    <label for="inputCompany"><%= t('.company') %></label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <%= f.text_field :cnpj,
+                                     class: 'form-control',
+                                     id: 'inputCnpj',
+                                     placeholder: t('.cnpj_placeholder'),
+                                     required: true %>
+                    <label for="inputCnpj"><%= t('.cnpj') %></label>
+                    <small><%= t('.format_cnpj_info') %></small>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <%= f.text_field :telephone,
+                                     class: 'form-control',
+                                     id: 'inputTelephone',
+                                     placeholder: t('.telephone_placeholder') %>
+                    <label for="inputTelephone"><%= t('.telephone') %></label>
+                    <small><%= t('.format_telephone_info') %></small>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <%= f.email_field :email,
+                                      class: 'form-control',
+                                      id: 'inputEmail',
+                                      placeholder: t('.email_placeholder'),
+                                      required: true %>
+                    <label for="inputEmail"><%= t('.email') %></label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <%= f.email_field :secondary_email,
+                                      class: 'form-control',
+                                       id: 'inputSecondaryEmail',
+                                      placeholder: t('.secondary_email_placeholder') %>
+                    <label for="inputSecondaryEmail"><%= t('.secondary_email') %></label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <%= f.email_field :tertiary_email,
+                                      class: 'form-control',
+                                      id: 'inputTertiaryEmail',
+                                      placeholder: t('.tertiary_email_placeholder') %>
+                    <label for="inputTertiaryEmail"><%= t('.tertiary_email') %></label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <%= f.select :status,
+                                 Customer.statuses.collect {|status| [ status.name.titleize, status.name ] },
+                                 { class: 'form-control',
+                                   prompt: t('.status') },
+                                   required:  true %>
+                  </div>
+                  <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                    <%= f.submit t('.create_customer_btn'), class: 'btn btn-primary' %>
+                  </div>
+                <% end %>
+              </div>
+              <div class="card-footer text-center py-3"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

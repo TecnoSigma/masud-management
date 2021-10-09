@@ -15,6 +15,22 @@ module EmployeePanel
                                    page: params[:page])
         end
 
+        def create
+          customer = Customer.new(customer_params)
+
+          customer.validate
+          customer.save!
+
+          redirect_to employee_panel_administrator_dashboard_clientes_path,
+                      notice: t('messages.successes.customer.created_successfully',
+                                company: customer.company)
+        rescue StandardError => error
+          Rails.logger.error("Message: #{error.message} - Backtrace: #{error.backtrace}")
+
+          redirect_to employee_panel_administrator_dashboard_cliente_novo_path,
+            alert: t('messages.errors.customer.create_customer_failed')
+        end
+
         #def show
         #  @escort = Order.find_by_order_number(params['order_number'])
 
@@ -34,6 +50,15 @@ module EmployeePanel
         #    t('messages.errors.escort.find_failed')
         #  end
         #end
+
+        private
+
+        def customer_params
+          params
+            .require(:customer)
+            .permit(:company, :cnpj, :telephone, :email, :secondary_email, :tertiary_email)
+            .merge('status' => Status.find_by_name(params['customer']['status']))
+        end
       end
     end
   end

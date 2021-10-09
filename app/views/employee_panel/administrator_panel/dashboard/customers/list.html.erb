@@ -1,9 +1,10 @@
+<%= render './partials/messages' %>
 <h1 class="mt-4"><%= t('.title') %></h1>
 <ol class="breadcrumb mb-4">
   <li class="breadcrumb-item active"><%= t('breadcrumbs.customers_list') %></li>
 </ol>
 <div>
-  <%= link_to t('.add_cuctomer_btn'),
+  <%= link_to t('.add_customer_btn'),
               employee_panel_administrator_dashboard_cliente_novo_path,
               class: 'btn btn-primary' %>
 </div>

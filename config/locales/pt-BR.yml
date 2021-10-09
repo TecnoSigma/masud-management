@@ -7,7 +7,8 @@ pt-BR:
     general: 'Olá'
   breadcrumbs:
     escorts_list: 'Lista de Escoltas'
-    new_scheduling: 'Novo agendamento'
+    new_scheduling: 'Novo Agendamento'
+    new_customer: 'Novo Cliente'
     show_escort: 'Escolta %{order_number}'
     customers_list: 'Lista de Clientes'
   error:
@@ -33,9 +34,12 @@ pt-BR:
       change_password_failed: 'Falha ao alterar a senha!'
       user_not_found: 'Usuário não enconstrado!'
       send_password_failed: 'Falha ao enviar a senha!'
+      invalid_format: 'Formato inválido!'
       escort:
         not_found: 'Escolta não encontrada!'
         find_failed: 'Falha ao procurar escoltas!'
+      customer:
+        create_customer_failed: 'Erro ao criar novo cliente!'
     infos:
       scheduling_cancelation: 'Importante: Todo agendamento poderá ser cancelado em até trẽs horas após a sua criação.'
       password_strength: 'Dica; Utilize letras, números e caracteres especiais (&, @, !, #) '
@@ -44,6 +48,8 @@ pt-BR:
       scheduling_cancelation_successfully: 'Agendamento cancelado com sucesso!'
       password_changed_successfully: 'Senha alterada com sucesso!'
       password_sent_successfully: 'Senha enviada com sucesso!'
+      customer:
+        created_successfully: 'Cliente %{company} criado com sucesso!'
   layouts:
     application:
       logout: 'Logout'
@@ -158,11 +164,33 @@ pt-BR:
             email: 'Email'
             telephone: 'Telefone'
             status: 'Status'
-            add_cuctomer_btn: 'Adicionar Cliente'
+            add_customer_btn: 'Adicionar Cliente'
+          new:
+            customer_data: 'Dados do Cliente'
+            title: 'Novo Cliente'
+            required_fields: '(*) Campos obrigatórios'
+            company: 'Empresa *'
+            cnpj: 'CNPJ *'
+            telephone: 'Telefone'
+            email: 'Email *'
+            secondary_email: 'Email Secundário'
+            tertiary_email: 'Email Alternativo'
+            status: 'Status'
+            create_customer_btn: 'Criar Cliente'
+            company_placeholder: 'Empresa'
+            cnpj_placeholder: 'CNPJ'
+            telephone_placeholder: 'Telefone'
+            email_placeholder: 'Email'
+            secondary_email_placeholder: 'Email Secundário'
+            tertiary_email_placeholder: 'Email Alternativo'
+            format_cnpj_info: 'Utilize o formato 00.000.000/0000-00'
+            format_telephone_info: 'Utilize o formato (00) 0000-0000 ou (00) 00000-0000'
   partials:
     admin_menu:
       dashboard: 'Dashboard'
       orders: 'Serviços'
+      external_management: 'Gestão Externa'
+      internal_management: 'Gestão Interna'
       escort:
         type: 'Escoltas'
         scheduled: 'Agendadas'

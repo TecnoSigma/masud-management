@@ -4,12 +4,21 @@ class Customer < ApplicationRecord
   validates :company,
             :cnpj,
             :email,
-            :password,
             presence: true
+
+  validates :cnpj,
+            format: { with: Regex.cnpj,
+                      message: I18n.t('messages.errors.invalid_format') }
+
+  validates :telephone,
+            format: { with: Regex.telephone,
+                      message: I18n.t('messages.errors.invalid_format') }
 
   belongs_to :status
   has_many :orders
   has_one :service_token
+
+  before_create :generate_password
 
   ACTIVE_STATUS = 'ativo'
   DEFAULT_PASSWORD = 'inicial1234'
@@ -17,6 +26,14 @@ class Customer < ApplicationRecord
   PER_PAGE_IN_EMPLOYEE_DASHBOARD = 20
 
   private_constant :ACTIVE_STATUS, :HIDDEN_STATUS
+
+  def self.statuses
+    Status.where(name: 'ativo').or(Status.where(name: 'desativado'))
+  end
+
+  def generate_password
+    self.password = Passgen::generate(length: 15)
+  end
 
   def escorts
     [EscortScheduling.where(customer: self),
