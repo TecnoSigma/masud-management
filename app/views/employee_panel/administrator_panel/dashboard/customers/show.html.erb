@@ -1,0 +1,97 @@
+<h1 class="mt-4"><%= t('.title', order_number: @customer.company) %></h1>
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item">
+    <%= link_to t('breadcrumbs.escorts_list'), customer_panel_dashboard_escolta_lista_path %>
+  </li>
+  <li class="breadcrumb-item active"><%= t('breadcrumbs.show_escort', order_number: @customer.company) %></li>
+</ol>
+<hr>
+<div id="layoutAuthentication">
+  <div id="layoutAuthentication_content">
+    <main>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-7">
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+              <div class="card-body">
+                <div class="form-floating mb-3">
+                  <p>
+                    <h5><strong><%= t('.customer_data') %></strong></h5>
+                  </p>
+                  <p>
+                    <strong><%= t('.company') %></strong>
+                    <%= @customer.company %>
+                  </p>
+                  <p>
+                    <strong><%= t('.telephone') %></strong>
+                    <%= @customer.telephone %>
+                  </p>
+                  <p>
+                    <strong><%= t('.email') %></strong>
+                    <%= @customer.email %>
+                  </p>
+                  <p>
+                    <strong><%= t('.secondary_email') %></strong>
+                    <%= @customer.secondary_email %>
+                  </p>
+                  <p>
+                    <strong><%= t('.tertiary_email') %></strong>
+                    <%= @customer.tertiary_email %>
+                  </p>
+                  <p>
+                    <strong><%= t('.status') %></strong>
+                    <%= @customer.status.name %>
+                  </p>
+                  <br>
+                  <%= link_to t('.back_btn'), :back, class: 'btn btn-primary' %>
+                  <%= link_to t('.edit_btn'), root_path, class: 'btn btn-primary' %>
+                  <%= link_to t('.remove_btn'), root_path, class: 'btn btn-danger' %>
+                </div>
+                <hr>
+                <p>
+                  <h5><strong><%= t('.orders') %></strong></h5>
+                </p>
+                <table id="datatablesOrders" role='datatable' class="stripe" width="100%">
+                  <thead>
+                    <tr>
+                      <th><%= t('.order_number') %></th>
+                      <th><%= t('.source_local') %></th>
+                      <th><%= t('.destiny_local') %></th>
+                      <th><%= t('.order_status') %></th>
+                      <th><%= t('.reason') %></th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th><%= t('.order_number') %></th>
+                      <th><%= t('.source_local') %></th>
+                      <th><%= t('.destiny_local') %></th>
+                      <th><%= t('.order_status') %></th>
+                      <th></th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+                    <% if @customer.orders.any? %>
+                      <% @customer.orders.each do |order| %>
+                        <tr>
+                          <td><%= order.order_number %></td>
+                          <td><%= order.source_state %></td>
+                          <td><%= order.destiny_state %></td>
+                          <td><%= order.status.name %></td>
+                        </tr>
+                      <% end%>
+                    <% end %>
+                  </tbody>
+                </table>
+                <br>
+              </div>
+              <div class="card-footer text-center py-3"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+<% #TODO: INSERIR MAIORES DETALHES QUANDO OS STATUS FOREM 'CONFIRMADO' E 'RECUSADO' %>

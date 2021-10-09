@@ -31,25 +31,22 @@ module EmployeePanel
             alert: t('messages.errors.customer.create_customer_failed')
         end
 
-        #def show
-        #  @escort = Order.find_by_order_number(params['order_number'])
+        def show
+          @customer = Customer.find(params['id'])
+        rescue StandardError, ActiveRecord::RecordNotFound => error
+          redirect_to employee_panel_administrator_dashboard_clientes_path,
+                      alert: error_message(error.class)
+        end
 
-        #  raise FindEscortError unless @escort
-        #  raise TypeError unless @escort.escort?
-        #rescue FindEscortError, TypeError, StandardError => error
-        #  redirect_to '/gestao/admin/dashboard/escoltas/scheduled',
-        #              alert: error_message(error.class)
-        #end
+        private
 
-        #private
-
-        #def error_message(error_class)
-        #  if [FindEscortError, TypeError].include?(error_class)
-        #    t('messages.errors.escort.not_found')
-        #  else
-        #    t('messages.errors.escort.find_failed')
-        #  end
-        #end
+        def error_message(error_class)
+          if error_class == ActiveRecord::RecordNotFound
+            t('messages.errors.customer.not_found')
+          else
+            t('messages.errors.find_failed')
+          end
+        end
 
         private
 

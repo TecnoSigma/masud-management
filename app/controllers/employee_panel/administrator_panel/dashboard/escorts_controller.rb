@@ -29,7 +29,7 @@ module EmployeePanel
           if [FindEscortError, TypeError].include?(error_class)
             t('messages.errors.escort.not_found')
           else
-            t('messages.errors.escort.find_failed')
+            t('messages.errors.find_failed')
           end
         end
       end
