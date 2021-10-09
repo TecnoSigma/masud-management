@@ -9,6 +9,7 @@ pt-BR:
     escorts_list: 'Lista de Escoltas'
     new_scheduling: 'Novo agendamento'
     show_escort: 'Escolta %{order_number}'
+    customers_list: 'Lista de Clientes'
   error:
     unauthorized:
       code: '401'
@@ -148,17 +149,31 @@ pt-BR:
             escort_date: 'Data da Escolta'
             source_local: 'Local de Origem'
             destiny_local: 'Local de Destino'
+        customers:
+          list:
+            title: 'Clientes'
+            customers_list: 'Lista de Clientes'
+            company: 'Empresa'
+            cnpj: 'CNPJ'
+            email: 'Email'
+            telephone: 'Telefone'
+            status: 'Status'
+            add_cuctomer_btn: 'Adicionar Cliente'
   partials:
     admin_menu:
-        dashboard: 'Dashboard'
-        orders: 'Serviços'
-        escort:
-          type: 'Escoltas'
-          scheduled: 'Agendadas'
-          confirmed: 'Confirmadas'
-          refused: 'Recusadas'
-          cancelled_by_customer: 'Canceladas pelo Cliente'
-          general_report: 'Relatório Geral'
+      dashboard: 'Dashboard'
+      orders: 'Serviços'
+      escort:
+        type: 'Escoltas'
+        scheduled: 'Agendadas'
+        confirmed: 'Confirmadas'
+        refused: 'Recusadas'
+        cancelled_by_customer: 'Canceladas pelo Cliente'
+        general_report: 'Relatório Geral'
+      customer:
+        type: 'Clientes'
+        list: 'Lista'
+        general_report: 'Relatório Geral'
     customer_menu:
       dashboard: 'Dashboard'
       orders: 'Ordens de Serviço'
