@@ -272,7 +272,7 @@ RSpec.describe Order, type: :model do
     end
   end
 
-  describe 'escort?' do
+  describe '#escort?' do
     it 'returns \'true\' when order is an EscortScheduling' do
       customer = FactoryBot.create(:customer)
       order = FactoryBot.create(
@@ -299,6 +299,16 @@ RSpec.describe Order, type: :model do
       result = order.escort?
 
       expect(result).to eq(true)
+    end
+  end
+
+  describe '.children' do
+    it 'returns order children list' do
+      result = Order.children
+
+      expected_result = ['EscortScheduling', 'EscortService']
+
+      expect(result).to eq(expected_result)
     end
   end
 end

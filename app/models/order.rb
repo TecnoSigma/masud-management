@@ -41,6 +41,10 @@ class Order < ApplicationRecord
       .select { |escort| escort.status.name == ALLOWED_STATUSES[status.to_sym] }
   }
 
+  def self.children
+    ['EscortScheduling', 'EscortService']
+  end
+
   def create_order_number
     self.order_number = Time.zone.now.strftime('%Y%m%d%H%M%S')
   end

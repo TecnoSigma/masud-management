@@ -75,7 +75,9 @@
                     <% if @customer.orders.any? %>
                       <% @customer.orders.each do |order| %>
                         <tr>
-                          <td><%= order.order_number %></td>
+                          <td>
+                            <%= order_link(order.order_number) %>
+                          </td>
                           <td><%= order.source_state %></td>
                           <td><%= order.destiny_state %></td>
                           <td><%= order.status.name %></td>
