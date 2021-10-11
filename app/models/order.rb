@@ -42,7 +42,7 @@ class Order < ApplicationRecord
   }
 
   def self.children
-    ['EscortScheduling', 'EscortService']
+    %w[EscortScheduling EscortService]
   end
 
   def create_order_number

@@ -306,7 +306,7 @@ RSpec.describe Order, type: :model do
     it 'returns order children list' do
       result = Order.children
 
-      expected_result = ['EscortScheduling', 'EscortService']
+      expected_result = %w[EscortScheduling EscortService]
 
       expect(result).to eq(expected_result)
     end

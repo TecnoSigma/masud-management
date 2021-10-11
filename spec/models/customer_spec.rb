@@ -92,7 +92,7 @@ RSpec.describe Customer, type: :model do
   it 'returns allowed status to customers' do
     activate_status = FactoryBot.create(:status, name: 'ativo')
     deactivate_status = FactoryBot.create(:status, name: 'desativado')
-    other_status = FactoryBot.create(:status, name: 'other_status')
+    FactoryBot.create(:status, name: 'other_status')
 
     result = Customer.statuses
 

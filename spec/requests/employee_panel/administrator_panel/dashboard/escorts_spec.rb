@@ -93,29 +93,5 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Escorts', type: :r
         expect(flash[:alert]).to eq('Escolta não encontrada!')
       end
     end
-
-    context 'when occurs errors' do
-      it 'redirects to escorts page' do
-        customer = FactoryBot.create(:customer)
-        escort = FactoryBot.create(:order, :scheduled, customer: customer)
-
-        allow(Order).to receive(:find_by_order_number) { raise StandardError }
-
-        get "/gestao/admin/dashboard/escolta/#{escort.order_number}"
-
-        expect(response).to redirect_to('/gestao/admin/dashboard/escoltas/scheduled')
-      end
-
-      it 'shows error message' do
-        customer = FactoryBot.create(:customer)
-        escort = FactoryBot.create(:order, :scheduled, customer: customer)
-
-        allow(Order).to receive(:find_by_order_number) { raise StandardError }
-
-        get "/gestao/admin/dashboard/escolta/#{escort.order_number}"
-
-        expect(flash[:alert]).to eq('Falha ao procurar dados!')
-      end
-    end
   end
 end

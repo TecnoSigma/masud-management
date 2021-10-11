@@ -259,4 +259,72 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Customers', type: 
       end
     end
   end
+
+  describe '#remove' do
+    context 'when pass valid params' do
+      it 'remove logically a customer' do
+        FactoryBot.create(:status, name: 'deletado')
+        customer = FactoryBot.create(:customer, deleted_at: nil)
+
+        delete "/gestao/admin/dashboard/cliente/remove/#{customer.id}"
+
+        result = Customer.find(customer.id).deleted_at
+
+        expect(result).to be_present
+      end
+
+      it 'changes status to \'deletado\'' do
+        activated_status = FactoryBot.create(:status, name: 'ativo')
+        deleted_status = FactoryBot.create(:status, name: 'deletado')
+        customer = FactoryBot.create(:customer, deleted_at: nil, status: activated_status)
+
+        delete "/gestao/admin/dashboard/cliente/remove/#{customer.id}"
+
+        result = Customer.find(customer.id).status
+
+        expect(result).to eq(deleted_status)
+      end
+
+      it 'shows success message' do
+        FactoryBot.create(:status, name: 'deletado')
+        customer = FactoryBot.create(:customer, deleted_at: nil)
+
+        delete "/gestao/admin/dashboard/cliente/remove/#{customer.id}"
+
+        expect(flash[:notice]).to eq("Cliente #{customer.company} removido com sucesso!")
+      end
+
+      it 'redirects to customer page' do
+        customer = FactoryBot.create(:customer, deleted_at: nil)
+
+        delete "/gestao/admin/dashboard/cliente/remove/#{customer.id}"
+
+        expect(response).to redirect_to(employee_panel_administrator_dashboard_clientes_path)
+      end
+    end
+
+    context 'when customer isn\'t found' do
+      it 'no removes customer' do
+        customer = FactoryBot.create(:customer)
+
+        delete '/gestao/admin/dashboard/cliente/remove/invalid_id'
+
+        result = Customer.find(customer.id).deleted_at
+
+        expect(result).to be_nil
+      end
+
+      it 'shows errors message' do
+        delete '/gestao/admin/dashboard/cliente/remove/invalid_id'
+
+        expect(flash[:alert]).to eq('Cliente não encontrado!')
+      end
+
+      it 'redirects to customer page' do
+        delete '/gestao/admin/dashboard/cliente/remove/invalid_id'
+
+        expect(response).to redirect_to(employee_panel_administrator_dashboard_clientes_path)
+      end
+    end
+  end
 end

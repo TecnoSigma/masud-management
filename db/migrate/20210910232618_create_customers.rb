@@ -8,6 +8,7 @@ class CreateCustomers < ActiveRecord::Migration[5.2]
       t.string :tertiary_email
       t.string :telephone
       t.string :password
+      t.datetime :deleted_at
       t.references :status, index: true
 
       t.timestamps

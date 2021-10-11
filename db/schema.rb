@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 2021_09_26_044000) do
     t.string "tertiary_email"
     t.string "telephone"
     t.string "password"
+    t.datetime "deleted_at"
     t.bigint "status_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

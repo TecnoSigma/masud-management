@@ -42,12 +42,13 @@ Rails.application.routes.draw do
       get 'dashboard/escoltas/:status',      to: 'dashboard/escorts#escorts', as: 'dashboard_escorts'
       get 'dashboard/escolta/:order_number', to: 'dashboard/escorts#show',    as: 'dashboard_escort_show'
 
-      get 'dashboard/clientes',             to: 'dashboard/customers#list'
-      get 'dashboard/cliente/novo',         to: 'dashboard/customers#new'
-      get 'dashboard/cliente/:id',          to: 'dashboard/customers#show',   as: 'dashboard_customer_show'
-      get 'dashboard/cliente/:id/editar',   to: 'dashboard/customers#edit',   as: 'dashboard_customer_edit'
-      post 'dashboard/cliente/create',      to: 'dashboard/customers#create'
-      patch 'dashboard/cliente/update/:id', to: 'dashboard/customers#update', as: 'dashboard_customer_update'
+      get 'dashboard/clientes',              to: 'dashboard/customers#list'
+      get 'dashboard/cliente/novo',          to: 'dashboard/customers#new'
+      get 'dashboard/cliente/:id',           to: 'dashboard/customers#show',   as: 'dashboard_customer_show'
+      get 'dashboard/cliente/:id/editar',    to: 'dashboard/customers#edit',   as: 'dashboard_customer_edit'
+      post 'dashboard/cliente/create',       to: 'dashboard/customers#create'
+      patch 'dashboard/cliente/update/:id',  to: 'dashboard/customers#update', as: 'dashboard_customer_update'
+      delete 'dashboard/cliente/remove/:id', to: 'dashboard/customers#remove', as: 'dashboard_customer_remove'
     end
 
     scope module: 'agent_panel', path: 'agente', as: 'agent' do

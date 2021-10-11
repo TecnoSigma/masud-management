@@ -37,6 +37,7 @@ pt-BR:
       invalid_format: 'Formato inválido!'
       find_failed: 'Falha ao procurar dados!'
       update_failed: 'Falha ao atualizar dados!'
+      remove_failed: 'Falha ao remover dados!'
       escort:
         not_found: 'Escolta não encontrada!'
       customer:
@@ -53,6 +54,7 @@ pt-BR:
       customer:
         created_successfully: 'Cliente %{company} criado com sucesso!'
         updated_successfully: 'Dados do cliente atualizados com sucesso!'
+        removed_successfully: 'Cliente %{company} removido com sucesso!'
   layouts:
     application:
       logout: 'Logout'

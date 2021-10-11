@@ -18,7 +18,7 @@ module EmployeePanel
 
           raise FindEscortError unless @escort
           raise TypeError unless @escort.escort?
-        rescue FindEscortError, TypeError, StandardError => error
+        rescue FindEscortError, TypeError => error
           redirect_to '/gestao/admin/dashboard/escoltas/scheduled',
                       alert: error_message(error.class)
         end

@@ -17,9 +17,9 @@ module EmployeePanel
 
         def list
           @customers = Customer
-                         .all
-                         .paginate(per_page: Customer::PER_PAGE_IN_EMPLOYEE_DASHBOARD,
-                                   page: params[:page])
+                       .all
+                       .paginate(per_page: Customer::PER_PAGE_IN_EMPLOYEE_DASHBOARD,
+                                 page: params[:page])
         end
 
         def create
@@ -35,7 +35,7 @@ module EmployeePanel
           Rails.logger.error("Message: #{error.message} - Backtrace: #{error.backtrace}")
 
           redirect_to employee_panel_administrator_dashboard_cliente_novo_path,
-            alert: t('messages.errors.customer.create_customer_failed')
+                      alert: t('messages.errors.customer.create_customer_failed')
         end
 
         def show
@@ -57,6 +57,19 @@ module EmployeePanel
                       alert: error_message(error.class, :update)
         end
 
+        def remove
+          customer = Customer.find(params['id'])
+
+          customer.update!(deleted_at: DateTime.now, status: Status.find_by_name('deletado'))
+
+          redirect_to employee_panel_administrator_dashboard_clientes_path,
+                      notice: t('messages.successes.customer.removed_successfully',
+                                company: customer.company)
+        rescue StandardError, ActiveRecord::RecordNotFound => error
+          redirect_to employee_panel_administrator_dashboard_clientes_path,
+                      alert: error_message(error.class, :remove)
+        end
+
         private
 
         def error_message(error_class, action)
@@ -67,12 +80,10 @@ module EmployeePanel
           end
         end
 
-        private
-
         def customer_params
           formatted_params = params
-            .require(:customer)
-            .permit(:company, :cnpj, :telephone, :email, :secondary_email, :tertiary_email)
+                             .require(:customer)
+                             .permit(:company, :cnpj, :telephone, :email, :secondary_email, :tertiary_email)
 
           if params['customer']['status']
             formatted_params.merge('status' => Status.find_by_name(params['customer']['status']))

@@ -32,7 +32,7 @@ class Customer < ApplicationRecord
   end
 
   def generate_password
-    self.password = Passgen::generate(length: 15)
+    self.password = Passgen.generate(length: 15)
   end
 
   def escorts
