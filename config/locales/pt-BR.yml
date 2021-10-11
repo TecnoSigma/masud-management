@@ -36,6 +36,7 @@ pt-BR:
       send_password_failed: 'Falha ao enviar a senha!'
       invalid_format: 'Formato inválido!'
       find_failed: 'Falha ao procurar dados!'
+      update_failed: 'Falha ao atualizar dados!'
       escort:
         not_found: 'Escolta não encontrada!'
       customer:
@@ -51,6 +52,7 @@ pt-BR:
       password_sent_successfully: 'Senha enviada com sucesso!'
       customer:
         created_successfully: 'Cliente %{company} criado com sucesso!'
+        updated_successfully: 'Dados do cliente atualizados com sucesso!'
   layouts:
     application:
       logout: 'Logout'
@@ -203,6 +205,26 @@ pt-BR:
             back_btn: 'Voltar'
             edit_btn: 'Editar'
             remove_btn: 'Remover'
+          edit:
+            customer_data: 'Dados do Cliente'
+            title: '%{customer_name}'
+            required_fields: '(*) Campos obrigatórios'
+            company: 'Empresa *'
+            cnpj: 'CNPJ *'
+            telephone: 'Telefone'
+            email: 'Email *'
+            secondary_email: 'Email Secundário'
+            tertiary_email: 'Email Alternativo'
+            status: 'Status'
+            update_customer_btn: 'Atualizar Dados'
+            company_placeholder: 'Empresa'
+            cnpj_placeholder: 'CNPJ'
+            telephone_placeholder: 'Telefone'
+            email_placeholder: 'Email'
+            secondary_email_placeholder: 'Email Secundário'
+            tertiary_email_placeholder: 'Email Alternativo'
+            format_cnpj_info: 'Utilize o formato 00.000.000/0000-00'
+            format_telephone_info: 'Utilize o formato (00) 0000-0000 ou (00) 00000-0000'
   partials:
     admin_menu:
       dashboard: 'Dashboard'

@@ -92,6 +92,54 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Customers', type: 
     end
   end
 
+  describe '#edit' do
+    context 'when pass valid params' do
+      it 'renders edit page' do
+        customer = FactoryBot.create(:customer)
+
+        get "/gestao/admin/dashboard/cliente/#{customer.id}/editar"
+
+        expect(response).to render_template(:edit)
+      end
+    end
+
+    context 'when customer is not found' do
+      it 'redirects to customers list page' do
+        get '/gestao/admin/dashboard/cliente/invalid_order_number/editar'
+
+        expect(response).to redirect_to(employee_panel_administrator_dashboard_clientes_path)
+      end
+
+      it 'shows error message' do
+        get '/gestao/admin/dashboard/cliente/invalid_order_number/editar'
+
+        expect(flash[:alert]).to eq('Cliente não encontrado!')
+      end
+    end
+
+    context 'when occurs errors' do
+      it 'redirects to customers list page' do
+        customer = FactoryBot.create(:customer)
+
+        allow(Customer).to receive(:find) { raise StandardError }
+
+        get "/gestao/admin/dashboard/cliente/#{customer.id}/editar"
+
+        expect(response).to redirect_to(employee_panel_administrator_dashboard_clientes_path)
+      end
+
+      it 'shows error message' do
+        customer = FactoryBot.create(:customer)
+
+        allow(Customer).to receive(:find) { raise StandardError }
+
+        get "/gestao/admin/dashboard/cliente/#{customer.id}/editar"
+
+        expect(flash[:alert]).to eq('Falha ao procurar dados!')
+      end
+    end
+  end
+
   describe '#show' do
     context 'when pass valid params' do
       it 'renders show page' do
@@ -136,6 +184,78 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Customers', type: 
         get "/gestao/admin/dashboard/cliente/#{customer.id}"
 
         expect(flash[:alert]).to eq('Falha ao procurar dados!')
+      end
+    end
+  end
+
+  describe '#update' do
+    context 'when pass valid params' do
+      it 'updates customer data' do
+        new_email = 'aninha@acme.com.br'
+        customer = FactoryBot.create(:customer)
+
+        patch "/gestao/admin/dashboard/cliente/update/#{customer.id}",
+              params: { customer: { email: new_email } }
+
+        result = Customer.find(customer.id).email
+
+        expect(result).to eq(new_email)
+      end
+
+      it 'shows success message' do
+        new_email = 'aninha@acme.com.br'
+        customer = FactoryBot.create(:customer)
+
+        patch "/gestao/admin/dashboard/cliente/update/#{customer.id}",
+              params: { customer: { email: new_email } }
+
+        expect(flash[:notice]).to eq('Dados do cliente atualizados com sucesso!')
+      end
+
+      it 'redirects to customer page' do
+        new_email = 'aninha@acme.com.br'
+        customer = FactoryBot.create(:customer)
+
+        patch "/gestao/admin/dashboard/cliente/update/#{customer.id}",
+              params: { customer: { email: new_email } }
+
+        expect(response).to redirect_to(
+          employee_panel_administrator_dashboard_customer_show_path(customer.id)
+        )
+      end
+    end
+
+    context 'when pass invalid params' do
+      it 'no updates customer data' do
+        new_email = ''
+        customer = FactoryBot.create(:customer)
+
+        patch "/gestao/admin/dashboard/cliente/update/#{customer.id}",
+              params: { customer: { email: new_email } }
+
+        result = Customer.find(customer.id).email
+
+        expect(result).not_to eq(new_email)
+      end
+
+      it 'shows errors message' do
+        new_email = ''
+        customer = FactoryBot.create(:customer)
+
+        patch "/gestao/admin/dashboard/cliente/update/#{customer.id}",
+              params: { customer: { email: new_email } }
+
+        expect(flash[:alert]).to eq('Falha ao atualizar dados!')
+      end
+
+      it 'redirects to customer page' do
+        new_email = ''
+        customer = FactoryBot.create(:customer)
+
+        patch "/gestao/admin/dashboard/cliente/update/#{customer.id}",
+              params: { customer: { email: new_email } }
+
+        expect(response).to redirect_to(employee_panel_administrator_dashboard_clientes_path)
       end
     end
   end

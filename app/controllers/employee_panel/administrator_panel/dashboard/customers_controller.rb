@@ -8,6 +8,13 @@ module EmployeePanel
 
         def new; end
 
+        def edit
+          @customer = Customer.find(params['id'])
+        rescue StandardError, ActiveRecord::RecordNotFound => error
+          redirect_to employee_panel_administrator_dashboard_clientes_path,
+                      alert: error_message(error.class, :find)
+        end
+
         def list
           @customers = Customer
                          .all
@@ -35,26 +42,43 @@ module EmployeePanel
           @customer = Customer.find(params['id'])
         rescue StandardError, ActiveRecord::RecordNotFound => error
           redirect_to employee_panel_administrator_dashboard_clientes_path,
-                      alert: error_message(error.class)
+                      alert: error_message(error.class, :find)
+        end
+
+        def update
+          customer = Customer.find(params['id'])
+
+          customer.update!(customer_params)
+
+          redirect_to employee_panel_administrator_dashboard_customer_show_path(customer.id),
+                      notice: t('messages.successes.customer.updated_successfully')
+        rescue StandardError, ActiveRecord::RecordNotFound => error
+          redirect_to employee_panel_administrator_dashboard_clientes_path,
+                      alert: error_message(error.class, :update)
         end
 
         private
 
-        def error_message(error_class)
+        def error_message(error_class, action)
           if error_class == ActiveRecord::RecordNotFound
             t('messages.errors.customer.not_found')
           else
-            t('messages.errors.find_failed')
+            t("messages.errors.#{action}_failed")
           end
         end
 
         private
 
         def customer_params
-          params
+          formatted_params = params
             .require(:customer)
             .permit(:company, :cnpj, :telephone, :email, :secondary_email, :tertiary_email)
-            .merge('status' => Status.find_by_name(params['customer']['status']))
+
+          if params['customer']['status']
+            formatted_params.merge('status' => Status.find_by_name(params['customer']['status']))
+          else
+            formatted_params
+          end
         end
       end
     end

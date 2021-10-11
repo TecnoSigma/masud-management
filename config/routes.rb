@@ -26,7 +26,7 @@ Rails.application.routes.draw do
     get 'dashboard/index'
     get 'dashboard/escolta/lista',                   to: 'escort#list'
     get 'dashboard/escolta/novo',                    to: 'escort#new'
-    get 'dashboard/escolta/:order_number',           to: 'escort#show', as: 'escort_show'
+    get 'dashboard/escolta/:order_number',           to: 'escort#show',   as: 'escort_show'
     post 'dashboard/escolta/create',                 to: 'escort#create'
     delete 'dashboard/escolta/cancel/:order_number', to: 'escort#cancel', as: 'escort_cancel'
   end
@@ -40,12 +40,14 @@ Rails.application.routes.draw do
       get 'dashboard/index'
 
       get 'dashboard/escoltas/:status',      to: 'dashboard/escorts#escorts', as: 'dashboard_escorts'
-      get 'dashboard/escolta/:order_number', to: 'dashboard/escorts#show', as: 'dashboard_escort_show'
+      get 'dashboard/escolta/:order_number', to: 'dashboard/escorts#show',    as: 'dashboard_escort_show'
 
-      get 'dashboard/clientes',        to: 'dashboard/customers#list'
-      get 'dashboard/cliente/novo',    to: 'dashboard/customers#new'
-      get 'dashboard/cliente/:id',     to: 'dashboard/customers#show', as: 'dashboard_customer_show'
-      post 'dashboard/cliente/create', to: 'dashboard/customers#create'
+      get 'dashboard/clientes',             to: 'dashboard/customers#list'
+      get 'dashboard/cliente/novo',         to: 'dashboard/customers#new'
+      get 'dashboard/cliente/:id',          to: 'dashboard/customers#show',   as: 'dashboard_customer_show'
+      get 'dashboard/cliente/:id/editar',   to: 'dashboard/customers#edit',   as: 'dashboard_customer_edit'
+      post 'dashboard/cliente/create',      to: 'dashboard/customers#create'
+      patch 'dashboard/cliente/update/:id', to: 'dashboard/customers#update', as: 'dashboard_customer_update'
     end
 
     scope module: 'agent_panel', path: 'agente', as: 'agent' do
