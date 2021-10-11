@@ -1,0 +1,58 @@
+<%= render './partials/messages' %>
+<h1 class="mt-4"><%= t('.title') %></h1>
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item active"><%= t('breadcrumbs.employees_list') %></li>
+</ol>
+<div>
+  <%= link_to t('.add_employee_btn'),
+              employee_panel_administrator_dashboard_cliente_novo_path,
+              class: 'btn btn-primary' %>
+</div>
+<br>
+<div class="card mb-4">
+  <div class="card-header">
+    <i class="fas fa-table me-1"></i>
+    <%= t('.employees_list') %>
+  </div>
+  <div class="card-body">
+    <table id="datatablesEmployee" role='datatable' class="stripe" width="100%">
+      <thead>
+        <tr>
+          <th><%= t('.name') %></th>
+          <th><%= t('.codename') %></th>
+          <th><%= t('.email') %></th>
+          <th><%= t('.profile') %></th>
+          <th><%= t('.status') %></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <th><%= t('.name') %></th>
+          <th><%= t('.codename') %></th>
+          <th><%= t('.email') %></th>
+          <th><%= t('.profile') %></th>
+          <th><%= t('.status') %></th>
+          <th></th>
+        </tr>
+      </tfoot>
+      <tbody>
+        <% @employees.each do |employee| %>
+          <tr>
+            <td><%= employee.name %></td>
+            <td><%= employee.codename %></td>
+            <td><%= employee.email %></td>
+            <td><%= employee.type %></td>
+            <td><%= employee.status.name %></td>
+            <td>
+              <%= link_to employee_panel_administrator_dashboard_customer_show_path(employee.id) do %>
+                <i class="fas fa-align-justify me-1"></i></td>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= will_paginate @employees, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+  </div>
+</div>

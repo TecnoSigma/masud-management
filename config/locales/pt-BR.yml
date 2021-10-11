@@ -11,6 +11,7 @@ pt-BR:
     new_customer: 'Novo Cliente'
     show_escort: 'Escolta %{order_number}'
     customers_list: 'Lista de Clientes'
+    employees_list: 'Lista de Funcionários'
   error:
     unauthorized:
       code: '401'
@@ -227,6 +228,16 @@ pt-BR:
             tertiary_email_placeholder: 'Email Alternativo'
             format_cnpj_info: 'Utilize o formato 00.000.000/0000-00'
             format_telephone_info: 'Utilize o formato (00) 0000-0000 ou (00) 00000-0000'
+        employees:
+          list:
+            title: 'Funcionários'
+            employees_list: 'Lista de Funcionários'
+            name: 'Nome'
+            codename: 'Codinome'
+            email: 'Email'
+            profile: 'Perfil'
+            status: 'Status'
+            add_employee_btn: 'Adicionar Funcionário'
   partials:
     admin_menu:
       dashboard: 'Dashboard'
@@ -242,6 +253,10 @@ pt-BR:
         general_report: 'Relatório Geral'
       customer:
         type: 'Clientes'
+        list: 'Lista'
+        general_report: 'Relatório Geral'
+      employee:
+        type: 'Funcionários'
         list: 'Lista'
         general_report: 'Relatório Geral'
     customer_menu:

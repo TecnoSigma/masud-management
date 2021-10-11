@@ -49,6 +49,8 @@ Rails.application.routes.draw do
       post 'dashboard/cliente/create',       to: 'dashboard/customers#create'
       patch 'dashboard/cliente/update/:id',  to: 'dashboard/customers#update', as: 'dashboard_customer_update'
       delete 'dashboard/cliente/remove/:id', to: 'dashboard/customers#remove', as: 'dashboard_customer_remove'
+
+      get 'dashboard/funcionarios', to: 'dashboard/employees#list'
     end
 
     scope module: 'agent_panel', path: 'agente', as: 'agent' do

@@ -33,4 +33,15 @@
   </div>
 
   <div class="sb-sidenav-menu-heading"><%= t('.internal_management') %></div>
+  <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseEmployees" aria-expanded="false" aria-controls="collapseLayouts">
+    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+    <%= t('.employee.type') %>
+    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+  </a>
+  <div class="collapse" id="collapseEmployees" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+    <nav class="sb-sidenav-menu-nested nav">
+      <%= link_to t('.employee.list'), employee_panel_administrator_dashboard_funcionarios_path, class: 'nav-link' %>
+      <%= link_to t('.employee.general_report'), root_path, class: 'nav-link' %>
+    </nav>
+  </div>
 </div>
