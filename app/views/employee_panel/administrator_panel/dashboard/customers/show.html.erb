@@ -1,7 +1,7 @@
 <h1 class="mt-4"><%= t('.title', order_number: @customer.company) %></h1>
 <ol class="breadcrumb mb-4">
   <li class="breadcrumb-item">
-    <%= link_to t('breadcrumbs.escorts_list'), customer_panel_dashboard_escolta_lista_path %>
+    <%= link_to t('breadcrumbs.customers_list'), employee_panel_administrator_dashboard_clientes_path %>
   </li>
   <li class="breadcrumb-item active"><%= t('breadcrumbs.show_escort', order_number: @customer.company) %></li>
 </ol>
@@ -20,6 +20,7 @@
                   <p>
                     <h5><strong><%= t('.customer_data') %></strong></h5>
                   </p>
+                  <hr>
                   <p>
                     <strong><%= t('.company') %></strong>
                     <%= @customer.company %>

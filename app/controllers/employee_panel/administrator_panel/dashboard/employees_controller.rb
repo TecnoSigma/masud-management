@@ -16,10 +16,7 @@ module EmployeePanel
         #end
 
         def list
-          @employees = Employee
-                       .all
-                       .paginate(per_page: Customer::PER_PAGE_IN_EMPLOYEE_DASHBOARD,
-                                 page: params[:page])
+          @employees = Employee.all
         end
 
         #def create
@@ -38,12 +35,12 @@ module EmployeePanel
         #              alert: t('messages.errors.customer.create_customer_failed')
         #end
 
-        #def show
-        #  @customer = Customer.find(params['id'])
-        #rescue StandardError, ActiveRecord::RecordNotFound => error
-        #  redirect_to employee_panel_administrator_dashboard_clientes_path,
-        #              alert: error_message(error.class, :find)
-        #end
+        def show
+          @employee = Employee.find(params['id'])
+        rescue StandardError, ActiveRecord::RecordNotFound => error
+          redirect_to employee_panel_administrator_dashboard_funcionarios_path,
+                      alert: error_message(error.class, :find)
+        end
 
         #def update
         #  customer = Customer.find(params['id'])
@@ -70,15 +67,15 @@ module EmployeePanel
         #              alert: error_message(error.class, :remove)
         #end
 
-        #private
+       #private
 
-        #def error_message(error_class, action)
-        #  if error_class == ActiveRecord::RecordNotFound
-        #    t('messages.errors.customer.not_found')
-        #  else
-        #    t("messages.errors.#{action}_failed")
-        #  end
-        #end
+        def error_message(error_class, action)
+          if error_class == ActiveRecord::RecordNotFound
+            t('messages.errors.employee.not_found')
+          else
+            t("messages.errors.#{action}_failed")
+          end
+        end
 
         #def customer_params
         #  formatted_params = params

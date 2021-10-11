@@ -50,7 +50,10 @@ Rails.application.routes.draw do
       patch 'dashboard/cliente/update/:id',  to: 'dashboard/customers#update', as: 'dashboard_customer_update'
       delete 'dashboard/cliente/remove/:id', to: 'dashboard/customers#remove', as: 'dashboard_customer_remove'
 
-      get 'dashboard/funcionarios', to: 'dashboard/employees#list'
+      get 'dashboard/funcionarios',              to: 'dashboard/employees#list'
+      get 'dashboard/funcionario/:id',           to: 'dashboard/employees#show',   as: 'dashboard_employee_show'
+      get 'dashboard/funcionario/:id/editar',    to: 'dashboard/employees#edit',   as: 'dashboard_employee_edit'
+      delete 'dashboard/funcionario/remove/:id', to: 'dashboard/employees#remove', as: 'dashboard_employee_remove'
     end
 
     scope module: 'agent_panel', path: 'agente', as: 'agent' do

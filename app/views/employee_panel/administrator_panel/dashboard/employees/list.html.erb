@@ -42,10 +42,10 @@
             <td><%= employee.name %></td>
             <td><%= employee.codename %></td>
             <td><%= employee.email %></td>
-            <td><%= employee.type %></td>
+            <td><%= profile(employee.type) %></td>
             <td><%= employee.status.name %></td>
             <td>
-              <%= link_to employee_panel_administrator_dashboard_customer_show_path(employee.id) do %>
+              <%= link_to employee_panel_administrator_dashboard_employee_show_path(employee.id) do %>
                 <i class="fas fa-align-justify me-1"></i></td>
               <% end %>
             </td>
@@ -53,6 +53,5 @@
         <% end %>
       </tbody>
     </table>
-    <%= will_paginate @employees, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
   </div>
 </div>

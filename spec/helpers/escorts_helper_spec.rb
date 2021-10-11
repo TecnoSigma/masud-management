@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe ApplicationHelper, type: :helper do
+RSpec.describe EscortsHelper, type: :helper do
   include ApplicationHelper
 
   describe '#order_link' do

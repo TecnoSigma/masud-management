@@ -1,0 +1,88 @@
+<h1 class="mt-4"><%= t('.title', order_number: @employee.name) %></h1>
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item">
+    <%= link_to t('breadcrumbs.employees_list'), employee_panel_administrator_dashboard_funcionarios_path %>
+  </li>
+  <li class="breadcrumb-item active"><%= @employee.name %></li>
+</ol>
+<hr>
+<div id="layoutAuthentication">
+  <div id="layoutAuthentication_content">
+    <main>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-7">
+            <br>
+            <%= render './partials/messages' %>
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+              <div class="card-body">
+                <div class="form-floating mb-3">
+                  <p>
+                    <h5><strong><%= t('.employee_data') %></strong></h5>
+                  </p>
+                  <hr>
+                  <p>
+                    <strong><%= t('.name') %></strong>
+                    <%= @employee.name %>
+                  </p>
+                  <p>
+                    <strong><%= t('.codename') %></strong>
+                    <%= @employee.codename %>
+                  </p>
+                  <p>
+                    <strong><%= t('.email') %></strong>
+                    <%= @employee.email %>
+                  </p>
+                  <p>
+                    <strong><%= t('.rg') %></strong>
+                    <%= @employee.rg %>
+                  </p>
+                  <p>
+                    <strong><%= t('.cpf') %></strong>
+                    <%= @employee.cpf %>
+                  </p>
+                  <p>
+                    <strong><%= t('.cvn_number') %></strong>
+                    <%= @employee.cvn_number %>
+                  </p>
+                  <p>
+                    <strong><%= t('.cvn_validation_date') %></strong>
+                    <%= @employee.cvn_validation_date %>
+                  </p>
+                  <p>
+                    <strong><%= t('.admission_date') %></strong>
+                    <%= @employee.admission_date %>
+                  </p>
+                  <p>
+                    <strong><%= t('.resignation_date') %></strong>
+                    <%= @employee.resignation_date %>
+                  </p>
+                  <p>
+                    <strong><%= t('.profile') %></strong>
+                    <%= profile(@employee.type) %>
+                  </p>
+                  <p>
+                    <strong><%= t('.status') %></strong>
+                    <%= @employee.status.name.titleize %>
+                  </p>
+                  <br>
+                  <%= link_to t('.back_btn'), :back, class: 'btn btn-primary' %>
+                  <% unless @employee.deleted_at %>
+                    <%= link_to t('.edit_btn'),
+                                employee_panel_administrator_dashboard_employee_edit_path,
+                                class: 'btn btn-primary' %>
+                    <%= link_to t('.remove_btn'),
+                                { action: 'remove', id: @employee.id },
+                                method: :delete,
+                                class: 'btn btn-danger' %>
+                  <% end %>
+                </div>
+              </div>
+              <div class="card-footer text-center py-3"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

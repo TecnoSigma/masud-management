@@ -142,46 +142,46 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Employees', type: 
 
   describe '#show' do
     context 'when pass valid params' do
-      xit 'renders show page' do
-        customer = FactoryBot.create(:customer)
+      it 'renders show page' do
+        employee = FactoryBot.create(:employee, type: 'Operator')
 
-        get "/gestao/admin/dashboard/cliente/#{customer.id}"
+        get "/gestao/admin/dashboard/funcionario/#{employee.id}"
 
         expect(response).to render_template(:show)
       end
     end
 
-    context 'when customer is not found' do
-      xit 'redirects to customers list page' do
-        get '/gestao/admin/dashboard/cliente/invalid_order_number'
+    context 'when employee is not found' do
+      it 'redirects to employees list page' do
+        get '/gestao/admin/dashboard/funcionario/invalid_order_number'
 
-        expect(response).to redirect_to(employee_panel_administrator_dashboard_clientes_path)
+        expect(response).to redirect_to(employee_panel_administrator_dashboard_funcionarios_path)
       end
 
-      xit 'shows error message' do
-        get '/gestao/admin/dashboard/cliente/invalid_order_number'
+      it 'shows error message' do
+        get '/gestao/admin/dashboard/funcionario/invalid_order_number'
 
-        expect(flash[:alert]).to eq('Cliente não encontrado!')
+        expect(flash[:alert]).to eq('Funcionário não encontrado!')
       end
     end
 
     context 'when occurs errors' do
-      xit 'redirects to customers list page' do
-        customer = FactoryBot.create(:customer)
+      it 'redirects to customers list page' do
+        employee = FactoryBot.create(:employee)
 
-        allow(Customer).to receive(:find) { raise StandardError }
+        allow(Employee).to receive(:find) { raise StandardError }
 
-        get "/gestao/admin/dashboard/cliente/#{customer.id}"
+        get "/gestao/admin/dashboard/funcionario/#{employee.id}"
 
-        expect(response).to redirect_to(employee_panel_administrator_dashboard_clientes_path)
+        expect(response).to redirect_to(employee_panel_administrator_dashboard_funcionarios_path)
       end
 
-      xit 'shows error message' do
-        customer = FactoryBot.create(:customer)
+      it 'shows error message' do
+        employee = FactoryBot.create(:employee)
 
-        allow(Customer).to receive(:find) { raise StandardError }
+        allow(Employee).to receive(:find) { raise StandardError }
 
-        get "/gestao/admin/dashboard/cliente/#{customer.id}"
+        get "/gestao/admin/dashboard/funcionario/#{employee.id}"
 
         expect(flash[:alert]).to eq('Falha ao procurar dados!')
       end

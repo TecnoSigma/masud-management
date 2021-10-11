@@ -44,6 +44,8 @@ pt-BR:
       customer:
         create_customer_failed: 'Erro ao criar novo cliente!'
         not_found: 'Cliente não encontrado!'
+      employee:
+        not_found: 'Funcionário não encontrado!'
     infos:
       scheduling_cancelation: 'Importante: Todo agendamento poderá ser cancelado em até trẽs horas após a sua criação.'
       password_strength: 'Dica; Utilize letras, números e caracteres especiais (&, @, !, #) '
@@ -238,6 +240,22 @@ pt-BR:
             profile: 'Perfil'
             status: 'Status'
             add_employee_btn: 'Adicionar Funcionário'
+          show:
+            employee_data: 'Dados do Funcionário'
+            name: 'Nome: '
+            codename: 'Codenome: '
+            email: 'Email: '
+            rg: 'RG: '
+            cpf: 'CPF: '
+            cvn_number: 'CVN: '
+            cvn_validation_date: 'Validade do CVN: '
+            admission_date: 'Data de Admissão: '
+            resignation_date: 'Data de Demissão: '
+            profile: 'Perfil: '
+            status: 'Status: '
+            back_btn: 'Voltar'
+            edit_btn: 'Editar'
+            remove_btn: 'Remover'
   partials:
     admin_menu:
       dashboard: 'Dashboard'

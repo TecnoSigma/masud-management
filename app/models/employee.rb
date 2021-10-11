@@ -17,6 +17,11 @@ class Employee < ApplicationRecord
   ACTIVE_STATUS = 'ativo'
   MASTER_PROFILE = 'Administrator'
   PER_PAGE_IN_EMPLOYEE_DASHBOARD = 20
+  PROFILES = { administrator: 'Administrador',
+               agent: 'Agente',
+               approver: 'Aprovador',
+               lecturer: 'Conferente',
+               operator: 'Operador' }
 
   private_constant :ACTIVE_STATUS
 
