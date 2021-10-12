@@ -16,9 +16,7 @@ class Agent < Employee
   def check_cvn_validation_date
     return unless cvn_validation_date
 
-    if DateTime.now > cvn_validation_date
-      errors.add(:admission_date, message: I18n.t('messages.errors.invalid_date'))
-    end
+    errors.add(:admission_date, message: I18n.t('messages.errors.invalid_date')) if DateTime.now > cvn_validation_date
   end
 
   def clear_password

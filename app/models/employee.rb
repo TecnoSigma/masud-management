@@ -35,7 +35,7 @@ class Employee < ApplicationRecord
                agent: 'Agente',
                approver: 'Aprovador',
                lecturer: 'Conferente',
-               operator: 'Operador' }
+               operator: 'Operador' }.freeze
 
   private_constant :ACTIVE_STATUS
 
@@ -47,8 +47,8 @@ class Employee < ApplicationRecord
 
   def self.statuses
     Status.where(name: 'ativo')
-      .or(Status.where(name: 'desligado'))
-      .or(Status.where(name: 'suspenso'))
+          .or(Status.where(name: 'desligado'))
+          .or(Status.where(name: 'suspenso'))
   end
 
   def self.generate_password
@@ -70,16 +70,12 @@ class Employee < ApplicationRecord
   def check_admission_date
     return unless admission_date
 
-    if admission_date > DateTime.now
-      errors.add(:admission_date, message: I18n.t('messages.errors.invalid_date'))
-    end
+    errors.add(:admission_date, message: I18n.t('messages.errors.invalid_date')) if admission_date > DateTime.now
   end
 
   def check_resignation_date
     return unless resignation_date
 
-    if  admission_date > resignation_date
-      errors.add(:resignation_date, message: I18n.t('messages.errors.invalid_date'))
-    end
+    errors.add(:resignation_date, message: I18n.t('messages.errors.invalid_date')) if admission_date > resignation_date
   end
 end

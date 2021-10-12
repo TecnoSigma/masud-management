@@ -15,7 +15,7 @@ module Regex
     end
 
     def cvn_number
-      /\A\d+\/\d{4}\z/
+      %r{\A\d+/\d{4}\z}
     end
   end
 end

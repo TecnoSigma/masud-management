@@ -64,6 +64,7 @@ pt-BR:
       employee:
         created_successfully: 'Funcionário %{employee_name} criado com sucesso!'
         updated_successfully: 'Dados do funcionário atualizados com sucesso!'
+        removed_successfully: 'Funcionário %{employee_name} removido com sucesso!'
   layouts:
     application:
       logout: 'Logout'

@@ -195,7 +195,6 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Employees', type: 
         end
 
         it 'shows error message' do
-          status = FactoryBot.create(:status, name: 'ativo')
           employee_name = 'João da Silva'
           employee_params = FactoryBot.attributes_for(:employee,
                                                       :agent,
@@ -691,68 +690,67 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Employees', type: 
 
   describe '#remove' do
     context 'when pass valid params' do
-      xit 'remove logically a customer' do
+      it 'remove logically an employee' do
         FactoryBot.create(:status, name: 'deletado')
-        customer = FactoryBot.create(:customer, deleted_at: nil)
+        employee = FactoryBot.create(:employee, deleted_at: nil)
 
-        delete "/gestao/admin/dashboard/cliente/remove/#{customer.id}"
+        delete "/gestao/admin/dashboard/funcionario/remove/#{employee.id}"
 
-        result = Customer.find(customer.id).deleted_at
+        result = Employee.find(employee.id).deleted_at
 
         expect(result).to be_present
       end
 
-      xit 'changes status to \'deletado\'' do
-        activated_status = FactoryBot.create(:status, name: 'ativo')
+      it 'changes status to \'deletado\'' do
         deleted_status = FactoryBot.create(:status, name: 'deletado')
-        customer = FactoryBot.create(:customer, deleted_at: nil, status: activated_status)
+        employee = FactoryBot.create(:employee, deleted_at: nil)
 
-        delete "/gestao/admin/dashboard/cliente/remove/#{customer.id}"
+        delete "/gestao/admin/dashboard/funcionario/remove/#{employee.id}"
 
-        result = Customer.find(customer.id).status
+        result = Employee.find(employee.id).status
 
         expect(result).to eq(deleted_status)
       end
 
-      xit 'shows success message' do
+      it 'shows success message' do
         FactoryBot.create(:status, name: 'deletado')
-        customer = FactoryBot.create(:customer, deleted_at: nil)
+        employee = FactoryBot.create(:employee, deleted_at: nil)
 
-        delete "/gestao/admin/dashboard/cliente/remove/#{customer.id}"
+        delete "/gestao/admin/dashboard/funcionario/remove/#{employee.id}"
 
-        expect(flash[:notice]).to eq("Cliente #{customer.company} removido com sucesso!")
+        expect(flash[:notice]).to eq("Funcionário #{employee.name} removido com sucesso!")
       end
 
-      xit 'redirects to customer page' do
-        customer = FactoryBot.create(:customer, deleted_at: nil)
+      it 'redirects to customer page' do
+        employee = FactoryBot.create(:employee, deleted_at: nil)
 
-        delete "/gestao/admin/dashboard/cliente/remove/#{customer.id}"
+        delete "/gestao/admin/dashboard/funcionario/remove/#{employee.id}"
 
-        expect(response).to redirect_to(employee_panel_administrator_dashboard_clientes_path)
+        expect(response).to redirect_to(employee_panel_administrator_dashboard_funcionarios_path)
       end
     end
 
     context 'when customer isn\'t found' do
-      xit 'no removes customer' do
-        customer = FactoryBot.create(:customer)
+      it 'no removes customer' do
+        employee = FactoryBot.create(:employee)
 
-        delete '/gestao/admin/dashboard/cliente/remove/invalid_id'
+        delete '/gestao/admin/dashboard/funcionario/remove/invalid_id'
 
-        result = Customer.find(customer.id).deleted_at
+        result = Employee.find(employee.id).deleted_at
 
         expect(result).to be_nil
       end
 
-      xit 'shows errors message' do
-        delete '/gestao/admin/dashboard/cliente/remove/invalid_id'
+      it 'shows errors message' do
+        delete '/gestao/admin/dashboard/funcionario/remove/invalid_id'
 
-        expect(flash[:alert]).to eq('Cliente não encontrado!')
+        expect(flash[:alert]).to eq('Funcionário não encontrado!')
       end
 
-      xit 'redirects to customer page' do
-        delete '/gestao/admin/dashboard/cliente/remove/invalid_id'
+      it 'redirects to employee page' do
+        delete '/gestao/admin/dashboard/funcionario/remove/invalid_id'
 
-        expect(response).to redirect_to(employee_panel_administrator_dashboard_clientes_path)
+        expect(response).to redirect_to(employee_panel_administrator_dashboard_funcionarios_path)
       end
     end
   end

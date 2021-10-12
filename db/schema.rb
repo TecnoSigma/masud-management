@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 2021_09_26_044000) do
     t.string "cpf"
     t.string "email"
     t.string "password"
+    t.datetime "deleted_at"
     t.bigint "team_id"
     t.bigint "status_id"
     t.datetime "created_at", null: false

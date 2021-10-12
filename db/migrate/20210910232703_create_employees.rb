@@ -12,6 +12,7 @@ class CreateEmployees < ActiveRecord::Migration[5.2]
       t.string :cpf
       t.string :email
       t.string :password
+      t.datetime :deleted_at
       t.references :team, index: true
       t.references :status, index: true
 
