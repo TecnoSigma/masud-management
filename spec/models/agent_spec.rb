@@ -39,6 +39,32 @@ RSpec.describe Agent, type: :model do
     end
   end
 
+  it 'no validates when pass invalid CVN number' do
+    agent = Agent.new(FactoryBot.attributes_for(:employee, :agent, cvn_number: '123456' ))
+
+    expect(agent).to be_invalid
+  end
+
+  it 'no validates when CVN validation date in less than current date' do
+    agent = Agent.new(FactoryBot.attributes_for(
+      :employee,
+      :agent,
+      cvn_validation_date: 3.days.ago
+    ))
+
+    expect(agent).to be_invalid
+  end
+
+  it 'clears password when create a new agent' do
+    agent = Agent.new(FactoryBot.attributes_for(:employee, :agent, password: '123456', name: 'João' ))
+
+    agent.save!
+
+    result = agent.password
+
+    expect(result).to be_nil
+  end
+
   describe 'validates presences' do
     it 'of codename' do
       agent = Agent.new(FactoryBot.attributes_for(:employee, :agent, codename: nil))

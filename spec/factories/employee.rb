@@ -20,7 +20,6 @@ FactoryBot.define do
     trait :agent do
       type { 'Agent' }
       email { 'agent@agent.com.br' }
-      password { '123456' }
       codename { name.split(' ').last }
       cvn_number {  Faker::Base.regexify(/^\d{4}\/\d{4}$/) }
       cvn_validation_date { 60.days.after }

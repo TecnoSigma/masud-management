@@ -1,0 +1,126 @@
+<h1 class="mt-4"><%= t('.title') %></h1>
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item">
+    <%= link_to t('breadcrumbs.employees_list'), employee_panel_administrator_dashboard_clientes_path %>
+  </li>
+  <li class="breadcrumb-item active"><%= t('breadcrumbs.new_employee') %></li>
+</ol>
+<hr>
+<div id="layoutAuthentication">
+  <div id="layoutAuthentication_content">
+    <main>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-7">
+            <br>
+            <%= render './partials/messages' %>
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+              <div class="card-body">
+                <%= form_with scope: 'employee', url: employee_panel_administrator_dashboard_cliente_create_path do |f| %>
+                  <p>
+                    <small><%= t('.required_fields') %></small>
+                  </p>
+                  <span><strong><%= t('.employee_data') %></strong></span>
+                  <br><br>
+                  <div class="form-floating mb-3">
+                    <%= f.text_field :name,
+                                     class: 'form-control',
+                                     id: 'inputName',
+                                     placeholder: t('.name_placeholder'),
+                                     required: true %>
+                    <label for="inputName"><%= t('.name') %></label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <%= f.text_field :codename,
+                                     class: 'form-control',
+                                     id: 'inputCodename',
+                                     placeholder: t('.codename_placeholder') %>
+                    <label for="inputCodename"><%= t('.codename') %></label>
+                    <small><%= t('.exclusive_to_agents_info') %></small>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <%= f.email_field :email,
+                                     class: 'form-control',
+                                     id: 'inputEmail',
+                                     placeholder: t('.email_placeholder'),
+                                     required: true %>
+                    <label for="inputEmail"><%= t('.email') %></label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <%= f.text_field :rg,
+                                     class: 'form-control',
+                                     id: 'inputRg',
+                                     placeholder: t('.rg_placeholder'),
+                                     required: true %>
+                    <label for="inputRg"><%= t('.rg') %></label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <%= f.text_field :cpf,
+                                     class: 'form-control',
+                                     id: 'inputCpf',
+                                     placeholder: t('.cpf_placeholder'),
+                                     required: true %>
+                    <label for="inputCpf"><%= t('.cpf') %></label>
+                    <small><%= t('.format_cpf_info') %></small>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <%= f.text_field :cvn_number,
+                                     class: 'form-control',
+                                     id: 'inputCvnNumber',
+                                     placeholder: t('.cvn_number_placeholder') %>
+                    <label for="inputCvnNumber"><%= t('.cvn_number') %></label>
+                    <small><%= t('.exclusive_to_agents_info') %></small>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <%= f.text_field :cvn_validation_date,
+                                     class: 'form-control',
+                                     id: 'inputCvnValidationDate',
+                                     placeholder: t('.cvn_validation_date_placeholder') %>
+                    <label for="inputCvnValidationDate"><%= t('.cvn_validation_date') %></label>
+                    <small><%= t('.exclusive_to_agents_info') %></small>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <%= f.text_field :admission_date,
+                                     class: 'form-control',
+                                     id: 'inputAdmissionDate',
+                                     placeholder: t('.admission_date_placeholder'),
+                                     required: true %>
+                    <label for="inputAdmissionDate"><%= t('.admission_date') %></label>
+                    <small><%= t('.format_date_info') %></small>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <%= f.text_field :resignation_date,
+                                     class: 'form-control',
+                                     id: 'inputResignationDate',
+                                     placeholder: t('.resignation_date_placeholder') %>
+                    <label for="inputResignationDate"><%= t('.resignation_date') %></label>
+                    <small><%= t('.format_date_info') %></small>
+                  </div>
+                  <div class="form-floating mb-3">
+                  <div class="form-floating mb-3">
+                    <%= f.select :profile,
+                                 Employee::PROFILES.invert.to_a,
+                                 { class: 'form-control',
+                                   prompt: t('.profile') },
+                                   required:  true %>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <%= f.select :status,
+                                 Employee.statuses.collect {|status| [ status.name.titleize, status.name ] },
+                                 { class: 'form-control',
+                                   prompt: t('.status') },
+                                   required:  true %>
+                  </div>
+                  <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                    <%= f.submit t('.create_employee_btn'), class: 'btn btn-primary' %>
+                  </div>
+                <% end %>
+              </div>
+              <div class="card-footer text-center py-3"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

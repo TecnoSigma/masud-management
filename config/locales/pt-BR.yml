@@ -9,6 +9,7 @@ pt-BR:
     escorts_list: 'Lista de Escoltas'
     new_scheduling: 'Novo Agendamento'
     new_customer: 'Novo Cliente'
+    new_employee: 'Novo Funcionário'
     show_escort: 'Escolta %{order_number}'
     customers_list: 'Lista de Clientes'
     employees_list: 'Lista de Funcionários'
@@ -28,6 +29,7 @@ pt-BR:
       unauthorized_user: 'Seu status atual não lhe permite o acesso. Por favor, contate-nos!'
       incorrect_job_day: 'A data do trabalho não pode ser menor que a data de hoje!'
       invalid_status: 'Status inválido!'
+      invalid_date: 'Data inválida!'
       scheduling_creation_failed: 'Falha ao criar agendamento!'
       scheduling_cancelation_failed: 'Falha ao cancelar agendamento!'
       same_passwords: 'As senhas utilizadas são iguais!'
@@ -42,9 +44,10 @@ pt-BR:
       escort:
         not_found: 'Escolta não encontrada!'
       customer:
-        create_customer_failed: 'Erro ao criar novo cliente!'
+        create_failed: 'Erro ao criar novo cliente!'
         not_found: 'Cliente não encontrado!'
       employee:
+        create_failed: 'Erro ao criar novo funcionário!'
         not_found: 'Funcionário não encontrado!'
     infos:
       scheduling_cancelation: 'Importante: Todo agendamento poderá ser cancelado em até trẽs horas após a sua criação.'
@@ -58,6 +61,8 @@ pt-BR:
         created_successfully: 'Cliente %{company} criado com sucesso!'
         updated_successfully: 'Dados do cliente atualizados com sucesso!'
         removed_successfully: 'Cliente %{company} removido com sucesso!'
+      employee:
+        created_successfully: 'Funcionário %{employee_name} criado com sucesso!'
   layouts:
     application:
       logout: 'Logout'
@@ -106,7 +111,7 @@ pt-BR:
         escort_date: 'Data da Escolta'
         source_local: 'Local de Origem'
         destiny_local: 'Local de Destino'
-        format_date_info: 'Utilize o formato dd/mm/yyyy'
+        format_date_info: 'Utilize o formato dd/mm/aaaa'
         required_fields: '(*) Campos obrigatórios'
       show:
         title: 'Escoltas'
@@ -243,7 +248,7 @@ pt-BR:
           show:
             employee_data: 'Dados do Funcionário'
             name: 'Nome: '
-            codename: 'Codenome: '
+            codename: 'Codinome: '
             email: 'Email: '
             rg: 'RG: '
             cpf: 'CPF: '
@@ -256,6 +261,35 @@ pt-BR:
             back_btn: 'Voltar'
             edit_btn: 'Editar'
             remove_btn: 'Remover'
+          new:
+            employee_data: 'Dados do Funcionário'
+            name: 'Nome *'
+            codename: 'Codinome'
+            email: 'Email *'
+            rg: 'RG *'
+            cpf: 'CPF *'
+            cvn_number: 'CVN'
+            cvn_validation_date: 'Validade do CVN'
+            admission_date: 'Data de Admissão *'
+            resignation_date: 'Data de Demissão'
+            profile: 'Perfil'
+            status: 'Status'
+            name_placeholder: 'Nome'
+            codename_placeholder: 'Codinome'
+            email_placeholder: 'Email'
+            rg_placeholder: 'RG'
+            cpf_placeholder: 'CPF'
+            cvn_number_placeholder: 'CVN'
+            cvn_validation_date_placeholder: 'Validade do CVN'
+            admission_date_placeholder: 'Data de Admissão'
+            resignation_date_placeholder: 'Data de Demissão'
+            profile: 'Perfil'
+            status: 'Status'
+            create_employee_btn: 'Criar Funcionário'
+            format_date_info: 'Utilize o formato dd/mm/aaaa'
+            exclusive_to_agents_info: 'Campo exclusivo para agentes'
+            format_cpf_info: 'Utilize o formato 000.000.000-00'
+            required_fields: '(*) Campos obrigatórios'
   partials:
     admin_menu:
       dashboard: 'Dashboard'

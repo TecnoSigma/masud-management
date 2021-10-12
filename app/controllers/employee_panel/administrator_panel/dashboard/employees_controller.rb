@@ -6,7 +6,7 @@ module EmployeePanel
       class EmployeesController < EmployeePanelController
         before_action { check_internal_profile(params['controller']) }
 
-        #def new; end
+        def new; end
 
         #def edit
         #  @customer = Customer.find(params['id'])
@@ -19,21 +19,21 @@ module EmployeePanel
           @employees = Employee.all
         end
 
-        #def create
-        #  customer = Customer.new(customer_params)
+        def create
+          employee = employee_klass.new(employee_params)
 
-        #  customer.validate
-        #  customer.save!
+          employee.validate
+          employee.save!
 
-        #  redirect_to employee_panel_administrator_dashboard_clientes_path,
-        #              notice: t('messages.successes.customer.created_successfully',
-        #                        company: customer.company)
-        #rescue StandardError => error
-        #  Rails.logger.error("Message: #{error.message} - Backtrace: #{error.backtrace}")
+          redirect_to employee_panel_administrator_dashboard_funcionarios_path,
+                      notice: t('messages.successes.employee.created_successfully',
+                                employee_name: employee.name)
+        rescue StandardError => error
+          Rails.logger.error("Message: #{error.message} - Backtrace: #{error.backtrace}")
 
-        #  redirect_to employee_panel_administrator_dashboard_cliente_novo_path,
-        #              alert: t('messages.errors.customer.create_customer_failed')
-        #end
+          redirect_to employee_panel_administrator_dashboard_funcionario_novo_path,
+                      alert: t('messages.errors.employee.create_failed')
+        end
 
         def show
           @employee = Employee.find(params['id'])
@@ -67,7 +67,11 @@ module EmployeePanel
         #              alert: error_message(error.class, :remove)
         #end
 
-       #private
+       private
+
+        def employee_klass
+          params['employee']['profile'].titleize.constantize
+        end
 
         def error_message(error_class, action)
           if error_class == ActiveRecord::RecordNotFound
@@ -77,17 +81,18 @@ module EmployeePanel
           end
         end
 
-        #def customer_params
-        #  formatted_params = params
-        #                     .require(:customer)
-        #                     .permit(:company, :cnpj, :telephone, :email, :secondary_email, :tertiary_email)
+        def employee_params
+          formatted_params = params
+                             .require(:employee)
+                             .permit(:name, :codename, :email, :rg, :cpf, :cvn_number,
+                                     :cvn_validation_date, :admission_date, :resignation_date)
 
-        #  if params['customer']['status']
-        #    formatted_params.merge('status' => Status.find_by_name(params['customer']['status']))
-        #  else
-        #    formatted_params
-        #  end
-        #end
+          if params['employee']['status']
+            formatted_params.merge('status' => Status.find_by_name(params['employee']['status']))
+          else
+            formatted_params
+          end
+        end
       end
     end
   end

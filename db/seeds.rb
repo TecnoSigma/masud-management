@@ -2,6 +2,8 @@ Status.destroy_all
 Status.create(name: 'ativo')
 Status.create(name: 'desativado')
 Status.create(name: 'deletado')
+Status.create(name: 'desligado')
+Status.create(name: 'suspenso')
 Status.create(name: 'pendente')
 Status.create(name: 'agendado')
 Status.create(name: 'confirmado')

@@ -94,4 +94,22 @@ RSpec.describe Employee, type: :model do
       expect(employee).to be_invalid
     end
   end
+
+  it 'no validates when pass invalid CPF' do
+    employee = FactoryBot.build(:employee, cpf: '123.456')
+
+    expect(employee).to be_invalid
+  end
+
+  it 'no validates when the admission date is greater than current day' do
+    employee = FactoryBot.build(:employee, admission_date: 3.days.after)
+
+    expect(employee).to be_invalid
+  end
+
+  it 'no validates when the admission date is greater than resignation date' do
+    employee = FactoryBot.build(:employee, admission_date: 2.days.after, resignation_date: 2.days.ago)
+
+    expect(employee).to be_invalid
+  end
 end

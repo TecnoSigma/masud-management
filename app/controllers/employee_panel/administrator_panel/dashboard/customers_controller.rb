@@ -35,7 +35,7 @@ module EmployeePanel
           Rails.logger.error("Message: #{error.message} - Backtrace: #{error.backtrace}")
 
           redirect_to employee_panel_administrator_dashboard_cliente_novo_path,
-                      alert: t('messages.errors.customer.create_customer_failed')
+                      alert: t('messages.errors.customer.create_failed')
         end
 
         def show

@@ -34,4 +34,32 @@ RSpec.describe Regex do
       expect(described_class.telephone).not_to match(telephone2)
     end
   end
+
+  describe '.cpf' do
+    it 'checks valid CPF' do
+      cpf = '123.456.789-00'
+
+      expect(described_class.cpf).to match(cpf)
+    end
+
+    it 'checks invalid CPF' do
+      cpf = '12.345.677'
+
+      expect(described_class.cpf).not_to match(cpf)
+    end
+  end
+
+  describe '.cvn_number' do
+    it 'checks valid CVN number' do
+      cvn_number = '123/2023'
+
+      expect(described_class.cvn_number).to match(cvn_number)
+    end
+
+    it 'checks invalid CVN number' do
+      cvn_number = '123/12'
+
+      expect(described_class.cvn_number).not_to match(cvn_number)
+    end
+  end
 end

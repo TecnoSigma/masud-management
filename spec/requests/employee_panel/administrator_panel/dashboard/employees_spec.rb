@@ -27,67 +27,94 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Employees', type: 
 
   describe '#create' do
     context 'when pass valid params' do
-      xit 'creates a new customer' do
+      it 'creates a new employee' do
         status = FactoryBot.create(:status, name: 'ativo')
-        company = 'XPTO S.A.'
-        customer_params = FactoryBot.attributes_for(:customer, company: company, status: status.name)
+        employee_name = 'João da Silva'
+        employee_params = FactoryBot.attributes_for(:employee,
+                                                    :agent,
+                                                    name: employee_name,
+                                                    status: status.name)
 
-        post '/gestao/admin/dashboard/cliente/create', params: { customer: customer_params }
+        employee_params.merge!('profile' => 'agent')
 
-        result = Customer.find_by_company(company)
+        post '/gestao/admin/dashboard/funcionario/create', params: { employee: employee_params }
+
+        result = Employee.find_by_name(employee_name)
 
         expect(result).to be_present
       end
 
-      xit 'redirects to customers list page' do
+      it 'redirects to employees list page' do
         status = FactoryBot.create(:status, name: 'ativo')
-        company = 'XPTO S.A.'
-        customer_params = FactoryBot.attributes_for(:customer, company: company, status: status.name)
+        employee_name = 'João da Silva'
+        employee_params = FactoryBot.attributes_for(:employee,
+                                                    :agent,
+                                                    name: employee_name,
+                                                    status: status.name)
 
-        post '/gestao/admin/dashboard/cliente/create', params: { customer: customer_params }
+        employee_params.merge!('profile' => 'agent')
 
-        expect(response).to redirect_to(employee_panel_administrator_dashboard_clientes_path)
+        post '/gestao/admin/dashboard/funcionario/create', params: { employee: employee_params }
+
+        expect(response).to redirect_to(employee_panel_administrator_dashboard_funcionarios_path)
       end
 
-      xit 'shows success message' do
+      it 'shows success message' do
         status = FactoryBot.create(:status, name: 'ativo')
-        company = 'XPTO S.A.'
-        customer_params = FactoryBot.attributes_for(:customer, company: company, status: status.name)
+        employee_name = 'João da Silva'
+        employee_params = FactoryBot.attributes_for(:employee,
+                                                    :agent,
+                                                    name: employee_name,
+                                                    status: status.name)
 
-        post '/gestao/admin/dashboard/cliente/create', params: { customer: customer_params }
+        employee_params.merge!('profile' => 'agent')
 
-        expect(flash[:notice]).to eq("Cliente #{company} criado com sucesso!")
+        post '/gestao/admin/dashboard/funcionario/create', params: { employee: employee_params }
+
+        expect(flash[:notice]).to eq("Funcionário #{employee_name} criado com sucesso!")
       end
     end
 
     context 'when pass invalid params' do
-      xit 'no creates a new customer' do
-        company = 'XPTO S.A.'
-        customer_params = FactoryBot.attributes_for(:customer, company: company)
+      it 'no creates a new employee' do
+        status = FactoryBot.create(:status, name: 'ativo')
+        employee_name = 'João da Silva'
+        employee_params = FactoryBot.attributes_for(:employee,
+                                                    :agent,
+                                                    name: employee_name,
+                                                    status: status.name)
 
-        post '/gestao/admin/dashboard/cliente/create', params: { customer: customer_params }
+        post '/gestao/admin/dashboard/funcionario/create', params: { employee: employee_params }
 
-        result = Customer.find_by_company(company)
+        result = Employee.find_by_name(employee_name)
 
         expect(result).to be_nil
       end
 
-      xit 'redirects to new customer page' do
-        company = 'XPTO S.A.'
-        customer_params = FactoryBot.attributes_for(:customer, company: company)
+      it 'redirects to new customer page' do
+        status = FactoryBot.create(:status, name: 'ativo')
+        employee_name = 'João da Silva'
+        employee_params = FactoryBot.attributes_for(:employee,
+                                                    :agent,
+                                                    name: employee_name,
+                                                    status: status.name)
 
-        post '/gestao/admin/dashboard/cliente/create', params: { customer: customer_params }
+        post '/gestao/admin/dashboard/funcionario/create', params: { employee: employee_params }
 
-        expect(response).to redirect_to(employee_panel_administrator_dashboard_cliente_novo_path)
+        expect(response).to redirect_to(employee_panel_administrator_dashboard_funcionario_novo_path)
       end
 
-      xit 'shows error message' do
-        company = 'XPTO S.A.'
-        customer_params = FactoryBot.attributes_for(:customer, company: company)
+      it 'shows error message' do
+        status = FactoryBot.create(:status, name: 'ativo')
+        employee_name = 'João da Silva'
+        employee_params = FactoryBot.attributes_for(:employee,
+                                                    :agent,
+                                                    name: employee_name,
+                                                    status: status.name)
 
-        post '/gestao/admin/dashboard/cliente/create', params: { customer: customer_params }
+        post '/gestao/admin/dashboard/funcionario/create', params: { employee: employee_params }
 
-        expect(flash[:alert]).to eq('Erro ao criar novo cliente!')
+        expect(flash[:alert]).to eq('Erro ao criar novo funcionário!')
       end
     end
   end

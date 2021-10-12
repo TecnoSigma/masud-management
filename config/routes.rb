@@ -51,8 +51,10 @@ Rails.application.routes.draw do
       delete 'dashboard/cliente/remove/:id', to: 'dashboard/customers#remove', as: 'dashboard_customer_remove'
 
       get 'dashboard/funcionarios',              to: 'dashboard/employees#list'
+      get 'dashboard/funcionario/novo',          to: 'dashboard/employees#new'
       get 'dashboard/funcionario/:id',           to: 'dashboard/employees#show',   as: 'dashboard_employee_show'
       get 'dashboard/funcionario/:id/editar',    to: 'dashboard/employees#edit',   as: 'dashboard_employee_edit'
+      post 'dashboard/funcionario/create',       to: 'dashboard/employees#create'
       delete 'dashboard/funcionario/remove/:id', to: 'dashboard/employees#remove', as: 'dashboard_employee_remove'
     end
 
