@@ -1,0 +1,60 @@
+<%= render './partials/messages' %>
+<h1 class="mt-4"><%= t('.title') %></h1>
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item active"><%= t('breadcrumbs.tackles_list') %></li>
+</ol>
+<div>
+  <%= link_to t('.add_tackle_btn'),
+              employee_panel_administrator_dashboard_equipamento_novo_path,
+              class: 'btn btn-primary' %>
+</div>
+<br>
+<div class="card mb-4">
+  <div class="card-header">
+    <i class="fas fa-table me-1"></i>
+    <%= t('.tackles_list') %>
+  </div>
+  <div class="card-body">
+    <table id="datatablesTackle" role='datatable' class="stripe" width="100%">
+      <thead>
+        <tr>
+          <th><%= t('.type') %></th>
+          <th><%= t('.serial_number') %></th>
+          <th><%= t('.register_number') %></th>
+          <th><%= t('.situation') %></th>
+          <th><%= t('.status') %></th>
+          <th><%= t('.in_mission') %></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <th><%= t('.type') %></th>
+          <th><%= t('.serial_number') %></th>
+          <th><%= t('.register_number') %></th>
+          <th><%= t('.situation') %></th>
+          <th><%= t('.status') %></th>
+          <th><%= t('.in_mission') %></th>
+          <th></th>
+        </tr>
+      </tfoot>
+      <tbody>
+        <% @tackles.each do |tackle| %>
+          <tr>
+            <td><%= Tackle::ALLOWED_TYPES[tackle.type.downcase.to_sym] %></td>
+            <td><%= tackle.serial_number %></td>
+            <td><%= tackle.register_number %></td>
+            <td><%= tackle.situation %></td>
+            <td><%= tackle.status.name %></td>
+            <td><%= t("#{tackle.employee_id.present?}") %></td>
+            <td>
+              <%= link_to employee_panel_administrator_dashboard_tackle_show_path(tackle.id) do %>
+                <i class="fas fa-align-justify me-1"></i></td>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

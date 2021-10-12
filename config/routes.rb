@@ -57,6 +57,10 @@ Rails.application.routes.draw do
       post 'dashboard/funcionario/create',       to: 'dashboard/employees#create'
       patch 'dashboard/funcionario/update/:id',  to: 'dashboard/employees#update', as: 'dashboard_employee_update'
       delete 'dashboard/funcionario/remove/:id', to: 'dashboard/employees#remove', as: 'dashboard_employee_remove'
+
+      get 'dashboard/equipamentos',     to: 'dashboard/tackles#list'
+      get 'dashboard/equipamento/novo', to: 'dashboard/tackles#new'
+      get 'dashboard/equipamento/:id',  to: 'dashboard/tackles#show', as: 'dashboard_tackle_show'
     end
 
     scope module: 'agent_panel', path: 'agente', as: 'agent' do

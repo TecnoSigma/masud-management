@@ -1,4 +1,6 @@
 pt-BR:
+  true: 'sim'
+  false: 'não'
   app_name: 'Masud Segurança'
   greeting:
     day: 'Bom dia'
@@ -13,6 +15,7 @@ pt-BR:
     show_escort: 'Escolta %{order_number}'
     customers_list: 'Lista de Clientes'
     employees_list: 'Lista de Funcionários'
+    tackles_list: 'Lista de Equipamentos'
   error:
     unauthorized:
       code: '401'
@@ -320,6 +323,17 @@ pt-BR:
             exclusive_to_agents_info: 'Campo exclusivo para agentes'
             format_cpf_info: 'Utilize o formato 000.000.000-00'
             required_fields: '(*) Campos obrigatórios'
+        tackles:
+          list:
+            title: 'Equipamentos'
+            type: 'Tipo'
+            serial_number: 'Série'
+            register_number: 'Registro'
+            situation: 'Situação'
+            status: 'Status'
+            in_mission: 'Em Missão'
+            add_tackle_btn: 'Adicionar Equipamento'
+            tackles_list: 'Lista de Equipamentos'
   partials:
     admin_menu:
       dashboard: 'Dashboard'
@@ -339,6 +353,10 @@ pt-BR:
         general_report: 'Relatório Geral'
       employee:
         type: 'Funcionários'
+        list: 'Lista'
+        general_report: 'Relatório Geral'
+      tackle:
+        type: 'Equipamentos'
         list: 'Lista'
         general_report: 'Relatório Geral'
     customer_menu:
