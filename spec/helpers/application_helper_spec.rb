@@ -52,6 +52,24 @@ RSpec.describe ApplicationHelper, type: :helper do
     end
   end
 
+  describe '#convert_date' do
+    it 'returns converted date in format dd/mm/yyyy' do
+      employee = FactoryBot.create(:employee, :admin)
+
+      expected_result = employee.admission_date.strftime('%d/%m/%Y')
+
+      result = helper.convert_date(employee.admission_date)
+
+      expect(result).to eq(expected_result)
+    end
+
+    it 'returns empty string when pass empty string' do
+      result = helper.convert_date('')
+
+      expect(result).to eq('')
+    end
+  end
+
   describe '#order_color' do
     it 'returns font blue class when the order is scheduled' do
       order = FactoryBot.create(:order, :scheduled)

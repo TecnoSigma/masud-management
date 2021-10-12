@@ -1,4 +1,4 @@
-<h1 class="mt-4"><%= t('.title', order_number: @employee.name) %></h1>
+<h1 class="mt-4"><%= @employee.name %></h1>
 <ol class="breadcrumb mb-4">
   <li class="breadcrumb-item">
     <%= link_to t('breadcrumbs.employees_list'), employee_panel_administrator_dashboard_funcionarios_path %>
@@ -47,15 +47,15 @@
                   </p>
                   <p>
                     <strong><%= t('.cvn_validation_date') %></strong>
-                    <%= @employee.cvn_validation_date %>
+                    <%= convert_date(@employee.cvn_validation_date) %>
                   </p>
                   <p>
                     <strong><%= t('.admission_date') %></strong>
-                    <%= @employee.admission_date %>
+                    <%= convert_date(@employee.admission_date) %>
                   </p>
                   <p>
                     <strong><%= t('.resignation_date') %></strong>
-                    <%= @employee.resignation_date %>
+                    <%= convert_date(@employee.resignation_date) %>
                   </p>
                   <p>
                     <strong><%= t('.profile') %></strong>

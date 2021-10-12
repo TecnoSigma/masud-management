@@ -8,12 +8,12 @@ module EmployeePanel
 
         def new; end
 
-        #def edit
-        #  @customer = Customer.find(params['id'])
-        #rescue StandardError, ActiveRecord::RecordNotFound => error
-        #  redirect_to employee_panel_administrator_dashboard_clientes_path,
-        #              alert: error_message(error.class, :find)
-        #end
+        def edit
+          @employee = Employee.find(params['id'])
+        rescue StandardError, ActiveRecord::RecordNotFound => error
+          redirect_to employee_panel_administrator_dashboard_funcionarios_path,
+                      alert: error_message(error.class, :find)
+        end
 
         def list
           @employees = Employee.all
@@ -42,17 +42,17 @@ module EmployeePanel
                       alert: error_message(error.class, :find)
         end
 
-        #def update
-        #  customer = Customer.find(params['id'])
+        def update
+          employee = Employee.find(params['id'])
 
-        #  customer.update!(customer_params)
+          employee.update!(employee_params)
 
-        #  redirect_to employee_panel_administrator_dashboard_customer_show_path(customer.id),
-        #              notice: t('messages.successes.customer.updated_successfully')
-        #rescue StandardError, ActiveRecord::RecordNotFound => error
-        #  redirect_to employee_panel_administrator_dashboard_clientes_path,
-        #              alert: error_message(error.class, :update)
-        #end
+          redirect_to employee_panel_administrator_dashboard_employee_show_path(employee.id),
+                      notice: t('messages.successes.employee.updated_successfully')
+        rescue StandardError, ActiveRecord::RecordNotFound => error
+          redirect_to employee_panel_administrator_dashboard_funcionarios_path,
+                      alert: error_message(error.class, :update)
+        end
 
         #def remove
         #  customer = Customer.find(params['id'])
@@ -70,6 +70,8 @@ module EmployeePanel
        private
 
         def employee_klass
+          return Employee unless params['employee']['profile']
+
           params['employee']['profile'].titleize.constantize
         end
 
@@ -87,10 +89,15 @@ module EmployeePanel
                              .permit(:name, :codename, :email, :rg, :cpf, :cvn_number,
                                      :cvn_validation_date, :admission_date, :resignation_date)
 
-          formatted_params.merge!('password' => Employee.generate_password)
+          formatted_params
+            .merge!('password' => Employee.generate_password) unless params['action'] == 'update'
+
+          params['employee']['profile'] ?
+            formatted_params.merge!('type' => params['employee']['profile'].titleize) :
+            formatted_params
 
           params['employee']['status'] ?
-            formatted_params.merge('status' => Status.find_by_name(params['employee']['status'])) :
+            formatted_params.merge!('status' => Status.find_by_name(params['employee']['status'])) :
             formatted_params
         end
       end

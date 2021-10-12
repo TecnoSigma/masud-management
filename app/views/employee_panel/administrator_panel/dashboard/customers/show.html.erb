@@ -1,4 +1,4 @@
-<h1 class="mt-4"><%= t('.title', order_number: @customer.company) %></h1>
+<h1 class="mt-4"><%= @customer.company %></h1>
 <ol class="breadcrumb mb-4">
   <li class="breadcrumb-item">
     <%= link_to t('breadcrumbs.customers_list'), employee_panel_administrator_dashboard_clientes_path %>

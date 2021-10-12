@@ -7,9 +7,16 @@ class Employee < ApplicationRecord
             :cpf,
             presence: true
 
+  validates :codename,
+            :cvn_number,
+            :cvn_validation_date,
+            presence: true,
+            if: :agent?
+
   validates :email,
             :password,
-            presence: true, unless: :profile_with_access_permission?
+            presence: true,
+            unless: :profile_with_access_permission?
 
   validates :cpf,
             format: { with: Regex.cpf,
@@ -53,6 +60,10 @@ class Employee < ApplicationRecord
   end
 
   def profile_with_access_permission?
+    agent?
+  end
+
+  def agent?
     instance_of?(Agent)
   end
 

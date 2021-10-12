@@ -1,11 +1,6 @@
 # frozen_string_literal: true
 
 class Agent < Employee
-  validates :codename,
-            :cvn_number,
-            :cvn_validation_date,
-            presence: true
-
   validates :cvn_number,
             format: { with: Regex.cvn_number,
                       message: I18n.t('messages.errors.invalid_format') }

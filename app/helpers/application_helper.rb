@@ -20,6 +20,12 @@ module ApplicationHelper
     DateTime.parse(date_time.to_s).strftime('%d/%m/%Y - %H:%M')
   end
 
+  def convert_date(date)
+    return '' unless date.present?
+
+    date.strftime('%d/%m/%Y')
+  end
+
   def order_color(order)
     return 'scheduled-order' if order.scheduled?
     return 'confirmed-order' if order.confirmed?
