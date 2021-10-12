@@ -32,6 +32,13 @@ FactoryBot.define do
       team_id { nil }
     end
 
+    trait :approver do
+      type { 'Approver' }
+      email { 'approver@approver.com.br' }
+      password { '123456' }
+      team_id { nil }
+    end
+
     trait :operator do
       type { 'Operator' }
       email { 'operator@operator.com.br' }

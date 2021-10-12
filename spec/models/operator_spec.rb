@@ -38,25 +38,4 @@ RSpec.describe Operator, type: :model do
       expect(operator).not_to respond_to(:tackles)
     end
   end
-
-  describe 'validates presences' do
-    it 'of codename' do
-      operator = Operator.new(FactoryBot.attributes_for(:employee, :operator, codename: nil))
-
-      expect(operator).to be_invalid
-    end
-
-    it 'of cvn_number' do
-      operator = Operator.new(FactoryBot.attributes_for(:employee, :operator, cvn_number: nil))
-
-      expect(operator).to be_invalid
-    end
-
-    it 'of cvn_validation_date' do
-      operator = Operator.new(FactoryBot.attributes_for(:employee, :operator,
-                                                        cvn_validation_date: nil))
-
-      expect(operator).to be_invalid
-    end
-  end
 end

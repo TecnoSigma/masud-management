@@ -87,11 +87,11 @@ module EmployeePanel
                              .permit(:name, :codename, :email, :rg, :cpf, :cvn_number,
                                      :cvn_validation_date, :admission_date, :resignation_date)
 
-          if params['employee']['status']
-            formatted_params.merge('status' => Status.find_by_name(params['employee']['status']))
-          else
+          formatted_params.merge!('password' => Employee.generate_password)
+
+          params['employee']['status'] ?
+            formatted_params.merge('status' => Status.find_by_name(params['employee']['status'])) :
             formatted_params
-          end
         end
       end
     end

@@ -56,11 +56,12 @@ RSpec.describe Agent, type: :model do
   end
 
   it 'clears password when create a new agent' do
-    agent = Agent.new(FactoryBot.attributes_for(:employee, :agent, password: '123456', name: 'João' ))
+    name = 'João'
+    agent = Agent.new(FactoryBot.attributes_for(:employee, :agent, password: '123456', name: name ))
 
     agent.save!
 
-    result = agent.password
+    result = Agent.find_by_name(name).password
 
     expect(result).to be_nil
   end

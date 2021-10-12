@@ -21,8 +21,6 @@ class Employee < ApplicationRecord
   belongs_to :status
   has_one :service_token
 
-  before_create :generate_password, unless: :profile_with_access_permission?
-
   ACTIVE_STATUS = 'ativo'
   MASTER_PROFILE = 'Administrator'
   PER_PAGE_IN_EMPLOYEE_DASHBOARD = 20
@@ -46,8 +44,8 @@ class Employee < ApplicationRecord
       .or(Status.where(name: 'suspenso'))
   end
 
-  def generate_password
-    self.password = Passgen.generate(length: 15)
+  def self.generate_password
+    Passgen.generate(length: 15)
   end
 
   def active?

@@ -26,95 +26,473 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Employees', type: 
   end
 
   describe '#create' do
-    context 'when pass valid params' do
-      it 'creates a new employee' do
-        status = FactoryBot.create(:status, name: 'ativo')
-        employee_name = 'João da Silva'
-        employee_params = FactoryBot.attributes_for(:employee,
-                                                    :agent,
-                                                    name: employee_name,
-                                                    status: status.name)
+    context 'when employee is an Administrator' do
+      context 'and when pass valid params' do
+        it 'creates a new employee' do
+          status = FactoryBot.create(:status, name: 'ativo')
+          employee_name = 'João da Silva'
+          employee_params = FactoryBot.attributes_for(:employee,
+                                                      :admin,
+                                                      name: employee_name,
+                                                      status: status.name)
 
-        employee_params.merge!('profile' => 'agent')
+          employee_params.merge!('profile' => 'administrator')
 
-        post '/gestao/admin/dashboard/funcionario/create', params: { employee: employee_params }
+          post '/gestao/admin/dashboard/funcionario/create', params: { employee: employee_params }
 
-        result = Employee.find_by_name(employee_name)
+          result = Employee.find_by_name(employee_name)
 
-        expect(result).to be_present
+          expect(result).to be_present
+        end
+
+        it 'redirects to employees list page' do
+          status = FactoryBot.create(:status, name: 'ativo')
+          employee_name = 'João da Silva'
+          employee_params = FactoryBot.attributes_for(:employee,
+                                                      :admin,
+                                                      name: employee_name,
+                                                      status: status.name)
+
+          employee_params.merge!('profile' => 'administrator')
+
+          post '/gestao/admin/dashboard/funcionario/create', params: { employee: employee_params }
+
+          expect(response).to redirect_to(employee_panel_administrator_dashboard_funcionarios_path)
+        end
+
+        it 'shows success message' do
+          status = FactoryBot.create(:status, name: 'ativo')
+          employee_name = 'João da Silva'
+          employee_params = FactoryBot.attributes_for(:employee,
+                                                      :admin,
+                                                      name: employee_name,
+                                                      status: status.name)
+
+          employee_params.merge!('profile' => 'administrator')
+
+          post '/gestao/admin/dashboard/funcionario/create', params: { employee: employee_params }
+
+          expect(flash[:notice]).to eq("Funcionário #{employee_name} criado com sucesso!")
+        end
       end
 
-      it 'redirects to employees list page' do
-        status = FactoryBot.create(:status, name: 'ativo')
-        employee_name = 'João da Silva'
-        employee_params = FactoryBot.attributes_for(:employee,
-                                                    :agent,
-                                                    name: employee_name,
-                                                    status: status.name)
+      context 'and when pass invalid params' do
+        it 'no creates a new employee' do
+          status = FactoryBot.create(:status, name: 'ativo')
+          employee_name = 'João da Silva'
+          employee_params = FactoryBot.attributes_for(:employee,
+                                                      :admin,
+                                                      name: employee_name,
+                                                      status: status.name)
 
-        employee_params.merge!('profile' => 'agent')
+          post '/gestao/admin/dashboard/funcionario/create', params: { employee: employee_params }
 
-        post '/gestao/admin/dashboard/funcionario/create', params: { employee: employee_params }
+          result = Employee.find_by_name(employee_name)
 
-        expect(response).to redirect_to(employee_panel_administrator_dashboard_funcionarios_path)
-      end
+          expect(result).to be_nil
+        end
 
-      it 'shows success message' do
-        status = FactoryBot.create(:status, name: 'ativo')
-        employee_name = 'João da Silva'
-        employee_params = FactoryBot.attributes_for(:employee,
-                                                    :agent,
-                                                    name: employee_name,
-                                                    status: status.name)
+        it 'redirects to new employee page' do
+          status = FactoryBot.create(:status, name: 'ativo')
+          employee_name = 'João da Silva'
+          employee_params = FactoryBot.attributes_for(:employee,
+                                                      :admin,
+                                                      name: employee_name,
+                                                      status: status.name)
 
-        employee_params.merge!('profile' => 'agent')
+          post '/gestao/admin/dashboard/funcionario/create', params: { employee: employee_params }
 
-        post '/gestao/admin/dashboard/funcionario/create', params: { employee: employee_params }
+          expect(response).to redirect_to(employee_panel_administrator_dashboard_funcionario_novo_path)
+        end
 
-        expect(flash[:notice]).to eq("Funcionário #{employee_name} criado com sucesso!")
+        it 'shows error message' do
+          status = FactoryBot.create(:status, name: 'ativo')
+          employee_name = 'João da Silva'
+          employee_params = FactoryBot.attributes_for(:employee,
+                                                      :admin,
+                                                      name: employee_name,
+                                                      status: status.name)
+
+          post '/gestao/admin/dashboard/funcionario/create', params: { employee: employee_params }
+
+          expect(flash[:alert]).to eq('Erro ao criar novo funcionário!')
+        end
       end
     end
+    
+    context 'when employee is an Agent' do
+      context 'and when pass valid params' do
+        it 'creates a new employee' do
+          status = FactoryBot.create(:status, name: 'ativo')
+          employee_name = 'João da Silva'
+          employee_params = FactoryBot.attributes_for(:employee,
+                                                      :agent,
+                                                      name: employee_name,
+                                                      status: status.name)
 
-    context 'when pass invalid params' do
-      it 'no creates a new employee' do
-        status = FactoryBot.create(:status, name: 'ativo')
-        employee_name = 'João da Silva'
-        employee_params = FactoryBot.attributes_for(:employee,
-                                                    :agent,
-                                                    name: employee_name,
-                                                    status: status.name)
+          employee_params.merge!('profile' => 'agent')
 
-        post '/gestao/admin/dashboard/funcionario/create', params: { employee: employee_params }
+          post '/gestao/admin/dashboard/funcionario/create', params: { employee: employee_params }
 
-        result = Employee.find_by_name(employee_name)
+          result = Employee.find_by_name(employee_name)
 
-        expect(result).to be_nil
+          expect(result).to be_present
+        end
+
+        it 'redirects to employees list page' do
+          status = FactoryBot.create(:status, name: 'ativo')
+          employee_name = 'João da Silva'
+          employee_params = FactoryBot.attributes_for(:employee,
+                                                      :agent,
+                                                      name: employee_name,
+                                                      status: status.name)
+
+          employee_params.merge!('profile' => 'agent')
+
+          post '/gestao/admin/dashboard/funcionario/create', params: { employee: employee_params }
+
+          expect(response).to redirect_to(employee_panel_administrator_dashboard_funcionarios_path)
+        end
+
+        it 'shows success message' do
+          status = FactoryBot.create(:status, name: 'ativo')
+          employee_name = 'João da Silva'
+          employee_params = FactoryBot.attributes_for(:employee,
+                                                      :agent,
+                                                      name: employee_name,
+                                                      status: status.name)
+
+          employee_params.merge!('profile' => 'agent')
+
+          post '/gestao/admin/dashboard/funcionario/create', params: { employee: employee_params }
+
+          expect(flash[:notice]).to eq("Funcionário #{employee_name} criado com sucesso!")
+        end
       end
 
-      it 'redirects to new customer page' do
-        status = FactoryBot.create(:status, name: 'ativo')
-        employee_name = 'João da Silva'
-        employee_params = FactoryBot.attributes_for(:employee,
-                                                    :agent,
-                                                    name: employee_name,
-                                                    status: status.name)
+      context 'and when pass invalid params' do
+        it 'no creates a new employee' do
+          status = FactoryBot.create(:status, name: 'ativo')
+          employee_name = 'João da Silva'
+          employee_params = FactoryBot.attributes_for(:employee,
+                                                      :agent,
+                                                      name: employee_name,
+                                                      status: status.name)
 
-        post '/gestao/admin/dashboard/funcionario/create', params: { employee: employee_params }
+          post '/gestao/admin/dashboard/funcionario/create', params: { employee: employee_params }
 
-        expect(response).to redirect_to(employee_panel_administrator_dashboard_funcionario_novo_path)
+          result = Employee.find_by_name(employee_name)
+
+          expect(result).to be_nil
+        end
+
+        it 'redirects to new employee page' do
+          status = FactoryBot.create(:status, name: 'ativo')
+          employee_name = 'João da Silva'
+          employee_params = FactoryBot.attributes_for(:employee,
+                                                      :agent,
+                                                      name: employee_name,
+                                                      status: status.name)
+
+          post '/gestao/admin/dashboard/funcionario/create', params: { employee: employee_params }
+
+          expect(response).to redirect_to(employee_panel_administrator_dashboard_funcionario_novo_path)
+        end
+
+        it 'shows error message' do
+          status = FactoryBot.create(:status, name: 'ativo')
+          employee_name = 'João da Silva'
+          employee_params = FactoryBot.attributes_for(:employee,
+                                                      :agent,
+                                                      name: employee_name,
+                                                      status: status.name)
+
+          post '/gestao/admin/dashboard/funcionario/create', params: { employee: employee_params }
+
+          expect(flash[:alert]).to eq('Erro ao criar novo funcionário!')
+        end
+      end
+    end
+    
+    context 'when employee is an Approver' do
+      context 'and when pass valid params' do
+        it 'creates a new employee' do
+          status = FactoryBot.create(:status, name: 'ativo')
+          employee_name = 'João da Silva'
+          employee_params = FactoryBot.attributes_for(:employee,
+                                                      :approver,
+                                                      name: employee_name,
+                                                      status: status.name)
+
+          employee_params.merge!('profile' => 'approver')
+
+          post '/gestao/admin/dashboard/funcionario/create', params: { employee: employee_params }
+
+          result = Employee.find_by_name(employee_name)
+
+          expect(result).to be_present
+        end
+
+        it 'redirects to employees list page' do
+          status = FactoryBot.create(:status, name: 'ativo')
+          employee_name = 'João da Silva'
+          employee_params = FactoryBot.attributes_for(:employee,
+                                                      :approver,
+                                                      name: employee_name,
+                                                      status: status.name)
+
+          employee_params.merge!('profile' => 'approver')
+
+          post '/gestao/admin/dashboard/funcionario/create', params: { employee: employee_params }
+
+          expect(response).to redirect_to(employee_panel_administrator_dashboard_funcionarios_path)
+        end
+
+        it 'shows success message' do
+          status = FactoryBot.create(:status, name: 'ativo')
+          employee_name = 'João da Silva'
+          employee_params = FactoryBot.attributes_for(:employee,
+                                                      :approver,
+                                                      name: employee_name,
+                                                      status: status.name)
+
+          employee_params.merge!('profile' => 'approver')
+
+          post '/gestao/admin/dashboard/funcionario/create', params: { employee: employee_params }
+
+          expect(flash[:notice]).to eq("Funcionário #{employee_name} criado com sucesso!")
+        end
       end
 
-      it 'shows error message' do
-        status = FactoryBot.create(:status, name: 'ativo')
-        employee_name = 'João da Silva'
-        employee_params = FactoryBot.attributes_for(:employee,
-                                                    :agent,
-                                                    name: employee_name,
-                                                    status: status.name)
+      context 'and when pass invalid params' do
+        it 'no creates a new employee' do
+          status = FactoryBot.create(:status, name: 'ativo')
+          employee_name = 'João da Silva'
+          employee_params = FactoryBot.attributes_for(:employee,
+                                                      :approver,
+                                                      name: employee_name,
+                                                      status: status.name)
 
-        post '/gestao/admin/dashboard/funcionario/create', params: { employee: employee_params }
+          post '/gestao/admin/dashboard/funcionario/create', params: { employee: employee_params }
 
-        expect(flash[:alert]).to eq('Erro ao criar novo funcionário!')
+          result = Employee.find_by_name(employee_name)
+
+          expect(result).to be_nil
+        end
+
+        it 'redirects to new employee page' do
+          status = FactoryBot.create(:status, name: 'ativo')
+          employee_name = 'João da Silva'
+          employee_params = FactoryBot.attributes_for(:employee,
+                                                      :approver,
+                                                      name: employee_name,
+                                                      status: status.name)
+
+          post '/gestao/admin/dashboard/funcionario/create', params: { employee: employee_params }
+
+          expect(response).to redirect_to(employee_panel_administrator_dashboard_funcionario_novo_path)
+        end
+
+        it 'shows error message' do
+          status = FactoryBot.create(:status, name: 'ativo')
+          employee_name = 'João da Silva'
+          employee_params = FactoryBot.attributes_for(:employee,
+                                                      :approver,
+                                                      name: employee_name,
+                                                      status: status.name)
+
+          post '/gestao/admin/dashboard/funcionario/create', params: { employee: employee_params }
+
+          expect(flash[:alert]).to eq('Erro ao criar novo funcionário!')
+        end
+      end
+    end
+    
+    context 'when employee is a Lecturer' do
+      context 'and when pass valid params' do
+        it 'creates a new employee' do
+          status = FactoryBot.create(:status, name: 'ativo')
+          employee_name = 'João da Silva'
+          employee_params = FactoryBot.attributes_for(:employee,
+                                                      :lecturer,
+                                                      name: employee_name,
+                                                      status: status.name)
+
+          employee_params.merge!('profile' => 'lecturer')
+
+          post '/gestao/admin/dashboard/funcionario/create', params: { employee: employee_params }
+
+          result = Employee.find_by_name(employee_name)
+
+          expect(result).to be_present
+        end
+
+        it 'redirects to employees list page' do
+          status = FactoryBot.create(:status, name: 'ativo')
+          employee_name = 'João da Silva'
+          employee_params = FactoryBot.attributes_for(:employee,
+                                                      :lecturer,
+                                                      name: employee_name,
+                                                      status: status.name)
+
+          employee_params.merge!('profile' => 'lecturer')
+
+          post '/gestao/admin/dashboard/funcionario/create', params: { employee: employee_params }
+
+          expect(response).to redirect_to(employee_panel_administrator_dashboard_funcionarios_path)
+        end
+
+        it 'shows success message' do
+          status = FactoryBot.create(:status, name: 'ativo')
+          employee_name = 'João da Silva'
+          employee_params = FactoryBot.attributes_for(:employee,
+                                                      :lecturer,
+                                                      name: employee_name,
+                                                      status: status.name)
+
+          employee_params.merge!('profile' => 'lecturer')
+
+          post '/gestao/admin/dashboard/funcionario/create', params: { employee: employee_params }
+
+          expect(flash[:notice]).to eq("Funcionário #{employee_name} criado com sucesso!")
+        end
+      end
+
+      context 'and when pass invalid params' do
+        it 'no creates a new employee' do
+          status = FactoryBot.create(:status, name: 'ativo')
+          employee_name = 'João da Silva'
+          employee_params = FactoryBot.attributes_for(:employee,
+                                                      :lecturer,
+                                                      name: employee_name,
+                                                      status: status.name)
+
+          post '/gestao/admin/dashboard/funcionario/create', params: { employee: employee_params }
+
+          result = Employee.find_by_name(employee_name)
+
+          expect(result).to be_nil
+        end
+
+        it 'redirects to new employee page' do
+          status = FactoryBot.create(:status, name: 'ativo')
+          employee_name = 'João da Silva'
+          employee_params = FactoryBot.attributes_for(:employee,
+                                                      :lecturer,
+                                                      name: employee_name,
+                                                      status: status.name)
+
+          post '/gestao/admin/dashboard/funcionario/create', params: { employee: employee_params }
+
+          expect(response).to redirect_to(employee_panel_administrator_dashboard_funcionario_novo_path)
+        end
+
+        it 'shows error message' do
+          status = FactoryBot.create(:status, name: 'ativo')
+          employee_name = 'João da Silva'
+          employee_params = FactoryBot.attributes_for(:employee,
+                                                      :lecturer,
+                                                      name: employee_name,
+                                                      status: status.name)
+
+          post '/gestao/admin/dashboard/funcionario/create', params: { employee: employee_params }
+
+          expect(flash[:alert]).to eq('Erro ao criar novo funcionário!')
+        end
+      end
+    end
+    
+    context 'when employee is an Operator' do
+      context 'and when pass valid params' do
+        it 'creates a new employee' do
+          status = FactoryBot.create(:status, name: 'ativo')
+          employee_name = 'João da Silva'
+          employee_params = FactoryBot.attributes_for(:employee,
+                                                      :operator,
+                                                      name: employee_name,
+                                                      status: status.name)
+
+          employee_params.merge!('profile' => 'operator')
+
+          post '/gestao/admin/dashboard/funcionario/create', params: { employee: employee_params }
+
+          result = Employee.find_by_name(employee_name)
+
+          expect(result).to be_present
+        end
+
+        it 'redirects to employees list page' do
+          status = FactoryBot.create(:status, name: 'ativo')
+          employee_name = 'João da Silva'
+          employee_params = FactoryBot.attributes_for(:employee,
+                                                      :operator,
+                                                      name: employee_name,
+                                                      status: status.name)
+
+          employee_params.merge!('profile' => 'operator')
+
+          post '/gestao/admin/dashboard/funcionario/create', params: { employee: employee_params }
+
+          expect(response).to redirect_to(employee_panel_administrator_dashboard_funcionarios_path)
+        end
+
+        it 'shows success message' do
+          status = FactoryBot.create(:status, name: 'ativo')
+          employee_name = 'João da Silva'
+          employee_params = FactoryBot.attributes_for(:employee,
+                                                      :operator,
+                                                      name: employee_name,
+                                                      status: status.name)
+
+          employee_params.merge!('profile' => 'operator')
+
+          post '/gestao/admin/dashboard/funcionario/create', params: { employee: employee_params }
+
+          expect(flash[:notice]).to eq("Funcionário #{employee_name} criado com sucesso!")
+        end
+      end
+
+      context 'and when pass invalid params' do
+        it 'no creates a new employee' do
+          status = FactoryBot.create(:status, name: 'ativo')
+          employee_name = 'João da Silva'
+          employee_params = FactoryBot.attributes_for(:employee,
+                                                      :operator,
+                                                      name: employee_name,
+                                                      status: status.name)
+
+          post '/gestao/admin/dashboard/funcionario/create', params: { employee: employee_params }
+
+          result = Employee.find_by_name(employee_name)
+
+          expect(result).to be_nil
+        end
+
+        it 'redirects to new employee page' do
+          status = FactoryBot.create(:status, name: 'ativo')
+          employee_name = 'João da Silva'
+          employee_params = FactoryBot.attributes_for(:employee,
+                                                      :operator,
+                                                      name: employee_name,
+                                                      status: status.name)
+
+          post '/gestao/admin/dashboard/funcionario/create', params: { employee: employee_params }
+
+          expect(response).to redirect_to(employee_panel_administrator_dashboard_funcionario_novo_path)
+        end
+
+        it 'shows error message' do
+          status = FactoryBot.create(:status, name: 'ativo')
+          employee_name = 'João da Silva'
+          employee_params = FactoryBot.attributes_for(:employee,
+                                                      :operator,
+                                                      name: employee_name,
+                                                      status: status.name)
+
+          post '/gestao/admin/dashboard/funcionario/create', params: { employee: employee_params }
+
+          expect(flash[:alert]).to eq('Erro ao criar novo funcionário!')
+        end
       end
     end
   end
