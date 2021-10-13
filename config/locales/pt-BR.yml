@@ -52,6 +52,8 @@ pt-BR:
       employee:
         create_failed: 'Erro ao criar novo funcionário!'
         not_found: 'Funcionário não encontrado!'
+      tackle:
+        not_found: 'Equipamento não encontrado!'
     infos:
       scheduling_cancelation: 'Importante: Todo agendamento poderá ser cancelado em até trẽs horas após a sua criação.'
       password_strength: 'Dica; Utilize letras, números e caracteres especiais (&, @, !, #) '
@@ -334,6 +336,22 @@ pt-BR:
             in_mission: 'Em Missão'
             add_tackle_btn: 'Adicionar Equipamento'
             tackles_list: 'Lista de Equipamentos'
+          show:
+            tackle_data: 'Dados do Equipamento'
+            type: 'Tipo: '
+            brand: 'Marca: '
+            serial_number: 'Número de Série: '
+            register_number: 'Número de Registro: '
+            fabrication_date: 'Data de Fabricação: '
+            bond_date: 'Data de Vínculo: '
+            protection_level: 'Nível de Proteção: '
+            situation: 'Situação: '
+            in_mission: 'Em Missão: '
+            status: 'Status: '
+            back_btn: 'Voltar'
+            edit_btn: 'Editar'
+            remove_btn: 'Remover'
+
   partials:
     admin_menu:
       dashboard: 'Dashboard'

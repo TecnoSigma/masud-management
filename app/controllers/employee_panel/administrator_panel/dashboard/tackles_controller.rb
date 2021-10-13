@@ -8,12 +8,12 @@ module EmployeePanel
 
         #def new; end
 
-        #def edit
-        #  @employee = Employee.find(params['id'])
-        #rescue StandardError, ActiveRecord::RecordNotFound => error
-        #  redirect_to employee_panel_administrator_dashboard_funcionarios_path,
-        #              alert: error_message(error.class, :find)
-        #end
+        def edit
+          @employee = Employee.find(params['id'])
+        rescue StandardError, ActiveRecord::RecordNotFound => error
+          redirect_to employee_panel_administrator_dashboard_funcionarios_path,
+                      alert: error_message(error.class, :find)
+        end
 
         def list
           @tackles = Tackle.all
@@ -35,12 +35,12 @@ module EmployeePanel
         #              alert: t('messages.errors.employee.create_failed')
         #end
 
-        #def show
-        #  @employee = Employee.find(params['id'])
-        #rescue StandardError, ActiveRecord::RecordNotFound => error
-        #  redirect_to employee_panel_administrator_dashboard_funcionarios_path,
-        #              alert: error_message(error.class, :find)
-        #end
+        def show
+          @tackle = Tackle.find(params['id'])
+        rescue StandardError, ActiveRecord::RecordNotFound => error
+          redirect_to employee_panel_administrator_dashboard_equipamentos_path,
+                      alert: error_message(error.class, :find)
+        end
 
         #def update
         #  employee = Employee.find(params['id'])
@@ -54,18 +54,18 @@ module EmployeePanel
         #              alert: error_message(error.class, :update)
         #end
 
-        #def remove
-        #  employee = Employee.find(params['id'])
+        def remove
+          employee = Employee.find(params['id'])
 
-        #  employee.update!(deleted_at: DateTime.now, status: Status.find_by_name('deletado'))
+          employee.update!(deleted_at: DateTime.now, status: Status.find_by_name('deletado'))
 
-        #  redirect_to employee_panel_administrator_dashboard_funcionarios_path,
-        #              notice: t('messages.successes.employee.removed_successfully',
-        #                        employee_name: employee.name)
-        #rescue StandardError, ActiveRecord::RecordNotFound => error
-        #  redirect_to employee_panel_administrator_dashboard_funcionarios_path,
-        #              alert: error_message(error.class, :remove)
-        #end
+          redirect_to employee_panel_administrator_dashboard_equipamentos_path,
+                      notice: t('messages.successes.employee.removed_successfully',
+                                employee_name: employee.name)
+        rescue StandardError, ActiveRecord::RecordNotFound => error
+          redirect_to employee_panel_administrator_dashboard_equipamentos_path,
+                      alert: error_message(error.class, :remove)
+        end
 
         private
 
@@ -75,13 +75,13 @@ module EmployeePanel
         #  params['employee']['profile'].titleize.constantize
         #end
 
-        #def error_message(error_class, action)
-        #  if error_class == ActiveRecord::RecordNotFound
-        #    t('messages.errors.employee.not_found')
-        #  else
-        #    t("messages.errors.#{action}_failed")
-        #  end
-        #end
+        def error_message(error_class, action)
+          if error_class == ActiveRecord::RecordNotFound
+            t('messages.errors.tackle.not_found')
+          else
+            t("messages.errors.#{action}_failed")
+          end
+        end
 
         #def update_params!(formatted_params)
         #  if params['action'] == 'update'

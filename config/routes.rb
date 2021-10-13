@@ -58,9 +58,11 @@ Rails.application.routes.draw do
       patch 'dashboard/funcionario/update/:id',  to: 'dashboard/employees#update', as: 'dashboard_employee_update'
       delete 'dashboard/funcionario/remove/:id', to: 'dashboard/employees#remove', as: 'dashboard_employee_remove'
 
-      get 'dashboard/equipamentos',     to: 'dashboard/tackles#list'
-      get 'dashboard/equipamento/novo', to: 'dashboard/tackles#new'
-      get 'dashboard/equipamento/:id',  to: 'dashboard/tackles#show', as: 'dashboard_tackle_show'
+      get 'dashboard/equipamentos',              to: 'dashboard/tackles#list'
+      get 'dashboard/equipamento/novo',          to: 'dashboard/tackles#new'
+      get 'dashboard/equipamento/:id',           to: 'dashboard/tackles#show',   as: 'dashboard_tackle_show'
+      get 'dashboard/equipamento/:id/editar',    to: 'dashboard/tackles#edit',   as: 'dashboard_tackle_edit'
+      delete 'dashboard/equipamento/remove/:id', to: 'dashboard/tackles#remove', as: 'dashboard_tackle_remove'
     end
 
     scope module: 'agent_panel', path: 'agente', as: 'agent' do

@@ -1,0 +1,87 @@
+<h1 class="mt-4"><%= "#{Tackle::ALLOWED_TYPES[@tackle.type.downcase.to_sym].titleize} #{@tackle.serial_number}" %></h1>
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item">
+    <%= link_to t('breadcrumbs.tackles_list'), employee_panel_administrator_dashboard_equipamentos_path %>
+  </li>
+  <li class="breadcrumb-item active"><%= "#{Tackle::ALLOWED_TYPES[@tackle.type.downcase.to_sym].titleize} #{@tackle.serial_number}" %></li>
+</ol>
+<hr>
+<div id="layoutAuthentication">
+  <div id="layoutAuthentication_content">
+    <main>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-7">
+            <br>
+            <%= render './partials/messages' %>
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+              <div class="card-body">
+                <div class="form-floating mb-3">
+                  <p>
+                    <h5><strong><%= t('.tackle_data') %></strong></h5>
+                  </p>
+                  <hr>
+                  <p>
+                    <strong><%= t('.type') %></strong>
+                    <%= Tackle::ALLOWED_TYPES[@tackle.type.downcase.to_sym] %>
+                  </p>
+                  <p>
+                    <strong><%= t('.brand') %></strong>
+                    <%= @tackle.brand %>
+                  </p>
+                  <p>
+                    <strong><%= t('.serial_number') %></strong>
+                    <%= @tackle.serial_number %>
+                  </p>
+                  <p>
+                    <strong><%= t('.register_number') %></strong>
+                    <%= @tackle.register_number %>
+                  </p>
+                  <p>
+                    <strong><%= t('.fabrication_date') %></strong>
+                    <%= convert_date(@tackle.fabrication_date) %>
+                  </p>
+                  <p>
+                    <strong><%= t('.validation_date') %></strong>
+                    <%= convert_date(@tackle.validation_date) %>
+                  </p>
+                  <p>
+                    <strong><%= t('.bond_date') %></strong>
+                    <%= convert_date(@tackle.bond_date) %>
+                  </p>
+                  <p>
+                    <strong><%= t('.protection_level') %></strong>
+                    <%= @tackle.protection_level %>
+                  </p>
+                  <p>
+                    <strong><%= t('.situation') %></strong>
+                    <%= @tackle.situation %>
+                  </p>
+                  <p>
+                    <strong><%= t('.in_mission') %></strong>
+                    <%= convert_date(@tackle.employee_id) %>
+                  </p>
+                  <p>
+                  <p>
+                    <strong><%= t('.status') %></strong>
+                    <%= @tackle.status.name.titleize %>
+                  </p>
+                  <br>
+                  <%= link_to t('.back_btn'), :back, class: 'btn btn-primary' %>
+                  <%= link_to t('.edit_btn'),
+                              employee_panel_administrator_dashboard_tackle_edit_path,
+                              class: 'btn btn-primary' %>
+                  <%= link_to t('.remove_btn'),
+                              { action: 'remove', id: @tackle.id },
+                              method: :delete,
+                              class: 'btn btn-danger' %>
+                </div>
+              </div>
+              <div class="card-footer text-center py-3"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
