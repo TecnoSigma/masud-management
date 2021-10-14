@@ -273,6 +273,7 @@ pt-BR:
             edit_btn: 'Editar'
             remove_btn: 'Remover'
           new:
+            title: 'Novo Funcionário'
             employee_data: 'Dados do Funcionário'
             name: 'Nome *'
             codename: 'Codinome'

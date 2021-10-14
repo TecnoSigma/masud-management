@@ -121,7 +121,7 @@ module EmployeePanel
         def tackle_params
           formatted_params = params
                              .require(:tackle)
-                             .permit(:type, :serial_number, :register_number, :brand, :fabrication_date, :status,
+                             .permit(:serial_number, :register_number, :brand, :fabrication_date, :status,
                                      :validation_date, :bond_date, :protection_level, :situation)
 
           status_params!(formatted_params)
