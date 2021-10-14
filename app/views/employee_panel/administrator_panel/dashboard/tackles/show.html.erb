@@ -23,7 +23,7 @@
                   <hr>
                   <p>
                     <strong><%= t('.type') %></strong>
-                    <%= Tackle::ALLOWED_TYPES[@tackle.type.downcase.to_sym] %>
+                    <%= Tackle::ALLOWED_TYPES[@tackle.type.downcase.to_sym].titleize %>
                   </p>
                   <p>
                     <strong><%= t('.brand') %></strong>
@@ -55,11 +55,11 @@
                   </p>
                   <p>
                     <strong><%= t('.situation') %></strong>
-                    <%= @tackle.situation %>
+                    <%= @tackle.situation.titleize %>
                   </p>
                   <p>
                     <strong><%= t('.in_mission') %></strong>
-                    <%= convert_date(@tackle.employee_id) %>
+                    <%= t("#{@tackle.employee_id.present?}") %>
                   </p>
                   <p>
                   <p>

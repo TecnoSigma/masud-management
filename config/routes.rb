@@ -62,6 +62,7 @@ Rails.application.routes.draw do
       get 'dashboard/equipamento/novo',          to: 'dashboard/tackles#new'
       get 'dashboard/equipamento/:id',           to: 'dashboard/tackles#show',   as: 'dashboard_tackle_show'
       get 'dashboard/equipamento/:id/editar',    to: 'dashboard/tackles#edit',   as: 'dashboard_tackle_edit'
+      post 'dashboard/equipamento/create',       to: 'dashboard/tackles#create'
       delete 'dashboard/equipamento/remove/:id', to: 'dashboard/tackles#remove', as: 'dashboard_tackle_remove'
     end
 

@@ -1,6 +1,6 @@
 pt-BR:
-  true: 'sim'
-  false: 'não'
+  true: 'Sim'
+  false: 'Não'
   app_name: 'Masud Segurança'
   greeting:
     day: 'Bom dia'
@@ -16,6 +16,7 @@ pt-BR:
     customers_list: 'Lista de Clientes'
     employees_list: 'Lista de Funcionários'
     tackles_list: 'Lista de Equipamentos'
+    new_tackle: 'Novo Equipamento'
   error:
     unauthorized:
       code: '401'
@@ -54,6 +55,7 @@ pt-BR:
         not_found: 'Funcionário não encontrado!'
       tackle:
         not_found: 'Equipamento não encontrado!'
+        create_failed: 'Erro ao criar novo equipamento!'
     infos:
       scheduling_cancelation: 'Importante: Todo agendamento poderá ser cancelado em até trẽs horas após a sua criação.'
       password_strength: 'Dica; Utilize letras, números e caracteres especiais (&, @, !, #) '
@@ -70,6 +72,8 @@ pt-BR:
         created_successfully: 'Funcionário %{employee_name} criado com sucesso!'
         updated_successfully: 'Dados do funcionário atualizados com sucesso!'
         removed_successfully: 'Funcionário %{employee_name} removido com sucesso!'
+      tackle:
+        created_successfully: 'Equipamento %{serial_number} criado com sucesso!'
   layouts:
     application:
       logout: 'Logout'
@@ -195,8 +199,8 @@ pt-BR:
             email: 'Email *'
             secondary_email: 'Email Secundário'
             tertiary_email: 'Email Alternativo'
-            status: 'Status'
-            create_customer_btn: 'Criar Cliente'
+            status: 'Status *'
+            create_customer_btn: 'Adicionar Cliente'
             company_placeholder: 'Empresa'
             cnpj_placeholder: 'CNPJ'
             telephone_placeholder: 'Telefone'
@@ -279,8 +283,8 @@ pt-BR:
             cvn_validation_date: 'Validade do CVN'
             admission_date: 'Data de Admissão *'
             resignation_date: 'Data de Demissão'
-            profile: 'Perfil'
-            status: 'Status'
+            profile: 'Perfil *'
+            status: 'Status *'
             name_placeholder: 'Nome'
             codename_placeholder: 'Codinome'
             email_placeholder: 'Email'
@@ -290,9 +294,7 @@ pt-BR:
             cvn_validation_date_placeholder: 'Validade do CVN'
             admission_date_placeholder: 'Data de Admissão'
             resignation_date_placeholder: 'Data de Demissão'
-            profile: 'Perfil'
-            status: 'Status'
-            create_employee_btn: 'Criar Funcionário'
+            create_employee_btn: 'Adicionar Funcionário'
             format_date_info: 'Utilize o formato dd/mm/aaaa'
             exclusive_to_agents_info: 'Campo exclusivo para agentes'
             format_cpf_info: 'Utilize o formato 000.000.000-00'
@@ -318,8 +320,6 @@ pt-BR:
             cvn_validation_date_placeholder: 'Validade do CVN'
             admission_date_placeholder: 'Data de Admissão'
             resignation_date_placeholder: 'Data de Demissão'
-            profile: 'Perfil'
-            status: 'Status'
             update_employee_btn: 'Atualizar Dados'
             format_date_info: 'Utilize o formato dd/mm/aaaa'
             exclusive_to_agents_info: 'Campo exclusivo para agentes'
@@ -343,6 +343,7 @@ pt-BR:
             serial_number: 'Número de Série: '
             register_number: 'Número de Registro: '
             fabrication_date: 'Data de Fabricação: '
+            validation_date: 'Data de Validade: '
             bond_date: 'Data de Vínculo: '
             protection_level: 'Nível de Proteção: '
             situation: 'Situação: '
@@ -351,7 +352,29 @@ pt-BR:
             back_btn: 'Voltar'
             edit_btn: 'Editar'
             remove_btn: 'Remover'
-
+          new:
+            title: 'Novo Equipamento'
+            tackle_data: 'Dados do Equipamento'
+            type: 'Tipo *'
+            brand: 'Marca'
+            serial_number: 'Número de Série *'
+            register_number: 'Número de Registro'
+            fabrication_date: 'Data de Fabricação'
+            validation_date: 'Data de Validade'
+            bond_date: 'Data de Vínculo'
+            protection_level: 'Nível de Proteção'
+            situation: 'Situação *'
+            status: 'Status *'
+            brand_placeholder: 'Marca'
+            serial_number_placeholder: 'Número de Série'
+            register_number_placeholder: 'Número de Registro'
+            fabrication_date_placeholder: 'Data de Fabricação'
+            validation_date_placeholder: 'Data de Validade'
+            bond_date_placeholder: 'Data de Vínculo'
+            protection_level_placeholder: 'Nível de Proteção'
+            create_tackle_btn: 'Adicionar Equipamento'
+            format_date_info: 'Utilize o formato dd/mm/aaaa'
+            required_fields: '(*) Campos obrigatórios'
   partials:
     admin_menu:
       dashboard: 'Dashboard'

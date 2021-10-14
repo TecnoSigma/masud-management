@@ -5,6 +5,7 @@ FactoryBot.define do
     brand { Faker::Company.name }
     fabrication_date { 200.days.ago }
     validation_date { 100.days.after }
+    protection_level { %w(A B C D E ).sample }
     bond_date { 10.days.ago }
     situation { 'regular' }
     status { FactoryBot.create(:status, name: 'ativo') }
