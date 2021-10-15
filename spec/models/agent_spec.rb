@@ -45,7 +45,7 @@ RSpec.describe Agent, type: :model do
     expect(agent).to be_invalid
   end
 
-  it 'no validates when CVN validation date in less than current date' do
+  xit 'no validates when CVN validation date in less than current date' do
     agent = Agent.new(FactoryBot.attributes_for(
                         :employee,
                         :agent,

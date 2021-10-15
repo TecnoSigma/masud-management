@@ -56,6 +56,7 @@ pt-BR:
       tackle:
         not_found: 'Equipamento não encontrado!'
         create_failed: 'Erro ao criar novo equipamento!'
+        remove_in_mission_failed: 'Equipamento em missão não pode ser removido!'
     infos:
       scheduling_cancelation: 'Importante: Todo agendamento poderá ser cancelado em até trẽs horas após a sua criação.'
       password_strength: 'Dica; Utilize letras, números e caracteres especiais (&, @, !, #) '
@@ -75,6 +76,7 @@ pt-BR:
       tackle:
         created_successfully: 'Equipamento %{serial_number} criado com sucesso!'
         updated_successfully: 'Dados do equipamento atualizados com sucesso!'
+        removed_successfully: '%{type} %{serial_number} removido com sucesso!'
   layouts:
     application:
       logout: 'Logout'

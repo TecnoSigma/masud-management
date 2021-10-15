@@ -424,4 +424,79 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Employees', type: 
       end
     end
   end
+
+  describe '#remove' do
+    context 'when pass valid params' do
+      it 'remove a tackle' do
+        tackle = FactoryBot.create(:tackle, :radio)
+
+        delete "/gestao/admin/dashboard/equipamento/remove/#{tackle.id}"
+
+        result = Employee.find_by_id(tackle.id)
+
+        expect(result).to be_nil
+      end
+
+      it 'shows success message' do
+        tackle = FactoryBot.create(:tackle, :radio)
+
+        delete "/gestao/admin/dashboard/equipamento/remove/#{tackle.id}"
+
+        expect(flash[:notice]).to eq("Rádio #{tackle.serial_number} removido com sucesso!")
+      end
+
+      it 'redirects to tackle page' do
+        tackle = FactoryBot.create(:tackle, :radio)
+
+        delete "/gestao/admin/dashboard/equipamento/remove/#{tackle.id}"
+
+        expect(response).to redirect_to(employee_panel_administrator_dashboard_equipamentos_path)
+      end
+    end
+
+    context 'when tackle isn\'t found' do
+      it 'shows errors message' do
+        delete '/gestao/admin/dashboard/equipamento/remove/invalid_id'
+
+        expect(flash[:alert]).to eq('Equipamento não encontrado!')
+      end
+
+      it 'redirects to tackle page' do
+        delete '/gestao/admin/dashboard/equipamento/remove/invalid_id'
+
+        expect(response).to redirect_to(employee_panel_administrator_dashboard_equipamentos_path)
+      end
+    end
+
+    context 'when tackle is in mission' do
+      it 'no deletes tackle' do
+        employee = FactoryBot.create(:employee, :agent)
+        tackle = FactoryBot.create(:tackle, :radio, employee_id: employee.id)
+
+        delete "/gestao/admin/dashboard/equipamento/remove/#{tackle.id}"
+
+        result = Tackle.find(tackle.id)
+
+        expect(result).to be_present
+      end
+
+      it 'shows errors message' do
+        employee = FactoryBot.create(:employee, :agent)
+        tackle = FactoryBot.create(:tackle, :radio, employee_id: employee.id)
+
+        delete "/gestao/admin/dashboard/equipamento/remove/#{tackle.id}"
+
+        expect(flash[:alert]).to eq('Equipamento em missão não pode ser removido!')
+      end
+
+      it 'redirects to tackle page' do
+        employee = FactoryBot.create(:employee, :agent)
+        tackle = FactoryBot.create(:tackle, :radio, employee_id: employee.id)
+
+        delete "/gestao/admin/dashboard/equipamento/remove/#{tackle.id}"
+
+        expect(response).to redirect_to(employee_panel_administrator_dashboard_equipamentos_path)
+      end
+    end
+  end
 end

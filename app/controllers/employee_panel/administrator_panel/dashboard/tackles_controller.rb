@@ -55,20 +55,34 @@ module EmployeePanel
         end
 
         def remove
-          # TODO: NÃO REMOVER QUANDO ESTIVER EM MISSÃO
-          employee = Employee.find(params['id'])
-
-          employee.update!(deleted_at: DateTime.now, status: Status.find_by_name('deletado'))
+          delete_tackle!
 
           redirect_to employee_panel_administrator_dashboard_equipamentos_path,
-                      notice: t('messages.successes.employee.removed_successfully',
-                                employee_name: employee.name)
+                      notice: t('messages.successes.tackle.removed_successfully',
+                                type: tackle_type, serial_number: tackle.serial_number)
+        rescue DeleteTackleError
+          redirect_to employee_panel_administrator_dashboard_equipamentos_path,
+                      alert: t('messages.errors.tackle.remove_in_mission_failed')
         rescue StandardError, ActiveRecord::RecordNotFound => error
           redirect_to employee_panel_administrator_dashboard_equipamentos_path,
                       alert: error_message(error.class, :remove)
         end
 
         private
+
+        def delete_tackle!
+          raise DeleteTackleError if tackle.in_mission?
+
+          tackle.delete
+        end
+
+        def tackle
+          @tackle ||= Tackle.find(params['id'])
+        end
+
+        def tackle_type
+          Tackle::ALLOWED_TYPES[tackle.type.downcase.to_sym]
+        end
 
         def tackle_klass
           return Tackle unless params['tackle']['type']

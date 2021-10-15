@@ -71,4 +71,23 @@ RSpec.describe Tackle, type: :model do
 
     expect(result).to eq(expected_result)
   end
+
+  describe '#in_mission?' do
+    it 'returns \'true\' when tackle is in mission' do
+      employee = FactoryBot.create(:employee, :agent)
+      tackle = FactoryBot.create(:tackle, :radio, employee_id: employee.id)
+
+      result = tackle.in_mission?
+
+      expect(result).to eq(true)
+    end
+
+    it 'returns \'false\' when tackle isn\'t in mission' do
+      tackle = FactoryBot.create(:tackle, :radio, employee_id: nil)
+
+      result = tackle.in_mission?
+
+      expect(result).to eq(false)
+    end
+  end
 end

@@ -22,4 +22,8 @@ class Tackle < ApplicationRecord
     Status.where(name: 'irregular')
           .or(Status.where(name: 'regular'))
   end
+
+  def in_mission?
+    employee_id.present?
+  end
 end

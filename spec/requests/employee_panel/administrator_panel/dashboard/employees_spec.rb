@@ -10,7 +10,7 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Employees', type: 
   end
 
   describe '#list' do
-    it 'renders customers page' do
+    it 'renders employees page' do
       get '/gestao/admin/dashboard/funcionarios'
 
       expect(response).to render_template(:list)
@@ -18,7 +18,7 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Employees', type: 
   end
 
   describe '#new' do
-    it 'renders customers page' do
+    it 'renders employees page' do
       get '/gestao/admin/dashboard/funcionario/novo'
 
       expect(response).to render_template(:new)
@@ -508,7 +508,7 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Employees', type: 
     end
 
     context 'when occurs errors' do
-      it 'redirects to customers list page' do
+      it 'redirects to employees list page' do
         employee = FactoryBot.create(:employee, :admin)
 
         allow(Employee).to receive(:find) { raise StandardError }
@@ -556,7 +556,7 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Employees', type: 
     end
 
     context 'when occurs errors' do
-      it 'redirects to customers list page' do
+      it 'redirects to employees list page' do
         employee = FactoryBot.create(:employee)
 
         allow(Employee).to receive(:find) { raise StandardError }
@@ -618,7 +618,7 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Employees', type: 
     end
 
     context 'when pass valid params' do
-      it 'updates customer data' do
+      it 'updates employee data' do
         new_email = 'aninha@acme.com.br'
         employee = FactoryBot.create(:employee, :admin)
 
@@ -654,7 +654,7 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Employees', type: 
     end
 
     context 'when pass invalid params' do
-      it 'no updates customer data' do
+      it 'no updates employee data' do
         new_email = ''
         employee = FactoryBot.create(:employee, :admin)
 
@@ -676,7 +676,7 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Employees', type: 
         expect(flash[:alert]).to eq('Falha ao atualizar dados!')
       end
 
-      it 'redirects to customer page' do
+      it 'redirects to employee page' do
         new_email = ''
         employee = FactoryBot.create(:employee, :admin)
 
@@ -721,7 +721,7 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Employees', type: 
         expect(flash[:notice]).to eq("Funcionário #{employee.name} removido com sucesso!")
       end
 
-      it 'redirects to customer page' do
+      it 'redirects to employee page' do
         employee = FactoryBot.create(:employee, deleted_at: nil)
 
         delete "/gestao/admin/dashboard/funcionario/remove/#{employee.id}"
@@ -730,8 +730,8 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Employees', type: 
       end
     end
 
-    context 'when customer isn\'t found' do
-      it 'no removes customer' do
+    context 'when employee isn\'t found' do
+      it 'no removes employee' do
         employee = FactoryBot.create(:employee)
 
         delete '/gestao/admin/dashboard/funcionario/remove/invalid_id'
