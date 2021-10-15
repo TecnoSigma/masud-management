@@ -65,6 +65,12 @@ Rails.application.routes.draw do
       post 'dashboard/equipamento/create',       to: 'dashboard/tackles#create'
       patch 'dashboard/equipamento/update/:id',  to: 'dashboard/tackles#update', as: 'dashboard_tackle_update'
       delete 'dashboard/equipamento/remove/:id', to: 'dashboard/tackles#remove', as: 'dashboard_tackle_remove'
+
+      get 'dashboard/arsenais/armas',     to: 'dashboard/arsenals#guns_list'
+      get 'dashboard/arsenais/arma/novo', to: 'dashboard/arsenals#new_gun'
+      get 'dashboard/arsenais/arma/:id',  to: 'dashboard/arsenals#guns_show',   as: 'dashboard_arsenal_gun_show'
+
+      get 'dashboard/arsenais/municoes', to: 'dashboard/arsenals#munitions_list'
     end
 
     scope module: 'agent_panel', path: 'agente', as: 'agent' do

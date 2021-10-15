@@ -402,6 +402,17 @@ pt-BR:
             format_date_info: 'Utilize o formato dd/mm/aaaa'
             required_fields: '(*) Campos obrigatórios'
             update_tackle_btn: 'Atualizar Dados'
+        arsenals:
+          guns_list:
+            title: 'Arsenais'
+            guns_list: 'Lista de Armas'
+            kind: 'Tipo'
+            caliber: 'Calibre'
+            number: 'Número'
+            sinarm: 'SINARM'
+            situation: 'Situação'
+            in_mission: 'Em Missão'
+            add_gun_btn: 'Adicionar Arma'
   partials:
     admin_menu:
       dashboard: 'Dashboard'
@@ -427,6 +438,12 @@ pt-BR:
         type: 'Equipamentos'
         list: 'Lista'
         general_report: 'Relatório Geral'
+      arsenal:
+        type: 'Arsenais'
+        guns:
+          list: 'Lista de Armas'
+        munitions:
+          list: 'Lista de Munições'
     customer_menu:
       dashboard: 'Dashboard'
       orders: 'Ordens de Serviço'

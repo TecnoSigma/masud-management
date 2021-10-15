@@ -1,0 +1,60 @@
+<%= render './partials/messages' %>
+<h1 class="mt-4"><%= t('.title') %></h1>
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item active"><%= t('breadcrumbs.guns_list') %></li>
+</ol>
+<div>
+  <%= link_to t('.add_gun_btn'),
+              employee_panel_administrator_dashboard_arsenais_arma_novo_path,
+              class: 'btn btn-primary' %>
+</div>
+<br>
+<div class="card mb-4">
+  <div class="card-header">
+    <i class="fas fa-table me-1"></i>
+    <%= t('.guns_list') %>
+  </div>
+  <div class="card-body">
+    <table id="datatablesGun" role='datatable' class="stripe" width="100%">
+      <thead>
+        <tr>
+          <th><%= t('.kind') %></th>
+          <th><%= t('.caliber') %></th>
+          <th><%= t('.number') %></th>
+          <th><%= t('.sinarm') %></th>
+          <th><%= t('.situation') %></th>
+          <th><%= t('.in_mission') %></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <th><%= t('.kind') %></th>
+          <th><%= t('.caliber') %></th>
+          <th><%= t('.number') %></th>
+          <th><%= t('.sinarm') %></th>
+          <th><%= t('.situation') %></th>
+          <th><%= t('.in_mission') %></th>
+          <th></th>
+        </tr>
+      </tfoot>
+      <tbody>
+        <% @guns.each do |gun| %>
+          <tr>
+            <td><%= gun.kind.titleize %></td>
+            <td><%= gun.caliber %></td>
+            <td><%= gun.number %></td>
+            <td><%= gun.sinarm %></td>
+            <td><%= gun.situation.titleize %></td>
+            <td><%= t("#{gun.employee_id.present?}") %></td>
+            <td>
+              <%= link_to employee_panel_administrator_dashboard_arsenal_gun_show_path(gun.id) do %>
+                <i class="fas fa-align-justify me-1"></i></td>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
