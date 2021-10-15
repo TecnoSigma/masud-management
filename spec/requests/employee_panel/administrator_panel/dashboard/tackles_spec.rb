@@ -51,7 +51,7 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Employees', type: 
     end
 
     context 'when occurs errors' do
-      it 'redirects to customers list page' do
+      it 'redirects to tackles list page' do
         tackle = FactoryBot.create(:tackle, :radio)
 
         allow(Tackle).to receive(:find) { raise StandardError }
@@ -67,6 +67,54 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Employees', type: 
         allow(Tackle).to receive(:find) { raise StandardError }
 
         get "/gestao/admin/dashboard/equipamento/#{tackle.id}"
+
+        expect(flash[:alert]).to eq('Falha ao procurar dados!')
+      end
+    end
+  end
+
+  describe '#edit' do
+    context 'when pass valid params' do
+      it 'renders edit page' do
+        tackle = FactoryBot.create(:tackle, :radio)
+
+        get "/gestao/admin/dashboard/equipamento/#{tackle.id}/editar"
+
+        expect(response).to render_template(:edit)
+      end
+    end
+
+    context 'when tackle is not found' do
+      it 'redirects to tackles list page' do
+        get '/gestao/admin/dashboard/equipamento/invalid_order_number/editar'
+
+        expect(response).to redirect_to(employee_panel_administrator_dashboard_equipamentos_path)
+      end
+
+      it 'shows error message' do
+        get '/gestao/admin/dashboard/equipamento/invalid_order_number/editar'
+
+        expect(flash[:alert]).to eq('Equipamento não encontrado!')
+      end
+    end
+
+    context 'when occurs errors' do
+      it 'redirects to tackles list page' do
+        tackle = FactoryBot.create(:tackle, :radio)
+
+        allow(Tackle).to receive(:find) { raise StandardError }
+
+        get "/gestao/admin/dashboard/equipamento/#{tackle.id}/editar"
+
+        expect(response).to redirect_to(employee_panel_administrator_dashboard_equipamentos_path)
+      end
+
+      it 'shows error message' do
+        tackle = FactoryBot.create(:tackle)
+
+        allow(Tackle).to receive(:find) { raise StandardError }
+
+        get "/gestao/admin/dashboard/equipamento/#{tackle.id}/editar"
 
         expect(flash[:alert]).to eq('Falha ao procurar dados!')
       end
@@ -265,6 +313,114 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Employees', type: 
 
           expect(flash[:alert]).to eq('Erro ao criar novo equipamento!')
         end
+      end
+    end
+  end
+
+  describe '#update' do
+    context 'when type is updated' do
+      it 'updates tackle profile' do
+        new_type = 'Waistcoat'
+        tackle = FactoryBot.create(:tackle, :radio)
+
+        patch "/gestao/admin/dashboard/equipamento/update/#{tackle.id}",
+              params: { tackle: { type: new_type } }
+
+        result1 = Radio.find_by_id(tackle.id)
+        result2 = Waistcoat.find_by_id(tackle.id)
+
+        expect(result1).to be_nil
+        expect(result2).to be_present
+      end
+
+      it 'shows success message' do
+        new_type = 'Waistcoat'
+        tackle = FactoryBot.create(:tackle, :radio)
+
+        patch "/gestao/admin/dashboard/equipamento/update/#{tackle.id}",
+              params: { tackle: { type: new_type } }
+
+        expect(flash[:notice]).to eq('Dados do equipamento atualizados com sucesso!')
+      end
+
+      it 'redirects to employee page' do
+        new_type = 'Waistcoat'
+        tackle = FactoryBot.create(:tackle, :radio)
+
+        patch "/gestao/admin/dashboard/equipamento/update/#{tackle.id}",
+              params: { tackle: { type: new_type } }
+
+        expect(response).to redirect_to(
+          employee_panel_administrator_dashboard_tackle_show_path(tackle.id)
+        )
+      end
+    end
+
+    context 'when pass valid params' do
+      it 'updates tackle data' do
+        new_serial_number = 'abcd1234'
+        tackle = FactoryBot.create(:tackle, :radio)
+
+        patch "/gestao/admin/dashboard/equipamento/update/#{tackle.id}",
+              params: { tackle: { serial_number: new_serial_number } }
+
+        result = Radio.find(tackle.id).serial_number
+
+        expect(result).to eq(new_serial_number)
+      end
+
+      it 'shows success message' do
+        new_serial_number = 'abcd1234'
+        tackle = FactoryBot.create(:tackle, :radio)
+
+        patch "/gestao/admin/dashboard/equipamento/update/#{tackle.id}",
+              params: { tackle: { serial_number: new_serial_number } }
+
+        expect(flash[:notice]).to eq('Dados do equipamento atualizados com sucesso!')
+      end
+
+      it 'redirects to employee page' do
+        new_serial_number = 'abcd1234'
+        tackle = FactoryBot.create(:tackle, :radio)
+
+        patch "/gestao/admin/dashboard/equipamento/update/#{tackle.id}",
+              params: { tackle: { serial_number: new_serial_number } }
+
+        expect(response).to redirect_to(employee_panel_administrator_dashboard_tackle_show_path(tackle.id))
+      end
+    end
+
+    context 'when pass invalid params' do
+      it 'no updates customer data' do
+        new_serial_number = ''
+        tackle = FactoryBot.create(:tackle, :radio)
+
+        patch "/gestao/admin/dashboard/equipamento/update/#{tackle.id}",
+              params: { tackle: { serial_number: new_serial_number } }
+
+        result = Radio.find(tackle.id).serial_number
+
+        expect(result).not_to eq(new_serial_number)
+      end
+
+      it 'shows errors message' do
+        new_serial_number = ''
+        tackle = FactoryBot.create(:tackle, :radio)
+
+        patch "/gestao/admin/dashboard/equipamento/update/#{tackle.id}",
+              params: { tackle: { serial_number: new_serial_number } }
+
+        expect(flash[:alert]).to eq('Falha ao atualizar dados!')
+      end
+
+      it 'redirects to customer page' do
+        new_serial_number = ''
+        tackle = FactoryBot.create(:tackle, :radio)
+
+        patch "/gestao/admin/dashboard/equipamento/update/#{tackle.id}",
+              params: { tackle: { serial_number: new_serial_number } }
+
+        expect(response).to redirect_to(employee_panel_administrator_dashboard_equipamentos_path)
       end
     end
   end

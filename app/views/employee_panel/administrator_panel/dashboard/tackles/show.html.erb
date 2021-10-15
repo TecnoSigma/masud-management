@@ -55,7 +55,7 @@
                   </p>
                   <p>
                     <strong><%= t('.situation') %></strong>
-                    <%= @tackle.situation.titleize %>
+                    <%= @tackle.situation.titleize if @tackle.situation %>
                   </p>
                   <p>
                     <strong><%= t('.in_mission') %></strong>

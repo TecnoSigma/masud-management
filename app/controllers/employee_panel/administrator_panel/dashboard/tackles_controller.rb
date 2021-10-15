@@ -42,19 +42,20 @@ module EmployeePanel
                       alert: error_message(error.class, :find)
         end
 
-        # def update
-        #  employee = Employee.find(params['id'])
+        def update
+          tackle = Tackle.find(params['id'])
 
-        #  employee.update!(employee_params)
+          tackle.update!(tackle_params)
 
-        #  redirect_to employee_panel_administrator_dashboard_employee_show_path(employee.id),
-        #              notice: t('messages.successes.employee.updated_successfully')
-        # rescue StandardError, ActiveRecord::RecordNotFound => error
-        #  redirect_to employee_panel_administrator_dashboard_funcionarios_path,
-        #              alert: error_message(error.class, :update)
-        # end
+          redirect_to employee_panel_administrator_dashboard_tackle_show_path(tackle.id),
+                      notice: t('messages.successes.tackle.updated_successfully')
+        rescue StandardError, ActiveRecord::RecordNotFound => error
+          redirect_to employee_panel_administrator_dashboard_equipamentos_path,
+                      alert: error_message(error.class, :update)
+        end
 
         def remove
+          # TODO: NÃO REMOVER QUANDO ESTIVER EM MISSÃO
           employee = Employee.find(params['id'])
 
           employee.update!(deleted_at: DateTime.now, status: Status.find_by_name('deletado'))
@@ -83,21 +84,13 @@ module EmployeePanel
           end
         end
 
-        # def update_params!(formatted_params)
-        #  if params['action'] == 'update'
-        #    formatted_params
-        #  else
-        #    formatted_params.merge!('password' => Employee.generate_password)
-        #  end
-        # end
-
-        # def profile_params!(formatted_params)
-        #  if params['employee']['profile']
-        #    formatted_params.merge!('type' => params['employee']['profile'].titleize)
-        #  else
-        #    formatted_params
-        #  end
-        # end
+        def type_params!(formatted_params)
+          if params['tackle']['type']
+            formatted_params.merge!('type' => params['tackle']['type'].titleize)
+          else
+            formatted_params
+          end
+        end
 
         def status_params!(formatted_params)
           if params['tackle']['status']
@@ -107,23 +100,14 @@ module EmployeePanel
           end
         end
 
-        # def employee_params
-        #  formatted_params = params
-        #                     .require(:employee)
-        #                     .permit(:name, :codename, :email, :rg, :cpf, :cvn_number,
-        #                             :cvn_validation_date, :admission_date, :resignation_date)
-
-        #  update_params!(formatted_params)
-        #  profile_params!(formatted_params)
-        #  status_params!(formatted_params)
-        # end
-
         def tackle_params
           formatted_params = params
                              .require(:tackle)
-                             .permit(:serial_number, :register_number, :brand, :fabrication_date, :status,
-                                     :validation_date, :bond_date, :protection_level, :situation)
+                             .permit(:serial_number, :register_number, :brand, :fabrication_date,
+                                     :status, :validation_date, :bond_date, :protection_level,
+                                     :situation)
 
+          type_params!(formatted_params)
           status_params!(formatted_params)
         end
       end

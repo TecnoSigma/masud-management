@@ -74,6 +74,7 @@ pt-BR:
         removed_successfully: 'Funcionário %{employee_name} removido com sucesso!'
       tackle:
         created_successfully: 'Equipamento %{serial_number} criado com sucesso!'
+        updated_successfully: 'Dados do equipamento atualizados com sucesso!'
   layouts:
     application:
       logout: 'Logout'
@@ -376,6 +377,29 @@ pt-BR:
             create_tackle_btn: 'Adicionar Equipamento'
             format_date_info: 'Utilize o formato dd/mm/aaaa'
             required_fields: '(*) Campos obrigatórios'
+          edit:
+            title: 'Novo Equipamento'
+            tackle_data: 'Dados do Equipamento'
+            type: 'Tipo *'
+            brand: 'Marca'
+            serial_number: 'Número de Série *'
+            register_number: 'Número de Registro'
+            fabrication_date: 'Data de Fabricação'
+            validation_date: 'Data de Validade'
+            bond_date: 'Data de Vínculo'
+            protection_level: 'Nível de Proteção'
+            situation: 'Situação *'
+            status: 'Status *'
+            brand_placeholder: 'Marca'
+            serial_number_placeholder: 'Número de Série'
+            register_number_placeholder: 'Número de Registro'
+            fabrication_date_placeholder: 'Data de Fabricação'
+            validation_date_placeholder: 'Data de Validade'
+            bond_date_placeholder: 'Data de Vínculo'
+            protection_level_placeholder: 'Nível de Proteção'
+            format_date_info: 'Utilize o formato dd/mm/aaaa'
+            required_fields: '(*) Campos obrigatórios'
+            update_tackle_btn: 'Atualizar Dados'
   partials:
     admin_menu:
       dashboard: 'Dashboard'

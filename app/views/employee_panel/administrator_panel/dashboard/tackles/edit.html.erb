@@ -1,0 +1,123 @@
+<h1 class="mt-4"><%= "#{Tackle::ALLOWED_TYPES[@tackle.type.downcase.to_sym]} #{@tackle.serial_number}" %></h1>
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item">
+    <%= link_to t('breadcrumbs.tackles_list'), employee_panel_administrator_dashboard_equipamentos_path %>
+  </li>
+  <li class="breadcrumb-item active"><%= "#{Tackle::ALLOWED_TYPES[@tackle.type.downcase.to_sym]} #{@tackle.serial_number}" %></li>
+</ol>
+<hr>
+<div id="layoutAuthentication">
+  <div id="layoutAuthentication_content">
+    <main>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-7">
+            <br>
+            <%= render './partials/messages' %>
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+              <div class="card-body">
+                <%= form_with scope: 'tackle', url: employee_panel_administrator_dashboard_tackle_update_path, method: :patch do |f| %>
+                  <p>
+                    <small><%= t('.required_fields') %></small>
+                  </p>
+                  <span><strong><%= t('.tackle_data') %></strong></span>
+                  <br><br>
+                  <div class="form-floating mb-3">
+                    <%= f.select :type,
+                                 options_for_select(
+                                   Tackle::ALLOWED_TYPES.invert.to_a.collect {|type| [ type.first.titleize, type.last ] },
+                                   @tackle.type.downcase
+                                 ),
+                                 { class: 'form-control',
+                                   prompt: t('.type') },
+                                   required:  true %>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <%= f.text_field :brand,
+                                     class: 'form-control',
+                                     id: 'inputBrand',
+                                     placeholder: t('.brand_placeholder') %>
+                    <label for="inputBrand"><%= t('.brand') %></label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <%= f.text_field :serial_number,
+                                     class: 'form-control',
+                                     id: 'inputSerialNumber',
+                                     placeholder: t('.serial_number_placeholder'),
+                                     required: true %>
+                    <label for="inputSerialNumber"><%= t('.serial_number') %></label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <%= f.text_field :register_number,
+                                     class: 'form-control',
+                                     id: 'inputRegisterNumber',
+                                     placeholder: t('.register_number_placeholder') %>
+                    <label for="inputRegisterNumber"><%= t('.register_number') %></label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <%= f.text_field :fabrication_date,
+                                     class: 'form-control',
+                                     id: 'inputFabricationDate',
+                                     placeholder: t('.fabrication_date_placeholder'),
+                                     value: convert_date(@tackle.fabrication_date) %>
+                    <label for="inputFabricationDate"><%= t('.fabrication_date') %></label>
+                    <small><%= t('.format_date_info') %></small>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <%= f.text_field :validation_date,
+                                     class: 'form-control',
+                                     id: 'inputValidationDate',
+                                     placeholder: t('.validation_date_placeholder'),
+                                     value: convert_date(@tackle.validation_date) %>
+                    <label for="inputValidationDate"><%= t('.validation_date') %></label>
+                    <small><%= t('.format_date_info') %></small>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <%= f.text_field :bond_date,
+                                     class: 'form-control',
+                                     id: 'inputBondDate',
+                                     placeholder: t('.bond_date_placeholder'),
+                                     value: convert_date(@tackle.bond_date) %>
+                    <label for="inputBondDate"><%= t('.bond_date') %></label>
+                    <small><%= t('.format_date_info') %></small>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <%= f.text_field :protection_level,
+                                     class: 'form-control',
+                                     id: 'inputProtectionLevel',
+                                     placeholder: t('.protection_level_placeholder') %>
+                    <label for="inputProtectionLevel"><%= t('.protection_level') %></label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <%= f.select :situation,
+                                 options_for_select(
+                                   Tackle.situations.collect {|situation| [ situation.name.titleize, situation.name ] },
+                                   @tackle.situation
+                                 ),
+                                 { class: 'form-control',
+                                   prompt: t('.situation') },
+                                   required:  true %>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <%= f.select :profile,
+                                 options_for_select(
+                                   Tackle.statuses.collect {|status| [ status.name.titleize, status.name ] },
+                                   @tackle.status.name
+                                 ),
+                                 { class: 'form-control',
+                                   prompt: t('.type') },
+                                   required:  true %>
+                  </div>
+                  <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                    <%= f.submit t('.update_tackle_btn'), class: 'btn btn-primary' %>
+                  </div>
+                <% end %>
+              </div>
+              <div class="card-footer text-center py-3"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

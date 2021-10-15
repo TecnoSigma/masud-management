@@ -5,6 +5,9 @@ class Tackle < ApplicationRecord
             :situation,
             presence: true
 
+  validates :serial_number,
+            uniqueness: true
+
   belongs_to :agent, optional: true
   belongs_to :status
 
