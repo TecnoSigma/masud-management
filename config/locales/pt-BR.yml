@@ -17,6 +17,7 @@ pt-BR:
     employees_list: 'Lista de Funcionários'
     tackles_list: 'Lista de Equipamentos'
     new_tackle: 'Novo Equipamento'
+    guns_list: 'Lista de Armas'
   error:
     unauthorized:
       code: '401'
@@ -57,6 +58,9 @@ pt-BR:
         not_found: 'Equipamento não encontrado!'
         create_failed: 'Erro ao criar novo equipamento!'
         remove_in_mission_failed: 'Equipamento em missão não pode ser removido!'
+      arsenal:
+        gun:
+          not_found: 'Arma não encontrada!'
     infos:
       scheduling_cancelation: 'Importante: Todo agendamento poderá ser cancelado em até trẽs horas após a sua criação.'
       password_strength: 'Dica; Utilize letras, números e caracteres especiais (&, @, !, #) '
@@ -413,6 +417,20 @@ pt-BR:
             situation: 'Situação'
             in_mission: 'Em Missão'
             add_gun_btn: 'Adicionar Arma'
+          show_gun:
+            gun_data: 'Dados da Arma'
+            kind: 'Tipo: '
+            caliber: 'Calibre: '
+            number: 'Número: '
+            sinarm: 'SINARM: '
+            registration_validity: 'Validade do Registro: '
+            linked_at_post: 'Vínculo com Posto: '
+            situation: 'Situação: '
+            in_mission: 'Em Missão: '
+            status: 'Status: '
+            back_btn: 'Voltar'
+            edit_btn: 'Editar'
+            remove_btn: 'Remover'
   partials:
     admin_menu:
       dashboard: 'Dashboard'

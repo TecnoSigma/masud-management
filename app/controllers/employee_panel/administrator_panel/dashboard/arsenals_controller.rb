@@ -43,12 +43,12 @@ module EmployeePanel
         #              alert: t('messages.errors.tackle.create_failed')
         #end
 
-        #def show
-        #  @tackle = Tackle.find(params['id'])
-        #rescue StandardError, ActiveRecord::RecordNotFound => error
-        #  redirect_to employee_panel_administrator_dashboard_equipamentos_path,
-        #              alert: error_message(error.class, :find)
-        #end
+        def show_gun
+          @gun = Gun.find(params['id'])
+        rescue StandardError, ActiveRecord::RecordNotFound => error
+          redirect_to employee_panel_administrator_dashboard_arsenais_armas_path,
+                      alert: error_message(error.class, :find)
+        end
 
         #def update
         #  tackle = Tackle.find(params['id'])
@@ -62,19 +62,19 @@ module EmployeePanel
         #              alert: error_message(error.class, :update)
         #end
 
-        #def remove
-        #  delete_tackle!
+        def remove_gun
+          delete_tackle!
 
-        #  redirect_to employee_panel_administrator_dashboard_equipamentos_path,
-        #              notice: t('messages.successes.tackle.removed_successfully',
-        #                        type: tackle_type, serial_number: tackle.serial_number)
-        #rescue DeleteTackleError
-        #  redirect_to employee_panel_administrator_dashboard_equipamentos_path,
-        #              alert: t('messages.errors.tackle.remove_in_mission_failed')
-        #rescue StandardError, ActiveRecord::RecordNotFound => error
-        #  redirect_to employee_panel_administrator_dashboard_equipamentos_path,
-        #              alert: error_message(error.class, :remove)
-        #end
+          redirect_to employee_panel_administrator_dashboard_equipamentos_path,
+                      notice: t('messages.successes.tackle.removed_successfully',
+                                type: tackle_type, serial_number: tackle.serial_number)
+        rescue DeleteTackleError
+          redirect_to employee_panel_administrator_dashboard_equipamentos_path,
+                      alert: t('messages.errors.tackle.remove_in_mission_failed')
+        rescue StandardError, ActiveRecord::RecordNotFound => error
+          redirect_to employee_panel_administrator_dashboard_equipamentos_path,
+                      alert: error_message(error.class, :remove)
+        end
 
         #private
 
@@ -98,13 +98,13 @@ module EmployeePanel
         #  params['tackle']['type'].titleize.constantize
         #end
 
-        #def error_message(error_class, action)
-        #  if error_class == ActiveRecord::RecordNotFound
-        #    t('messages.errors.tackle.not_found')
-        #  else
-        #    t("messages.errors.#{action}_failed")
-        #  end
-        #end
+        def error_message(error_class, action)
+          if error_class == ActiveRecord::RecordNotFound
+            t('messages.errors.arsenal.gun.not_found')
+          else
+            t("messages.errors.#{action}_failed")
+          end
+        end
 
         #def type_params!(formatted_params)
         #  if params['tackle']['type']

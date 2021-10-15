@@ -48,7 +48,7 @@
             <td><%= gun.situation.titleize %></td>
             <td><%= t("#{gun.employee_id.present?}") %></td>
             <td>
-              <%= link_to employee_panel_administrator_dashboard_arsenal_gun_show_path(gun.id) do %>
+              <%= link_to employee_panel_administrator_dashboard_arsenal_show_gun_path(gun.id) do %>
                 <i class="fas fa-align-justify me-1"></i></td>
               <% end %>
             </td>

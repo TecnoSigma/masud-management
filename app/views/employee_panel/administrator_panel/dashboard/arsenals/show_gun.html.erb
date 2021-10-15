@@ -1,0 +1,78 @@
+<h1 class="mt-4"><%= "#{@gun.kind.titleize} #{@gun.number}" %></h1>
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item">
+    <%= link_to t('breadcrumbs.guns_list'), employee_panel_administrator_dashboard_arsenais_armas_path %>
+  </li>
+  <li class="breadcrumb-item active"><%= "#{@gun.kind.titleize} #{@gun.number}" %></li>
+</ol>
+<hr>
+<div id="layoutAuthentication">
+  <div id="layoutAuthentication_content">
+    <main>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-7">
+            <br>
+            <%= render './partials/messages' %>
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+              <div class="card-body">
+                <div class="form-floating mb-3">
+                  <p>
+                    <h5><strong><%= t('.gun_data') %></strong></h5>
+                  </p>
+                  <hr>
+                  <p>
+                    <strong><%= t('.kind') %></strong>
+                    <%= @gun.kind.titleize %>
+                  </p>
+                  <p>
+                    <strong><%= t('.caliber') %></strong>
+                    <%= @gun.caliber %>
+                  </p>
+                  <p>
+                    <strong><%= t('.number') %></strong>
+                    <%= @gun.number %>
+                  </p>
+                  <p>
+                    <strong><%= t('.sinarm') %></strong>
+                    <%= @gun.sinarm %>
+                  </p>
+                  <p>
+                    <strong><%= t('.registration_validity') %></strong>
+                    <%= convert_date(@gun.registration_validity) %>
+                  </p>
+                  <p>
+                    <strong><%= t('.linked_at_post') %></strong>
+                    <%= convert_date(@gun.linked_at_post) %>
+                  </p>
+                  <p>
+                    <strong><%= t('.situation') %></strong>
+                    <%= @gun.situation.titleize %>
+                  </p>
+                  <p>
+                    <strong><%= t('.in_mission') %></strong>
+                    <%= t("#{@gun.in_mission?}") %>
+                  </p>
+                  <p>
+                    <strong><%= t('.status') %></strong>
+                    <%= @gun.status.name.titleize %>
+                  </p>
+                  <br>
+                  <%= link_to t('.back_btn'), :back, class: 'btn btn-primary' %>
+                  <%= link_to t('.edit_btn'),
+                              employee_panel_administrator_dashboard_tackle_edit_path,
+                              class: 'btn btn-primary' %>
+                  <%= link_to t('.remove_btn'),
+                              { action: 'remove_gun', id: @gun.id },
+                              method: :delete,
+                              class: 'btn btn-danger' %>
+                </div>
+              </div>
+              <div class="card-footer text-center py-3"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
