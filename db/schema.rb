@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_26_044000) do
+ActiveRecord::Schema.define(version: 2021_10_16_172922) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,6 +73,12 @@ ActiveRecord::Schema.define(version: 2021_09_26_044000) do
     t.datetime "updated_at", null: false
     t.index ["status_id"], name: "index_employees_on_status_id"
     t.index ["team_id"], name: "index_employees_on_team_id"
+  end
+
+  create_table "munition_stocks", force: :cascade do |t|
+    t.string "caliber"
+    t.integer "quantity", default: 0
+    t.datetime "last_update"
   end
 
   create_table "orders", force: :cascade do |t|

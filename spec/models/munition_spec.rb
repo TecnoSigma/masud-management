@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Gun, type: :model do
+RSpec.describe Munition, type: :model do
   describe 'validates relationships' do
     it 'validates relationship (N:1) between Status and Gun' do
       munition = Munition.new

@@ -74,7 +74,7 @@ RSpec.describe Arsenal, type: :model do
       expect(munition).to be_invalid
     end
 
-   it 'no validates when quantity is less than zero' do
+    it 'no validates when quantity is less than zero' do
       munition = FactoryBot.build(:arsenal, :munition, quantity: -10)
 
       expect(munition).to be_invalid
