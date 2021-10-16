@@ -1,9 +1,9 @@
-<h1 class="mt-4"><%= t('.title') %></h1>
+<h1 class="mt-4"><%= "#{@gun.kind.titleize} #{@gun.number}" %></h1>
 <ol class="breadcrumb mb-4">
   <li class="breadcrumb-item">
     <%= link_to t('breadcrumbs.guns_list'), employee_panel_administrator_dashboard_arsenais_armas_path %>
   </li>
-  <li class="breadcrumb-item active"><%= t('breadcrumbs.new_gun') %></li>
+  <li class="breadcrumb-item active"><%= "#{@gun.kind.titleize} #{@gun.number}" %></li>
 </ol>
 <hr>
 <div id="layoutAuthentication">
@@ -16,7 +16,7 @@
             <%= render './partials/messages' %>
             <div class="card shadow-lg border-0 rounded-lg mt-5">
               <div class="card-body">
-                <%= form_with scope: 'gun', url: employee_panel_administrator_dashboard_arsenais_arma_create_path do |f| %>
+                <%= form_with scope: 'gun', url: employee_panel_administrator_dashboard_gun_update_path, method: :patch do |f| %>
                   <p>
                     <small><%= t('.required_fields') %></small>
                   </p>
@@ -24,7 +24,10 @@
                   <br><br>
                   <div class="form-floating mb-3">
                     <%= f.select :kind,
-                                 Gun::ALLOWED_TYPES.values,
+                                 options_for_select(
+                                   Gun::ALLOWED_TYPES.values,
+                                   @gun.kind
+                                 ),
                                  { class: 'form-control',
                                    prompt: t('.kind') },
                                    required:  true %>
@@ -55,33 +58,43 @@
                     <%= f.text_field :registration_validity,
                                      class: 'form-control',
                                      id: 'inputRegistrationValidity',
-                                     placeholder: t('.registration_validity_placeholder') %>
+                                     placeholder: t('.registration_validity_placeholder'),
+                                     value: convert_date(@gun.registration_validity) %>
                     <label for="inputRegistrationValidity"><%= t('.registration_validity') %></label>
                     <small><%= t('.format_date_info') %></small>
                   </div>
                   <div class="form-floating mb-3">
                     <%= f.select :linked_at_post,
-                                 boolean_options,
+                                 options_for_select(
+                                   boolean_options,
+                                  @gun.linked_at_post
+                                 ),
                                  { class: 'form-control',
                                    prompt: t('.linked_at_post') },
-                                   required:  true %>
+                                 required:  true %>
                   </div>
                   <div class="form-floating mb-3">
                     <%= f.select :situation,
-                                 Arsenal.situations.collect {|situation| [ situation.name.titleize, situation.name ] },
+                                 options_for_select(
+                                   Arsenal.situations.collect {|situation| [ situation.name.titleize, situation.name ] },
+                                   @gun.situation
+                                 ),
                                  { class: 'form-control',
                                    prompt: t('.situation') },
                                    required:  true %>
                   </div>
                   <div class="form-floating mb-3">
                     <%= f.select :status,
-                                 Arsenal.statuses.collect {|status| [ status.name.titleize, status.name ] },
+                                 options_for_select(
+                                   Arsenal.statuses.collect {|status| [ status.name.titleize, status.name ] },
+                                   @gun.status.name
+                                 ),
                                  { class: 'form-control',
                                    prompt: t('.status') },
                                    required:  true %>
                   </div>
                   <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                    <%= f.submit t('.create_gun_btn'), class: 'btn btn-primary' %>
+                    <%= f.submit t('.update_gun_btn'), class: 'btn btn-primary' %>
                   </div>
                 <% end %>
               </div>

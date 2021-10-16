@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
+  def boolean_options
+    [[ t('true'), true ], [ t('false'), false ]]
+  end
+
   def first_name(token, type)
     denomination = case type
                    when :employee

@@ -86,6 +86,7 @@ pt-BR:
       arsenal:
         gun:
           created_successfully: 'Arma %{sinarm} criada com sucesso!'
+          updated_successfully: 'Dados da arma atualizados com sucesso!'
   layouts:
     application:
       logout: 'Logout'
@@ -445,18 +446,32 @@ pt-BR:
               number: 'Número *'
               sinarm: 'SINARM *'
               registration_validity: 'Validade do Registro *'
-              linked_at_post: 'Vínculo com Posto'
+              linked_at_post: 'Vínculo com Posto *'
               situation: 'Situação *'
               status: 'Status *'
               format_date_info: 'Utilize o formato dd/mm/aaaa'
               required_fields: '(*) Campos obrigatórios'
               create_gun_btn: 'Adicionar Arma'
+            edit:
+              title: 'Nova Arma'
+              gun_data: 'Dados da Arma'
+              kind: 'Tipo *'
+              caliber: 'Calibre *'
+              number: 'Número *'
+              sinarm: 'SINARM *'
+              registration_validity: 'Validade do Registro *'
+              linked_at_post: 'Vínculo com Posto'
+              situation: 'Situação *'
+              status: 'Status *'
+              format_date_info: 'Utilize o formato dd/mm/aaaa'
+              required_fields: '(*) Campos obrigatórios'
+              update_gun_btn: 'atualizar dados'
   partials:
     admin_menu:
-      dashboard: 'Dashboard'
+      dashboard: 'dashboard'
       orders: 'Serviços'
-      external_management: 'Gestão Externa'
-      internal_management: 'Gestão Interna'
+      external_management: 'gestão externa'
+      internal_management: 'gestão interna'
       escort:
         type: 'Escoltas'
         scheduled: 'Agendadas'

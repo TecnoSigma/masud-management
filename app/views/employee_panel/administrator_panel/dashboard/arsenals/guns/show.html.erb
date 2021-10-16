@@ -43,7 +43,7 @@
                   </p>
                   <p>
                     <strong><%= t('.linked_at_post') %></strong>
-                    <%= convert_date(@gun.linked_at_post) %>
+                    <%= t("#{@gun.linked_at_post}") %>
                   </p>
                   <p>
                     <strong><%= t('.situation') %></strong>
@@ -60,7 +60,7 @@
                   <br>
                   <%= link_to t('.back_btn'), :back, class: 'btn btn-primary' %>
                   <%= link_to t('.edit_btn'),
-                              employee_panel_administrator_dashboard_tackle_edit_path,
+                              employee_panel_administrator_dashboard_gun_edit_path,
                               class: 'btn btn-primary' %>
                   <%= link_to t('.remove_btn'),
                               { action: 'remove', id: @gun.id },

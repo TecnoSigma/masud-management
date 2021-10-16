@@ -4,7 +4,7 @@ module EmployeePanel
   module AdministratorPanel
     module Dashboard
       module Arsenals
-        class GunsController < EmployeePanelController
+        class GunsController < ArsenalsController
           before_action { check_internal_profile(params['controller']) }
 
           def list
@@ -13,12 +13,12 @@ module EmployeePanel
 
           def new; end
 
-          #def edit
-          #  @tackle = Tackle.find(params['id'])
-          #rescue StandardError, ActiveRecord::RecordNotFound => error
-          #  redirect_to employee_panel_administrator_dashboard_equipamentos_path,
-          #              alert: error_message(error.class, :find)
-          #end
+          def edit
+            @gun = Gun.find(params['id'])
+          rescue StandardError, ActiveRecord::RecordNotFound => error
+            redirect_to employee_panel_administrator_dashboard_arsenais_armas_path,
+                        alert: error_message(error.class, :find)
+          end
 
           def create
             gun = Gun.new(gun_params)
@@ -43,17 +43,17 @@ module EmployeePanel
                         alert: error_message(error.class, :find)
           end
 
-          #def update
-          #  tackle = Tackle.find(params['id'])
+          def update
+            gun = Gun.find(params['id'])
 
-          #  tackle.update!(tackle_params)
+            gun.update!(gun_params)
 
-          #  redirect_to employee_panel_administrator_dashboard_tackle_show_path(tackle.id),
-          #              notice: t('messages.successes.tackle.updated_successfully')
-          #rescue StandardError, ActiveRecord::RecordNotFound => error
-          #  redirect_to employee_panel_administrator_dashboard_equipamentos_path,
-          #              alert: error_message(error.class, :update)
-          #end
+            redirect_to employee_panel_administrator_dashboard_gun_show_path(gun.id),
+              notice: t('messages.successes.arsenal.gun.updated_successfully')
+          rescue StandardError, ActiveRecord::RecordNotFound => error
+            redirect_to employee_panel_administrator_dashboard_arsenais_armas_path,
+                        alert: error_message(error.class, :update)
+          end
 
           def remove
             delete_tackle!
@@ -71,15 +71,15 @@ module EmployeePanel
 
           private
 
-          #def delete_tackle!
-          #  raise DeleteTackleError if tackle.in_mission?
+          def delete_tackle!
+            raise DeleteTackleError if tackle.in_mission?
 
-          #  tackle.delete
-          #end
+            tackle.delete
+          end
 
-          #def tackle
-          #  @tackle ||= Tackle.find(params['id'])
-          #end
+          def tackle
+            @tackle ||= Tackle.find(params['id'])
+          end
 
           def error_message(error_class, action)
             if error_class == ActiveRecord::RecordNotFound

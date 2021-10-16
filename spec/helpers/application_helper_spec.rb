@@ -5,6 +5,17 @@ require 'rails_helper'
 RSpec.describe ApplicationHelper, type: :helper do
   include ApplicationHelper
 
+  describe '#boolean_options' do
+    it 'returns arrays of array containing boolean values' do
+
+      expected_result = [[ 'Sim', true ], [ 'Não', false ]]
+
+      result = helper.boolean_options
+
+      expect(result).to eq(expected_result)
+    end
+  end
+
   describe '#first_customer_name' do
     it 'returns first customer name' do
       first_name = 'ACME'

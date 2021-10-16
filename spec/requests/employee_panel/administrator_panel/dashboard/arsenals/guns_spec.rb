@@ -73,6 +73,124 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Arsenals::Guns', t
     end
   end
 
+  describe '#update' do
+    context 'when pass valid params' do
+      it 'updates gun data' do
+        new_number = 'abcd1234'
+        gun = FactoryBot.create(:arsenal, :gun)
+
+        patch "/gestao/admin/dashboard/arsenais/arma/update/#{gun.id}",
+              params: { gun: { number: new_number } }
+
+        result = Gun.find(gun.id).number
+
+        expect(result).to eq(new_number)
+      end
+
+      it 'shows success message' do
+        new_number = 'abcd1234'
+        gun = FactoryBot.create(:arsenal, :gun)
+
+        patch "/gestao/admin/dashboard/arsenais/arma/update/#{gun.id}",
+              params: { gun: { number: new_number } }
+
+        expect(flash[:notice]).to eq('Dados da arma atualizados com sucesso!')
+      end
+
+      it 'redirects to gun page' do
+        new_number = 'abcd1234'
+        gun = FactoryBot.create(:arsenal, :gun)
+
+        patch "/gestao/admin/dashboard/arsenais/arma/update/#{gun.id}",
+              params: { gun: { number: new_number } }
+
+              expect(response).to redirect_to(employee_panel_administrator_dashboard_gun_show_path(gun.id))
+      end
+    end
+
+    context 'when pass invalid params' do
+      it 'no updates gun data' do
+        new_number = ''
+        gun = FactoryBot.create(:arsenal, :gun)
+
+        patch "/gestao/admin/dashboard/arsenais/arma/update/#{gun.id}",
+              params: { gun: { number: new_number } }
+
+        result = Gun.find(gun.id).number
+
+        expect(result).not_to eq(new_number)
+      end
+
+      it 'shows errors message' do
+        new_number = ''
+        gun = FactoryBot.create(:arsenal, :gun)
+
+        patch "/gestao/admin/dashboard/arsenais/arma/update/#{gun.id}",
+              params: { gun: { number: new_number } }
+
+        expect(flash[:alert]).to eq('Falha ao atualizar dados!')
+      end
+
+      it 'redirects to customer page' do
+        new_number = ''
+        gun = FactoryBot.create(:arsenal, :gun)
+
+        patch "/gestao/admin/dashboard/arsenais/arma/update/#{gun.id}",
+              params: { gun: { number: new_number } }
+
+        expect(response).to redirect_to(employee_panel_administrator_dashboard_arsenais_armas_path)
+      end
+    end
+  end
+
+  describe '#edit' do
+    context 'when pass valid params' do
+      it 'renders show page' do
+        gun = FactoryBot.create(:arsenal, :gun)
+
+        get "/gestao/admin/dashboard/arsenais/arma/#{gun.id}/editar"
+
+        expect(response).to render_template(:edit)
+      end
+    end
+
+    context 'when gun is not found' do
+      it 'redirects to guns list page' do
+        get '/gestao/admin/dashboard/arsenais/arma/invalid_order_number'
+
+        expect(response).to redirect_to(employee_panel_administrator_dashboard_arsenais_armas_path)
+      end
+
+      it 'shows error message' do
+        get '/gestao/admin/dashboard/arsenais/arma/invalid_order_number'
+
+        expect(flash[:alert]).to eq('Arma não encontrada!')
+      end
+    end
+
+    context 'when occurs errors' do
+      it 'redirects to tackles list page' do
+        gun = FactoryBot.create(:arsenal, :gun)
+
+        allow(Gun).to receive(:find) { raise StandardError }
+
+        get "/gestao/admin/dashboard/arsenais/arma/#{gun.id}"
+
+        expect(response).to redirect_to(employee_panel_administrator_dashboard_arsenais_armas_path)
+      end
+
+      it 'shows error message' do
+        gun = FactoryBot.create(:arsenal, :gun)
+
+        allow(Gun).to receive(:find) { raise StandardError }
+
+        get "/gestao/admin/dashboard/arsenais/arma/#{gun.id}"
+
+        expect(flash[:alert]).to eq('Falha ao procurar dados!')
+      end
+    end
+  end
+
   describe '#create' do
     context 'when pass valid params' do
       it 'creates a new gun' do
