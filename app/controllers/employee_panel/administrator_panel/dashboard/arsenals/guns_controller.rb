@@ -27,7 +27,7 @@ module EmployeePanel
             gun.save!
 
             redirect_to employee_panel_administrator_dashboard_arsenais_armas_path,
-              notice: t('messages.successes.arsenal.gun.created_successfully',
+                        notice: t('messages.successes.arsenal.gun.created_successfully',
                                   sinarm: gun.sinarm)
           rescue StandardError => error
             Rails.logger.error("Message: #{error.message} - Backtrace: #{error.backtrace}")
@@ -49,7 +49,7 @@ module EmployeePanel
             gun.update!(gun_params)
 
             redirect_to employee_panel_administrator_dashboard_gun_show_path(gun.id),
-              notice: t('messages.successes.arsenal.gun.updated_successfully')
+                        notice: t('messages.successes.arsenal.gun.updated_successfully')
           rescue StandardError, ActiveRecord::RecordNotFound => error
             redirect_to employee_panel_administrator_dashboard_arsenais_armas_path,
                         alert: error_message(error.class, :update)
@@ -59,11 +59,11 @@ module EmployeePanel
             delete_gun!
 
             redirect_to employee_panel_administrator_dashboard_arsenais_armas_path,
-              notice: t('messages.successes.arsenal.gun.removed_successfully',
-                        sinarm: gun.sinarm)
+                        notice: t('messages.successes.arsenal.gun.removed_successfully',
+                                  sinarm: gun.sinarm)
           rescue DeleteGunError
             redirect_to employee_panel_administrator_dashboard_arsenais_armas_path,
-              alert: t('messages.errors.arsenal.gun.remove_in_mission_failed')
+                        alert: t('messages.errors.arsenal.gun.remove_in_mission_failed')
           rescue StandardError, ActiveRecord::RecordNotFound => error
             redirect_to employee_panel_administrator_dashboard_arsenais_armas_path,
                         alert: error_message(error.class, :remove)

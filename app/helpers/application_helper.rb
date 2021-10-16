@@ -2,7 +2,7 @@
 
 module ApplicationHelper
   def boolean_options
-    [[ t('true'), true ], [ t('false'), false ]]
+    [[t('true'), true], [t('false'), false]]
   end
 
   def first_name(token, type)

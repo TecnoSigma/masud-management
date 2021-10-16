@@ -7,8 +7,7 @@ RSpec.describe ApplicationHelper, type: :helper do
 
   describe '#boolean_options' do
     it 'returns arrays of array containing boolean values' do
-
-      expected_result = [[ 'Sim', true ], [ 'Não', false ]]
+      expected_result = [['Sim', true], ['Não', false]]
 
       result = helper.boolean_options
 

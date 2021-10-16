@@ -104,7 +104,7 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Arsenals::Guns', t
         patch "/gestao/admin/dashboard/arsenais/arma/update/#{gun.id}",
               params: { gun: { number: new_number } }
 
-              expect(response).to redirect_to(employee_panel_administrator_dashboard_gun_show_path(gun.id))
+        expect(response).to redirect_to(employee_panel_administrator_dashboard_gun_show_path(gun.id))
       end
     end
 
