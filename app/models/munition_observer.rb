@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MunitionObserver < ActiveRecord::Observer
   def after_save(munition)
     MunitionStock.create(
