@@ -156,13 +156,13 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Arsenals::Guns', t
 
     context 'when gun is not found' do
       it 'redirects to guns list page' do
-        get '/gestao/admin/dashboard/arsenais/arma/invalid_order_number'
+        get '/gestao/admin/dashboard/arsenais/arma/invalid_order_number/editar'
 
         expect(response).to redirect_to(employee_panel_administrator_dashboard_arsenais_armas_path)
       end
 
       it 'shows error message' do
-        get '/gestao/admin/dashboard/arsenais/arma/invalid_order_number'
+        get '/gestao/admin/dashboard/arsenais/arma/invalid_order_number/editar'
 
         expect(flash[:alert]).to eq('Arma não encontrada!')
       end
@@ -174,7 +174,7 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Arsenals::Guns', t
 
         allow(Gun).to receive(:find) { raise StandardError }
 
-        get "/gestao/admin/dashboard/arsenais/arma/#{gun.id}"
+        get "/gestao/admin/dashboard/arsenais/arma/#{gun.id}/editar"
 
         expect(response).to redirect_to(employee_panel_administrator_dashboard_arsenais_armas_path)
       end
@@ -184,7 +184,7 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Arsenals::Guns', t
 
         allow(Gun).to receive(:find) { raise StandardError }
 
-        get "/gestao/admin/dashboard/arsenais/arma/#{gun.id}"
+        get "/gestao/admin/dashboard/arsenais/arma/#{gun.id}/editar"
 
         expect(flash[:alert]).to eq('Falha ao procurar dados!')
       end

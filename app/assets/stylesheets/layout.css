@@ -11717,3 +11717,9 @@ body {
 .btn-delete-scheduling {
   color: red;
 }
+
+.btn-decrement-increment {
+  width: 40px;
+  background-color: white;
+  color: black;
+}

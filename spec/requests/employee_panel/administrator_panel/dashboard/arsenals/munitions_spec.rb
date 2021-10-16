@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Arsenals::Guns', type: :request do
+RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Arsenals::Munitions', type: :request do
   before(:each) do
     allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
     allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
@@ -17,11 +17,59 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Arsenals::Guns', t
     end
   end
 
-  describe '#list' do
+  describe '#new' do
     it 'renders new munition type page' do
       get '/gestao/admin/dashboard/arsenais/municao/novo'
 
       expect(response).to render_template(:new)
+    end
+  end
+
+  describe '#edit' do
+    context 'when pass valid params' do
+      it 'renders edit page' do
+        gun = FactoryBot.create(:arsenal, :munition)
+
+        get "/gestao/admin/dashboard/arsenais/municao/#{gun.id}/editar"
+
+        expect(response).to render_template(:edit)
+      end
+    end
+
+    context 'when munition is not found' do
+      it 'redirects to munitions list page' do
+        get '/gestao/admin/dashboard/arsenais/municao/invalid_order_number/editar'
+
+        expect(response).to redirect_to(employee_panel_administrator_dashboard_arsenais_municoes_path)
+      end
+
+      it 'shows error message' do
+        get '/gestao/admin/dashboard/arsenais/municao/invalid_order_number/editar'
+
+        expect(flash[:alert]).to eq('Munição não encontrada!')
+      end
+    end
+
+    context 'when occurs errors' do
+      it 'redirects to tackles list page' do
+        munition = FactoryBot.create(:arsenal, :munition)
+
+        allow(Munition).to receive(:find) { raise StandardError }
+
+        get "/gestao/admin/dashboard/arsenais/municao/#{munition.id}/editar"
+
+        expect(response).to redirect_to(employee_panel_administrator_dashboard_arsenais_municoes_path)
+      end
+
+      it 'shows error message' do
+        munition = FactoryBot.create(:arsenal, :munition)
+
+        allow(Munition).to receive(:find) { raise StandardError }
+
+        get get "/gestao/admin/dashboard/arsenais/municao/#{munition.id}/editar"
+
+        expect(flash[:alert]).to eq('Falha ao procurar dados!')
+      end
     end
   end
 
@@ -90,6 +138,76 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Arsenals::Guns', t
              params: { munition: munition_params }
 
         expect(flash[:alert]).to eq('Erro ao criar nova munição!')
+      end
+    end
+  end
+
+  describe '#update' do
+    context 'when pass valid params' do
+      it 'updates munition data' do
+        new_quantity = 500
+        munition = FactoryBot.create(:arsenal, :munition)
+
+        patch "/gestao/admin/dashboard/arsenais/municao/update/#{munition.id}",
+              params: { munition: { quantity: new_quantity } }
+
+        result = Munition.find(munition.id).quantity
+
+        expect(result).to eq(new_quantity)
+      end
+
+      it 'shows success message' do
+        new_quantity = 500
+        munition = FactoryBot.create(:arsenal, :munition)
+
+        patch "/gestao/admin/dashboard/arsenais/municao/update/#{munition.id}",
+              params: { munition: { quantity: new_quantity } }
+
+        expect(flash[:notice]).to eq('Quantidade de munição atualizada com sucesso!')
+      end
+
+      it 'redirects to munution page' do
+        new_quantity = 500
+        munition = FactoryBot.create(:arsenal, :munition)
+
+        patch "/gestao/admin/dashboard/arsenais/municao/update/#{munition.id}",
+              params: { munition: { quantity: new_quantity } }
+
+        expect(response).to redirect_to(employee_panel_administrator_dashboard_arsenais_municoes_path)
+      end
+    end
+
+    context 'when pass invalid params' do
+      it 'no updates gun data' do
+        new_quantity = -1
+        munition = FactoryBot.create(:arsenal, :munition)
+
+        patch "/gestao/admin/dashboard/arsenais/municao/update/#{munition.id}",
+              params: { munition: { quantity: new_quantity } }
+
+        result = Munition.find(munition.id).quantity
+
+        expect(result).not_to eq(new_quantity)
+      end
+
+      it 'shows errors message' do
+        new_quantity = -1
+        munition = FactoryBot.create(:arsenal, :munition)
+
+        patch "/gestao/admin/dashboard/arsenais/municao/update/#{munition.id}",
+              params: { munition: { quantity: new_quantity } }
+
+        expect(flash[:alert]).to eq('Falha ao atualizar dados!')
+      end
+
+      it 'redirects to customer page' do
+        new_quantity = -1
+        munition = FactoryBot.create(:arsenal, :munition)
+
+        patch "/gestao/admin/dashboard/arsenais/municao/update/#{munition.id}",
+              params: { munition: { quantity: new_quantity } }
+
+        expect(response).to redirect_to(employee_panel_administrator_dashboard_arsenais_municoes_path)
       end
     end
   end

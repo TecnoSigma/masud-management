@@ -1,0 +1,76 @@
+<h1 class="mt-4"><%= t('.title', caliber_type: @munition.kind) %></h1>
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item">
+    <%= link_to t('breadcrumbs.munitions_list'), employee_panel_administrator_dashboard_arsenais_armas_path %>
+  </li>
+  <li class="breadcrumb-item active"><%= t('breadcrumbs.edit_munition', caliber_type: @munition.kind) %></li>
+</ol>
+<hr>
+<div id="layoutAuthentication">
+  <div id="layoutAuthentication_content">
+    <main>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-7">
+            <br>
+            <%= render './partials/messages' %>
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+              <div class="card-body">
+                <%= form_with scope: 'munition', url: employee_panel_administrator_dashboard_munition_update_path, method: :patch do |f| %>
+                  <span><strong><%= t('.munition_data') %></strong></span>
+                  <hr>
+                  <div class="form-floating mb-3">
+                    <p>
+                      <strong><%= t('.caliber') %></strong>
+                      <%= @munition.kind %>
+                    </p>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <p>
+                      <strong><%= t('.quantity') %></strong>
+                      <span id="labelQuantity"><%= @munition.quantity %></span>
+                    </p>
+                  </div>
+                  <span id="decrementBtn" class="btn btn-secondary btn-decrement-increment">
+                    <%= t('.decrement') %>
+                  </span>
+                  <span id="incrementBtn" class="btn btn-secondary btn-decrement-increment">
+                    <%= t('.increment') %>
+                  </span>
+                  <%= f.hidden_field :quantity, id: 'munitionQuantity' %>
+                  <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                    <%= f.submit t('.update_munition_btn'), class: 'btn btn-primary' %>
+                  </div>
+                <% end %>
+              </div>
+              <div class="card-footer text-center py-3"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+<script>
+  $(document).ready(function() {
+    let count = parseInt("<%= @munition.quantity %>");
+
+    const incrementBtn = document.getElementById("incrementBtn");
+    const decrementBtn = document.getElementById("decrementBtn");
+    const labelQuantity = document.getElementById("labelQuantity");
+
+    incrementBtn.addEventListener("click", function() {
+      labelQuantity.innerHTML = ++count;
+
+      document.getElementById("munitionQuantity").value = labelQuantity.innerHTML;
+    });
+
+    decrementBtn.addEventListener("click", function() {
+      if(count > 0) {
+        labelQuantity.innerHTML = --count;
+
+        document.getElementById("munitionQuantity").value = labelQuantity.innerHTML;
+      }
+    });
+  });
+</script>
