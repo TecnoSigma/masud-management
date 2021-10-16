@@ -186,6 +186,8 @@ GEM
       ruby-graphviz (~> 1.2)
     rails-html-sanitizer (1.4.2)
       loofah (~> 2.3)
+    rails-observers (0.1.5)
+      activemodel (>= 4.0)
     railties (5.2.6)
       actionpack (= 5.2.6)
       activesupport (= 5.2.6)
@@ -356,6 +358,7 @@ DEPENDENCIES
   rails (~> 5.2.3)
   rails-controller-testing
   rails-erd
+  rails-observers
   rest-client
   rspec-rails (~> 3.8)
   rubocop

@@ -20,6 +20,9 @@ module MasudManagement
     config.autoload_paths += %W[#{config.root}/lib]
     config.autoload_paths += %W[#{config.root}/app/exceptions]
 
+    # Observers
+    config.active_record.observers = :munition_observer
+
     # Notifications
     unless Rails.env.test?
       config.action_mailer.delivery_method = :smtp
