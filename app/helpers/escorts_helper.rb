@@ -5,7 +5,7 @@ module EscortsHelper
     Order::ALLOWED_STATUSES.to_a.inject([]) do |links, hash_key|
       links << link_to(
         I18n.t("partials.admin_menu.escort.#{hash_key.first}"),
-        { controller: 'employee_panel/administrator_panel/dashboard/escorts',
+        { controller: '/employee_panel/administrator_panel/dashboard/escorts',
           action: 'escorts', status: hash_key.first },
         class: 'nav-link'
       )

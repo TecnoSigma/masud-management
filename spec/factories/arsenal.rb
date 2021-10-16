@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :arsenal do
     trait :gun do
+      type { 'Gun' }
       number { Faker::Base.regexify(/^\w{1,10}$/) }
       kind { %w(Espingarda Revólver).sample }
       caliber { kind == 'Espingarda' ? '12' : '38' }

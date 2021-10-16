@@ -2,37 +2,37 @@
 
 require 'rails_helper'
 
-RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Arsenals', type: :request do
+RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Arsenals::Guns', type: :request do
   before(:each) do
     allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
     allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
     allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'administrator' }
   end
 
-  describe '#guns_list' do
+  describe '#list' do
     it 'renders employees page' do
       get '/gestao/admin/dashboard/arsenais/armas'
 
-      expect(response).to render_template(:guns_list)
+      expect(response).to render_template(:list)
     end
   end
 
-  describe '#new_gun' do
+  describe '#new' do
     it 'renders employees page' do
       get '/gestao/admin/dashboard/arsenais/arma/novo'
 
-      expect(response).to render_template(:new_gun)
+      expect(response).to render_template(:new)
     end
   end
 
-  describe '#show_gun' do
+  describe '#show' do
     context 'when pass valid params' do
       it 'renders show page' do
         gun = FactoryBot.create(:arsenal, :gun)
 
-        get "/gestao/admin/dashboard/arsenais/arms/#{gun.id}"
+        get "/gestao/admin/dashboard/arsenais/arma/#{gun.id}"
 
-        expect(response).to render_template(:show_gun)
+        expect(response).to render_template(:show)
       end
     end
 
@@ -52,21 +52,21 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Arsenals', type: :
 
     context 'when occurs errors' do
       it 'redirects to tackles list page' do
-        tackle = FactoryBot.create(:tackle, :radio)
+        gun = FactoryBot.create(:arsenal, :gun)
 
-        allow(Tackle).to receive(:find) { raise StandardError }
+        allow(Gun).to receive(:find) { raise StandardError }
 
-        get "/gestao/admin/dashboard/equipamento/#{tackle.id}"
+        get "/gestao/admin/dashboard/arsenais/arma/#{gun.id}"
 
-        expect(response).to redirect_to(employee_panel_administrator_dashboard_equipamentos_path)
+        expect(response).to redirect_to(employee_panel_administrator_dashboard_arsenais_armas_path)
       end
 
       it 'shows error message' do
-        tackle = FactoryBot.create(:tackle)
+        gun = FactoryBot.create(:arsenal, :gun)
 
-        allow(Tackle).to receive(:find) { raise StandardError }
+        allow(Gun).to receive(:find) { raise StandardError }
 
-        get "/gestao/admin/dashboard/equipamento/#{tackle.id}"
+        get "/gestao/admin/dashboard/arsenais/arma/#{gun.id}"
 
         expect(flash[:alert]).to eq('Falha ao procurar dados!')
       end
@@ -140,7 +140,7 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Arsenals', type: :
         expect(result).to be_nil
       end
 
-      it 'redirects to new tackle page' do
+      it 'redirects to new gun page' do
         situation = FactoryBot.create(:status, name: 'regular')
         sinarm = '123'
         gun_params = FactoryBot.attributes_for(:arsenal,
