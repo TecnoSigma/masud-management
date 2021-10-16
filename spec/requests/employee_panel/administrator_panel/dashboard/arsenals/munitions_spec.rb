@@ -211,4 +211,48 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Arsenals::Munition
       end
     end
   end
+
+  describe '#remove' do
+    context 'when pass valid params' do
+      it 'remove a munition' do
+        munition = FactoryBot.create(:arsenal, :munition)
+
+        delete "/gestao/admin/dashboard/arsenais/municao/remove/#{munition.id}"
+
+        result = Munition.find_by_id(munition.id)
+
+        expect(result).to be_nil
+      end
+
+      it 'shows success message' do
+        munition = FactoryBot.create(:arsenal, :munition)
+
+        delete "/gestao/admin/dashboard/arsenais/municao/remove/#{munition.id}"
+
+        expect(flash[:notice]).to eq("Munição #{munition.kind} removida com sucesso!")
+      end
+
+      it 'redirects to guns page' do
+        munition = FactoryBot.create(:arsenal, :munition)
+
+        delete "/gestao/admin/dashboard/arsenais/municao/remove/#{munition.id}"
+
+        expect(response).to redirect_to(employee_panel_administrator_dashboard_arsenais_municoes_path)
+      end
+    end
+
+    context 'when munition isn\'t found' do
+      it 'shows errors message' do
+        delete '/gestao/admin/dashboard/arsenais/municao/remove/invalid_id'
+
+        expect(flash[:alert]).to eq('Munição não encontrada!')
+      end
+
+      it 'redirects to guns page' do
+        delete '/gestao/admin/dashboard/arsenais/municao/remove/invalid_id'
+
+        expect(response).to redirect_to(employee_panel_administrator_dashboard_arsenais_municoes_path)
+      end
+    end
+  end
 end

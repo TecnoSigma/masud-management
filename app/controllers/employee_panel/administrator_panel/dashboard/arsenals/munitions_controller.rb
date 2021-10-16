@@ -48,7 +48,22 @@ module EmployeePanel
                         alert: error_message(error.class, :update)
           end
 
+          def remove
+            munition.delete
+
+            redirect_to employee_panel_administrator_dashboard_arsenais_municoes_path,
+                        notice: t('messages.successes.arsenal.munition.removed_successfully',
+                                  caliber_type: munition.kind)
+          rescue StandardError, ActiveRecord::RecordNotFound => error
+            redirect_to employee_panel_administrator_dashboard_arsenais_municoes_path,
+                        alert: error_message(error.class, :remove)
+          end
+
           private
+
+          def munition
+            @munition ||= Munition.find(params['id'])
+          end
 
           def error_message(error_class, action)
             if error_class == ActiveRecord::RecordNotFound

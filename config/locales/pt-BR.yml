@@ -98,6 +98,7 @@ pt-BR:
         munition:
           created_successfully: 'Munição %{caliber_type} criada com sucesso!'
           updated_successfully: 'Quantidade de munição atualizada com sucesso!'
+          removed_successfully: 'Munição %{caliber_type} removida com sucesso!'
   layouts:
     application:
       logout: 'Logout'
@@ -483,6 +484,8 @@ pt-BR:
               munitions_list: 'Lista de Munições'
               caliber: 'Calibre'
               quantity: 'Quantidade'
+              edit: 'Editar'
+              remove: 'Remover'
               add_new_munition_type_btn: 'Adicionar Novo Tipo de Munição'
             new:
               title: 'Novo Tipo de Munição'

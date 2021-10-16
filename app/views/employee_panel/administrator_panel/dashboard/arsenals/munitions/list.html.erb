@@ -20,14 +20,16 @@
         <tr>
           <th><%= t('.caliber') %></th>
           <th><%= t('.quantity') %></th>
-          <th></th>
+          <th><%=t('.edit')%></th>
+          <th><%= t('.remove') %></th>
         </tr>
       </thead>
       <tfoot>
         <tr>
           <th><%= t('.caliber') %></th>
           <th><%= t('.quantity') %></th>
-          <th></th>
+          <th><%= t('.edit') %></th>
+          <th><%= t('.remove') %></th>
         </tr>
       </tfoot>
       <tbody>
@@ -37,7 +39,12 @@
             <td><%= munition.quantity %></td>
             <td>
               <%= link_to employee_panel_administrator_dashboard_munition_edit_path(munition.id) do %>
-                <i class="fas fa-pen me-1"></i></td>
+                <i class="fas fa-pen me-1"></i>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to({ action: 'remove', id: munition.id }, method: :delete, class: 'btn-delete') do %>
+                <i class="fas fa-trash me-1"></i>
               <% end %>
             </td>
           </tr>

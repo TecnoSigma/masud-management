@@ -74,11 +74,12 @@ Rails.application.routes.draw do
       delete 'dashboard/arsenais/arma/remove/:id', to: 'dashboard/arsenals/guns#remove', as: 'dashboard_gun_remove'
       patch 'dashboard/arsenais/arma/update/:id',  to: 'dashboard/arsenals/guns#update', as: 'dashboard_gun_update'
 
-      get 'dashboard/arsenais/municao/novo',         to: 'dashboard/arsenals/munitions#new'
-      get 'dashboard/arsenais/municoes',             to: 'dashboard/arsenals/munitions#list'
-      get 'dashboard/arsenais/municao/:id/editar',   to: 'dashboard/arsenals/munitions#edit',   as: 'dashboard_munition_edit'
-      post 'dashboard/arsenais/municao/create',      to: 'dashboard/arsenals/munitions#create'
-      patch 'dashboard/arsenais/municao/update/:id', to: 'dashboard/arsenals/munitions#update', as: 'dashboard_munition_update'
+      get 'dashboard/arsenais/municao/novo',          to: 'dashboard/arsenals/munitions#new'
+      get 'dashboard/arsenais/municoes',              to: 'dashboard/arsenals/munitions#list'
+      get 'dashboard/arsenais/municao/:id/editar',    to: 'dashboard/arsenals/munitions#edit',   as: 'dashboard_munition_edit'
+      post 'dashboard/arsenais/municao/create',       to: 'dashboard/arsenals/munitions#create'
+      patch 'dashboard/arsenais/municao/update/:id',  to: 'dashboard/arsenals/munitions#update', as: 'dashboard_munition_update'
+      delete 'dashboard/arsenais/municao/remove/:id', to: 'dashboard/arsenals/munitions#remove', as: 'dashboard_munition_remove'
     end
 
     scope module: 'agent_panel', path: 'agente', as: 'agent' do

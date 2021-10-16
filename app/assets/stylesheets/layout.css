@@ -11723,3 +11723,10 @@ body {
   background-color: white;
   color: black;
 }
+
+.btn-delete {
+  color: red;
+}
+  .btn-delete:hover {
+    color: black;
+  }
