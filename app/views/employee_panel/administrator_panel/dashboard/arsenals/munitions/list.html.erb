@@ -1,0 +1,48 @@
+<%= render './partials/messages' %>
+<h1 class="mt-4"><%= t('.title') %></h1>
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item active"><%= t('breadcrumbs.munitions_list') %></li>
+</ol>
+<div>
+  <%= link_to t('.add_gun_btn'),
+              employee_panel_administrator_dashboard_arsenais_arma_novo_path,
+              class: 'btn btn-primary' %>
+</div>
+<br>
+<div class="card mb-4">
+  <div class="card-header">
+    <i class="fas fa-table me-1"></i>
+    <%= t('.munitions_list') %>
+  </div>
+  <div class="card-body">
+    <table id="datatablesMunition" role='datatable' class="stripe" width="100%">
+      <thead>
+        <tr>
+          <th><%= t('.caliber') %></th>
+          <th><%= t('.quantity') %></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <th><%= t('.caliber') %></th>
+          <th><%= t('.quantity') %></th>
+          <th></th>
+        </tr>
+      </tfoot>
+      <tbody>
+        <% @munitions.each do |munition| %>
+          <tr>
+            <td><%= munition.kind.titleize %></td>
+            <td><%= munition.quantity %></td>
+            <td>
+              <%= link_to root_path do %>
+                <i class="fas fa-pen me-1"></i></td>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

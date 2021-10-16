@@ -19,6 +19,7 @@ pt-BR:
     new_tackle: 'Novo Equipamento'
     guns_list: 'Lista de Armas'
     new_gun: 'Nova Arma'
+    munitions_list: 'Lista de Munições'
   error:
     unauthorized:
       code: '401'
@@ -468,6 +469,12 @@ pt-BR:
               format_date_info: 'Utilize o formato dd/mm/aaaa'
               required_fields: '(*) Campos obrigatórios'
               update_gun_btn: 'atualizar dados'
+          munitions:
+            list:
+              title: 'Munições'
+              munitions_list: 'Lista de Munições'
+              caliber: 'Calibre'
+              quantity: 'Quantidade'
   partials:
     admin_menu:
       dashboard: 'dashboard'

@@ -74,7 +74,7 @@ Rails.application.routes.draw do
       delete 'dashboard/arsenais/arma/remove/:id', to: 'dashboard/arsenals/guns#remove', as: 'dashboard_gun_remove'
       patch 'dashboard/arsenais/arma/update/:id',  to: 'dashboard/arsenals/guns#update', as: 'dashboard_gun_update'
 
-      get 'dashboard/arsenais/municoes', to: 'dashboard/arsenals#munitions_list'
+      get 'dashboard/arsenais/municoes', to: 'dashboard/arsenals/munitions#list'
     end
 
     scope module: 'agent_panel', path: 'agente', as: 'agent' do

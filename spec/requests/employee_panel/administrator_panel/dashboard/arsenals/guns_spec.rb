@@ -10,7 +10,7 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Arsenals::Guns', t
   end
 
   describe '#list' do
-    it 'renders employees page' do
+    it 'renders guns list page' do
       get '/gestao/admin/dashboard/arsenais/armas'
 
       expect(response).to render_template(:list)
@@ -18,7 +18,7 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Arsenals::Guns', t
   end
 
   describe '#new' do
-    it 'renders employees page' do
+    it 'renders gun page' do
       get '/gestao/admin/dashboard/arsenais/arma/novo'
 
       expect(response).to render_template(:new)
