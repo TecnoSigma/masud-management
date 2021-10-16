@@ -8,4 +8,6 @@ class Gun < Arsenal
             :situation,
             :registration_validity,
             presence: true
+
+  ALLOWED_TYPES = { shotgun: 'Espingarda', revolver: 'Revólver' }.freeze
 end

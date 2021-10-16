@@ -17,6 +17,14 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Arsenals', type: :
     end
   end
 
+  describe '#new_gun' do
+    it 'renders employees page' do
+      get '/gestao/admin/dashboard/arsenais/arma/novo'
+
+      expect(response).to render_template(:new_gun)
+    end
+  end
+
   describe '#show_gun' do
     context 'when pass valid params' do
       it 'renders show page' do
@@ -61,6 +69,103 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Arsenals', type: :
         get "/gestao/admin/dashboard/equipamento/#{tackle.id}"
 
         expect(flash[:alert]).to eq('Falha ao procurar dados!')
+      end
+    end
+  end
+
+  describe '#create' do
+    context 'when pass valid params' do
+      it 'creates a new gun' do
+        status = FactoryBot.create(:status, name: 'ativo')
+        situation = FactoryBot.create(:status, name: 'regular')
+        sinarm = '123'
+        gun_params = FactoryBot.attributes_for(:arsenal,
+                                               :gun,
+                                               sinarm: sinarm,
+                                               situation: situation.name,
+                                               status: status.name)
+
+        post '/gestao/admin/dashboard/arsenais/arma/create', params: { gun: gun_params }
+
+        result = Gun.find_by_sinarm(sinarm)
+
+        expect(result).to be_present
+      end
+
+      it 'redirects to guns list page' do
+        status = FactoryBot.create(:status, name: 'ativo')
+        situation = FactoryBot.create(:status, name: 'regular')
+        sinarm = '123'
+        gun_params = FactoryBot.attributes_for(:arsenal,
+                                               :gun,
+                                               sinarm: sinarm,
+                                               situation: situation.name,
+                                               status: status.name)
+
+        post '/gestao/admin/dashboard/arsenais/arma/create', params: { gun: gun_params }
+
+        expect(response).to redirect_to(employee_panel_administrator_dashboard_arsenais_armas_path)
+      end
+
+      it 'shows success message' do
+        status = FactoryBot.create(:status, name: 'ativo')
+        situation = FactoryBot.create(:status, name: 'regular')
+        sinarm = '123'
+        gun_params = FactoryBot.attributes_for(:arsenal,
+                                               :gun,
+                                               sinarm: sinarm,
+                                               situation: situation.name,
+                                               status: status.name)
+
+        post '/gestao/admin/dashboard/arsenais/arma/create', params: { gun: gun_params }
+
+        expect(flash[:notice]).to eq("Arma #{sinarm} criada com sucesso!")
+      end
+    end
+
+    context 'when pass invalid params' do
+      it 'no creates a new gun' do
+        situation = FactoryBot.create(:status, name: 'regular')
+        sinarm = '123'
+        gun_params = FactoryBot.attributes_for(:arsenal,
+                                               :gun,
+                                               sinarm: sinarm,
+                                               situation: situation.name,
+                                               status: '')
+
+        post '/gestao/admin/dashboard/arsenais/arma/create', params: { gun: gun_params }
+
+        result = Gun.find_by_sinarm(sinarm)
+
+        expect(result).to be_nil
+      end
+
+      it 'redirects to new tackle page' do
+        situation = FactoryBot.create(:status, name: 'regular')
+        sinarm = '123'
+        gun_params = FactoryBot.attributes_for(:arsenal,
+                                               :gun,
+                                               sinarm: sinarm,
+                                               situation: situation.name,
+                                               status: '')
+
+        post '/gestao/admin/dashboard/arsenais/arma/create', params: { gun: gun_params }
+
+        expect(response).to redirect_to(employee_panel_administrator_dashboard_arsenais_arma_novo_path)
+      end
+
+      it 'shows error message' do
+        situation = FactoryBot.create(:status, name: 'regular')
+        sinarm = '123'
+        gun_params = FactoryBot.attributes_for(:arsenal,
+                                               :gun,
+                                               sinarm: sinarm,
+                                               situation: situation.name,
+                                               status: '')
+
+        post '/gestao/admin/dashboard/arsenais/arma/create', params: { gun: gun_params }
+
+        expect(flash[:alert]).to eq('Erro ao criar nova arma!')
       end
     end
   end

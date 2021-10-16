@@ -62,4 +62,12 @@ RSpec.describe Gun, type: :model do
 
     expect(result).to eq(false)
   end
+
+  it 'returns allowed types list' do
+    result = described_class::ALLOWED_TYPES
+
+    expected_result = { revolver: 'Revólver', shotgun: 'Espingarda' }
+
+    expect(result).to eq(expected_result)
+  end
 end

@@ -1,0 +1,96 @@
+<h1 class="mt-4"><%= t('.title') %></h1>
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item">
+    <%= link_to t('breadcrumbs.guns_list'), employee_panel_administrator_dashboard_arsenais_armas_path %>
+  </li>
+  <li class="breadcrumb-item active"><%= t('breadcrumbs.new_gun') %></li>
+</ol>
+<hr>
+<div id="layoutAuthentication">
+  <div id="layoutAuthentication_content">
+    <main>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-7">
+            <br>
+            <%= render './partials/messages' %>
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+              <div class="card-body">
+                <%= form_with scope: 'gun', url: employee_panel_administrator_dashboard_arsenais_arma_create_path do |f| %>
+                  <p>
+                    <small><%= t('.required_fields') %></small>
+                  </p>
+                  <span><strong><%= t('.gun_data') %></strong></span>
+                  <br><br>
+                  <div class="form-floating mb-3">
+                    <%= f.select :kind,
+                                 Gun::ALLOWED_TYPES.values,
+                                 { class: 'form-control',
+                                   prompt: t('.kind') },
+                                   required:  true %>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <%= f.text_field :caliber,
+                                     class: 'form-control',
+                                     id: 'inputCaliber',
+                                     placeholder: t('.caliber_placeholder') %>
+                    <label for="inputCaliber"><%= t('.caliber') %></label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <%= f.text_field :number,
+                                     class: 'form-control',
+                                     id: 'inputNumber',
+                                     placeholder: t('.number_placeholder'),
+                                     required: true %>
+                    <label for="inputNumber"><%= t('.number') %></label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <%= f.text_field :sinarm,
+                                     class: 'form-control',
+                                     id: 'inputSinarm',
+                                     placeholder: t('.sinarm_placeholder') %>
+                    <label for="inputSinarm"><%= t('.sinarm') %></label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <%= f.text_field :registration_validity,
+                                     class: 'form-control',
+                                     id: 'inputRegistrationValidity',
+                                     placeholder: t('.registration_validity_placeholder') %>
+                    <label for="inputRegistrationValidity"><%= t('.registration_validity') %></label>
+                    <small><%= t('.format_date_info') %></small>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <%= f.text_field :linked_at_post,
+                                     class: 'form-control',
+                                     id: 'inputLinkedAtPost',
+                                     placeholder: t('.linked_at_post_placeholder') %>
+                    <label for="inputLinkedAtPost"><%= t('.linked_at_post') %></label>
+                    <small><%= t('.format_date_info') %></small>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <%= f.select :situation,
+                                 Arsenal.situations.collect {|situation| [ situation.name.titleize, situation.name ] },
+                                 { class: 'form-control',
+                                   prompt: t('.situation') },
+                                   required:  true %>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <%= f.select :status,
+                                 Arsenal.statuses.collect {|status| [ status.name.titleize, status.name ] },
+                                 { class: 'form-control',
+                                   prompt: t('.status') },
+                                   required:  true %>
+                  </div>
+                  <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                    <%= f.submit t('.create_gun_btn'), class: 'btn btn-primary' %>
+                  </div>
+                <% end %>
+              </div>
+              <div class="card-footer text-center py-3"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

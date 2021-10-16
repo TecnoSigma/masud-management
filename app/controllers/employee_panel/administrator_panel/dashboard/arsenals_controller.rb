@@ -14,7 +14,7 @@ module EmployeePanel
           @munitions = Munition.all
         end
 
-        #def new; end
+        def new_gun; end
 
         #def edit
         #  @tackle = Tackle.find(params['id'])
@@ -23,25 +23,21 @@ module EmployeePanel
         #              alert: error_message(error.class, :find)
         #end
 
-        #def list
-        #  @tackles = Tackle.all
-        #end
+        def create_gun
+          gun = Gun.new(gun_params)
 
-        #def create
-        #  tackle = tackle_klass.new(tackle_params)
+          gun.validate
+          gun.save!
 
-        #  tackle.validate
-        #  tackle.save!
+          redirect_to employee_panel_administrator_dashboard_arsenais_armas_path,
+            notice: t('messages.successes.arsenal.gun.created_successfully',
+                                sinarm: gun.sinarm)
+        rescue StandardError => error
+          Rails.logger.error("Message: #{error.message} - Backtrace: #{error.backtrace}")
 
-        #  redirect_to employee_panel_administrator_dashboard_equipamentos_path,
-        #              notice: t('messages.successes.tackle.created_successfully',
-        #                        serial_number: tackle.serial_number)
-        #rescue StandardError => error
-        #  Rails.logger.error("Message: #{error.message} - Backtrace: #{error.backtrace}")
-
-        #  redirect_to employee_panel_administrator_dashboard_equipamento_novo_path,
-        #              alert: t('messages.errors.tackle.create_failed')
-        #end
+          redirect_to employee_panel_administrator_dashboard_arsenais_arma_novo_path,
+                      alert: t('messages.errors.arsenal.gun.create_failed')
+        end
 
         def show_gun
           @gun = Gun.find(params['id'])
@@ -88,16 +84,6 @@ module EmployeePanel
         #  @tackle ||= Tackle.find(params['id'])
         #end
 
-        #def tackle_type
-        #  Tackle::ALLOWED_TYPES[tackle.type.downcase.to_sym]
-        #end
-
-        #def tackle_klass
-        #  return Tackle unless params['tackle']['type']
-
-        #  params['tackle']['type'].titleize.constantize
-        #end
-
         def error_message(error_class, action)
           if error_class == ActiveRecord::RecordNotFound
             t('messages.errors.arsenal.gun.not_found')
@@ -106,32 +92,22 @@ module EmployeePanel
           end
         end
 
-        #def type_params!(formatted_params)
-        #  if params['tackle']['type']
-        #    formatted_params.merge!('type' => params['tackle']['type'].titleize)
-        #  else
-        #    formatted_params
-        #  end
-        #end
+        def status_params!(formatted_params)
+          if params['gun']['status']
+            formatted_params.merge!('status' => Status.find_by_name(params['gun']['status']))
+          else
+            formatted_params
+          end
+        end
 
-        #def status_params!(formatted_params)
-        #  if params['tackle']['status']
-        #    formatted_params.merge!('status' => Status.find_by_name(params['tackle']['status']))
-        #  else
-        #    formatted_params
-        #  end
-        #end
+        def gun_params
+          formatted_params = params
+                             .require(:gun)
+                             .permit(:kind, :caliber, :number, :sinarm, :registration_validity,
+                                     :linked_at_post, :situation)
 
-        #def tackle_params
-        #  formatted_params = params
-        #                     .require(:tackle)
-        #                     .permit(:serial_number, :register_number, :brand, :fabrication_date,
-        #                             :status, :validation_date, :bond_date, :protection_level,
-        #                             :situation)
-
-        #  type_params!(formatted_params)
-        #  status_params!(formatted_params)
-        #end
+          status_params!(formatted_params)
+        end
       end
     end
   end

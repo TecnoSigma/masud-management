@@ -66,10 +66,11 @@ Rails.application.routes.draw do
       patch 'dashboard/equipamento/update/:id',  to: 'dashboard/tackles#update', as: 'dashboard_tackle_update'
       delete 'dashboard/equipamento/remove/:id', to: 'dashboard/tackles#remove', as: 'dashboard_tackle_remove'
 
-      get 'dashboard/arsenais/armas',       to: 'dashboard/arsenals#guns_list'
-      get 'dashboard/arsenais/arma/novo',   to: 'dashboard/arsenals#new_gun'
-      get 'dashboard/arsenais/arma/:id',    to: 'dashboard/arsenals#show_gun',   as: 'dashboard_arsenal_show_gun'
-      delete 'dashboard/arsenais/arma/:id', to: 'dashboard/arsenals#remove_gun', as: 'dashboard_arsenal_remove_gun'
+      get 'dashboard/arsenais/armas',        to: 'dashboard/arsenals#guns_list'
+      get 'dashboard/arsenais/arma/novo',    to: 'dashboard/arsenals#new_gun'
+      get 'dashboard/arsenais/arma/:id',     to: 'dashboard/arsenals#show_gun',   as: 'dashboard_arsenal_show_gun'
+      post 'dashboard/arsenais/arma/create', to: 'dashboard/arsenals#create_gun'
+      delete 'dashboard/arsenais/arma/:id',  to: 'dashboard/arsenals#remove_gun', as: 'dashboard_arsenal_remove_gun'
 
       get 'dashboard/arsenais/municoes', to: 'dashboard/arsenals#munitions_list'
     end

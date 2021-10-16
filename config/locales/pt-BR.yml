@@ -18,6 +18,7 @@ pt-BR:
     tackles_list: 'Lista de Equipamentos'
     new_tackle: 'Novo Equipamento'
     guns_list: 'Lista de Armas'
+    new_gun: 'Nova Arma'
   error:
     unauthorized:
       code: '401'
@@ -61,6 +62,7 @@ pt-BR:
       arsenal:
         gun:
           not_found: 'Arma não encontrada!'
+          create_failed: 'Erro ao criar nova arma!'
     infos:
       scheduling_cancelation: 'Importante: Todo agendamento poderá ser cancelado em até trẽs horas após a sua criação.'
       password_strength: 'Dica; Utilize letras, números e caracteres especiais (&, @, !, #) '
@@ -81,6 +83,9 @@ pt-BR:
         created_successfully: 'Equipamento %{serial_number} criado com sucesso!'
         updated_successfully: 'Dados do equipamento atualizados com sucesso!'
         removed_successfully: '%{type} %{serial_number} removido com sucesso!'
+      arsenal:
+        gun:
+          created_successfully: 'Arma %{sinarm} criada com sucesso!'
   layouts:
     application:
       logout: 'Logout'
@@ -431,6 +436,19 @@ pt-BR:
             back_btn: 'Voltar'
             edit_btn: 'Editar'
             remove_btn: 'Remover'
+          new_gun:
+            gun_data: 'Dados da Arma'
+            kind: 'Tipo *'
+            caliber: 'Calibre *'
+            number: 'Número *'
+            sinarm: 'SINARM *'
+            registration_validity: 'Validade do Registro *'
+            linked_at_post: 'Vínculo com Posto'
+            situation: 'Situação *'
+            status: 'Status *'
+            format_date_info: 'Utilize o formato dd/mm/aaaa'
+            required_fields: '(*) Campos obrigatórios'
+            create_gun_btn: 'Adicionar Arma'
   partials:
     admin_menu:
       dashboard: 'Dashboard'
