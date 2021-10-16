@@ -57,4 +57,13 @@ RSpec.describe Arsenal, type: :model do
       expect(result).to eq([regular_status, irregular_status])
     end
   end
+
+  describe 'validates uniqueness' do
+    it 'no validates when kind is duplicated' do
+      munition1 = FactoryBot.create(:arsenal, :munition)
+      munition2 = FactoryBot.build(:arsenal, :munition, kind: munition1.kind)
+
+      expect(munition2).to be_invalid
+    end
+  end
 end

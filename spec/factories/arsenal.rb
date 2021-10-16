@@ -12,6 +12,7 @@ FactoryBot.define do
     end
 
     trait :munition do
+      type { 'Munition' }
       kind { %w(12 38).sample }
       quantity { Faker::Number.number(digits: 3) }
     end

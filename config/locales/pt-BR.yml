@@ -20,6 +20,7 @@ pt-BR:
     guns_list: 'Lista de Armas'
     new_gun: 'Nova Arma'
     munitions_list: 'Lista de Munições'
+    new_munition_type: 'Novo Tipo de Munição'
   error:
     unauthorized:
       code: '401'
@@ -65,6 +66,8 @@ pt-BR:
           not_found: 'Arma não encontrada!'
           create_failed: 'Erro ao criar nova arma!'
           remove_in_mission_failed: 'Arma em missão não pode ser removida!'
+        munition:
+          create_failed: 'Erro ao criar nova munição!'
     infos:
       scheduling_cancelation: 'Importante: Todo agendamento poderá ser cancelado em até trẽs horas após a sua criação.'
       password_strength: 'Dica; Utilize letras, números e caracteres especiais (&, @, !, #) '
@@ -90,6 +93,8 @@ pt-BR:
           created_successfully: 'Arma %{sinarm} criada com sucesso!'
           updated_successfully: 'Dados da arma atualizados com sucesso!'
           removed_successfully: 'Arma %{sinarm} removida com sucesso!'
+        munition:
+          created_successfully: 'Munição %{caliber_type} criada com sucesso!'
   layouts:
     application:
       logout: 'Logout'
@@ -475,6 +480,14 @@ pt-BR:
               munitions_list: 'Lista de Munições'
               caliber: 'Calibre'
               quantity: 'Quantidade'
+              add_new_munition_type_btn: 'Adicionar Novo Tipo de Munição'
+            new:
+              title: 'Novo Tipo de Munição'
+              munition_data: 'Dados da Munição'
+              caliber: 'Calibre *'
+              quantity: 'Quantidade Inicial *'
+              required_fields: '(*) Campos obrigatórios'
+              create_munition_type_btn: 'Adicionar Novo Tipo de Munição'
   partials:
     admin_menu:
       dashboard: 'dashboard'

@@ -1,0 +1,54 @@
+<h1 class="mt-4"><%= t('.title') %></h1>
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item">
+    <%= link_to t('breadcrumbs.munitions_list'), employee_panel_administrator_dashboard_arsenais_municoes_path %>
+  </li>
+  <li class="breadcrumb-item active"><%= t('breadcrumbs.new_munition_type') %></li>
+</ol>
+<hr>
+<div id="layoutAuthentication">
+  <div id="layoutAuthentication_content">
+    <main>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-7">
+            <br>
+            <%= render './partials/messages' %>
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+              <div class="card-body">
+                <%= form_with scope: 'munition', url: employee_panel_administrator_dashboard_arsenais_municao_create_path do |f| %>
+                  <p>
+                    <small><%= t('.required_fields') %></small>
+                  </p>
+                  <span><strong><%= t('.munition_data') %></strong></span>
+                  <br><br>
+                  <div class="form-floating mb-3">
+                  <div class="form-floating mb-3">
+                    <%= f.text_field :kind,
+                                     class: 'form-control',
+                                     id: 'inputCaliber',
+                                     placeholder: t('.caliber_placeholder'),
+                                     required: true %>
+                    <label for="inputCaliber"><%= t('.caliber') %></label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <%= f.text_field :quantity,
+                                     class: 'form-control',
+                                     id: 'inputQuantity',
+                                     placeholder: t('.quantity_placeholder'),
+                                     required: true %>
+                    <label for="inputQuantity"><%= t('.quantity') %></label>
+                  </div>
+                  <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                    <%= f.submit t('.create_munition_type_btn'), class: 'btn btn-primary' %>
+                  </div>
+                <% end %>
+              </div>
+              <div class="card-footer text-center py-3"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

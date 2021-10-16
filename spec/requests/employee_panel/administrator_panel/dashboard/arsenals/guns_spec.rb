@@ -318,13 +318,11 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Arsenals::Guns', t
 
     context 'when pass invalid params' do
       it 'no creates a new gun' do
-        situation = FactoryBot.create(:status, name: 'regular')
         sinarm = '123'
         gun_params = FactoryBot.attributes_for(:arsenal,
                                                :gun,
                                                sinarm: sinarm,
-                                               situation: situation.name,
-                                               status: '')
+                                               situation: '')
 
         post '/gestao/admin/dashboard/arsenais/arma/create', params: { gun: gun_params }
 
@@ -334,13 +332,11 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Arsenals::Guns', t
       end
 
       it 'redirects to new gun page' do
-        situation = FactoryBot.create(:status, name: 'regular')
         sinarm = '123'
         gun_params = FactoryBot.attributes_for(:arsenal,
                                                :gun,
                                                sinarm: sinarm,
-                                               situation: situation.name,
-                                               status: '')
+                                               situation: '')
 
         post '/gestao/admin/dashboard/arsenais/arma/create', params: { gun: gun_params }
 
@@ -348,13 +344,11 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Arsenals::Guns', t
       end
 
       it 'shows error message' do
-        situation = FactoryBot.create(:status, name: 'regular')
         sinarm = '123'
         gun_params = FactoryBot.attributes_for(:arsenal,
                                                :gun,
                                                sinarm: sinarm,
-                                               situation: situation.name,
-                                               status: '')
+                                               situation: '')
 
         post '/gestao/admin/dashboard/arsenais/arma/create', params: { gun: gun_params }
 
