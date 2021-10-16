@@ -71,7 +71,7 @@ Rails.application.routes.draw do
       get 'dashboard/arsenais/arma/:id',           to: 'dashboard/arsenals/guns#show',   as: 'dashboard_gun_show'
       get 'dashboard/arsenais/arma/:id/editar',    to: 'dashboard/arsenals/guns#edit',   as: 'dashboard_gun_edit'
       post 'dashboard/arsenais/arma/create',       to: 'dashboard/arsenals/guns#create'
-      delete 'dashboard/arsenais/arma/:id',        to: 'dashboard/arsenals/guns#remove', as: 'dashboard_gun_remove'
+      delete 'dashboard/arsenais/arma/remove/:id', to: 'dashboard/arsenals/guns#remove', as: 'dashboard_gun_remove'
       patch 'dashboard/arsenais/arma/update/:id',  to: 'dashboard/arsenals/guns#update', as: 'dashboard_gun_update'
 
       get 'dashboard/arsenais/municoes', to: 'dashboard/arsenals#munitions_list'

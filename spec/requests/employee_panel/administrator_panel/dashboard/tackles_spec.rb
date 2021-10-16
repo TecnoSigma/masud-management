@@ -10,7 +10,7 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Employees', type: 
   end
 
   describe '#list' do
-    it 'renders customers page' do
+    it 'renders tackles page' do
       get '/gestao/admin/dashboard/equipamentos'
 
       expect(response).to render_template(:list)
@@ -18,7 +18,7 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Employees', type: 
   end
 
   describe '#new' do
-    it 'renders customers page' do
+    it 'renders tackles page' do
       get '/gestao/admin/dashboard/equipamento/novo'
 
       expect(response).to render_template(:new)
@@ -391,7 +391,7 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Employees', type: 
     end
 
     context 'when pass invalid params' do
-      it 'no updates customer data' do
+      it 'no updates tackle data' do
         new_serial_number = ''
         tackle = FactoryBot.create(:tackle, :radio)
 
@@ -413,7 +413,7 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Employees', type: 
         expect(flash[:alert]).to eq('Falha ao atualizar dados!')
       end
 
-      it 'redirects to customer page' do
+      it 'redirects to tackle page' do
         new_serial_number = ''
         tackle = FactoryBot.create(:tackle, :radio)
 
@@ -432,7 +432,7 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Employees', type: 
 
         delete "/gestao/admin/dashboard/equipamento/remove/#{tackle.id}"
 
-        result = Employee.find_by_id(tackle.id)
+        result = Tackle.find_by_id(tackle.id)
 
         expect(result).to be_nil
       end

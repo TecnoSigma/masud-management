@@ -56,29 +56,29 @@ module EmployeePanel
           end
 
           def remove
-            delete_tackle!
+            delete_gun!
 
-            redirect_to employee_panel_administrator_dashboard_equipamentos_path,
-                        notice: t('messages.successes.tackle.removed_successfully',
-                                  type: tackle_type, serial_number: tackle.serial_number)
-          rescue DeleteTackleError
-            redirect_to employee_panel_administrator_dashboard_equipamentos_path,
-                        alert: t('messages.errors.tackle.remove_in_mission_failed')
+            redirect_to employee_panel_administrator_dashboard_arsenais_armas_path,
+              notice: t('messages.successes.arsenal.gun.removed_successfully',
+                        sinarm: gun.sinarm)
+          rescue DeleteGunError
+            redirect_to employee_panel_administrator_dashboard_arsenais_armas_path,
+              alert: t('messages.errors.arsenal.gun.remove_in_mission_failed')
           rescue StandardError, ActiveRecord::RecordNotFound => error
-            redirect_to employee_panel_administrator_dashboard_equipamentos_path,
+            redirect_to employee_panel_administrator_dashboard_arsenais_armas_path,
                         alert: error_message(error.class, :remove)
           end
 
           private
 
-          def delete_tackle!
-            raise DeleteTackleError if tackle.in_mission?
+          def delete_gun!
+            raise DeleteGunError if gun.in_mission?
 
-            tackle.delete
+            gun.delete
           end
 
-          def tackle
-            @tackle ||= Tackle.find(params['id'])
+          def gun
+            @gun ||= Gun.find(params['id'])
           end
 
           def error_message(error_class, action)

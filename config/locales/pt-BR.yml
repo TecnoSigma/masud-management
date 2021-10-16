@@ -63,6 +63,7 @@ pt-BR:
         gun:
           not_found: 'Arma não encontrada!'
           create_failed: 'Erro ao criar nova arma!'
+          remove_in_mission_failed: 'Arma em missão não pode ser removida!'
     infos:
       scheduling_cancelation: 'Importante: Todo agendamento poderá ser cancelado em até trẽs horas após a sua criação.'
       password_strength: 'Dica; Utilize letras, números e caracteres especiais (&, @, !, #) '
@@ -87,6 +88,7 @@ pt-BR:
         gun:
           created_successfully: 'Arma %{sinarm} criada com sucesso!'
           updated_successfully: 'Dados da arma atualizados com sucesso!'
+          removed_successfully: 'Arma %{sinarm} removida com sucesso!'
   layouts:
     application:
       logout: 'Logout'

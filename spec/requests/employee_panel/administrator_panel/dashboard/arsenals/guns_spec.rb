@@ -191,6 +191,81 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Arsenals::Guns', t
     end
   end
 
+  describe '#remove' do
+    context 'when pass valid params' do
+      it 'remove a gun' do
+        gun = FactoryBot.create(:arsenal, :gun)
+
+        delete "/gestao/admin/dashboard/arsenais/arma/remove/#{gun.id}"
+
+        result = Gun.find_by_id(gun.id)
+
+        expect(result).to be_nil
+      end
+
+      it 'shows success message' do
+        gun = FactoryBot.create(:arsenal, :gun)
+
+        delete "/gestao/admin/dashboard/arsenais/arma/remove/#{gun.id}"
+
+        expect(flash[:notice]).to eq("Arma #{gun.sinarm} removida com sucesso!")
+      end
+
+      it 'redirects to guns page' do
+        gun = FactoryBot.create(:arsenal, :gun)
+
+        delete "/gestao/admin/dashboard/arsenais/arma/remove/#{gun.id}"
+
+        expect(response).to redirect_to(employee_panel_administrator_dashboard_arsenais_armas_path)
+      end
+    end
+
+    context 'when gun isn\'t found' do
+      it 'shows errors message' do
+        delete '/gestao/admin/dashboard/arsenais/arma/remove/invalid_id'
+
+        expect(flash[:alert]).to eq('Arma não encontrada!')
+      end
+
+      it 'redirects to guns page' do
+        delete '/gestao/admin/dashboard/arsenais/arma/remove/invalid_id'
+
+        expect(response).to redirect_to(employee_panel_administrator_dashboard_arsenais_armas_path)
+      end
+    end
+
+    context 'when gun is in mission' do
+      it 'no deletes gun' do
+        employee = FactoryBot.create(:employee, :agent)
+        gun = FactoryBot.create(:arsenal, :gun, employee_id: employee.id)
+
+        delete "/gestao/admin/dashboard/arsenais/arma/remove/#{gun.id}"
+
+        result = Gun.find(gun.id)
+
+        expect(result).to be_present
+      end
+
+      it 'shows errors message' do
+        employee = FactoryBot.create(:employee, :agent)
+        gun = FactoryBot.create(:arsenal, :gun, employee_id: employee.id)
+
+        delete "/gestao/admin/dashboard/arsenais/arma/remove/#{gun.id}"
+
+        expect(flash[:alert]).to eq('Arma em missão não pode ser removida!')
+      end
+
+      it 'redirects to tackle page' do
+        employee = FactoryBot.create(:employee, :agent)
+        tackle = FactoryBot.create(:tackle, :radio, employee_id: employee.id)
+
+        delete "/gestao/admin/dashboard/equipamento/remove/#{tackle.id}"
+
+        expect(response).to redirect_to(employee_panel_administrator_dashboard_equipamentos_path)
+      end
+    end
+  end
+
   describe '#create' do
     context 'when pass valid params' do
       it 'creates a new gun' do
