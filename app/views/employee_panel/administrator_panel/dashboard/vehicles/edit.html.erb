@@ -1,9 +1,9 @@
-<h1 class="mt-4"><%= t('.title') %></h1>
+<h1 class="mt-4"><%= t('.title', license_plate: @vehicle.license_plate) %></h1>
 <ol class="breadcrumb mb-4">
   <li class="breadcrumb-item">
     <%= link_to t('breadcrumbs.vehicles_list'), employee_panel_administrator_dashboard_viaturas_path %>
   </li>
-  <li class="breadcrumb-item active"><%= t('breadcrumbs.new_vehicle') %></li>
+  <li class="breadcrumb-item active"><%= t('.title', license_plate: @vehicle.license_plate) %></li>
 </ol>
 <hr>
 <div id="layoutAuthentication">
@@ -16,7 +16,7 @@
             <%= render './partials/messages' %>
             <div class="card shadow-lg border-0 rounded-lg mt-5">
               <div class="card-body">
-                <%= form_with scope: 'vehicle', url: employee_panel_administrator_dashboard_viatura_create_path do |f| %>
+                <%= form_with scope: 'vehicle', url: employee_panel_administrator_dashboard_vehicle_update_path, method: :patch do |f| %>
                   <p>
                     <small><%= t('.required_fields') %></small>
                   </p>
@@ -49,13 +49,16 @@
                   </div>
                   <div class="form-floating mb-3">
                     <%= f.select :status,
-                                 Vehicle.statuses.collect {|status| [ status.name.titleize, status.name ] },
+                                 options_for_select(
+                                   Vehicle.statuses.collect {|status| [ status.name.titleize, status.name ] },
+                                   @vehicle.status.name
+                                 ),
                                  { class: 'form-control',
                                    prompt: t('.status') },
                                    required:  true %>
                   </div>
                   <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                    <%= f.submit t('.create_vehicle_btn'), class: 'btn btn-primary' %>
+                    <%= f.submit t('.update_vehicle_btn'), class: 'btn btn-primary' %>
                   </div>
                 <% end %>
               </div>

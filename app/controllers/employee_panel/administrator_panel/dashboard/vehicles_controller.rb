@@ -13,9 +13,9 @@ module EmployeePanel
         def new; end
 
         def edit
-          @gun = Gun.find(params['id'])
+          @vehicle = Vehicle.find(params['id'])
         rescue StandardError, ActiveRecord::RecordNotFound => error
-          redirect_to employee_panel_administrator_dashboard_arsenais_armas_path,
+          redirect_to employee_panel_administrator_dashboard_viaturas_path,
                       alert: error_message(error.class, :find)
         end
 
@@ -43,14 +43,14 @@ module EmployeePanel
         end
 
         def update
-          gun = Gun.find(params['id'])
+          vehicle = Vehicle.find(params['id'])
 
-          gun.update!(gun_params)
+          vehicle.update!(vehicle_params)
 
-          redirect_to employee_panel_administrator_dashboard_gun_show_path(gun.id),
-                      notice: t('messages.successes.arsenal.gun.updated_successfully')
+          redirect_to employee_panel_administrator_dashboard_vehicle_show_path(vehicle.id),
+                      notice: t('messages.successes.vehicle.updated_successfully')
         rescue StandardError, ActiveRecord::RecordNotFound => error
-          redirect_to employee_panel_administrator_dashboard_arsenais_armas_path,
+          redirect_to employee_panel_administrator_dashboard_viaturas_path,
                       alert: error_message(error.class, :update)
         end
 

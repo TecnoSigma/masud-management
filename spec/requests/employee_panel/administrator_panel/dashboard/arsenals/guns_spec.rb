@@ -145,7 +145,7 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Arsenals::Guns', t
 
   describe '#edit' do
     context 'when pass valid params' do
-      it 'renders show page' do
+      it 'renders edit page' do
         gun = FactoryBot.create(:arsenal, :gun)
 
         get "/gestao/admin/dashboard/arsenais/arma/#{gun.id}/editar"

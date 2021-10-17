@@ -149,4 +149,122 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Vehicles', type: :
       end
     end
   end
+
+  describe '#edit' do
+    context 'when pass valid params' do
+      it 'renders edit page' do
+        vehicle = FactoryBot.create(:vehicle)
+
+        get "/gestao/admin/dashboard/viatura/#{vehicle.id}/editar"
+
+        expect(response).to render_template(:edit)
+      end
+    end
+
+    context 'when gun is not found' do
+      it 'redirects to vehicles list page' do
+        get '/gestao/admin/dashboard/viatura/invalid_order_number/editar'
+
+        expect(response).to redirect_to(employee_panel_administrator_dashboard_viaturas_path)
+      end
+
+      it 'shows error message' do
+        get '/gestao/admin/dashboard/viatura/invalid_order_number/editar'
+
+        expect(flash[:alert]).to eq('Viatura não encontrada!')
+      end
+    end
+
+    context 'when occurs errors' do
+      it 'redirects to vehicle list page' do
+        vehicle = FactoryBot.create(:vehicle)
+
+        allow(Vehicle).to receive(:find) { raise StandardError }
+
+        get "/gestao/admin/dashboard/viatura/#{vehicle.id}/editar"
+
+        expect(response).to redirect_to(employee_panel_administrator_dashboard_viaturas_path)
+      end
+
+      it 'shows error message' do
+        vehicle = FactoryBot.create(:vehicle)
+
+        allow(Vehicle).to receive(:find) { raise StandardError }
+
+        get "/gestao/admin/dashboard/viatura/#{vehicle.id}/editar"
+
+        expect(flash[:alert]).to eq('Falha ao procurar dados!')
+      end
+    end
+  end
+
+  describe '#update' do
+    context 'when pass valid params' do
+      it 'updates vehicle data' do
+        new_color = 'Branco'
+        vehicle = FactoryBot.create(:vehicle)
+
+        patch "/gestao/admin/dashboard/viatura/update/#{vehicle.id}",
+              params: { vehicle: { color: new_color } }
+
+        result = Vehicle.find(vehicle.id).color
+
+        expect(result).to eq(new_color)
+      end
+
+      it 'shows success message' do
+        new_color = 'Branco'
+        vehicle = FactoryBot.create(:vehicle)
+
+        patch "/gestao/admin/dashboard/viatura/update/#{vehicle.id}",
+              params: { vehicle: { color: new_color } }
+
+        expect(flash[:notice]).to eq('Dados da viatura atualizados com sucesso!')
+      end
+
+      it 'redirects to vehicle page' do
+        new_color = 'Branco'
+        vehicle = FactoryBot.create(:vehicle)
+
+        patch "/gestao/admin/dashboard/viatura/update/#{vehicle.id}",
+              params: { vehicle: { color: new_color } }
+
+        expect(response).to redirect_to(employee_panel_administrator_dashboard_vehicle_show_path(vehicle.id))
+      end
+    end
+
+    context 'when pass invalid params' do
+      it 'no updates gun data' do
+        new_color = ''
+        vehicle = FactoryBot.create(:vehicle)
+
+        patch "/gestao/admin/dashboard/viatura/update/#{vehicle.id}",
+              params: { vehicle: { color: new_color } }
+
+        result = Vehicle.find(vehicle.id).color
+
+        expect(result).not_to eq(new_color)
+      end
+
+      it 'shows errors message' do
+        new_color = ''
+        vehicle = FactoryBot.create(:vehicle)
+
+        patch "/gestao/admin/dashboard/viatura/update/#{vehicle.id}",
+              params: { vehicle: { color: new_color } }
+
+        expect(flash[:alert]).to eq('Falha ao atualizar dados!')
+      end
+
+      it 'redirects to customer page' do
+        new_color = ''
+        vehicle = FactoryBot.create(:vehicle)
+
+        patch "/gestao/admin/dashboard/viatura/update/#{vehicle.id}",
+              params: { vehicle: { color: new_color } }
+
+        expect(response).to redirect_to(employee_panel_administrator_dashboard_viaturas_path)
+      end
+    end
+  end
 end

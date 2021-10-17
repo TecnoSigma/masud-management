@@ -86,6 +86,7 @@ Rails.application.routes.draw do
       get 'dashboard/viatura/:id',           to: 'dashboard/vehicles#show',   as: 'dashboard_vehicle_show'
       get 'dashboard/viatura/:id/editar',    to: 'dashboard/vehicles#edit',   as: 'dashboard_vehicle_edit'
       post 'dashboard/viatura/create',       to: 'dashboard/vehicles#create'
+      patch 'dashboard/viatura/update/:id',  to: 'dashboard/vehicles#update', as: 'dashboard_vehicle_update'
       delete 'dashboard/viatura/remove/:id', to: 'dashboard/vehicles#remove', as: 'dashboard_vehicle_remove'
     end
 
