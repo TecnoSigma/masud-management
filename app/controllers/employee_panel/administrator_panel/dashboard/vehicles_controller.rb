@@ -20,19 +20,19 @@ module EmployeePanel
         end
 
         def create
-          gun = Gun.new(gun_params)
+          vehicle = Vehicle.new(vehicle_params)
 
-          gun.validate
-          gun.save!
+          vehicle.validate
+          vehicle.save!
 
-          redirect_to employee_panel_administrator_dashboard_arsenais_armas_path,
-                      notice: t('messages.successes.arsenal.gun.created_successfully',
-                                sinarm: gun.sinarm)
+          redirect_to employee_panel_administrator_dashboard_viaturas_path,
+                      notice: t('messages.successes.vehicle.created_successfully',
+                                license_plate: vehicle.license_plate)
         rescue StandardError => error
           Rails.logger.error("Message: #{error.message} - Backtrace: #{error.backtrace}")
 
-          redirect_to employee_panel_administrator_dashboard_arsenais_arma_novo_path,
-                      alert: t('messages.errors.arsenal.gun.create_failed')
+          redirect_to employee_panel_administrator_dashboard_viatura_novo_path,
+                      alert: t('messages.errors.vehicle.create_failed')
         end
 
         def show
@@ -89,18 +89,17 @@ module EmployeePanel
         end
 
         def status_params!(formatted_params)
-          if params['gun']['status']
-            formatted_params.merge!('status' => Status.find_by_name(params['gun']['status']))
+          if params['vehicle']['status']
+            formatted_params.merge!('status' => Status.find_by_name(params['vehicle']['status']))
           else
             formatted_params
           end
         end
 
-        def gun_params
+        def vehicle_params
           formatted_params = params
-                             .require(:gun)
-                             .permit(:kind, :caliber, :number, :sinarm, :registration_validity,
-                                     :linked_at_post, :situation)
+                             .require(:vehicle)
+                             .permit(:name, :license_plate, :color)
 
           status_params!(formatted_params)
         end

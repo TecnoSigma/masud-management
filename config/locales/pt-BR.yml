@@ -24,6 +24,7 @@ pt-BR:
     edit_munition: 'Munição %{caliber_type}'
     vehicles_list: 'Lista de Viaturas'
     show_vehicle: 'Viatura %{license_plate}'
+    new_vehicle: 'Nova Viatura'
   error:
     unauthorized:
       code: '401'
@@ -74,6 +75,7 @@ pt-BR:
           not_found: 'Munição não encontrada!'
       vehicle:
         not_found: 'Viatura não encontrada!'
+        create_failed: 'Erro ao criar nova viatura!'
     infos:
       scheduling_cancelation: 'Importante: Todo agendamento poderá ser cancelado em até trẽs horas após a sua criação.'
       password_strength: 'Dica; Utilize letras, números e caracteres especiais (&, @, !, #) '
@@ -104,6 +106,8 @@ pt-BR:
           created_successfully: 'Munição %{caliber_type} criada com sucesso!'
           updated_successfully: 'Quantidade de munição atualizada com sucesso!'
           removed_successfully: 'Munição %{caliber_type} removida com sucesso!'
+      vehicle:
+        created_successfully: 'Viatura %{license_plate} criada com sucesso!'
   layouts:
     application:
       logout: 'Logout'
@@ -529,6 +533,15 @@ pt-BR:
             back_btn: 'Voltar'
             edit_btn: 'Editar'
             remove_btn: 'Remover'
+          new:
+            title: 'Nova Viatura'
+            vehicle_data: 'Dados da Viatura'
+            name: 'Modelo *'
+            license_plate: 'Placa *'
+            color: 'Cor *'
+            status: 'Status *'
+            required_fields: '(*) Campos obrigatórios'
+            create_vehicle_btn: 'Adicionar Viatura'
   partials:
     admin_menu:
       dashboard: 'dashboard'

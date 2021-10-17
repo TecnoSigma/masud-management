@@ -30,4 +30,15 @@ RSpec.describe Vehicle, type: :model do
       expect(vehicle).to be_invalid
     end
   end
+
+  describe '.statuses' do
+    it 'returns tackle status list' do
+      activated_status = FactoryBot.create(:status, name: 'ativo')
+      deactivated_status = FactoryBot.create(:status, name: 'desativado')
+
+      result = Vehicle.statuses
+
+      expect(result).to eq([activated_status, deactivated_status])
+    end
+  end
 end

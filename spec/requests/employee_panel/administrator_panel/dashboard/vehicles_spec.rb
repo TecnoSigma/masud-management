@@ -11,7 +11,7 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Vehicles', type: :
 
   describe '#list' do
     it 'renders vehicles list page' do
-      get '/gestao/admin/dashboard/veiculos'
+      get '/gestao/admin/dashboard/viaturas'
 
       expect(response).to render_template(:list)
     end
@@ -61,6 +61,91 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Vehicles', type: :
         get "/gestao/admin/dashboard/viatura/#{vehicle.id}"
 
         expect(flash[:alert]).to eq('Falha ao procurar dados!')
+      end
+    end
+  end
+
+    describe '#create' do
+    context 'when pass valid params' do
+      it 'creates a new vehicle' do
+        status = FactoryBot.create(:status, name: 'ativo')
+        license_plate = 'ABC-1234'
+        vehicle_params = FactoryBot.attributes_for(:vehicle,
+                                                   license_plate: license_plate,
+                                                   status: status.name)
+
+        post '/gestao/admin/dashboard/viatura/create', params: { vehicle: vehicle_params }
+
+        result = Vehicle.find_by_license_plate(license_plate)
+
+        expect(result).to be_present
+      end
+
+      it 'redirects to vehicles list page' do
+        status = FactoryBot.create(:status, name: 'ativo')
+        license_plate = 'ABC-1234'
+        vehicle_params = FactoryBot.attributes_for(:vehicle,
+                                                   license_plate: license_plate,
+                                                   status: status.name)
+
+        post '/gestao/admin/dashboard/viatura/create', params: { vehicle: vehicle_params }
+
+        expect(response).to redirect_to(employee_panel_administrator_dashboard_viaturas_path)
+      end
+
+      it 'shows success message' do
+        status = FactoryBot.create(:status, name: 'ativo')
+        license_plate = 'ABC-1234'
+        vehicle_params = FactoryBot.attributes_for(:vehicle,
+                                                   license_plate: license_plate,
+                                                   status: status.name)
+
+        post '/gestao/admin/dashboard/viatura/create', params: { vehicle: vehicle_params }
+
+        expect(flash[:notice]).to eq("Viatura #{license_plate} criada com sucesso!")
+      end
+    end
+
+    context 'when pass invalid params' do
+      it 'no creates a new gun' do
+        status = FactoryBot.create(:status, name: 'ativo')
+        license_plate = 'ABC-1234'
+        vehicle_params = FactoryBot.attributes_for(:vehicle,
+                                                   license_plate: license_plate,
+                                                   color: '',
+                                                   status: status.name)
+
+        post '/gestao/admin/dashboard/viatura/create', params: { vehicle: vehicle_params }
+
+        result = Vehicle.find_by_license_plate(license_plate)
+
+        expect(result).to be_nil
+      end
+
+      it 'redirects to new vehicle page' do
+        status = FactoryBot.create(:status, name: 'ativo')
+        license_plate = 'ABC-1234'
+        vehicle_params = FactoryBot.attributes_for(:vehicle,
+                                                   license_plate: license_plate,
+                                                   color: '',
+                                                   status: status.name)
+
+        post '/gestao/admin/dashboard/viatura/create', params: { vehicle: vehicle_params }
+
+        expect(response).to redirect_to(employee_panel_administrator_dashboard_viatura_novo_path)
+      end
+
+      it 'shows error message' do
+        status = FactoryBot.create(:status, name: 'ativo')
+        license_plate = 'ABC-1234'
+        vehicle_params = FactoryBot.attributes_for(:vehicle,
+                                                   license_plate: license_plate,
+                                                   color: '',
+                                                   status: status.name)
+
+        post '/gestao/admin/dashboard/viatura/create', params: { vehicle: vehicle_params }
+
+        expect(flash[:alert]).to eq('Erro ao criar nova viatura!')
       end
     end
   end
