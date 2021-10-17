@@ -22,6 +22,7 @@ pt-BR:
     munitions_list: 'Lista de Munições'
     new_munition_type: 'Novo Tipo de Munição'
     edit_munition: 'Munição %{caliber_type}'
+    vehicles_list: 'Lista de Veículos'
   error:
     unauthorized:
       code: '401'
@@ -506,6 +507,15 @@ pt-BR:
               update_munition_btn: 'Atualizar Dados'
               increment: '+'
               decrement: '-'
+        vehicles:
+          list:
+            title: 'Lista de Veículos'
+            vehicles_list: 'Lista de Veículos'
+            name: 'Nome'
+            license_plate: 'Placa'
+            color: 'Cor'
+            status: 'Status'
+            add_vehicle_btn: 'Adicionar Veículo'
   partials:
     admin_menu:
       dashboard: 'dashboard'
@@ -537,6 +547,10 @@ pt-BR:
           list: 'Lista de Armas'
         munitions:
           list: 'Lista de Munições'
+      vehicle:
+        type: 'Veículos'
+        list: 'Lista'
+        general_report: 'Relatório Geral'
     customer_menu:
       dashboard: 'Dashboard'
       orders: 'Ordens de Serviço'

@@ -80,6 +80,8 @@ Rails.application.routes.draw do
       post 'dashboard/arsenais/municao/create',       to: 'dashboard/arsenals/munitions#create'
       patch 'dashboard/arsenais/municao/update/:id',  to: 'dashboard/arsenals/munitions#update', as: 'dashboard_munition_update'
       delete 'dashboard/arsenais/municao/remove/:id', to: 'dashboard/arsenals/munitions#remove', as: 'dashboard_munition_remove'
+
+      get 'dashboard/veiculos', to: 'dashboard/vehicles#list'
     end
 
     scope module: 'agent_panel', path: 'agente', as: 'agent' do

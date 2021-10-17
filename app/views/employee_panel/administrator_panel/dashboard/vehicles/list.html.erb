@@ -1,0 +1,54 @@
+<%= render './partials/messages' %>
+<h1 class="mt-4"><%= t('.title') %></h1>
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item active"><%= t('breadcrumbs.vehicles_list') %></li>
+</ol>
+<div>
+  <%= link_to t('.add_vehicle_btn'),
+              employee_panel_administrator_dashboard_arsenais_arma_novo_path,
+              class: 'btn btn-primary' %>
+</div>
+<br>
+<div class="card mb-4">
+  <div class="card-header">
+    <i class="fas fa-table me-1"></i>
+    <%= t('.vehicles_list') %>
+  </div>
+  <div class="card-body">
+    <table id="datatablesGun" role='datatable' class="stripe" width="100%">
+      <thead>
+        <tr>
+          <th><%= t('.name') %></th>
+          <th><%= t('.license_plate') %></th>
+          <th><%= t('.color') %></th>
+          <th><%= t('.status') %></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <th><%= t('.name') %></th>
+          <th><%= t('.license_plate') %></th>
+          <th><%= t('.color') %></th>
+          <th><%= t('.status') %></th>
+          <th></th>
+        </tr>
+      </tfoot>
+      <tbody>
+        <% @vehicles.each do |vehicle| %>
+          <tr>
+            <td><%= vehicle.name %></td>
+            <td><%= vehicle.license_plate %></td>
+            <td><%= vehicle.color %></td>
+            <td><%= vehicle.status.name.titleize %></td>
+            <td>
+              <%= link_to employee_panel_administrator_dashboard_gun_show_path(vehicle.id) do %>
+                <i class="fas fa-align-justify me-1"></i></td>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
