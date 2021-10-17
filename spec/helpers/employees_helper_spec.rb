@@ -46,4 +46,42 @@ RSpec.describe EmployeesHelper, type: :helper do
       expect(result).to eq(expected_result)
     end
   end
+
+  describe '#highlight_expired_cvn' do
+    context 'when employee is an Agent' do
+      it 'returns CSS class name when have expired CVN' do
+        employee = FactoryBot.create(:employee, :agent, cvn_validation_date: Date.yesterday)
+
+        agent = Agent.find_by_name(employee.name)
+
+        result = helper.highlight_expired_cvn(agent)
+
+        expected_result = 'expired-cvn'
+
+        expect(result).to eq(expected_result)
+      end
+
+      it 'no returns CSS class name when haven\'t expired CVN' do
+        employee = FactoryBot.create(:employee, :agent, cvn_validation_date: Date.tomorrow)
+
+        agent = Agent.find_by_name(employee.name)
+
+        result = helper.highlight_expired_cvn(agent)
+
+        expect(result).to eq('')
+      end
+    end
+
+    context 'when employee isn\'t an Agent' do
+      it 'no returns CSS class name' do
+        employee = FactoryBot.create(:employee, :operator)
+
+        operator = Operator.find_by_name(employee.name)
+
+        result = helper.highlight_expired_cvn(operator)
+
+        expect(result).to eq('')
+      end
+    end
+  end
 end

@@ -45,16 +45,6 @@ RSpec.describe Agent, type: :model do
     expect(agent).to be_invalid
   end
 
-  xit 'no validates when CVN validation date in less than current date' do
-    agent = Agent.new(FactoryBot.attributes_for(
-                        :employee,
-                        :agent,
-                        cvn_validation_date: 3.days.ago
-                      ))
-
-    expect(agent).to be_invalid
-  end
-
   it 'clears password when create a new agent' do
     name = 'João'
     agent = Agent.new(FactoryBot.attributes_for(:employee, :agent, password: '123456', name: name))
@@ -83,6 +73,38 @@ RSpec.describe Agent, type: :model do
       agent = Agent.new(FactoryBot.attributes_for(:employee, :agent, cvn_validation_date: nil))
 
       expect(agent).to be_invalid
+    end
+  end
+
+  describe 'expired_cvn?' do
+    it 'returns \'true\' when CVN is expired' do
+      employee = FactoryBot.create(:employee, :agent, cvn_validation_date: Date.yesterday)
+
+      agent = Agent.find_by_name(employee.name)
+
+      result = agent.expired_cvn?
+
+      expect(result).to eq(true)
+    end
+
+    it 'returns \'false\' when the CVN expires today' do
+      employee = FactoryBot.create(:employee, :agent, cvn_validation_date: Date.today)
+
+      agent = Agent.find_by_name(employee.name)
+
+      result = agent.expired_cvn?
+
+      expect(result).to eq(false)
+    end
+
+    it 'returns \'false\' when CVN isn\'t expired' do
+      employee = FactoryBot.create(:employee, :agent, cvn_validation_date: Date.tomorrow)
+
+      agent = Agent.find_by_name(employee.name)
+
+      result = agent.expired_cvn?
+
+      expect(result).to eq(false)
     end
   end
 end

@@ -72,7 +72,12 @@ module EmployeePanel
         def employee_klass
           return Employee unless params['employee']['profile']
 
-          params['employee']['profile'].titleize.constantize
+          Employee::PROFILES
+            .keys
+            .map(&:to_s)
+            .detect { |profile| profile if profile == params['employee']['profile'] }
+            .titleize
+            .constantize
         end
 
         def error_message(error_class, action)

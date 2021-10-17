@@ -87,7 +87,12 @@ module EmployeePanel
         def tackle_klass
           return Tackle unless params['tackle']['type']
 
-          params['tackle']['type'].titleize.constantize
+          Tackle::ALLOWED_TYPES
+            .keys
+            .map(&:to_s)
+            .detect { |profile| profile if profile == params['tackle']['type'].downcase }
+            .titleize
+            .constantize
         end
 
         def error_message(error_class, action)

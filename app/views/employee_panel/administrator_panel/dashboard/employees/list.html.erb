@@ -38,7 +38,7 @@
       </tfoot>
       <tbody>
         <% @employees.each do |employee| %>
-          <tr>
+          <tr class=<%= highlight_expired_cvn(employee) %>>
             <td><%= employee.name %></td>
             <td><%= employee.codename %></td>
             <td><%= employee.email %></td>
