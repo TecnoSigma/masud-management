@@ -7,6 +7,9 @@ class Vehicle < ApplicationRecord
             presence: true
 
   validates :license_plate,
+            uniqueness: true
+
+  validates :license_plate,
             format: { with: Regex.license_plate,
                       message: I18n.t('messages.errors.invalid_format') }
 

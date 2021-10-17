@@ -19,7 +19,7 @@ module Regex
     end
 
     def license_plate
-     %r{\A^[A-Z]{3} \d{4}|[A-Z]{3} \d{1}[A-Z]{1}\d{2}$\z}
+      /\A^[A-Z]{3} \d{4}|[A-Z]{3} \d{1}[A-Z]{1}\d{2}$\z/
     end
   end
 end

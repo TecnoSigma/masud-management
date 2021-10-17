@@ -65,11 +65,11 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Vehicles', type: :
     end
   end
 
-    describe '#create' do
+  describe '#create' do
     context 'when pass valid params' do
       it 'creates a new vehicle' do
         status = FactoryBot.create(:status, name: 'ativo')
-        license_plate = 'ABC-1234'
+        license_plate = 'ABC 1234'
         vehicle_params = FactoryBot.attributes_for(:vehicle,
                                                    license_plate: license_plate,
                                                    status: status.name)
@@ -83,7 +83,7 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Vehicles', type: :
 
       it 'redirects to vehicles list page' do
         status = FactoryBot.create(:status, name: 'ativo')
-        license_plate = 'ABC-1234'
+        license_plate = 'ABC 1234'
         vehicle_params = FactoryBot.attributes_for(:vehicle,
                                                    license_plate: license_plate,
                                                    status: status.name)
@@ -95,7 +95,7 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Vehicles', type: :
 
       it 'shows success message' do
         status = FactoryBot.create(:status, name: 'ativo')
-        license_plate = 'ABC-1234'
+        license_plate = 'ABC 1234'
         vehicle_params = FactoryBot.attributes_for(:vehicle,
                                                    license_plate: license_plate,
                                                    status: status.name)

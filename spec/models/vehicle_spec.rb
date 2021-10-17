@@ -11,6 +11,15 @@ RSpec.describe Vehicle, type: :model do
     end
   end
 
+  describe 'validates uniqueness' do
+    it 'no validates when license plate is duplicated' do
+      vehicle1 = FactoryBot.create(:vehicle)
+      vehicle2 = FactoryBot.build(:vehicle, license_plate: vehicle1.license_plate)
+
+      expect(vehicle2).to be_invalid
+    end
+  end
+
   describe 'validates presences' do
     it 'of name' do
       vehicle = FactoryBot.build(:vehicle, name: nil)
