@@ -267,4 +267,48 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Vehicles', type: :
       end
     end
   end
+
+  describe '#remove' do
+    context 'when pass valid params' do
+      it 'remove a vehicle' do
+        vehicle = FactoryBot.create(:vehicle)
+
+        delete "/gestao/admin/dashboard/viatura/remove/#{vehicle.id}"
+
+        result = Vehicle.find_by_id(vehicle.id)
+
+        expect(result).to be_nil
+      end
+
+      it 'shows success message' do
+        vehicle = FactoryBot.create(:vehicle)
+
+        delete "/gestao/admin/dashboard/viatura/remove/#{vehicle.id}"
+
+        expect(flash[:notice]).to eq("Viatura #{vehicle.license_plate} removida com sucesso!")
+      end
+
+      it 'redirects to vehicles page' do
+        vehicle = FactoryBot.create(:vehicle)
+
+        delete "/gestao/admin/dashboard/viatura/remove/#{vehicle.id}"
+
+        expect(response).to redirect_to(employee_panel_administrator_dashboard_viaturas_path)
+      end
+    end
+
+    context 'when gun isn\'t found' do
+      it 'shows errors message' do
+        delete '/gestao/admin/dashboard/viatura/remove/invalid_id'
+
+        expect(flash[:alert]).to eq('Viatura não encontrada!')
+      end
+
+      it 'redirects to vehicles page' do
+        delete '/gestao/admin/dashboard/viatura/remove/invalid_id'
+
+        expect(response).to redirect_to(employee_panel_administrator_dashboard_viaturas_path)
+      end
+    end
+  end
 end

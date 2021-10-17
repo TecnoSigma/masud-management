@@ -55,30 +55,18 @@ module EmployeePanel
         end
 
         def remove
-          delete_gun!
+          vehicle = Vehicle.find(params['id'])
+          vehicle.delete
 
-          redirect_to employee_panel_administrator_dashboard_arsenais_armas_path,
-                      notice: t('messages.successes.arsenal.gun.removed_successfully',
-                                sinarm: gun.sinarm)
-        rescue DeleteGunError
-          redirect_to employee_panel_administrator_dashboard_arsenais_armas_path,
-                      alert: t('messages.errors.arsenal.gun.remove_in_mission_failed')
+          redirect_to employee_panel_administrator_dashboard_viaturas_path,
+                      notice: t('messages.successes.vehicle.removed_successfully',
+                                license_plate: vehicle.license_plate)
         rescue StandardError, ActiveRecord::RecordNotFound => error
-          redirect_to employee_panel_administrator_dashboard_arsenais_armas_path,
+          redirect_to employee_panel_administrator_dashboard_viaturas_path,
                       alert: error_message(error.class, :remove)
         end
 
         private
-
-        def delete_gun!
-          raise DeleteGunError if gun.in_mission?
-
-          gun.delete
-        end
-
-        def gun
-          @gun ||= Gun.find(params['id'])
-        end
 
         def error_message(error_class, action)
           if error_class == ActiveRecord::RecordNotFound

@@ -109,6 +109,7 @@ pt-BR:
       vehicle:
         created_successfully: 'Viatura %{license_plate} criada com sucesso!'
         updated_successfully: 'Dados da viatura atualizados com sucesso!'
+        removed_successfully: 'Viatura %{license_plate} removida com sucesso!'
   layouts:
     application:
       logout: 'Logout'
