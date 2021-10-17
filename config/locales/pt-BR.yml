@@ -541,6 +541,7 @@ pt-BR:
             color: 'Cor *'
             status: 'Status *'
             required_fields: '(*) Campos obrigatórios'
+            format_license_plate_info: 'Utilize os formatos ABC 0000 ou ABC 0A00'
             create_vehicle_btn: 'Adicionar Viatura'
   partials:
     admin_menu:

@@ -17,5 +17,9 @@ module Regex
     def cvn_number
       %r{\A\d+/\d{4}\z}
     end
+
+    def license_plate
+     %r{\A^[A-Z]{3} \d{4}|[A-Z]{3} \d{1}[A-Z]{1}\d{2}$\z}
+    end
   end
 end

@@ -6,6 +6,10 @@ class Vehicle < ApplicationRecord
             :color,
             presence: true
 
+  validates :license_plate,
+            format: { with: Regex.license_plate,
+                      message: I18n.t('messages.errors.invalid_format') }
+
   belongs_to :status
 
   def self.statuses

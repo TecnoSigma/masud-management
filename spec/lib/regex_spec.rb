@@ -62,4 +62,22 @@ RSpec.describe Regex do
       expect(described_class.cvn_number).not_to match(cvn_number)
     end
   end
+
+  describe '.license_plate' do
+    it 'checks valid license plate' do
+      default_license_plate = 'ABC 1234'
+      mercosul_license_plate = 'ABC 1N34'
+
+      expect(described_class.license_plate).to match(default_license_plate)
+      expect(described_class.license_plate).to match(mercosul_license_plate)
+    end
+
+    it 'no checks valid license plate' do
+      default_license_plate = 'ABC-1234'
+      mercosul_license_plate = 'ABC-1N34'
+
+      expect(described_class.license_plate).not_to match(default_license_plate)
+      expect(described_class.license_plate).not_to match(mercosul_license_plate)
+    end
+  end
 end

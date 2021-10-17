@@ -41,4 +41,34 @@ RSpec.describe Vehicle, type: :model do
       expect(result).to eq([activated_status, deactivated_status])
     end
   end
+
+  describe 'validates license plates' do
+    context 'validates vehicle creation' do
+      it 'when use default license plate' do
+        vehicle = FactoryBot.build(:vehicle, license_plate: 'ABC 1234')
+
+        expect(vehicle).to be_valid
+      end
+
+      it 'when use Mercosul license plate' do
+        vehicle = FactoryBot.build(:vehicle, license_plate: 'ABC 1B34')
+
+        expect(vehicle).to be_valid
+      end
+    end
+
+    context 'no validates vehicle creation' do
+      it 'when use invalid default license plate' do
+        vehicle = FactoryBot.build(:vehicle, license_plate: 'ABC-1234')
+
+        expect(vehicle).to be_invalid
+      end
+
+      it 'when use invalid Mercosul license plate' do
+        vehicle = FactoryBot.build(:vehicle, license_plate: 'ABC-1B34')
+
+        expect(vehicle).to be_invalid
+      end
+    end
+  end
 end
