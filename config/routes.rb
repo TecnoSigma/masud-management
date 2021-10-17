@@ -81,7 +81,10 @@ Rails.application.routes.draw do
       patch 'dashboard/arsenais/municao/update/:id',  to: 'dashboard/arsenals/munitions#update', as: 'dashboard_munition_update'
       delete 'dashboard/arsenais/municao/remove/:id', to: 'dashboard/arsenals/munitions#remove', as: 'dashboard_munition_remove'
 
-      get 'dashboard/veiculos', to: 'dashboard/vehicles#list'
+      get 'dashboard/viaturas',              to: 'dashboard/vehicles#list'
+      get 'dashboard/viatura/:id',           to: 'dashboard/vehicles#show',   as: 'dashboard_vehicle_show'
+      get 'dashboard/viatura/:id/editar',    to: 'dashboard/vehicles#edit',   as: 'dashboard_vehicle_edit'
+      delete 'dashboard/viatura/remove/:id', to: 'dashboard/vehicles#remove', as: 'dashboard_vehicle_remove'
     end
 
     scope module: 'agent_panel', path: 'agente', as: 'agent' do

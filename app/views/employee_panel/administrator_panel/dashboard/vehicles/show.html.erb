@@ -1,0 +1,58 @@
+<h1 class="mt-4"><%= t('.title', license_plate: @vehicle.license_plate) %></h1>
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item">
+    <%= link_to t('breadcrumbs.vehicles_list'), employee_panel_administrator_dashboard_viaturas_path %>
+  </li>
+  <li class="breadcrumb-item active"><%= t('breadcrumbs.show_vehicle', license_plate: @vehicle.license_plate) %></li>
+</ol>
+<hr>
+<div id="layoutAuthentication">
+  <div id="layoutAuthentication_content">
+    <main>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-7">
+            <br>
+            <%= render './partials/messages' %>
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+              <div class="card-body">
+                <div class="form-floating mb-3">
+                  <p>
+                    <h5><strong><%= t('.vehicle_data') %></strong></h5>
+                  </p>
+                  <hr>
+                  <p>
+                    <strong><%= t('.name') %></strong>
+                    <%= @vehicle.name %>
+                  </p>
+                  <p>
+                    <strong><%= t('.license_plate') %></strong>
+                    <%= @vehicle.license_plate %>
+                  </p>
+                  <p>
+                    <strong><%= t('.color') %></strong>
+                    <%= @vehicle.color %>
+                  </p>
+                  <p>
+                    <strong><%= t('.status') %></strong>
+                    <%= @vehicle.status.name.titleize %>
+                  </p>
+                  <br>
+                  <%= link_to t('.back_btn'), :back, class: 'btn btn-primary' %>
+                  <%= link_to t('.edit_btn'),
+                              employee_panel_administrator_dashboard_gun_edit_path,
+                              class: 'btn btn-primary' %>
+                  <%= link_to t('.remove_btn'),
+                              { action: 'remove', id: @vehicle.id },
+                              method: :delete,
+                              class: 'btn btn-danger' %>
+                </div>
+              </div>
+              <div class="card-footer text-center py-3"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

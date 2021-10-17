@@ -36,9 +36,9 @@ module EmployeePanel
         end
 
         def show
-          @gun = Gun.find(params['id'])
+          @vehicle = Vehicle.find(params['id'])
         rescue StandardError, ActiveRecord::RecordNotFound => error
-          redirect_to employee_panel_administrator_dashboard_arsenais_armas_path,
+          redirect_to employee_panel_administrator_dashboard_viaturas_path,
                       alert: error_message(error.class, :find)
         end
 
@@ -82,7 +82,7 @@ module EmployeePanel
 
         def error_message(error_class, action)
           if error_class == ActiveRecord::RecordNotFound
-            t('messages.errors.arsenal.gun.not_found')
+            t('messages.errors.vehicle.not_found')
           else
             t("messages.errors.#{action}_failed")
           end

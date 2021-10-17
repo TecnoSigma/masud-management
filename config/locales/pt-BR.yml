@@ -22,7 +22,8 @@ pt-BR:
     munitions_list: 'Lista de Munições'
     new_munition_type: 'Novo Tipo de Munição'
     edit_munition: 'Munição %{caliber_type}'
-    vehicles_list: 'Lista de Veículos'
+    vehicles_list: 'Lista de Viaturas'
+    show_vehicle: 'Viatura %{license_plate}'
   error:
     unauthorized:
       code: '401'
@@ -71,6 +72,8 @@ pt-BR:
         munition:
           create_failed: 'Erro ao criar nova munição!'
           not_found: 'Munição não encontrada!'
+      vehicle:
+        not_found: 'Viatura não encontrada!'
     infos:
       scheduling_cancelation: 'Importante: Todo agendamento poderá ser cancelado em até trẽs horas após a sua criação.'
       password_strength: 'Dica; Utilize letras, números e caracteres especiais (&, @, !, #) '
@@ -509,13 +512,23 @@ pt-BR:
               decrement: '-'
         vehicles:
           list:
-            title: 'Lista de Veículos'
-            vehicles_list: 'Lista de Veículos'
+            title: 'Lista de Viaturas'
+            vehicles_list: 'Lista de Viaturas'
             name: 'Nome'
             license_plate: 'Placa'
             color: 'Cor'
             status: 'Status'
-            add_vehicle_btn: 'Adicionar Veículo'
+            add_vehicle_btn: 'Adicionar Viatura'
+          show:
+            title: 'Viatura %{license_plate}'
+            vehicle_data: 'Dados da Viatura'
+            name: 'Modelo: '
+            license_plate: 'Placa: '
+            color: 'Cor: '
+            status: 'Status: '
+            back_btn: 'Voltar'
+            edit_btn: 'Editar'
+            remove_btn: 'Remover'
   partials:
     admin_menu:
       dashboard: 'dashboard'
@@ -548,7 +561,7 @@ pt-BR:
         munitions:
           list: 'Lista de Munições'
       vehicle:
-        type: 'Veículos'
+        type: 'Viaturas'
         list: 'Lista'
         general_report: 'Relatório Geral'
     customer_menu:
