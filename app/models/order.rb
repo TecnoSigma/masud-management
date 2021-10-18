@@ -60,7 +60,7 @@ class Order < ApplicationRecord
 
   def deletable?
     difference = TimeDifference
-      .between(prevision, Time.zone.now)
+                 .between(prevision, Time.zone.now)
                  .in_hours
 
     difference >= CANCELLATION_DEADLINE

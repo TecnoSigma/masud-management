@@ -177,8 +177,6 @@ RSpec.describe Order, type: :model do
                                  job_horary: (DateTime.now + 10.minutes).strftime('%H:%M'),
                                  job_day: DateTime.now.strftime('%d/%m/%Y'))
 
-
-
       result = escort.deletable?
 
       expect(result).to eq(false)
