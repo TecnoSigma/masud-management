@@ -39,7 +39,10 @@
         <% @escorts.each do |escort| %>
           <tr class="<%= order_color(escort) %>">
             <td><%= escort.order_number %></td>
-            <td><%= link_to first_customer_name(escort.customer.company), root_path %></td>
+            <td>
+              <%= link_to first_customer_name(escort.customer.company),
+                          employee_panel_administrator_dashboard_customer_show_path(escort.customer.id) %>
+            </td>
             <td><%= convert_date_time(escort.prevision) %></td>
             <td><%= escort.source_state %></td>
             <td><%= escort.destiny_state %></td>
