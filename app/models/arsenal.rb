@@ -2,7 +2,8 @@
 
 class Arsenal < ApplicationRecord
   validates :kind,
-            uniqueness: true
+            uniqueness: true,
+            if: :munition?
 
   validates :quantity,
             numericality: { only_integer: true, greater_than_or_equal_to: 0 }
@@ -22,5 +23,11 @@ class Arsenal < ApplicationRecord
 
   def in_mission?
     employee_id.present?
+  end
+
+  private
+
+  def munition?
+    type == Munition.to_s || instance_of?(Munition)
   end
 end

@@ -1,16 +1,5 @@
-Status.destroy_all
-Status.create(name: 'ativo')
-Status.create(name: 'desativado')
-Status.create(name: 'deletado')
-Status.create(name: 'desligado')
-Status.create(name: 'suspenso')
-Status.create(name: 'pendente')
-Status.create(name: 'agendado')
-Status.create(name: 'confirmado')
-Status.create(name: 'recusado')
-Status.create(name: 'regular')
-Status.create(name: 'irregular')
-Status.create(name: 'cancelado pelo cliente')
+#Create Statuses
+Tasks::StatusesGenerator.call!
 
 # Create States and Cities
 Tasks::PlacesGenerator.call!
@@ -30,10 +19,10 @@ Tasks::TacklesGenerator.call!
 # Creates Arsenals
 Tasks::ArsenalsGenerator.call!
 
-if Rails.env.development?
-  # Teams
-  Team.create([{ name: 'A' }, { name: 'B' } ])
+# Creates Teams
+Tasks::TeamsGenerator.call!
 
+if Rails.env.development?
   # Employees
   FactoryBot.create(:employee, :admin)
   FactoryBot.create(:employee, :agent)
