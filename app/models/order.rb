@@ -2,6 +2,7 @@
 
 class Order < ApplicationRecord
   validates :job_day,
+            :job_horary,
             :source_address,
             :source_number,
             :source_district,

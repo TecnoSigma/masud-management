@@ -24,6 +24,12 @@ RSpec.describe Order, type: :model do
       expect(order).to be_invalid
     end
 
+    it 'of job_horary' do
+      order = FactoryBot.build(:order, job_horary: nil)
+
+      expect(order).to be_invalid
+    end
+
     it 'of source_address' do
       order = FactoryBot.build(:order, source_address: nil)
 
