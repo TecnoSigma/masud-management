@@ -84,8 +84,8 @@ ActiveRecord::Schema.define(version: 2021_10_16_172922) do
   create_table "orders", force: :cascade do |t|
     t.string "type"
     t.string "order_number"
-    t.datetime "job_day"
-    t.datetime "job_horary"
+    t.string "job_day"
+    t.string "job_horary"
     t.string "source_address"
     t.string "source_number"
     t.string "source_complement"

@@ -72,12 +72,26 @@ RSpec.describe Regex do
       expect(described_class.license_plate).to match(mercosul_license_plate)
     end
 
-    it 'no checks valid license plate' do
+    it 'no checks invalid license plate' do
       default_license_plate = 'ABC-1234'
       mercosul_license_plate = 'ABC-1N34'
 
       expect(described_class.license_plate).not_to match(default_license_plate)
       expect(described_class.license_plate).not_to match(mercosul_license_plate)
+    end
+  end
+
+  describe '.horary' do
+    it 'checks valid horary' do
+      horary = '23:56'
+
+      expect(described_class.horary).to match(horary)
+    end
+
+    it 'no checks invalid horary' do
+      horary = '60:31'
+
+      expect(described_class.horary).not_to match(horary)
     end
   end
 end

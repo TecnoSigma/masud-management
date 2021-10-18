@@ -21,5 +21,9 @@ module Regex
     def license_plate
       /\A^[A-Z]{3} \d{4}|[A-Z]{3} \d{1}[A-Z]{1}\d{2}$\z/
     end
+
+    def horary
+      /\A^[0-2][0-9]:[0-5][0-9]$\z/
+    end
   end
 end

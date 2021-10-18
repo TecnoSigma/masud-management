@@ -15,7 +15,11 @@ class Order < ApplicationRecord
             :destiny_state,
             presence: true
 
-  validate :check_job_day,
+  validates :job_horary,
+            format: { with: Regex.horary,
+                      message: I18n.t('messages.errors.invalid_format') }
+
+  validate :check_start_day,
            :check_allowed_status
 
   belongs_to :customer
@@ -52,24 +56,10 @@ class Order < ApplicationRecord
 
   def deletable?
     difference = TimeDifference
-                 .between(created_at, Time.zone.now)
+      .between(DateTime.parse("#{job_day} #{job_horary}"), Time.zone.now)
                  .in_hours
 
-    CANCELLATION_DEADLINE >= difference
-  end
-
-  def check_job_day
-    return unless job_day
-
-    error_message = I18n.t('messages.errors.incorrect_job_day')
-
-    errors.add(:job_day, error_message) if job_day.past?
-  end
-
-  def check_allowed_status
-    error_message = I18n.t('messages.errors.invalid_status')
-
-    errors.add(:status, error_message) if ALLOWED_STATUSES.values.exclude?(status.name)
+    difference >= CANCELLATION_DEADLINE
   end
 
   def scheduled?
@@ -86,5 +76,23 @@ class Order < ApplicationRecord
 
   def escort?
     type == 'EscortScheduling' || type == 'EscortService'
+  end
+
+  private
+
+  def check_start_day
+    return unless job_day
+
+    job = DateTime.parse("#{job_day} #{job_horary}")
+
+    error_message = I18n.t('messages.errors.incorrect_start_day')
+
+    errors.add(:job_day, error_message) if job.past?
+  end
+
+  def check_allowed_status
+    error_message = I18n.t('messages.errors.invalid_status')
+
+    errors.add(:status, error_message) if ALLOWED_STATUSES.values.exclude?(status.name)
   end
 end

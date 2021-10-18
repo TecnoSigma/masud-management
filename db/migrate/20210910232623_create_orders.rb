@@ -3,8 +3,8 @@ class CreateOrders < ActiveRecord::Migration[5.2]
     create_table :orders do |t|
       t.string :type
       t.string :order_number
-      t.datetime :job_day
-      t.datetime :job_horary
+      t.string :job_day
+      t.string :job_horary
       t.string :source_address
       t.string :source_number
       t.string :source_complement

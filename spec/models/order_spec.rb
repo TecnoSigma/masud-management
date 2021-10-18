@@ -174,26 +174,14 @@ RSpec.describe Order, type: :model do
                                  :scheduled,
                                  customer: customer,
                                  status: status,
-                                 created_at: 2.hours.ago)
+                                 job_horary: (DateTime.now + 10.minutes).strftime('%H:%M'),
+                                 job_day: DateTime.now.strftime('%d/%m/%Y'))
+
+
 
       result = escort.deletable?
 
-      expect(result).to eq(true)
-    end
-
-    it 'returns \'true\' when order creation date is equal to 3 hours' do
-      customer = FactoryBot.create(:customer)
-      status = FactoryBot.create(:status, name: 'agendado')
-
-      escort = FactoryBot.create(:order,
-                                 :scheduled,
-                                 customer: customer,
-                                 status: status,
-                                 created_at: 3.hours.ago)
-
-      result = escort.deletable?
-
-      expect(result).to eq(true)
+      expect(result).to eq(false)
     end
 
     it 'returns \'true\' when order creation date is greater than 3 hours' do
@@ -204,11 +192,12 @@ RSpec.describe Order, type: :model do
                                  :scheduled,
                                  customer: customer,
                                  status: status,
-                                 created_at: 4.hours.ago)
+                                 job_horary: (DateTime.now + 4.hours).strftime('%H:%M'),
+                                 job_day: DateTime.now.strftime('%d/%m/%Y'))
 
       result = escort.deletable?
 
-      expect(result).to eq(false)
+      expect(result).to eq(true)
     end
   end
 

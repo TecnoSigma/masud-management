@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :order do
-    job_day { [*1..20].sample.days.after }
-    job_horary { Time.now }
+    job_day { 10.days.after.strftime('%d/%m/%Y') }
+    job_horary { "#{'%02d' % rand(0..23)}:#{'%02d' % rand(0..59)}" }
     source_address { Faker::Address.street_name }
     source_number { Faker::Number.number(digits: 3) }
     source_complement { ['casa 1', 'apto 123', 'fundos'].sample }
