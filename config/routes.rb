@@ -99,7 +99,7 @@ Rails.application.routes.draw do
     end
 
     scope module: 'operator_panel', path: 'operador', as: 'operator' do
-      get 'dashboard'
+      get 'dashboard/index'
     end
   end
 end

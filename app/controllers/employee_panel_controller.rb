@@ -10,8 +10,6 @@ class EmployeePanelController < PanelsController
   private
 
   def check_internal_profile(controller)
-    return if Employee::MASTER_PROFILE.downcase == profile
-
     authorized = controller.split('/').drop(1)
                            .first.split('_').first
                            .start_with?(profile.downcase)
