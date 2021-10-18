@@ -13,7 +13,7 @@
         <tr>
           <th><%= t('.order') %></th>
           <th><%= t('.customer_name') %></th>
-          <th><%= t('.job_day') %></th>
+          <th><%= t('.job_date_time') %></th>
           <th><%= t('.source') %></th>
           <th><%= t('.destiny') %></th>
           <th><%= t('.observation') %></th>
@@ -26,7 +26,7 @@
         <tr>
           <th><%= t('.order') %></th>
           <th><%= t('.customer_name') %></th>
-          <th><%= t('.job_day') %></th>
+          <th><%= t('.job_date_time') %></th>
           <th><%= t('.source') %></th>
           <th><%= t('.destiny') %></th>
           <th><%= t('.observation') %></th>
@@ -40,7 +40,7 @@
           <tr class="<%= order_color(escort) %>">
             <td><%= escort.order_number %></td>
             <td><%= link_to first_customer_name(escort.customer.company), root_path %></td>
-            <td><%= convert_date_time(escort.job_day) %></td>
+            <td><%= convert_date_time(escort.prevision) %></td>
             <td><%= escort.source_state %></td>
             <td><%= escort.destiny_state %></td>
             <td><%= escort.observation %></td>

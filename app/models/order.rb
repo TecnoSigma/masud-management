@@ -54,9 +54,13 @@ class Order < ApplicationRecord
     self.order_number = Time.zone.now.strftime('%Y%m%d%H%M%S')
   end
 
+  def prevision
+    DateTime.parse("#{job_day} #{job_horary}")
+  end
+
   def deletable?
     difference = TimeDifference
-      .between(DateTime.parse("#{job_day} #{job_horary}"), Time.zone.now)
+      .between(prevision, Time.zone.now)
                  .in_hours
 
     difference >= CANCELLATION_DEADLINE
@@ -83,11 +87,9 @@ class Order < ApplicationRecord
   def check_start_day
     return unless job_day
 
-    job = DateTime.parse("#{job_day} #{job_horary}")
-
     error_message = I18n.t('messages.errors.incorrect_start_day')
 
-    errors.add(:job_day, error_message) if job.past?
+    errors.add(:job_day, error_message) if prevision.past?
   end
 
   def check_allowed_status

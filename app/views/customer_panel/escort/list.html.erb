@@ -14,12 +14,11 @@
       <thead>
         <tr>
           <th><%= t('.order') %></th>
-          <th><%= t('.job_day') %></th>
+          <th><%= t('.job_date_time') %></th>
           <th><%= t('.source') %></th>
           <th><%= t('.destiny') %></th>
           <th><%= t('.observation') %></th>
           <th><%= t('.status') %></th>
-          <th><%= t('.created_at') %></th>
           <th></th>
           <th></th>
         </tr>
@@ -27,12 +26,11 @@
       <tfoot>
         <tr>
           <th><%= t('.order') %></th>
-          <th><%= t('.job_day') %></th>
+          <th><%= t('.job_date_time') %></th>
           <th><%= t('.source') %></th>
           <th><%= t('.destiny') %></th>
           <th><%= t('.observation') %></th>
           <th><%= t('.status') %></th>
-          <th><%= t('.created_at') %></th>
           <th></th>
           <th></th>
         </tr>
@@ -41,12 +39,11 @@
         <% @orders.each do |order| %>
           <tr class="<%= order_color(order) %>">
             <td><%= order.order_number %></td>
-            <td><%= convert_date_time(order.job_day) %></td>
+            <td><%= convert_date_time(order.prevision) %></td>
             <td><%= order.source_state %></td>
             <td><%= order.destiny_state %></td>
             <td><%= order.observation %></td>
             <td><%= order.status.name %></td>
-            <td><%= convert_date_time(order.created_at) %></td>
             <td>
               <%= link_to customer_panel_escort_show_path(order.order_number) do %>
                 <i class="fas fa-align-justify me-1"></i></td>

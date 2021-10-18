@@ -28,10 +28,18 @@
                                      class: 'form-control',
                                      id: 'inputJobDay',
                                      placeholder: t('.job_day_placeholder'),
-                                     role: 'date',
                                      required: true %>
                     <label for="inputJobDay"><%= t('.job_day') %></label>
                     <small><%= t('.format_date_info') %></small>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <%= f.text_field :job_horary,
+                                     class: 'form-control',
+                                     id: 'inputJobHorary',
+                                     placeholder: t('.job_horary_placeholder'),
+                                     required: true %>
+                    <label for="inputJobHorary"><%= t('.job_horary') %></label>
+                    <small><%= t('.format_horary_info') %></small>
                   </div>
                   <br>
                   <hr>
