@@ -11,15 +11,8 @@ class Arsenal < ApplicationRecord
   belongs_to :employee, optional: true
   belongs_to :status, optional: true
 
-  def self.statuses
-    Status.where(name: 'ativo')
-          .or(Status.where(name: 'desativado'))
-  end
-
-  def self.situations
-    Status.where(name: 'irregular')
-          .or(Status.where(name: 'regular'))
-  end
+  scope :statuses, -> { Status.where(name: 'ativo').or(Status.where(name: 'desativado')) }
+  scope :situations, -> { Status.where(name: 'irregular').or(Status.where(name: 'regular')) }
 
   def in_mission?
     employee_id.present?

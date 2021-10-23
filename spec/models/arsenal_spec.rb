@@ -36,7 +36,7 @@ RSpec.describe Arsenal, type: :model do
     end
   end
 
-  describe '.statuses' do
+  describe 'validates scopes' do
     it 'returns tackle status list' do
       activated_status = FactoryBot.create(:status, name: 'ativo')
       deactivated_status = FactoryBot.create(:status, name: 'desativado')
@@ -45,9 +45,7 @@ RSpec.describe Arsenal, type: :model do
 
       expect(result).to eq([activated_status, deactivated_status])
     end
-  end
 
-  describe '.situations' do
     it 'returns tackle situation list' do
       regular_status = FactoryBot.create(:status, name: 'regular')
       irregular_status = FactoryBot.create(:status, name: 'irregular')

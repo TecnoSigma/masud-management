@@ -70,4 +70,36 @@ RSpec.describe Gun, type: :model do
 
     expect(result).to eq(expected_result)
   end
+
+  describe 'validates scopes' do
+    context 'when caliber is 38' do
+      it 'returns only free guns with caliber 38' do
+        agent = FactoryBot.create(:employee, :agent)
+        arsenal1 = FactoryBot.create(:arsenal, :gun, employee: agent)
+        arsenal2 = FactoryBot.create(:arsenal, :gun, employee: nil, caliber: '12')
+        arsenal3 = FactoryBot.create(:arsenal, :gun, employee: nil, caliber: '38')
+
+        expected_result = Gun.where(caliber: '38').where(employee: nil)
+
+        result = Gun.free('38')
+
+        expect(result).to eq(expected_result)
+      end
+    end
+
+    context 'when caliber is 12' do
+      it 'returns only free guns with caliber 12' do
+        agent = FactoryBot.create(:employee, :agent)
+        arsenal1 = FactoryBot.create(:arsenal, :gun, employee: agent)
+        arsenal2 = FactoryBot.create(:arsenal, :gun, employee: nil, caliber: '12')
+        arsenal3 = FactoryBot.create(:arsenal, :gun, employee: nil, caliber: '38')
+
+        expected_result = Gun.where(caliber: '12').where(employee: nil)
+
+        result = Gun.free('12')
+
+        expect(result).to eq(expected_result)
+      end
+    end
+  end
 end
