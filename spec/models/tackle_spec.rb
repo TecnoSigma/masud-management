@@ -10,10 +10,10 @@ RSpec.describe Tackle, type: :model do
       expect(tackle).to respond_to(:status)
     end
 
-    it 'validates relationship (N:1) between Agent and Tackle' do
+    it 'validates relationship (N:1) between Employee and Tackle' do
       tackle = Tackle.new
 
-      expect(tackle).to respond_to(:agent)
+      expect(tackle).to respond_to(:employee)
     end
   end
 
@@ -42,7 +42,7 @@ RSpec.describe Tackle, type: :model do
     end
   end
 
-  describe '.statuses' do
+  describe 'validates scopes' do
     it 'returns tackle status list' do
       activated_status = FactoryBot.create(:status, name: 'ativo')
       deactivated_status = FactoryBot.create(:status, name: 'desativado')
@@ -51,9 +51,7 @@ RSpec.describe Tackle, type: :model do
 
       expect(result).to eq([activated_status, deactivated_status])
     end
-  end
 
-  describe '.situations' do
     it 'returns tackle situation list' do
       regular_status = FactoryBot.create(:status, name: 'regular')
       irregular_status = FactoryBot.create(:status, name: 'irregular')
@@ -61,6 +59,34 @@ RSpec.describe Tackle, type: :model do
       result = Tackle.situations
 
       expect(result).to eq([regular_status, irregular_status])
+    end
+
+    context 'when is a radio' do
+      it 'returns only free radios' do
+        agent = FactoryBot.create(:employee, :agent)
+        FactoryBot.create(:tackle, :radio, employee: agent)
+        FactoryBot.create(:tackle, :radio, employee: nil)
+
+        expected_result = Radio.where(employee: nil)
+
+        result = Radio.free
+
+        expect(result).to eq(expected_result)
+      end
+    end
+
+    context 'when is a waistcoat' do
+      it 'returns only free waistcoats' do
+        agent = FactoryBot.create(:employee, :agent)
+        FactoryBot.create(:tackle, :waistcoat, employee: agent)
+        FactoryBot.create(:tackle, :waistcoat, employee: nil)
+
+        expected_result = Waistcoat.where(employee: nil)
+
+        result = Waistcoat.free
+
+        expect(result).to eq(expected_result)
+      end
     end
   end
 

@@ -8,20 +8,14 @@ class Tackle < ApplicationRecord
   validates :serial_number,
             uniqueness: true
 
-  belongs_to :agent, optional: true
+  belongs_to :employee, optional: true
   belongs_to :status
 
   ALLOWED_TYPES = { waistcoat: 'Colete', radio: 'Rádio' }.freeze
 
-  def self.statuses
-    Status.where(name: 'ativo')
-          .or(Status.where(name: 'desativado'))
-  end
-
-  def self.situations
-    Status.where(name: 'irregular')
-          .or(Status.where(name: 'regular'))
-  end
+  scope :free, -> { where(employee: nil) }
+  scope :statuses, -> { Status.where(name: 'ativo').or(Status.where(name: 'desativado')) }
+  scope :situations, -> { Status.where(name: 'irregular').or(Status.where(name: 'regular')) }
 
   def in_mission?
     employee_id.present?
