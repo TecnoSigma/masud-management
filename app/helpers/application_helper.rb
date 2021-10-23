@@ -46,4 +46,15 @@ module ApplicationHelper
 
     "#{address}, #{number} - #{district} - #{city} - #{state}"
   end
+
+  def date_time(order)
+    "#{order.job_day} - #{order.job_horary}"
+  end
+
+  def free_items(type, caliber = nil)
+    klass = type.to_s.titleize.constantize
+    free_quantity = caliber ? klass.free(caliber).count : klass.free.count
+
+    (0..free_quantity).to_a
+  end
 end

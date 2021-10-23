@@ -216,6 +216,8 @@ pt-BR:
           mission_composition: 'Composição da missão'
           agents: 'Agentes'
           quantity: 'Quantidade: '
+          items_quantity: 'Quantidade'
+          items_description: 'Descrição'
           mission_items: 'Itens da Missão'
           waistcoat: 'Colete'
           caliber_12: 'Calibre 12 (Espingarda)'

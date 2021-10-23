@@ -87,7 +87,12 @@
                     <hr>
                     <div>
                       <h5><%= t('.mission_items') %></h5>
+                      <br>
                       <table>
+                        <thead>
+                          <th><%= t('.items_description') %></th>
+                          <th><%= t('.items_quantity') %></th>
+                        </thead>
                         <tr>
                           <td width='300px'>
                             <%= f.check_box :caliber_12, class: 'order-management-check' %>
@@ -95,7 +100,7 @@
                           </td>
                           <td width='100px'>
                             <%= f.select :caliber_12_quantity,
-                                         [1,2,3,4,5,6,7,8,9],
+                                         free_items(:gun, '12'),
                                          { class: 'order-management-select', required: true } %>
                           </td>
                         </tr>
@@ -106,7 +111,7 @@
                           </td>
                           <td width='100px'>
                             <%= f.select :caliber_38_quantity,
-                                         [1,2,3,4,5,6,7,8,9],
+                                         free_items(:gun, '38'),
                                          { class: 'order-management-select', required: true } %>
                           </td>
                         </tr>
@@ -139,7 +144,7 @@
                           </td>
                           <td width='100px'>
                             <%= f.select :waistcoats_quantity,
-                                         [1,2,3,4,5,6,7,8,9],
+                                         free_items(:waistcoat),
                                          { class: 'order-management-select', required: true } %>
                           </td>
                         </tr>
@@ -150,7 +155,7 @@
                           </td>
                           <td width='100px'>
                             <%= f.select :radio_quantity,
-                                         [1,2,3,4,5,6,7,8,9],
+                                         free_items(:radio),
                                          { class: 'order-management-select', required: true } %>
                           </td>
                         </tr>
@@ -161,7 +166,7 @@
                           </td>
                           <td width='100px'>
                             <%= f.select :vehicles_quantity,
-                                         [1,2,3,4,5,6,7,8,9],
+                                         free_items(:vehicle),
                                          { class: 'order-management-select', required: true } %>
                           </td>
                         </tr>
