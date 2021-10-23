@@ -30,4 +30,34 @@ RSpec.describe Munition, type: :model do
       expect(munition).to be_invalid
     end
   end
+
+  describe 'validates scopes' do
+    context 'when is a munition' do
+      context 'caliber is 38' do
+        it 'returns only free munition with caliber 38' do
+          FactoryBot.create(:arsenal, :munition, employee: nil, kind: '12')
+          FactoryBot.create(:arsenal, :munition, employee: nil, kind: '38')
+
+          expected_result = Munition.where(kind: '38').where(employee: nil)
+
+          result = Munition.free('38')
+
+          expect(result).to eq(expected_result)
+        end
+      end
+
+      context 'caliber is 12' do
+        it 'returns only free munition with caliber 12' do
+          FactoryBot.create(:arsenal, :munition, employee: nil, kind: '12')
+          FactoryBot.create(:arsenal, :munition, employee: nil, kind: '38')
+
+          expected_result = Munition.where(kind: '12').where(employee: nil)
+
+          result = Munition.free('12')
+
+          expect(result).to eq(expected_result)
+        end
+      end
+    end
+  end
 end
