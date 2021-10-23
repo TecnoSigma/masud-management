@@ -13,6 +13,7 @@ class Vehicle < ApplicationRecord
             format: { with: Regex.license_plate,
                       message: I18n.t('messages.errors.invalid_format') }
 
+  belongs_to :team, optional: true
   belongs_to :status
 
   def self.statuses

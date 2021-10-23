@@ -9,6 +9,12 @@ RSpec.describe Vehicle, type: :model do
 
       expect(vehicle).to respond_to(:status)
     end
+
+    it 'validates relationship (N:1) between Vehicle and Team' do
+      vehicle = Vehicle.new
+
+      expect(vehicle).to respond_to(:team)
+    end
   end
 
   describe 'validates uniqueness' do

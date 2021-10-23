@@ -157,9 +157,11 @@ ActiveRecord::Schema.define(version: 2021_10_16_172922) do
     t.string "license_plate"
     t.string "color"
     t.bigint "status_id"
+    t.bigint "team_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["status_id"], name: "index_vehicles_on_status_id"
+    t.index ["team_id"], name: "index_vehicles_on_team_id"
   end
 
 end

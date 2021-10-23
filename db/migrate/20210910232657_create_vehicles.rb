@@ -5,6 +5,7 @@ class CreateVehicles < ActiveRecord::Migration[5.2]
       t.string :license_plate
       t.string :color
       t.references :status, index: true
+      t.references :team, index: true
 
       t.timestamps
     end
