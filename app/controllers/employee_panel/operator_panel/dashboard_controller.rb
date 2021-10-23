@@ -16,9 +16,7 @@ module EmployeePanel
         @order = Order.find_by_order_number(params['order_number'])
       end
 
-      def refuse
-
-      end
+      def refuse; end
     end
   end
 end

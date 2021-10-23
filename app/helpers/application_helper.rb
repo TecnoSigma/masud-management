@@ -44,7 +44,7 @@ module ApplicationHelper
     city = order.send("#{type}_city".to_sym)
     state = order.send("#{type}_state".to_sym)
 
-    "#{address}, #{number} - #{district} - #{city} - #{state}"
+    "#{address}, #{number} - #{complement} - #{district} - #{city} - #{state}"
   end
 
   def date_time(order)
@@ -52,9 +52,6 @@ module ApplicationHelper
   end
 
   def available_items(type, caliber = nil)
-    klass = type.to_s.titleize.constantize
-    available_quantity = caliber ? klass.available(caliber).count : klass.available.count
-
-    (0..available_quantity).to_a
+    OrdersManagementPresenter.available_items(type, caliber)
   end
 end

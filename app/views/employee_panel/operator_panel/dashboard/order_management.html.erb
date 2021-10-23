@@ -100,7 +100,7 @@
                           </td>
                           <td width='100px'>
                             <%= f.select :caliber_12_quantity,
-                                         free_items(:gun, '12'),
+                                         available_items(:gun, '12'),
                                          { class: 'order-management-select', required: true } %>
                           </td>
                         </tr>
@@ -111,7 +111,7 @@
                           </td>
                           <td width='100px'>
                             <%= f.select :caliber_38_quantity,
-                                         free_items(:gun, '38'),
+                                         available_items(:gun, '38'),
                                          { class: 'order-management-select', required: true } %>
                           </td>
                         </tr>
@@ -122,7 +122,7 @@
                           </td>
                           <td width='100px'>
                             <%= f.select :munition_12_quantity,
-                                         [1,2,3,4,5,6,7,8,9],
+                                         available_items(:munition, '12'),
                                          { class: 'order-management-select', required: true } %>
                           </td>
                         </tr>
@@ -133,7 +133,7 @@
                           </td>
                           <td width='100px'>
                             <%= f.select :munition_38_quantity,
-                                         [1,2,3,4,5,6,7,8,9],
+                                         available_items(:munition, '38'),
                                          { class: 'order-management-select', required: true } %>
                           </td>
                         </tr>
@@ -144,7 +144,7 @@
                           </td>
                           <td width='100px'>
                             <%= f.select :waistcoats_quantity,
-                                         free_items(:waistcoat),
+                                         available_items(:waistcoat),
                                          { class: 'order-management-select', required: true } %>
                           </td>
                         </tr>
@@ -155,7 +155,7 @@
                           </td>
                           <td width='100px'>
                             <%= f.select :radio_quantity,
-                                         free_items(:radio),
+                                         available_items(:radio),
                                          { class: 'order-management-select', required: true } %>
                           </td>
                         </tr>
@@ -166,7 +166,7 @@
                           </td>
                           <td width='100px'>
                             <%= f.select :vehicles_quantity,
-                                         free_items(:vehicle),
+                                         available_items(:vehicle),
                                          { class: 'order-management-select', required: true } %>
                           </td>
                         </tr>

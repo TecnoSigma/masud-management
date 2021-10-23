@@ -52,7 +52,7 @@ class Order < ApplicationRecord
 
   def self.scheduled(order_type)
     select { |order| order.type == order_type && order.status.name == ALLOWED_STATUSES[:scheduled] }
-    .sort do |a,b|
+      .sort do |a, b|
       current_order = DateTime.parse("#{a.job_day} #{a.job_horary}")
       next_order = DateTime.parse("#{b.job_day} #{b.job_horary}")
 

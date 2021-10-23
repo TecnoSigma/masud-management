@@ -43,7 +43,7 @@ RSpec.describe Munition, type: :model do
 
         expected_result = 260 # 300-50+10
 
-        result = Munition.available('38')
+        result = Munition.find(munition.id).available
 
         expect(result).to eq(expected_result)
       end
@@ -60,7 +60,7 @@ RSpec.describe Munition, type: :model do
 
         expected_result = 490 # 500-50+40
 
-        result = Munition.available('12')
+        result = Munition.find(munition.id).available
 
         expect(result).to eq(expected_result)
       end

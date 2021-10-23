@@ -17,8 +17,11 @@ module MasudManagement
     # the framework and any gems in your application.
     config.i18n.default_locale = 'pt-BR'
 
-    config.autoload_paths += %W[#{config.root}/lib]
-    config.autoload_paths += %W[#{config.root}/app/exceptions]
+    config.autoload_paths += %W[
+      #{config.root}/lib
+      #{config.root}/app/presenters
+      #{config.root}/app/exceptions
+    ]
 
     # Observers
     config.active_record.observers = :munition_observer
