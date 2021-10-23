@@ -1,1 +1,54 @@
-<%= render './././partials/messages' %>
+<h1 class="mt-4"><%= t('.title') %></h1>
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item active"><%= t('breadcrumbs.escort_requests') %></li>
+</ol>
+<div class="card mb-4">
+  <div class="card-header">
+    <i class="fas fa-table me-1"></i>
+    <%= t('.requests_list') %>
+  </div>
+  <div class="card-body">
+    <table id="tableOperatorEscort" class="table table-striped" width="100%">
+      <thead>
+        <tr>
+          <th><%= t('.order') %></th>
+          <th><%= t('.customer_name') %></th>
+          <th><%= t('.job_date_time') %></th>
+          <th><%= t('.source') %></th>
+          <th><%= t('.destiny') %></th>
+          <th><%= t('.observation') %></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <th><%= t('.order') %></th>
+          <th><%= t('.customer_name') %></th>
+          <th><%= t('.job_date_time') %></th>
+          <th><%= t('.source') %></th>
+          <th><%= t('.destiny') %></th>
+          <th><%= t('.observation') %></th>
+          <th></th>
+        </tr>
+      </tfoot>
+      <tbody>
+        <% @scheduled_escorts.each do |escort| %>
+          <tr>
+            <td><%= escort.order_number %></td>
+            <td><%= escort.customer.company %></td>
+            <td><%= convert_date_time(escort.prevision) %></td>
+            <td><%= escort.source_state %></td>
+            <td><%= escort.destiny_state %></td>
+            <td><%= escort.observation %></td>
+            <td>
+              <%= link_to employee_panel_operator_dashboard_order_management_path(escort.order_number) do %>
+                <i class="fas fa-calendar-check me-1"></i></td>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= will_paginate @scheduled_escorts, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+  </div>
+</div>

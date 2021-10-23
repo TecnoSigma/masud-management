@@ -50,6 +50,16 @@ class Order < ApplicationRecord
     %w[EscortScheduling EscortService]
   end
 
+  def self.scheduled(order_type)
+    select { |order| order.type == order_type && order.status.name == ALLOWED_STATUSES[:scheduled] }
+    .sort do |a,b|
+      current_order = DateTime.parse("#{a.job_day} #{a.job_horary}")
+      next_order = DateTime.parse("#{b.job_day} #{b.job_horary}")
+
+      current_order <=> next_order
+    end
+  end
+
   def create_order_number
     self.order_number = Time.zone.now.strftime('%Y%m%d%H%M%S')
   end

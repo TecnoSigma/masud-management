@@ -304,4 +304,17 @@ RSpec.describe Order, type: :model do
       expect(result).to eq(expected_result)
     end
   end
+
+  describe '.scheduled' do
+    it 'returns sorted order by job day in ascendent order' do
+      order1 = FactoryBot.create(:order, :scheduled, job_day: '15/02/2050', job_horary: '09:00')
+      order2 = FactoryBot.create(:order, :scheduled, job_day: '12/01/2050', job_horary: '10:00')
+
+      expected_result = [EscortScheduling.last, EscortScheduling.first]
+
+      result = described_class.scheduled('EscortScheduling')
+
+      expect(result).to eq(expected_result)
+    end
+  end
 end

@@ -1,0 +1,207 @@
+<h1 class="mt-4"><%= t('.title') %></h1>
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item">
+    <%= link_to t('breadcrumbs.orders_list'), employee_panel_administrator_dashboard_clientes_path %>
+  </li>
+  <li class="breadcrumb-item active"><%= t('breadcrumbs.order_number', order_number: @order.order_number) %></li>
+</ol>
+<hr>
+<div id="layoutOrderManagementt">
+  <div id="layoutOrderManagementt_content">
+    <main>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-12">
+            <br>
+            <%= render './partials/messages' %>
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+              <div class="card-body">
+
+                <!-- CUSTOMER DATA -->
+                <h5><%= t('.customer_data') %></h5>
+                <small>
+                  <strong><%= t('.name') %></strong>
+                  <span><%= @order.customer.company %></span>
+                </small>
+                <br>
+                <small>
+                  <strong><%= t('.cnpj') %></strong>
+                  <span><%= @order.customer.cnpj %></span>
+                </small>
+                <hr>
+
+                <!-- ORDER DATA -->
+                <h5><%= t('.order_data') %></h5>
+                <small>
+                  <strong><%= t('.order_number') %></strong>
+                  <span><%= @order.order_number %></span>
+                </small>
+                <br>
+                <small>
+                  <strong><%= t('.job_date_time') %></strong>
+                  <span><%= date_time(@order) %></span>
+                </small>
+                <br>
+                <small>
+                  <strong><%= t('.source_full_address') %></strong>
+                  <span><%= full_address(@order, :source) %></span>
+                </small>
+                <br>
+                <small>
+                  <strong><%= t('.destiny_full_address') %></strong>
+                  <span><%= full_address(@order, :destiny) %></span>
+                </small>
+                <br>
+                <small>
+                  <strong><%= t('.observation') %></strong>
+                  <span><%= @order.observation %></span>
+                </small>
+                <hr>
+                <%= form_with scope: 'employee', url: employee_panel_administrator_dashboard_funcionario_create_path do |f| %>
+                  <div class="form-floating mb-3">
+                    <div>
+                      <h5><%= t('.agents') %></h5>
+                      <table>
+                        <tr>
+                          <td width='300px'>
+                            <label><%= t('.quantity') %></label>
+                          </td>
+                          <td width='100px'>
+                            <%= f.select :agents_quantity,
+                                         [1,2,3,4,5,6,7,8,9],
+                                         { class: 'order-management-select', required: true } %>
+                          </td>
+                        </tr>
+                      </table>
+                      <br>
+                      <span class="btn btn-primary"><%= t('.mount_team_btn') %></span>
+                      <br><br>
+                      <div id='mounted_team'>
+                        <h5><i><%= t('.team') %></h5></i>
+                        <label><i><%= t('.chosen_agents') %></i></label>
+                      </div>
+                      <br>
+                      <span class="btn btn-success"><%= t('.confirm_team_btn') %></span>
+                      <span class="btn btn-danger"><%= t('.refuse_team_btn') %></span>
+                    </div>
+                    <hr>
+                    <div>
+                      <h5><%= t('.mission_items') %></h5>
+                      <table>
+                        <tr>
+                          <td width='300px'>
+                            <%= f.check_box :caliber_12, class: 'order-management-check' %>
+                            <%= f.label :caliber_12, t('.caliber_12'), class: 'order-management-label' %>
+                          </td>
+                          <td width='100px'>
+                            <%= f.select :caliber_12_quantity,
+                                         [1,2,3,4,5,6,7,8,9],
+                                         { class: 'order-management-select', required: true } %>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td width='300px'>
+                            <%= f.check_box :caliber_38, class: 'order-management-check' %>
+                            <%= f.label :caliber_38, t('.caliber_38'), class: 'order-management-label' %>
+                          </td>
+                          <td width='100px'>
+                            <%= f.select :caliber_38_quantity,
+                                         [1,2,3,4,5,6,7,8,9],
+                                         { class: 'order-management-select', required: true } %>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td width='300px'>
+                            <%= f.check_box :munition_12, class: 'order-management-check' %>
+                            <%= f.label :munition_12, t('.munition_12'), class: 'order-management-label' %>
+                          </td>
+                          <td width='100px'>
+                            <%= f.select :munition_12_quantity,
+                                         [1,2,3,4,5,6,7,8,9],
+                                         { class: 'order-management-select', required: true } %>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td width='300px'>
+                            <%= f.check_box :munition_38, class: 'order-management-check' %>
+                            <%= f.label :munition_38, t('.munition_38'), class: 'order-management-label' %>
+                          </td>
+                          <td width='100px'>
+                            <%= f.select :munition_38_quantity,
+                                         [1,2,3,4,5,6,7,8,9],
+                                         { class: 'order-management-select', required: true } %>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td width='300px'>
+                            <%= f.check_box :waistcoat, class: 'order-management-check' %>
+                            <%= f.label :waistcoat, t('.waistcoat'), class: 'order-management-label' %>
+                          </td>
+                          <td width='100px'>
+                            <%= f.select :waistcoats_quantity,
+                                         [1,2,3,4,5,6,7,8,9],
+                                         { class: 'order-management-select', required: true } %>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td width='300px'>
+                            <%= f.check_box :radio, class: 'order-management-check' %>
+                            <%= f.label :radio, t('.radio'), class: 'order-management-label' %>
+                          </td>
+                          <td width='100px'>
+                            <%= f.select :radio_quantity,
+                                         [1,2,3,4,5,6,7,8,9],
+                                         { class: 'order-management-select', required: true } %>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td width='300px'>
+                            <%= f.check_box :vehicle, class: 'order-management-check' %>
+                            <%= f.label :vehicle, t('.vehicle'), class: 'order-management-label' %>
+                          </td>
+                          <td width='100px'>
+                            <%= f.select :vehicles_quantity,
+                                         [1,2,3,4,5,6,7,8,9],
+                                         { class: 'order-management-select', required: true } %>
+                          </td>
+                        </tr>
+                      </table>
+                      <br>
+                      <span class="btn btn-primary"><%= t('.mount_items_list_btn') %></span>
+                      <br><br>
+                      <div id="mounted_items">
+                        <h5><i><%= t('.chosen_items') %></i></h5>
+                        <label><i><%= t('.chosen_caliber_12') %></i></label>
+                        <br>
+                        <label><i><%= t('.chosen_caliber_38') %></i></label>
+                        <br>
+                        <label><i><%= t('.chosen_munition_12') %></i></label>
+                        <br>
+                        <label><i><%= t('.chosen_munition_38') %></i></label>
+                        <br>
+                        <label><i><%= t('.chosen_waistcoat') %></i></label>
+                        <br>
+                        <label><i><%= t('.chosen_radio') %></i></label>
+                        <br>
+                        <label><i><%= t('.chosen_vehicle') %></i></label>
+                      </div>
+                      <br>
+                      <span class="btn btn-success"><%= t('.confirm_items_list_btn') %></span>
+                      <span class="btn btn-secondary"><%= t('.clear_items_list_btn') %></span>
+                    </div>
+                    <hr>
+                  </div>
+                  <br>
+                  <%= link_to t('.back_btn'), :back, class: 'btn btn-primary' %>
+                  <%= f.submit t('.confirm_order_btn'), { class: 'btn btn-primary' } %>
+                  <span class="btn btn-danger"><%= t('.refuse_order_btn') %></span>
+                <% end %>
+              </div>
+              <div class="card-footer text-center py-3"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

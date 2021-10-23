@@ -11734,3 +11734,11 @@ body {
 .expired-cvn {
   color: red;
 }
+
+.order-management-select {
+  width: 150px;
+}
+
+.order-management-label {
+ padding-left: 10px;
+}

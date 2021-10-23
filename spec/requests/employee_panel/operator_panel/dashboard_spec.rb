@@ -77,4 +77,18 @@ RSpec.describe 'EmployeePanel::OperatorPanel::Dashboard', type: :request do
       end
     end
   end
+
+  describe '#order_management' do
+    it 'renders operator dashboard page with http status code 200' do
+      allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
+      allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
+      allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
+
+      order = FactoryBot.create(:order, :scheduled)
+
+      get "/gestao/operador/dashboard/gerenciamento/#{order.order_number}"
+
+      expect(response).to render_template(:order_management)
+    end
+  end
 end

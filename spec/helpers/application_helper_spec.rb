@@ -111,4 +111,28 @@ RSpec.describe ApplicationHelper, type: :helper do
       expect(result).to eq(expected_result)
     end
   end
+
+  describe '#full_address' do
+    it 'returns source full address of order' do
+      order = FactoryBot.create(:order, :scheduled)
+
+      expected_result = "#{order.source_address}, #{order.source_number} - " \
+                        "#{order.source_district} - #{order.source_city} - #{order.source_state}"
+
+      result = helper.full_address(order, :source)
+
+      expect(result).to eq(expected_result)
+    end
+
+    it 'returns destiny full address of order' do
+      order = FactoryBot.create(:order, :scheduled)
+
+      expected_result = "#{order.destiny_address}, #{order.destiny_number} - " \
+                        "#{order.destiny_district} - #{order.destiny_city} - #{order.destiny_state}"
+
+      result = helper.full_address(order, :destiny)
+
+      expect(result).to eq(expected_result)
+    end
+  end
 end
