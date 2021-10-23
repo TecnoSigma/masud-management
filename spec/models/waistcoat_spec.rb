@@ -9,12 +9,6 @@ RSpec.describe Waistcoat, type: :model do
 
       expect(waistcoat).to respond_to(:status)
     end
-
-    it 'validates relationship (N:1) between Employee and Waistcoat' do
-      waistcoat = Waistcoat.new
-
-      expect(waistcoat).to respond_to(:agent)
-    end
   end
 
   it 'validates inheritance of Waistcoat with Clothing' do

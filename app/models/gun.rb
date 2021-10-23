@@ -11,5 +11,5 @@ class Gun < Arsenal
 
   ALLOWED_TYPES = { shotgun: 'Espingarda', revolver: 'Revólver' }.freeze
 
-  scope :free, ->(caliber) { where(caliber: caliber).where(employee: nil) }
+  scope :available, ->(caliber) { where(caliber: caliber).where(employee: nil) }
 end

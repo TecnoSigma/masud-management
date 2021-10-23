@@ -4,6 +4,12 @@ require 'rails_helper'
 
 RSpec.describe Tackle, type: :model do
   describe 'validates relationships' do
+    it 'validates relationship (1:N) between Tackle and ItemMovimentation' do
+      tackle = Tackle.new
+
+      expect(tackle).to respond_to(:item_movimentations)
+    end
+
     it 'validates relationship (N:1) between Status and Tackle' do
       tackle = Tackle.new
 
@@ -62,28 +68,28 @@ RSpec.describe Tackle, type: :model do
     end
 
     context 'when is a radio' do
-      it 'returns only free radios' do
+      it 'returns only available radios' do
         agent = FactoryBot.create(:employee, :agent)
         FactoryBot.create(:tackle, :radio, employee: agent)
         FactoryBot.create(:tackle, :radio, employee: nil)
 
         expected_result = Radio.where(employee: nil)
 
-        result = Radio.free
+        result = Radio.available
 
         expect(result).to eq(expected_result)
       end
     end
 
     context 'when is a waistcoat' do
-      it 'returns only free waistcoats' do
+      it 'returns only available waistcoats' do
         agent = FactoryBot.create(:employee, :agent)
         FactoryBot.create(:tackle, :waistcoat, employee: agent)
         FactoryBot.create(:tackle, :waistcoat, employee: nil)
 
         expected_result = Waistcoat.where(employee: nil)
 
-        result = Waistcoat.free
+        result = Waistcoat.available
 
         expect(result).to eq(expected_result)
       end

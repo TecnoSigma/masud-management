@@ -13,9 +13,10 @@ class Vehicle < ApplicationRecord
             format: { with: Regex.license_plate,
                       message: I18n.t('messages.errors.invalid_format') }
 
+  has_many :item_movimentations
   belongs_to :team, optional: true
   belongs_to :status
 
-  scope :free, -> { where(team: nil) }
+  scope :available, -> { where(team: nil) }
   scope :statuses, -> { Status.where(name: 'ativo').or(Status.where(name: 'desativado')) }
 end

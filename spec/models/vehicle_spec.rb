@@ -4,6 +4,12 @@ require 'rails_helper'
 
 RSpec.describe Vehicle, type: :model do
   describe 'validates relationships' do
+    it 'validates relationship (1:N) between Vehicle and ItemMovimentation' do
+      vehicle = Vehicle.new
+
+      expect(vehicle).to respond_to(:item_movimentations)
+    end
+
     it 'validates relationship (N:1) between Vehicle and Status' do
       vehicle = Vehicle.new
 
@@ -77,14 +83,14 @@ RSpec.describe Vehicle, type: :model do
   end
 
   describe 'validates scopes' do
-    it 'returns only free vehicles' do
+    it 'returns only available vehicles' do
       team = FactoryBot.create(:team)
       FactoryBot.create(:vehicle, team: team)
       FactoryBot.create(:vehicle, team: nil)
 
       expected_result = Vehicle.where(team: nil)
 
-      result = Vehicle.free
+      result = Vehicle.available
 
       expect(result).to eq(expected_result)
     end

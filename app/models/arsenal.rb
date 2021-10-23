@@ -8,6 +8,7 @@ class Arsenal < ApplicationRecord
   validates :quantity,
             numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
+  has_many :item_movimentations
   belongs_to :employee, optional: true
   belongs_to :status, optional: true
 

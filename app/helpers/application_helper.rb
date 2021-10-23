@@ -51,10 +51,10 @@ module ApplicationHelper
     "#{order.job_day} - #{order.job_horary}"
   end
 
-  def free_items(type, caliber = nil)
+  def available_items(type, caliber = nil)
     klass = type.to_s.titleize.constantize
-    free_quantity = caliber ? klass.free(caliber).count : klass.free.count
+    available_quantity = caliber ? klass.available(caliber).count : klass.available.count
 
-    (0..free_quantity).to_a
+    (0..available_quantity).to_a
   end
 end

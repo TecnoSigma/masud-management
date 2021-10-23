@@ -4,6 +4,12 @@ require 'rails_helper'
 
 RSpec.describe Arsenal, type: :model do
   describe 'validates relationships' do
+    it 'validates relationship (1:N) between Arsenal and ItemMovimentation' do
+      arsenal = Arsenal.new
+
+      expect(arsenal).to respond_to(:item_movimentations)
+    end
+
     it 'validates relationship (N:1) between Status and Arsenal' do
       arsenal = Arsenal.new
 
