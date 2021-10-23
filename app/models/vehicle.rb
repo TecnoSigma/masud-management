@@ -16,8 +16,6 @@ class Vehicle < ApplicationRecord
   belongs_to :team, optional: true
   belongs_to :status
 
-  def self.statuses
-    Status.where(name: 'ativo')
-          .or(Status.where(name: 'desativado'))
-  end
+  scope :free, -> { where(team: nil) }
+  scope :statuses, -> { Status.where(name: 'ativo').or(Status.where(name: 'desativado')) }
 end

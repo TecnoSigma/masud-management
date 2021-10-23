@@ -46,17 +46,6 @@ RSpec.describe Vehicle, type: :model do
     end
   end
 
-  describe '.statuses' do
-    it 'returns tackle status list' do
-      activated_status = FactoryBot.create(:status, name: 'ativo')
-      deactivated_status = FactoryBot.create(:status, name: 'desativado')
-
-      result = Vehicle.statuses
-
-      expect(result).to eq([activated_status, deactivated_status])
-    end
-  end
-
   describe 'validates license plates' do
     context 'validates vehicle creation' do
       it 'when use default license plate' do
@@ -84,6 +73,29 @@ RSpec.describe Vehicle, type: :model do
 
         expect(vehicle).to be_invalid
       end
+    end
+  end
+
+  describe 'validates scopes' do
+    it 'returns only free vehicles' do
+      team = FactoryBot.create(:team)
+      FactoryBot.create(:vehicle, team: team)
+      FactoryBot.create(:vehicle, team: nil)
+
+      expected_result = Vehicle.where(team: nil)
+
+      result = Vehicle.free
+
+      expect(result).to eq(expected_result)
+    end
+
+    it 'returns tackle status list' do
+      activated_status = FactoryBot.create(:status, name: 'ativo')
+      deactivated_status = FactoryBot.create(:status, name: 'desativado')
+
+      result = Vehicle.statuses
+
+      expect(result).to eq([activated_status, deactivated_status])
     end
   end
 end
