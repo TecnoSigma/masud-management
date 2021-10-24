@@ -203,7 +203,8 @@ RSpec.describe 'CustomerPanel::Escort', type: :request do
                                    :scheduled,
                                    customer: customer,
                                    status: status,
-                                   created_at: 4.hours.ago)
+                                   job_horary: (DateTime.now + 10.minutes).strftime('%H:%M'),
+                                   job_day: DateTime.now.strftime('%d/%m/%Y'))
 
         delete "/cliente/dashboard/escolta/cancel/#{escort.order_number}"
 
@@ -225,7 +226,8 @@ RSpec.describe 'CustomerPanel::Escort', type: :request do
                                    :scheduled,
                                    customer: customer,
                                    status: status,
-                                   created_at: 4.hours.ago)
+                                   job_horary: (DateTime.now + 10.minutes).strftime('%H:%M'),
+                                   job_day: DateTime.now.strftime('%d/%m/%Y'))
 
         delete "/cliente/dashboard/escolta/cancel/#{escort.order_number}"
 
@@ -245,7 +247,8 @@ RSpec.describe 'CustomerPanel::Escort', type: :request do
                                    :scheduled,
                                    customer: customer,
                                    status: status,
-                                   created_at: 4.hours.ago)
+                                   job_horary: (DateTime.now + 10.minutes).strftime('%H:%M'),
+                                   job_day: DateTime.now.strftime('%d/%m/%Y'))
 
         delete "/cliente/dashboard/escolta/cancel/#{escort.order_number}"
 

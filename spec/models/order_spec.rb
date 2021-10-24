@@ -166,7 +166,7 @@ RSpec.describe Order, type: :model do
   end
 
   describe '#deletable?' do
-    it 'returns \'true\' when order creation date is less than 3 hours' do
+    it 'returns \'false\' when order creation date is less than 3 hours' do
       customer = FactoryBot.create(:customer)
       status = FactoryBot.create(:status, name: 'agendado')
 

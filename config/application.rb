@@ -19,8 +19,8 @@ module MasudManagement
 
     config.autoload_paths += %W[
       #{config.root}/lib
-      #{config.root}/app/presenters
       #{config.root}/app/exceptions
+      #{config.root}/app/presenters
     ]
 
     # Observers

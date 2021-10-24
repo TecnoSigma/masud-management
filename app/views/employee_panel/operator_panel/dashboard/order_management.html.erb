@@ -95,11 +95,11 @@
                         </thead>
                         <tr>
                           <td width='300px'>
-                            <%= f.check_box :caliber_12, class: 'order-management-check' %>
+                            <%= f.check_box :caliber_12, class: 'order-management-check',  role: 'missionItemsDescription' %>
                             <%= f.label :caliber_12, t('.caliber_12'), class: 'order-management-label' %>
                           </td>
                           <td width='100px'>
-                            <%= f.select :caliber_12_quantity,
+                            <%= f.select :calibers_12_quantity,
                                          available_items(:gun, '12'),
                                          { class: 'order-management-select', required: true } %>
                           </td>
@@ -110,7 +110,7 @@
                             <%= f.label :caliber_38, t('.caliber_38'), class: 'order-management-label' %>
                           </td>
                           <td width='100px'>
-                            <%= f.select :caliber_38_quantity,
+                            <%= f.select :calibers_38_quantity,
                                          available_items(:gun, '38'),
                                          { class: 'order-management-select', required: true } %>
                           </td>
@@ -121,7 +121,7 @@
                             <%= f.label :munition_12, t('.munition_12'), class: 'order-management-label' %>
                           </td>
                           <td width='100px'>
-                            <%= f.select :munition_12_quantity,
+                            <%= f.select :munitions_12_quantity,
                                          available_items(:munition, '12'),
                                          { class: 'order-management-select', required: true } %>
                           </td>
@@ -132,7 +132,7 @@
                             <%= f.label :munition_38, t('.munition_38'), class: 'order-management-label' %>
                           </td>
                           <td width='100px'>
-                            <%= f.select :munition_38_quantity,
+                            <%= f.select :munitions_38_quantity,
                                          available_items(:munition, '38'),
                                          { class: 'order-management-select', required: true } %>
                           </td>
@@ -154,7 +154,7 @@
                             <%= f.label :radio, t('.radio'), class: 'order-management-label' %>
                           </td>
                           <td width='100px'>
-                            <%= f.select :radio_quantity,
+                            <%= f.select :radios_quantity,
                                          available_items(:radio),
                                          { class: 'order-management-select', required: true } %>
                           </td>
@@ -172,27 +172,27 @@
                         </tr>
                       </table>
                       <br>
-                      <span class="btn btn-primary"><%= t('.mount_items_list_btn') %></span>
+                      <span id="mountItemsListBtn" class="btn btn-primary"><%= t('.mount_items_list_btn') %></span>
                       <br><br>
                       <div id="mounted_items">
                         <h5><i><%= t('.chosen_items') %></i></h5>
-                        <label><i><%= t('.chosen_caliber_12') %></i></label>
+                        <label id="chosenCaliber12"><i><%= t('.chosen_caliber_12') %></i></label>
                         <br>
-                        <label><i><%= t('.chosen_caliber_38') %></i></label>
+                        <label id="chosenCaliber38"><i><%= t('.chosen_caliber_38') %></i></label>
                         <br>
-                        <label><i><%= t('.chosen_munition_12') %></i></label>
+                        <label id="chosenMunition12"><i><%= t('.chosen_munition_12') %></i></label>
                         <br>
-                        <label><i><%= t('.chosen_munition_38') %></i></label>
+                        <label id="chosenMunition38"><i><%= t('.chosen_munition_38') %></i></label>
                         <br>
-                        <label><i><%= t('.chosen_waistcoat') %></i></label>
+                        <label id="chosenWaistcoat"><i><%= t('.chosen_waistcoat') %></i></label>
                         <br>
-                        <label><i><%= t('.chosen_radio') %></i></label>
+                        <label id="chosenRadio"><i><%= t('.chosen_radio') %></i></label>
                         <br>
-                        <label><i><%= t('.chosen_vehicle') %></i></label>
+                        <label id="chosenVehicle"><i><%= t('.chosen_vehicle') %></i></label>
                       </div>
                       <br>
-                      <span class="btn btn-success"><%= t('.confirm_items_list_btn') %></span>
-                      <span class="btn btn-secondary"><%= t('.clear_items_list_btn') %></span>
+                      <span id="confirmItemsListBtn" class="btn btn-success"><%= t('.confirm_items_list_btn') %></span>
+                      <span id="clearItemsListBtn" class="btn btn-secondary"><%= t('.clear_items_list_btn') %></span>
                     </div>
                     <hr>
                   </div>

@@ -2,6 +2,14 @@ pt-BR:
   true: 'Sim'
   false: 'Não'
   app_name: 'Masud Segurança'
+  builders:
+    mission_items:
+      number: 'Nº '
+      bullets:
+        one: 'projétil'
+        other: 'projéteis'
+      serial_number: 'Nº Série '
+      separator:  ' | '
   greeting:
     day: 'Bom dia'
     afternoon: 'Boa tarde'
