@@ -29,6 +29,24 @@ $(document).on('turbolinks:load', function() {
                 enableDropDown(this, document.getElementById("employee_vehicles_quantity"));
         });
 
+        $("#mountTeamBtn").click(function(){
+                var agentsQuantity = { quantity: document.getElementById("employee_agents_quantity").value };
+
+                $.ajax({
+                        url: "/gestao/operador/dashboard/gerenciamento/mount_team",
+                        type: "POST",
+                        data: { agent: agentsQuantity },
+                        success: function(data, status, xhr) {
+                                populateLabel(data.team['team_name'], document.getElementById("teamLabel"), "<i>Nome do Time: </i>");
+                                populateLabel(data.team['agents'], document.getElementById("agentsLabel"), "<i>Agentes: </i>");
+
+                        },
+                        error: function(xhr, status, error) {
+                                console.log(error);
+                        }
+                })
+        });
+
         $("#mountItemsListBtn").click(function(){
                 var missionItens = {
                         calibers_12_quantity: document.getElementById("employee_calibers_12_quantity").value,

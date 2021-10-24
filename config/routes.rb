@@ -100,8 +100,9 @@ Rails.application.routes.draw do
 
     scope module: 'operator_panel', path: 'operador', as: 'operator' do
       get 'dashboard/index'
-      get 'dashboard/gerenciamento/:order_number', to: 'dashboard#order_management', as:  'dashboard_order_management'
-      post 'dashboard/gerenciamento/mount_items_list', to: 'dashboard#mount_items_list'
+      get 'dashboard/gerenciamento/:order_number',          to: 'dashboard#order_management', as:  'dashboard_order_management'
+      post 'dashboard/gerenciamento/mount_items_list',      to: 'dashboard#mount_items_list'
+      post 'dashboard/gerenciamento/mount_team',            to: 'dashboard#mount_team'
       patch 'dashboard/gerenciamento/:order_number/refuse', to: 'dashboard#refuse', as: 'dashboard_refuse'
     end
   end

@@ -5,4 +5,6 @@ class Team < ApplicationRecord
 
   has_one :vehicle
   has_many :employees
+
+  scope :available, -> { select { |team| team.employees.empty? } }
 end

@@ -22,4 +22,14 @@ RSpec.describe Team, type: :model do
 
     expect(team).to be_invalid
   end
+
+  describe 'validates scopes' do
+    it 'returns available teams' do
+      team = FactoryBot.create(:team)
+
+      result = Team.available
+
+      expect(result).to eq([team])
+    end
+  end
 end

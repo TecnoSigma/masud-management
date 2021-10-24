@@ -20,6 +20,16 @@ module EmployeePanel
         @order = Order.find_by_order_number(params['order_number'])
       end
 
+      def mount_team
+        team = Builders::Team.new(team_params['quantity']).mount!
+
+        render json: { 'team' => team }, status: :ok
+      rescue StandardError => error
+        Rails.logger.error("Message: #{error.message} - Backtrace: #{error.backtrace}")
+
+        render json: { 'team' => {} }, status: :internal_server_error
+      end
+
       def mount_items_list
         descriptive_items = Builders::MissionItems.new(mission_item_params).mount!
 
@@ -33,6 +43,12 @@ module EmployeePanel
       def refuse; end
 
       private
+
+      def team_params
+        params
+          .require(:agent)
+          .permit(:quantity)
+      end
 
       def mission_item_params
         params

@@ -193,4 +193,70 @@ RSpec.describe 'EmployeePanel::OperatorPanel::Dashboard', type: :request do
       end
     end
   end
+
+  describe '#mount_team' do
+    context 'when pass valid params' do
+      it 'returns team in JSON format' do
+        allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
+
+        team = { agents: "Alves | Silva", team_name: "Tango" }
+
+        allow(Builders::Team).to receive_message_chain(:new, :mount!) { team }
+
+        post '/gestao/operador/dashboard/gerenciamento/mount_team.json',
+             params: { 'agent' => { 'quantity' => '2' } }
+
+        expected_result = { team: team }.to_json
+
+        expect(response.body).to eq(expected_result)
+      end
+
+      it 'returns HTTP status 200' do
+        allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
+
+        team = { agents: "Alves | Silva", team_name: "Tango" }
+
+        allow(Builders::Team).to receive_message_chain(:new, :mount!) { team }
+
+        post '/gestao/operador/dashboard/gerenciamento/mount_team.json',
+             params: { 'agent' => { 'quantity' => '2' } }
+
+        expect(response).to have_http_status(200)
+      end
+    end
+
+    context 'when occurs errors' do
+      it 'returns empty hash in JSON format' do
+        allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
+
+        allow(Builders::Team).to receive_message_chain(:new, :mount!) { raise StandardError }
+
+        post '/gestao/operador/dashboard/gerenciamento/mount_team.json',
+             params: { 'agent' => { 'quantity' => '2' } }
+
+        expected_result = { team: {} }.to_json
+
+        expect(response.body).to eq(expected_result)
+      end
+
+      it 'returns HTTP status 500' do
+        allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
+
+        allow(Builders::Team).to receive_message_chain(:new, :mount!) { raise StandardError }
+
+        post '/gestao/operador/dashboard/gerenciamento/mount_team.json',
+             params: { 'agent' => { 'quantity' => '2' } }
+
+        expect(response).to have_http_status(500)
+      end
+    end
+  end
 end
