@@ -1,4 +1,6 @@
 $(document).on('turbolinks:load', function() {
+        var missionInfo = {};
+
         initializers();
 
         $("#employee_agents_quantity").change(function(){
@@ -53,12 +55,15 @@ $(document).on('turbolinks:load', function() {
 
                                 switchTeamActionsButtons("visible");
 
+                                missionInfo.team = data.team
                         },
                         error: function(xhr, status, error) {
                                 console.log(error);
                         }
                 })
         });
+
+
 
         $("#mountItemsListBtn").click(function(){
                 var missionItens = {
@@ -83,6 +88,8 @@ $(document).on('turbolinks:load', function() {
                                 populateLabel(data.descriptive_items['waistcoats'], document.getElementById("chosenWaistcoat"), "<i>Colete: </i>");
                                 populateLabel(data.descriptive_items['radios'], document.getElementById("chosenRadio"), "<i>Rádio: </i>");
                                 populateLabel(data.descriptive_items['vehicles'], document.getElementById("chosenVehicle"), "<i>Viatura: </i>");
+
+                                missionInfo.descriptive_items = data.descriptive_items
                         },
                         error: function(xhr, status, error) {
                                 console.log(error);
