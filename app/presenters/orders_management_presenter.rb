@@ -15,4 +15,12 @@ class OrdersManagementPresenter
 
     (0..available_quantity).to_a
   end
+
+  def self.available_agents
+    available_quantity = Agent.available.count
+
+    return [] if available_quantity.zero?
+
+    (0..available_quantity).to_a
+  end
 end

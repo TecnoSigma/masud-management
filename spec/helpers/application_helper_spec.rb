@@ -161,4 +161,16 @@ RSpec.describe ApplicationHelper, type: :helper do
       expect(result).to eq(available_items)
     end
   end
+
+  describe '#available_agents' do
+    it 'returns list containing available agents quantity' do
+      available_agents = [0, 1, 2, 3]
+
+      allow(OrdersManagementPresenter).to receive(:available_agents) { available_agents }
+
+      result = helper.available_agents
+
+      expect(result).to eq(available_agents)
+    end
+  end
 end

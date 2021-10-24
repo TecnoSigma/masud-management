@@ -11,6 +11,8 @@ class Agent < Employee
 
   before_create :clear_password
 
+  scope :available, -> { all }
+
   def expired_cvn?
     cvn_validation_date < Date.today
   end

@@ -3,6 +3,24 @@
 require 'rails_helper'
 
 RSpec.describe OrdersManagementPresenter do
+  describe '#available_agents' do
+    it 'returns available agents mounting list containing agents quantity' do
+      agent = FactoryBot.create(:employee, :agent)
+
+      expected_result = (0..Agent.count).to_a
+
+      result = described_class.available_agents
+
+      expect(result).to eq(expected_result)
+    end
+
+    it 'returns empty list when don\'t exist agents' do
+      result = described_class.available_agents
+
+      expect(result).to be_empty
+    end
+  end
+
   describe '#available_items' do
     it 'counts available guns (caliber 38) when pass gun type' do
       guns_quantity = 10

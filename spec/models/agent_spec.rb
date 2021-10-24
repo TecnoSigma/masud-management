@@ -101,4 +101,16 @@ RSpec.describe Agent, type: :model do
       expect(result).to eq(false)
     end
   end
+
+  describe 'vallidates scopes' do
+    it 'returns available agents' do
+      agent = FactoryBot.create(:employee, :agent)
+
+      expected_result = [Agent.find(agent.id)]
+
+      result = Agent.available
+
+      expect(result).to eq(expected_result)
+    end
+  end
 end

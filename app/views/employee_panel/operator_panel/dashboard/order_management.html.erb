@@ -68,17 +68,17 @@
                           </td>
                           <td width='100px'>
                             <%= f.select :agents_quantity,
-                                         [1,2,3,4,5,6,7,8,9],
+                                         available_agents,
                                          { class: 'order-management-select', required: true } %>
                           </td>
                         </tr>
                       </table>
                       <br>
-                      <span class="btn btn-primary"><%= t('.mount_team_btn') %></span>
+                      <span id="mountTeamBtn" class="btn btn-primary"><%= t('.mount_team_btn') %></span>
                       <br><br>
                       <div id='mounted_team'>
-                        <h5><i><%= t('.team') %></h5></i>
-                        <label><i><%= t('.chosen_agents') %></i></label>
+                        <h5 id="teamLabel"><i><%= t('.team') %></h5></i>
+                        <label id="agentsLabel"><i><%= t('.chosen_agents') %></i></label>
                       </div>
                       <br>
                       <span class="btn btn-success"><%= t('.confirm_team_btn') %></span>

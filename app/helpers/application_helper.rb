@@ -54,4 +54,8 @@ module ApplicationHelper
   def available_items(type, caliber = nil)
     OrdersManagementPresenter.available_items(type, caliber)
   end
+
+  def available_agents
+    OrdersManagementPresenter.available_agents
+  end
 end
