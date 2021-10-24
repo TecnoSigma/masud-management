@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe OrdersManagementPresenter do
   describe '#available_agents' do
     it 'returns available agents mounting list containing agents quantity' do
-      agent = FactoryBot.create(:employee, :agent)
+      FactoryBot.create(:employee, :agent)
 
       expected_result = (0..Agent.count).to_a
 

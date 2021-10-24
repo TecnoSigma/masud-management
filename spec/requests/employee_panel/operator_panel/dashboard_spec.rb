@@ -201,7 +201,7 @@ RSpec.describe 'EmployeePanel::OperatorPanel::Dashboard', type: :request do
         allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
         allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
 
-        team = { agents: "Alves | Silva", team_name: "Tango" }
+        team = { agents: 'Alves | Silva', team_name: 'Tango' }
 
         allow(Builders::Team).to receive_message_chain(:new, :mount!) { team }
 
@@ -218,7 +218,7 @@ RSpec.describe 'EmployeePanel::OperatorPanel::Dashboard', type: :request do
         allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
         allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
 
-        team = { agents: "Alves | Silva", team_name: "Tango" }
+        team = { agents: 'Alves | Silva', team_name: 'Tango' }
 
         allow(Builders::Team).to receive_message_chain(:new, :mount!) { team }
 

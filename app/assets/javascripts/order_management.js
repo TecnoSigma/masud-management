@@ -1,6 +1,15 @@
 $(document).on('turbolinks:load', function() {
         initializers();
 
+        $("#employee_agents_quantity").change(function(){
+                if (document.getElementById("employee_agents_quantity").value == '0') {
+                        document.getElementById("teamLabel").innerHTML = "<i>Nome do Time: </i>";
+                        document.getElementById("agentsLabel").innerHTML = "<i>Agentes: </i>";
+
+                        switchTeamActionsButtons("hidden");
+                }
+        });
+
         $("#employee_caliber_12").change(function(){
                 enableDropDown(this, document.getElementById("employee_calibers_12_quantity"));
         });
@@ -30,6 +39,8 @@ $(document).on('turbolinks:load', function() {
         });
 
         $("#mountTeamBtn").click(function(){
+                if (document.getElementById("employee_agents_quantity").value == '0') return
+
                 var agentsQuantity = { quantity: document.getElementById("employee_agents_quantity").value };
 
                 $.ajax({
@@ -39,6 +50,8 @@ $(document).on('turbolinks:load', function() {
                         success: function(data, status, xhr) {
                                 populateLabel(data.team['team_name'], document.getElementById("teamLabel"), "<i>Nome do Time: </i>");
                                 populateLabel(data.team['agents'], document.getElementById("agentsLabel"), "<i>Agentes: </i>");
+
+                                switchTeamActionsButtons("visible");
 
                         },
                         error: function(xhr, status, error) {
@@ -98,6 +111,11 @@ function switchActionsButtons(action) {
         document.getElementById("clearItemsListBtn").style.visibility = action;
 }
 
+function switchTeamActionsButtons(action) {
+        document.getElementById("confirmTeamBtn").style.visibility = action;
+        document.getElementById("refuseTeamBtn").style.visibility = action;
+}
+
 function initializers() {
         document.getElementById("employee_calibers_12_quantity").disabled = true;
         document.getElementById("employee_calibers_38_quantity").disabled = true;
@@ -107,5 +125,6 @@ function initializers() {
         document.getElementById("employee_radios_quantity").disabled = true;
         document.getElementById("employee_vehicles_quantity").disabled = true;
 
+        switchTeamActionsButtons("hidden")
         switchActionsButtons("hidden");
 }
