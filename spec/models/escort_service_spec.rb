@@ -3,6 +3,14 @@
 require 'rails_helper'
 
 RSpec.describe EscortService, type: :model do
+  describe 'validates relationships' do
+    it 'validates relationship (1:1) between Escort Service and Mission' do
+      mission = Mission.new
+
+      expect(mission).to respond_to(:escort_service)
+    end
+  end
+
   it 'validates inheritance of EscortService with Escort' do
     expect(described_class).to be < Escort
   end

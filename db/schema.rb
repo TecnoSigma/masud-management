@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_23_104437) do
+ActiveRecord::Schema.define(version: 2021_10_25_170217) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,6 +87,19 @@ ActiveRecord::Schema.define(version: 2021_10_23_104437) do
     t.index ["arsenal_id"], name: "index_item_movimentations_on_arsenal_id"
     t.index ["tackle_id"], name: "index_item_movimentations_on_tackle_id"
     t.index ["vehicle_id"], name: "index_item_movimentations_on_vehicle_id"
+  end
+
+  create_table "missions", force: :cascade do |t|
+    t.datetime "started_at"
+    t.datetime "finished_at"
+    t.bigint "team_id"
+    t.bigint "escort_service_id"
+    t.bigint "status_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["escort_service_id"], name: "index_missions_on_escort_service_id"
+    t.index ["status_id"], name: "index_missions_on_status_id"
+    t.index ["team_id"], name: "index_missions_on_team_id"
   end
 
   create_table "munition_stocks", force: :cascade do |t|

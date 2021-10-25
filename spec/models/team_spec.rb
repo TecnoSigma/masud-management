@@ -10,10 +10,16 @@ RSpec.describe Team, type: :model do
       expect(team).to respond_to(:employees)
     end
 
-    it 'validates relationship (1:1) between Team and Vehicle' do
+    it 'validates relationship (1:N) between Team and Vehicle' do
       team = Team.new
 
-      expect(team).to respond_to(:vehicle)
+      expect(team).to respond_to(:vehicles)
+    end
+
+    it 'validates relationship (1:N) between Team and Mission' do
+      team = Team.new
+
+      expect(team).to respond_to(:missions)
     end
   end
 

@@ -39,6 +39,12 @@ RSpec.describe Status, type: :model do
 
       expect(status).to respond_to(:arsenals)
     end
+
+    it 'validates relationship (1:N) between Status and Mission' do
+      status = Status.new
+
+      expect(status).to respond_to(:missions)
+    end
   end
 
   it 'validates presence of name' do

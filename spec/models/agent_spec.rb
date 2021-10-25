@@ -31,6 +31,12 @@ RSpec.describe Agent, type: :model do
 
       expect(agent).to respond_to(:tackles)
     end
+
+    it 'validates relationship (1:N) between Tackle and Mission' do
+      agent = Agent.new
+
+      expect(agent).to respond_to(:missions)
+    end
   end
 
   it 'no validates when pass invalid CVN number' do

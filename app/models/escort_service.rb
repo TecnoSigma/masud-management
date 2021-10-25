@@ -5,6 +5,8 @@ class EscortService < Escort
 
   validate :check_allowed_internal_status
 
+  has_one :mission
+
   ALLOWED_STATUSES = %w[confirmado recusado].freeze
   REFUSE_STATUS = 'recusado'
 
