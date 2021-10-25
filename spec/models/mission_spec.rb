@@ -19,5 +19,11 @@ RSpec.describe Mission, type: :model do
 
       expect(mission).to respond_to(:status)
     end
+
+    it 'validates relationship (N:N) between Mission and Agent' do
+      mission = Mission.new
+
+      expect(mission).to respond_to(:agents)
+    end
   end
 end

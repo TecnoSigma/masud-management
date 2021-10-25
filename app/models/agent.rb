@@ -8,6 +8,7 @@ class Agent < Employee
   has_many :arsenals
   has_many :tackles
   belongs_to :team, optional: true
+  has_and_belongs_to_many :missions
 
   before_create :clear_password
 

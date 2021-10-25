@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_25_170217) do
+ActiveRecord::Schema.define(version: 2021_10_25_225001) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "agents_missions", force: :cascade do |t|
+    t.bigint "agent_id"
+    t.bigint "mission_id"
+    t.index ["agent_id"], name: "index_agents_missions_on_agent_id"
+    t.index ["mission_id"], name: "index_agents_missions_on_mission_id"
+  end
 
   create_table "arsenals", force: :cascade do |t|
     t.string "type"
