@@ -10,17 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_25_225001) do
+ActiveRecord::Schema.define(version: 2021_10_26_024048) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "agents_missions", force: :cascade do |t|
-    t.bigint "agent_id"
-    t.bigint "mission_id"
-    t.index ["agent_id"], name: "index_agents_missions_on_agent_id"
-    t.index ["mission_id"], name: "index_agents_missions_on_mission_id"
-  end
 
   create_table "arsenals", force: :cascade do |t|
     t.string "type"
@@ -94,6 +87,16 @@ ActiveRecord::Schema.define(version: 2021_10_25_225001) do
     t.index ["arsenal_id"], name: "index_item_movimentations_on_arsenal_id"
     t.index ["tackle_id"], name: "index_item_movimentations_on_tackle_id"
     t.index ["vehicle_id"], name: "index_item_movimentations_on_vehicle_id"
+  end
+
+  create_table "mission_histories", force: :cascade do |t|
+    t.string "team"
+    t.string "agents"
+    t.string "items"
+    t.bigint "mission_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["mission_id"], name: "index_mission_histories_on_mission_id"
   end
 
   create_table "missions", force: :cascade do |t|

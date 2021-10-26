@@ -5,9 +5,9 @@ require 'rails_helper'
 RSpec.describe EscortService, type: :model do
   describe 'validates relationships' do
     it 'validates relationship (1:1) between Escort Service and Mission' do
-      mission = Mission.new
+      escort_service = EscortService.new
 
-      expect(mission).to respond_to(:escort_service)
+      expect(escort_service).to respond_to(:mission)
     end
   end
 

@@ -4,10 +4,10 @@ require 'rails_helper'
 
 RSpec.describe Team, type: :model do
   describe 'validates relationships' do
-    it 'validates relationship (1:N) between Team and Employee' do
+    it 'validates relationship (1:N) between Team and Agent' do
       team = Team.new
 
-      expect(team).to respond_to(:employees)
+      expect(team).to respond_to(:agents)
     end
 
     it 'validates relationship (1:N) between Team and Vehicle' do
@@ -16,10 +16,10 @@ RSpec.describe Team, type: :model do
       expect(team).to respond_to(:vehicles)
     end
 
-    it 'validates relationship (1:N) between Team and Mission' do
+    it 'validates relationship (1:1) between Team and Mission' do
       team = Team.new
 
-      expect(team).to respond_to(:missions)
+      expect(team).to respond_to(:mission)
     end
   end
 

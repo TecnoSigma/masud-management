@@ -3,9 +3,9 @@
 class Team < ApplicationRecord
   validates :name, presence: true
 
-  has_many :missions
+  has_one :mission
   has_many :vehicles
-  has_many :employees
+  has_many :agents
 
-  scope :available, -> { select { |team| team.employees.empty? } }
+  scope :available, -> { select { |team| team.agents.empty? } }
 end
