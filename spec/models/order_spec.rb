@@ -184,14 +184,12 @@ RSpec.describe Order, type: :model do
 
     it 'returns \'true\' when order creation date is greater than 3 hours' do
       customer = FactoryBot.create(:customer)
-      status = FactoryBot.create(:status, name: 'agendado')
 
       escort = FactoryBot.create(:order,
                                  :scheduled,
                                  customer: customer,
-                                 status: status,
-                                 job_horary: (DateTime.now + 4.hours).strftime('%H:%M'),
-                                 job_day: DateTime.now.strftime('%d/%m/%Y'))
+                                 job_horary: (DateTime.tomorrow + 4.hours).strftime('%H:%M'),
+                                 job_day: DateTime.tomorrow.strftime('%d/%m/%Y'))
 
       result = escort.deletable?
 

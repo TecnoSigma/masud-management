@@ -15,28 +15,28 @@ FactoryBot.define do
     destiny_city { FactoryBot.create(:city).name }
     destiny_state { FactoryBot.create(:state).name }
     observation { Faker::Lorem.sentence }
-    status { FactoryBot.create(:status, name: 'agendado') }
+    status { Status.find_by_name('agendado') || FactoryBot.create(:status, name: 'agendado') }
     customer { FactoryBot.create(:customer) }
   end
 
   trait :scheduled do
     type { 'EscortScheduling' }
-    status { FactoryBot.create(:status, name: 'agendado') }
+    status { Status.find_by_name('agendado') || FactoryBot.create(:status, name: 'agendado') }
   end
 
   trait :cancelled_by_customer do
     type { 'EscortScheduling' }
-    status { FactoryBot.create(:status, name: 'cancelado pelo cliente') }
+    status { Status.find_by_name('cancelado pelo cliente') || FactoryBot.create(:status, name: 'cancelado pelo cliente') }
   end
 
   trait :confirmed do
     type { 'EscortService' }
-    status { FactoryBot.create(:status, name: 'confirmado') }
+    status { Status.find_by_name('confirmado') || FactoryBot.create(:status, name: 'confirmado') }
   end
 
   trait :refused do
     type { 'EscortService' }
     reason { Faker::Lorem.sentence }
-    status { FactoryBot.create(:status, name: 'recusado') }
+    status { Status.find_by_name('recusado') || FactoryBot.create(:status, name: 'recusado') }
   end
 end

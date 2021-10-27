@@ -6,8 +6,8 @@ FactoryBot.define do
       kind { %w(Espingarda Revólver).sample }
       caliber { kind == 'Espingarda' ? '12' : '38' }
       sinarm { Faker::Base.regexify(/^\d{15}$/) }
-      situation { FactoryBot.create(:status, name: 'regular') }
-      status { FactoryBot.create(:status, name: 'ativo') }
+      situation { Status.find_by_name('regular') || FactoryBot.create(:status, name: 'regular') }
+      status { Status.find_by_name('ativo') || FactoryBot.create(:status, name: 'ativo') }
       registration_validity { 90.days.after }
     end
 

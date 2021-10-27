@@ -6,7 +6,7 @@ FactoryBot.define do
     secondary_email { Faker::Internet.email }
     tertiary_email { Faker::Internet.email }
     telephone { "(21) 9#{Faker::Number.number(digits: 4)}-#{Faker::Number.number(digits: 4)}" }
-    status { FactoryBot.create(:status, name: 'ativo') }
+    status { Status.find_by_name('ativo') || FactoryBot.create(:status, name: 'ativo') }
     service_token { FactoryBot.create(:service_token) }
   end
 end

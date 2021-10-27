@@ -27,12 +27,6 @@ class Agent < Employee
     return true if team.nil?
     return false if team.mission && team.mission.finished_at.nil?
 
-    finished_date = MissionHistory
-      .select { |mission_history| mission_history if mission_history.agents.include?(cvn_number) }
-      .last
-      .mission
-      .finished_at
-
     TimeDifference
       .between(finished_date, Time.zone.now).in_hours > INTERVAL_BETWEEN_MISSIONS
   end
@@ -43,5 +37,15 @@ class Agent < Employee
 
   def clear_password
     self.password = nil
+  end
+
+  private
+
+  def finished_date
+    MissionHistory
+      .select { |mission_history| mission_history if mission_history.agents.include?(cvn_number) }
+      .last
+      .mission
+      .finished_at
   end
 end

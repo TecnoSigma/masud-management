@@ -52,4 +52,11 @@ RSpec.describe Status, type: :model do
 
     expect(status).to be_invalid
   end
+
+  it 'no validates duplicated status' do
+    status1 = FactoryBot.create(:status)
+    status2 = FactoryBot.build(:status, name: status1.name)
+
+    expect(status2).to be_invalid
+  end
 end

@@ -8,7 +8,7 @@ FactoryBot.define do
     protection_level { %w(A B C D E ).sample }
     bond_date { 10.days.ago }
     situation { 'regular' }
-    status { FactoryBot.create(:status, name: 'ativo') }
+    status { Status.find_by_name('ativo') || FactoryBot.create(:status, name: 'ativo') }
 
     trait :radio do
       type { 'Radio' }

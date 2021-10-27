@@ -181,7 +181,7 @@ RSpec.describe Agent, type: :model do
         it 'and haven\'t missions' do
           FactoryBot.create(:status, name: 'ativo')
           deactivated_status = FactoryBot.create(:status, name: 'desativado')
-          employee = FactoryBot.create(:employee, :agent, status: deactivated_status)
+          FactoryBot.create(:employee, :agent, status: deactivated_status)
 
           result = Agent.available
 
@@ -195,7 +195,7 @@ RSpec.describe Agent, type: :model do
             FactoryBot.attributes_for(:order, :confirmed, status: confirmed_status)
           )
           team = FactoryBot.create(:team)
-          mission = FactoryBot.create(
+          FactoryBot.create(
             :mission,
             team: team,
             escort_service: escort_service,
@@ -219,7 +219,7 @@ RSpec.describe Agent, type: :model do
             FactoryBot.attributes_for(:order, :confirmed, status: confirmed_status)
           )
           team = FactoryBot.create(:team)
-          mission = FactoryBot.create(
+          FactoryBot.create(
             :mission,
             team: team,
             escort_service: escort_service,
@@ -254,7 +254,7 @@ RSpec.describe Agent, type: :model do
             FactoryBot.attributes_for(:order, :confirmed, status: confirmed_status)
           )
           team = FactoryBot.create(:team)
-          mission = FactoryBot.create(
+          FactoryBot.create(
             :mission,
             team: team,
             escort_service: escort_service,
@@ -278,7 +278,7 @@ RSpec.describe Agent, type: :model do
             FactoryBot.attributes_for(:order, :confirmed, status: confirmed_status)
           )
           team = FactoryBot.create(:team)
-          mission = FactoryBot.create(
+          FactoryBot.create(
             :mission,
             team: team,
             escort_service: escort_service,

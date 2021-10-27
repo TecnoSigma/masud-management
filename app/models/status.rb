@@ -2,6 +2,7 @@
 
 class Status < ApplicationRecord
   validates :name, presence: true
+  validates :name, uniqueness: true
 
   has_many :customers
   has_many :employees

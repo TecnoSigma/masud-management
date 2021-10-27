@@ -7,7 +7,7 @@ FactoryBot.define do
     resignation_date { nil }
     rg { Faker::Base.regexify(/^\d{2}.\d{3}.\d{3}-\d{1}$/) }
     cpf { Faker::Base.regexify(/^\d{3}.\d{3}.\d{3}-\d{2}$/) }
-    status { FactoryBot.create(:status, name: 'ativo') }
+    status { Status.find_by_name('ativo') || FactoryBot.create(:status, name: 'ativo') }
     service_token { FactoryBot.create(:service_token) }
 
     trait :admin do

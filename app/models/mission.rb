@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Mission < ApplicationRecord
   has_one :mission_history
   belongs_to :team
