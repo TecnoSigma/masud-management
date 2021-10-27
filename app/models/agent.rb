@@ -11,7 +11,31 @@ class Agent < Employee
 
   before_create :clear_password
 
-  scope :available, -> { all }
+  INTERVAL_BETWEEN_MISSIONS = 13 # in hours
+
+  def self.available
+    agents = Agent.all.inject([]) { |list, agent| list << agent if agent.active? && agent.rested? }
+
+    agents || []
+  end
+
+  def active?
+    status == Status.find_by_name('ativo')
+  end
+
+  def rested?
+    return true if team.nil?
+    return false if team.mission && team.mission.finished_at.nil?
+
+    finished_date = MissionHistory
+      .select { |mission_history| mission_history if mission_history.agents.include?(cvn_number) }
+      .last
+      .mission
+      .finished_at
+
+    TimeDifference
+      .between(finished_date, Time.zone.now).in_hours > INTERVAL_BETWEEN_MISSIONS
+  end
 
   def expired_cvn?
     cvn_validation_date < Date.today

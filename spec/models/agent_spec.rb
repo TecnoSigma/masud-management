@@ -137,6 +137,8 @@ RSpec.describe Agent, type: :model do
           agent = Agent.find(employee.id)
           agent.update(team: team)
 
+          FactoryBot.create(:mission_history, agents: [agent.cvn_number], mission: mission)
+
           expected_result = [agent]
 
           result = Agent.available
@@ -147,8 +149,37 @@ RSpec.describe Agent, type: :model do
     end
 
     context 'no returns list agents' do
+      context 'when agent is active' do
+        it 'and the last mission was to less than 13 hours' do
+          active_status = FactoryBot.create(:status, name: 'ativo')
+          confirmed_status = FactoryBot.create(:status, name: 'confirmado')
+          escort_service = EscortService.new(
+            FactoryBot.attributes_for(:order, :confirmed, status: confirmed_status)
+          )
+          team = FactoryBot.create(:team)
+          mission = FactoryBot.create(
+            :mission,
+            team: team,
+            escort_service: escort_service,
+            started_at: 20.hours.ago,
+            finished_at: 12.hours.ago
+          )
+          employee = FactoryBot.create(:employee, :agent, status: active_status)
+
+          agent = Agent.find(employee.id)
+          agent.update(team: team)
+
+          FactoryBot.create(:mission_history, agents: [agent.cvn_number], mission: mission)
+
+          result = Agent.available
+
+          expect(result).to be_empty
+        end
+      end
+
       context 'when agent is deactivated' do
         it 'and haven\'t missions' do
+          FactoryBot.create(:status, name: 'ativo')
           deactivated_status = FactoryBot.create(:status, name: 'desativado')
           employee = FactoryBot.create(:employee, :agent, status: deactivated_status)
 
@@ -181,7 +212,7 @@ RSpec.describe Agent, type: :model do
           expect(result).to be_empty
         end
 
-        it 'and the last mission was to less than 13 hours' do
+        it 'and the last mission was to less more 13 hours' do
           deactivated_status = FactoryBot.create(:status, name: 'desativado')
           confirmed_status = FactoryBot.create(:status, name: 'confirmado')
           escort_service = EscortService.new(
@@ -193,7 +224,7 @@ RSpec.describe Agent, type: :model do
             team: team,
             escort_service: escort_service,
             started_at: 20.hours.ago,
-            finished_at: 12.hours.ago
+            finished_at: 14.hours.ago
           )
           employee = FactoryBot.create(:employee, :agent, status: deactivated_status)
 
@@ -240,7 +271,7 @@ RSpec.describe Agent, type: :model do
           expect(result).to be_empty
         end
 
-        it 'when the last mission was to less than 13 hours' do
+        it 'when the last mission was to more than 13 hours' do
           suspended_status = FactoryBot.create(:status, name: 'suspenso')
           confirmed_status = FactoryBot.create(:status, name: 'confirmado')
           escort_service = EscortService.new(
@@ -252,7 +283,7 @@ RSpec.describe Agent, type: :model do
             team: team,
             escort_service: escort_service,
             started_at: 20.hours.ago,
-            finished_at: 12.hours.ago
+            finished_at: 14.hours.ago
           )
           employee = FactoryBot.create(:employee, :agent, status: suspended_status)
 

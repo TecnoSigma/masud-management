@@ -91,8 +91,8 @@ ActiveRecord::Schema.define(version: 2021_10_26_024048) do
 
   create_table "mission_histories", force: :cascade do |t|
     t.string "team"
-    t.string "agents"
-    t.string "items"
+    t.text "agents", default: [], array: true
+    t.text "items", default: [], array: true
     t.bigint "mission_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
