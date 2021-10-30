@@ -13,8 +13,22 @@ module EmployeePanel
                                page: params[:page])
         end
 
+        def unblock
+          update_escort!
+
+          redirect_to '/gestao/admin/dashboard/escoltas/blocked',
+                      notice: t('messages.successes.order_unblocked_successfully',
+                                order_number: order.order_number)
+        rescue StandardError => error
+          Rails.logger.error("Message: #{error.message} - Backtrace: #{error.backtrace}")
+
+          redirect_to '/gestao/admin/dashboard/escoltas/blocked',
+                      alert: t('messages.errors.unblock_failed',
+                               order_number: params['order_number'])
+        end
+
         def show
-          @escort = Order.find_by_order_number(params['order_number'])
+          @escort = order
 
           raise FindEscortError unless @escort
           raise TypeError unless @escort.escort?
@@ -24,6 +38,16 @@ module EmployeePanel
         end
 
         private
+
+        def update_escort!
+          raise FindEscortError unless order
+
+          order.update(status: Status.find_by_name('agendado'), reason: nil)
+        end
+
+        def order
+          @order ||= Order.find_by_order_number(params['order_number'])
+        end
 
         def error_message(error_class)
           if [FindEscortError, TypeError].include?(error_class)

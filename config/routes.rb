@@ -39,8 +39,9 @@ Rails.application.routes.draw do
     scope module: 'administrator_panel', path: 'admin', as: 'administrator' do
       get 'dashboard/index'
 
-      get 'dashboard/escoltas/:status',      to: 'dashboard/escorts#escorts', as: 'dashboard_escorts'
-      get 'dashboard/escolta/:order_number', to: 'dashboard/escorts#show',    as: 'dashboard_escort_show'
+      get 'dashboard/escoltas/:status',                to: 'dashboard/escorts#escorts', as: 'dashboard_escorts'
+      get 'dashboard/escolta/:order_number',           to: 'dashboard/escorts#show',    as: 'dashboard_escort_show'
+      patch 'dashboard/escolta/unblock/:order_number', to: 'dashboard/escorts#unblock', as: 'dashboard_escort_unblock'
 
       get 'dashboard/clientes',              to: 'dashboard/customers#list'
       get 'dashboard/cliente/novo',          to: 'dashboard/customers#new'

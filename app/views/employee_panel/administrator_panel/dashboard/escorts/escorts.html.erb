@@ -2,6 +2,7 @@
 <ol class="breadcrumb mb-4">
   <li class="breadcrumb-item active"><%= t('breadcrumbs.escorts_list') %></li>
 </ol>
+<%= render './partials/messages' %>
 <div class="card mb-4">
   <div class="card-header">
     <i class="fas fa-table me-1"></i>
@@ -22,19 +23,21 @@
           <th></th>
         </tr>
       </thead>
-      <tfoot>
-        <tr>
-          <th><%= t('.order') %></th>
-          <th><%= t('.customer_name') %></th>
-          <th><%= t('.job_date_time') %></th>
-          <th><%= t('.source') %></th>
-          <th><%= t('.destiny') %></th>
-          <th><%= t('.observation') %></th>
-          <th><%= t('.status') %></th>
-          <th><%= t('.created_at') %></th>
-          <th></th>
-        </tr>
-      </tfoot>
+      <% if @escorts.any? %>
+        <tfoot>
+          <tr>
+            <th><%= t('.order') %></th>
+            <th><%= t('.customer_name') %></th>
+            <th><%= t('.job_date_time') %></th>
+            <th><%= t('.source') %></th>
+            <th><%= t('.destiny') %></th>
+            <th><%= t('.observation') %></th>
+            <th><%= t('.status') %></th>
+            <th><%= t('.created_at') %></th>
+            <th></th>
+          </tr>
+        </tfoot>
+      <% end %>
       <tbody>
         <% @escorts.each do |escort| %>
           <tr class="<%= order_color(escort) %>">

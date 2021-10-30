@@ -1,7 +1,7 @@
 <h1 class="mt-4"><%= t('.title', order_number: @escort.order_number) %></h1>
 <ol class="breadcrumb mb-4">
   <li class="breadcrumb-item">
-    <%= link_to t('breadcrumbs.escorts_list'), customer_panel_dashboard_escolta_lista_path %>
+    <%= link_to t('breadcrumbs.escorts_list'), employee_panel_administrator_dashboard_index_path %>
   </li>
   <li class="breadcrumb-item active"><%= t('breadcrumbs.show_escort', order_number: @escort.order_number) %></li>
 </ol>
@@ -25,6 +25,14 @@
                       <%= @escort.status.name.upcase %>
                     </span>
                   </p>
+                  <% if @escort.status.name == Order::ALLOWED_STATUSES[:blocked] %>
+                    <p>
+                      <strong><%= t('.reason') %></strong>
+                      <span>
+                        <%= @escort.reason %>
+                      </span>
+                    </p>
+                  <% end %>
                 </div>
                 <hr>
                 <h4><strong><%= t('.source_local') %></strong></h4>
@@ -112,6 +120,12 @@
                 </div>
                 <br>
                 <%= link_to t('.back_btn'), :back, class: 'btn btn-primary' %>
+                <% if @escort.status.name == Order::ALLOWED_STATUSES[:blocked] %>
+                  <%= link_to t('.unblock_btn'),
+                              { action: 'unblock', order_number: @escort.order_number },
+                              method: :patch,
+                              class: 'btn btn-success' %>
+                <% end %>
               </div>
               <div class="card-footer text-center py-3"></div>
             </div>
@@ -121,4 +135,4 @@
     </main>
   </div>
 </div>
-<% #TODO: INSERIR MAIORES DETALHES QUANDO OS STATUS FOREM 'CONFIRMADO' E 'RECUSADO' %>
+<% #TODO: INSERIR MAIORES DETALHES QUANDO OS STATUS FOREM 'CONFIRMADO' %>

@@ -24,6 +24,12 @@ FactoryBot.define do
     status { Status.find_by_name('agendado') || FactoryBot.create(:status, name: 'agendado') }
   end
 
+  trait :blocked do
+    type { 'EscortScheduling' }
+    reason { Faker::Lorem.sentence }
+    status { Status.find_by_name('bloqueado') || FactoryBot.create(:status, name: 'bloqueado') }
+  end
+
   trait :cancelled_by_customer do
     type { 'EscortScheduling' }
     status { Status.find_by_name('cancelado pelo cliente') || FactoryBot.create(:status, name: 'cancelado pelo cliente') }

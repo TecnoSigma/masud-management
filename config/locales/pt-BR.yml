@@ -64,6 +64,7 @@ pt-BR:
       find_failed: 'Falha ao procurar dados!'
       update_failed: 'Falha ao atualizar dados!'
       remove_failed: 'Falha ao remover dados!'
+      unblock_failed: 'Falha ao desbloquear pedido %{order_number}!'
       escort:
         not_found: 'Escolta não encontrada!'
       customer:
@@ -99,6 +100,7 @@ pt-BR:
       scheduling_cancelation_successfully: 'Agendamento cancelado com sucesso!'
       password_changed_successfully: 'Senha alterada com sucesso!'
       password_sent_successfully: 'Senha enviada com sucesso!'
+      order_unblocked_successfully: 'Desbloqueio do pedido %{order_number} executado com sucesso!'
       customer:
         created_successfully: 'Cliente %{company} criado com sucesso!'
         updated_successfully: 'Dados do cliente atualizados com sucesso!'
@@ -274,6 +276,7 @@ pt-BR:
             details: 'detalhes'
           show:
             title: 'Escoltas'
+            reason: 'Motivo: '
             job_day: 'Data: '
             status: 'Status: '
             address: 'Endereço: '
@@ -284,6 +287,7 @@ pt-BR:
             state: 'Estado: '
             observation: 'Observação: '
             back_btn: 'Voltar'
+            unblock_btn: 'Desbloquear'
             cancel_btn: 'Cancelar Agendamento'
             escort_date: 'Data da Escolta'
             source_local: 'Local de Origem'
