@@ -75,7 +75,13 @@ module EmployeePanel
       end
 
       def update_blocking_status!
-        order.update(status: Status.find_by_name('bloqueado'))
+        order.update(
+          status: Status.find_by_name('bloqueado'),
+          reason: t('messages.infos.blocking_reason', employee_name: employee_name))
+      end
+
+      def employee_name
+        ServiceToken.find_by_token(session[:employee_token]).employee.name
       end
 
       def send_block_notification!

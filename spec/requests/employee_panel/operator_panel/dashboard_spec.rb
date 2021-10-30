@@ -335,12 +335,15 @@ RSpec.describe 'EmployeePanel::OperatorPanel::Dashboard', type: :request do
       it 'updates order status to \'bloqueado\'' do
         FactoryBot.create(:status, name: 'bloqueado')
         order = FactoryBot.create(:order)
+        employee_name = 'João'
 
         allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
         allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
         allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
 
         allow(Order).to receive(:find_by_order_number) { order }
+        allow(ServiceToken)
+          .to receive_message_chain(:find_by_token, :employee, :name) { employee_name }
         allow(Notifications::Order)
           .to receive_message_chain(:warn_about_blocking, :deliver_now!) { true }
 
@@ -352,15 +355,41 @@ RSpec.describe 'EmployeePanel::OperatorPanel::Dashboard', type: :request do
         expect(result).to eq('bloqueado')
       end
 
-      it 'redirects to orders page' do
+      it 'saves blocking reason' do
         FactoryBot.create(:status, name: 'bloqueado')
         order = FactoryBot.create(:order)
+        employee_name = 'João'
 
         allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
         allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
         allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
 
         allow(Order).to receive(:find_by_order_number) { order }
+        allow(ServiceToken)
+          .to receive_message_chain(:find_by_token, :employee, :name) { employee_name }
+        allow(Notifications::Order)
+          .to receive_message_chain(:warn_about_blocking, :deliver_now!) { true }
+
+        post '/gestao/operador/dashboard/gerenciamento/block_order.json',
+             params: { block: true }
+
+        result = Order.find_by_order_number(order.order_number).reason
+
+        expect(result).to eq("Bloqueio por excesso de recusas do #{employee_name}")
+      end
+
+      it 'redirects to orders page' do
+        FactoryBot.create(:status, name: 'bloqueado')
+        order = FactoryBot.create(:order)
+        employee_name = 'João'
+
+        allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
+
+        allow(Order).to receive(:find_by_order_number) { order }
+        allow(ServiceToken)
+          .to receive_message_chain(:find_by_token, :employee, :name) { employee_name }
         allow(Notifications::Order)
           .to receive_message_chain(:warn_about_blocking, :deliver_now!) { true }
 
@@ -373,12 +402,15 @@ RSpec.describe 'EmployeePanel::OperatorPanel::Dashboard', type: :request do
       it 'shows blocking message' do
         FactoryBot.create(:status, name: 'bloqueado')
         order = FactoryBot.create(:order)
+        employee_name = 'João'
 
         allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
         allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
         allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
 
         allow(Order).to receive(:find_by_order_number) { order }
+        allow(ServiceToken)
+          .to receive_message_chain(:find_by_token, :employee, :name) { employee_name }
         allow(Notifications::Order)
           .to receive_message_chain(:warn_about_blocking, :deliver_now!) { true }
 

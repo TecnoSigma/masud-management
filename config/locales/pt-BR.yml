@@ -93,6 +93,7 @@ pt-BR:
       scheduling_cancelation: 'Importante: Todo agendamento poderá ser cancelado em até trẽs horas antes da execução do serviço.'
       password_strength: 'Dica; Utilize letras, números e caracteres especiais (&, @, !, #) '
       munition_stock_update: 'Estoque de munição calibre %{caliber} atualizado para %{quantity}!'
+      blocking_reason: 'Bloqueio por excesso de recusas do %{employee_name}'
     successes:
       scheduling_creation_successfully: 'Agendamento criado com sucesso!'
       scheduling_cancelation_successfully: 'Agendamento cancelado com sucesso!'
@@ -635,6 +636,7 @@ pt-BR:
       internal_management: 'gestão interna'
       escort:
         type: 'Escoltas'
+        blocked: 'Bloqueadas'
         scheduled: 'Agendadas'
         confirmed: 'Confirmadas'
         refused: 'Recusadas'
