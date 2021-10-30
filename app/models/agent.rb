@@ -13,22 +13,14 @@ class Agent < Employee
 
   INTERVAL_BETWEEN_MISSIONS = 13 # in hours
 
+  scope :actives, -> { where(status: Status.find_by_name('ativo')) }
+
   def self.available
-    agents = Agent.all.inject([]) { |list, agent| list << agent if agent.active? && agent.rested? }
-
-    agents || []
-  end
-
-  def active?
-    status == Status.find_by_name('ativo')
+    beginner_agents + sorted_rested_agents
   end
 
   def rested?
-    return true if team.nil?
-    return false if team.mission && team.mission.finished_at.nil?
-
-    TimeDifference
-      .between(finished_date, Time.zone.now).in_hours > INTERVAL_BETWEEN_MISSIONS
+    TimeDifference.between(last_mission, Time.zone.now).in_hours > INTERVAL_BETWEEN_MISSIONS
   end
 
   def expired_cvn?
@@ -39,13 +31,21 @@ class Agent < Employee
     self.password = nil
   end
 
-  private
-
-  def finished_date
-    MissionHistory
-      .select { |mission_history| mission_history if mission_history.agents.include?(cvn_number) }
-      .last
-      .mission
-      .finished_at
+  def self.rested_agents
+    actives.select do |agent|
+      agent.in_mission == false && agent.last_mission.present? && agent.rested?
+    end
   end
+
+  def self.beginner_agents
+    actives.select { |agent| agent.in_mission == false && agent.last_mission.nil? }
+  end
+
+  def self.sorted_rested_agents
+    rested = rested_agents
+
+    rested.any? ? rested.sort { |first, last| last.last_mission <=> first.last_mission } : rested
+  end
+
+  private_class_method :rested_agents, :beginner_agents, :sorted_rested_agents
 end

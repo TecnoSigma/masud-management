@@ -24,8 +24,8 @@ module Builders
     def mount_agents
       Agent
         .available
+        .first(agent_quantity)
         .map(&:codename)
-        .sample(agent_quantity)
         .sort
         .join(I18n.t('builders.mission_items.separator'))
     end

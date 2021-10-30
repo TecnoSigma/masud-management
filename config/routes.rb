@@ -103,6 +103,7 @@ Rails.application.routes.draw do
       get 'dashboard/gerenciamento/:order_number',          to: 'dashboard#order_management', as:  'dashboard_order_management'
       post 'dashboard/gerenciamento/mount_items_list',      to: 'dashboard#mount_items_list'
       post 'dashboard/gerenciamento/mount_team',            to: 'dashboard#mount_team'
+      post 'dashboard/gerenciamento/refuse_team',           to: 'dashboard#refuse_team'
       patch 'dashboard/gerenciamento/:order_number/refuse', to: 'dashboard#refuse', as: 'dashboard_refuse'
     end
   end

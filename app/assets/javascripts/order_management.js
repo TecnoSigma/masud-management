@@ -55,15 +55,15 @@ $(document).on('turbolinks:load', function() {
 
                                 switchTeamActionsButtons("visible");
 
-                                missionInfo.team = data.team
+                                missionInfo.team = data.team;
+
+                                document.getElementById("mountTeamBtn").style.visibility = "hidden";
                         },
                         error: function(xhr, status, error) {
                                 console.log(error);
                         }
                 })
         });
-
-
 
         $("#mountItemsListBtn").click(function(){
                 var missionItens = {
@@ -89,7 +89,40 @@ $(document).on('turbolinks:load', function() {
                                 populateLabel(data.descriptive_items['radios'], document.getElementById("chosenRadio"), "<i>Rádio: </i>");
                                 populateLabel(data.descriptive_items['vehicles'], document.getElementById("chosenVehicle"), "<i>Viatura: </i>");
 
-                                missionInfo.descriptive_items = data.descriptive_items
+                                missionInfo.descriptive_items = data.descriptive_items;
+                        },
+                        error: function(xhr, status, error) {
+                                console.log(error);
+                        }
+                })
+        });
+
+        $("#confirmTeamBtn").click(function(){
+                switchTeamActionsButtons("hidden");
+        });
+
+        $('#refuseTeamBtn').click(function(){
+                const counter = 1;
+
+                $.ajax({
+                        url: "/gestao/operador/dashboard/gerenciamento/refuse_team",
+                        type: "POST",
+                        data: { counter: counter },
+                        success: function(data, status, xhr) {
+                                if (data.exceeded_attempts == true) {
+                                        document.getElementById("refuseInfo").innerHTML = "<span style='color: red'>Quantidade de recusas excedidas. Solicite o desbloqueio ao Administrador.</span>";
+
+                                        switchTeamActionsButtons("hidden");
+                                        switchActionsButtons("hidden");
+                                        switchOrderButtons("hidden");
+
+                                        document.getElementById("mountTeamBtn").style.visibility = "hidden";
+                                        document.getElementById("mountItemsListBtn").style.visibility = "hidden";
+                                        document.getElementById("employee_agents_quantity").disabled = true;
+                                } else {
+                                        document.getElementById("mountTeamBtn").style.visibility = "visible";
+                                        document.getElementById("refuseInfo").innerHTML = "<span style='color: gray''>" + data.attempts + "ª recusa</span>";
+                                }
                         },
                         error: function(xhr, status, error) {
                                 console.log(error);
@@ -118,6 +151,11 @@ function switchActionsButtons(action) {
         document.getElementById("clearItemsListBtn").style.visibility = action;
 }
 
+function switchOrderButtons(action) {
+        document.getElementById("confirmOrderBtn").style.visibility = action;
+        document.getElementById("refuseOrderBtn").style.visibility = action;
+}
+
 function switchTeamActionsButtons(action) {
         document.getElementById("confirmTeamBtn").style.visibility = action;
         document.getElementById("refuseTeamBtn").style.visibility = action;
@@ -132,6 +170,6 @@ function initializers() {
         document.getElementById("employee_radios_quantity").disabled = true;
         document.getElementById("employee_vehicles_quantity").disabled = true;
 
-        switchTeamActionsButtons("hidden")
+        switchTeamActionsButtons("hidden");
         switchActionsButtons("hidden");
 }

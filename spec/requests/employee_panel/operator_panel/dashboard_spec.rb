@@ -259,4 +259,74 @@ RSpec.describe 'EmployeePanel::OperatorPanel::Dashboard', type: :request do
       end
     end
   end
+
+  describe '#refuse_team' do
+    context 'when pass valid params' do
+      context 'and is a first attempt' do
+        it 'returns hash with attempts quantity in JSON format' do
+          counter = 1
+          attempt = 1
+          allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
+          allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
+          allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
+
+          post '/gestao/operador/dashboard/gerenciamento/refuse_team.json',
+               params: { 'counter' => counter }
+
+          expect(response.body).to eq("{\"exceeded_attempts\":false,\"attempts\":#{attempt}}")
+          expect(response).to have_http_status(200)
+        end
+      end
+
+      context 'and is a second attempt' do
+        it 'returns hash with attempts quantity in JSON format' do
+          counter = 1
+          attempts = 2
+          allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
+          allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
+          allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
+
+          (0..(attempts - 1)).each do |_i|
+            post '/gestao/operador/dashboard/gerenciamento/refuse_team.json',
+                 params: { 'counter' => counter }
+          end
+
+          expect(response.body).to eq("{\"exceeded_attempts\":false,\"attempts\":#{attempts}}")
+          expect(response).to have_http_status(200)
+        end
+      end
+
+      context 'and is a third attempt' do
+        it 'returns hash informing that the attempts were exceeded in JSON format' do
+          counter = 1
+          attempts = 3
+          allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
+          allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
+          allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
+
+          (0..(attempts - 1)).each do |_i|
+            post '/gestao/operador/dashboard/gerenciamento/refuse_team.json',
+                 params: { 'counter' => counter }
+          end
+
+          expect(response.body).to eq('{"exceeded_attempts":true,"attempts":null}')
+          expect(response).to have_http_status(200)
+        end
+      end
+    end
+
+    context 'when occurs errors' do
+      it 'returns hash with attempts quantity in JSON format' do
+        allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
+
+        post '/gestao/operador/dashboard/gerenciamento/refuse_team.json',
+             params: { 'counter' => 'invalid_param' }
+
+        expect(response.body).to eq('{"exceeded_attempts":"error"}')
+        expect(response).to have_http_status(500)
+      end
+    end
+  end
 end

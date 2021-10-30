@@ -9,7 +9,7 @@ RSpec.describe 'Builders::Team' do
       team_name = 'Tango'
 
       allow(Team).to receive_message_chain(:available, :map, :sample) { team_name }
-      allow(Agent).to receive_message_chain(:available, :map, :sample) { agents }
+      allow(Agent).to receive_message_chain(:available, :first, :map) { agents }
 
       expected_result = { agents: "#{agents.first} | #{agents.last}", team_name: team_name }
 

@@ -27,6 +27,8 @@ class Order < ApplicationRecord
 
   before_create :create_order_number
 
+  ALLOWED_REFUSES = 2
+
   ALLOWED_STATUSES = {
     scheduled: 'agendado',
     confirmed: 'confirmado',

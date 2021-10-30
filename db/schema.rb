@@ -67,6 +67,8 @@ ActiveRecord::Schema.define(version: 2021_10_26_024048) do
     t.string "email"
     t.string "password"
     t.datetime "deleted_at"
+    t.boolean "in_mission", default: false
+    t.datetime "last_mission"
     t.bigint "team_id"
     t.bigint "status_id"
     t.datetime "created_at", null: false

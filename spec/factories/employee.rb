@@ -9,6 +9,9 @@ FactoryBot.define do
     cpf { Faker::Base.regexify(/^\d{3}.\d{3}.\d{3}-\d{2}$/) }
     status { Status.find_by_name('ativo') || FactoryBot.create(:status, name: 'ativo') }
     service_token { FactoryBot.create(:service_token) }
+    last_mission { nil }
+    in_mission { false }
+
 
     trait :admin do
       type { 'Administrator' }
