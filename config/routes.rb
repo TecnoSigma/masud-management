@@ -104,6 +104,7 @@ Rails.application.routes.draw do
       post 'dashboard/gerenciamento/mount_items_list',      to: 'dashboard#mount_items_list'
       post 'dashboard/gerenciamento/mount_team',            to: 'dashboard#mount_team'
       post 'dashboard/gerenciamento/refuse_team',           to: 'dashboard#refuse_team'
+      post 'dashboard/gerenciamento/block_order',           to: 'dashboard#block_order'
       patch 'dashboard/gerenciamento/:order_number/refuse', to: 'dashboard#refuse', as: 'dashboard_refuse'
     end
   end

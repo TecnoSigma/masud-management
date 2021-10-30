@@ -10,6 +10,7 @@ module Tasks
                        "cancelada",
                        "cancelado pelo cliente",
                        "confirmado",
+                       "bloqueado",
                        "deletado",
                        "desativado",
                        "desligado",

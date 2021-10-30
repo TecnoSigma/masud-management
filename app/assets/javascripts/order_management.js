@@ -119,6 +119,8 @@ $(document).on('turbolinks:load', function() {
                                         document.getElementById("mountTeamBtn").style.visibility = "hidden";
                                         document.getElementById("mountItemsListBtn").style.visibility = "hidden";
                                         document.getElementById("employee_agents_quantity").disabled = true;
+
+                                        blockOrder();
                                 } else {
                                         document.getElementById("mountTeamBtn").style.visibility = "visible";
                                         document.getElementById("refuseInfo").innerHTML = "<span style='color: gray''>" + data.attempts + "ª recusa</span>";
@@ -159,6 +161,16 @@ function switchOrderButtons(action) {
 function switchTeamActionsButtons(action) {
         document.getElementById("confirmTeamBtn").style.visibility = action;
         document.getElementById("refuseTeamBtn").style.visibility = action;
+}
+
+function blockOrder() {
+        $.ajax({
+                url: "/gestao/operador/dashboard/gerenciamento/block_order",
+                type: "POST",
+                data: { block: true },
+                success: function(data, status, xhr) { },
+                error: function(xhr, status, error) { console.log(error); }
+        })
 }
 
 function initializers() {

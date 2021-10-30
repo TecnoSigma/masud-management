@@ -329,4 +329,28 @@ RSpec.describe 'EmployeePanel::OperatorPanel::Dashboard', type: :request do
       end
     end
   end
+
+  describe '#block_order' do
+    context 'when pass valid params' do
+      it 'updates order status to \'bloqueado\'' do
+        FactoryBot.create(:status, name: 'bloqueado')
+        order = FactoryBot.create(:order)
+
+        allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
+
+        allow(Order).to receive(:find_by_order_number) { order }
+        allow(Notifications::Order)
+          .to receive_message_chain(:warn_about_blocking, :deliver_now!) { true }
+
+        post '/gestao/operador/dashboard/gerenciamento/block_order.json',
+             params: { block: true }
+
+        result = Order.find_by_order_number(order.order_number).status.name
+
+        expect(result).to eq('bloqueado')
+      end
+    end
+  end
 end

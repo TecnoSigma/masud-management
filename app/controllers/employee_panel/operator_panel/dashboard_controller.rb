@@ -17,6 +17,8 @@ module EmployeePanel
       end
 
       def order_management
+        session[:order_number] = params['order_number']
+
         @order = Order.find_by_order_number(params['order_number'])
       end
 
@@ -40,11 +42,20 @@ module EmployeePanel
         render json: { 'descriptive_items' => {} }, status: :internal_server_error
       end
 
+      def block_order
+        if ActiveRecord::Type::Boolean.new.cast(params['block'])
+          order = Order.find_by_order_number(session[:order_number])
+          order.update(status: Status.find_by_name('bloqueado'))
+
+          send_block_notification!(order)
+        end
+      end
+
       def refuse_team
         raise StandardError if params['counter'].to_i.zero?
 
         render json: { 'exceeded_attempts' => check_refuse,
-                       'attempts' => session['refuse_team'] },
+                       'attempts' => session[:refuse_team] },
                status: :ok
       rescue StandardError => error
         Rails.logger.error("Message: #{error.message} - Backtrace: #{error.backtrace}")
@@ -56,14 +67,22 @@ module EmployeePanel
 
       private
 
+      def send_block_notification!(order)
+        Notifications::Order.warn_about_blocking(
+          order_number: order.order_number,
+          blocking_date: order.updated_at,
+          customer_token: session[:customer_token]
+        ).deliver_now!
+      end
+
       def check_refuse
         exceeded_attempts = false
 
-        case session['refuse_team']
-        when nil                    then session['refuse_team'] = params['counter'].to_i
-        when Order::ALLOWED_REFUSES then session['refuse_team'] = nil
+        case session[:refuse_team]
+        when nil                    then session[:refuse_team] = params['counter'].to_i
+        when Order::ALLOWED_REFUSES then session[:refuse_team] = nil
                                          exceeded_attempts = true
-        else                             session['refuse_team'] += params['counter'].to_i
+        else                             session[:refuse_team] += params['counter'].to_i
         end
 
         exceeded_attempts
