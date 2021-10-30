@@ -87,6 +87,8 @@ pt-BR:
       vehicle:
         not_found: 'Viatura não encontrada!'
         create_failed: 'Erro ao criar nova viatura!'
+      order:
+        blocked: 'O pedido de escolta %{order_number} foi bloqueado por excesso de recusas. Para desbloqueá-lo, solicite ao administrador'
     infos:
       scheduling_cancelation: 'Importante: Todo agendamento poderá ser cancelado em até trẽs horas antes da execução do serviço.'
       password_strength: 'Dica; Utilize letras, números e caracteres especiais (&, @, !, #) '
@@ -703,3 +705,11 @@ pt-BR:
         line_0: 'Olá,'
         line_1: 'Segue abaixo a senha de acesso ao seu dashboard:'
         line_2: 'Senha de acesso: %{password}'
+    order:
+      warn_about_blocking:
+        subject: 'Bloqueio da Ordem de Serviço %{order_number} (Excesso de Recusas)'
+        line_0: 'A ordem de serviço abaixo foi bloqueada por excesso de recusas: '
+        line_1: 'Ordem de Serviço: %{order_number}'
+        line_2: 'Nome do Operador: %{employee_name}'
+        line_3: 'Data do Bloqueio: %{blocking_date}'
+        line_4: 'Para desbloqueá-la, acesse-a através do seu dashboard.'

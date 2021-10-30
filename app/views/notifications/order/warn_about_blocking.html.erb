@@ -1,0 +1,23 @@
+<%= render './partials/notifications/external_header' %>
+<p>
+  <%= t('notifications.order.warn_about_blocking.line_0') %>
+</p>
+<p>
+  <strong>
+    <%= t('notifications.order.warn_about_blocking.line_1', order_number: @order_number) %>
+  </strong>
+</p>
+<p>
+  <strong>
+    <%= t('notifications.order.warn_about_blocking.line_2', employee_name: @employee_name) %>
+  </strong>
+</p>
+<p>
+  <strong>
+    <%= t('notifications.order.warn_about_blocking.line_3', blocking_date: @blocking_date) %>
+  </strong>
+</p>
+<p>
+  <%= t('notifications.order.warn_about_blocking.line_4') %>
+</p>
+<%= render './partials/notifications/external_footer' %>

@@ -351,6 +351,44 @@ RSpec.describe 'EmployeePanel::OperatorPanel::Dashboard', type: :request do
 
         expect(result).to eq('bloqueado')
       end
+
+      it 'redirects to orders page' do
+        FactoryBot.create(:status, name: 'bloqueado')
+        order = FactoryBot.create(:order)
+
+        allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
+
+        allow(Order).to receive(:find_by_order_number) { order }
+        allow(Notifications::Order)
+          .to receive_message_chain(:warn_about_blocking, :deliver_now!) { true }
+
+        post '/gestao/operador/dashboard/gerenciamento/block_order.json',
+             params: { block: true }
+
+        expect(response).to redirect_to(employee_panel_operator_dashboard_index_path)
+      end
+
+      it 'shows blocking message' do
+        FactoryBot.create(:status, name: 'bloqueado')
+        order = FactoryBot.create(:order)
+
+        allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
+
+        allow(Order).to receive(:find_by_order_number) { order }
+        allow(Notifications::Order)
+          .to receive_message_chain(:warn_about_blocking, :deliver_now!) { true }
+
+        post '/gestao/operador/dashboard/gerenciamento/block_order.json',
+             params: { block: true }
+
+        expect(flash[:alert]).to eq("O pedido de escolta #{order.order_number} foi bloqueado " \
+                                    'por excesso de recusas. Para desbloqueá-lo, solicite ao ' \
+                                    'administrador')
+      end
     end
   end
 end

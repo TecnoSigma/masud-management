@@ -43,12 +43,15 @@ module EmployeePanel
       end
 
       def block_order
-        if ActiveRecord::Type::Boolean.new.cast(params['block'])
-          order = Order.find_by_order_number(session[:order_number])
-          order.update(status: Status.find_by_name('bloqueado'))
+        return unless ActiveRecord::Type::Boolean.new.cast(params['block'])
 
-          send_block_notification!(order)
-        end
+        update_blocking_status!
+        send_block_notification!
+
+        redirect_to employee_panel_operator_dashboard_index_path,
+                    alert: t('messages.errors.order.blocked', order_number: order.order_number)
+      rescue StandardError => error
+        Rails.logger.error("Message: #{error.message} - Backtrace: #{error.backtrace}")
       end
 
       def refuse_team
@@ -67,11 +70,19 @@ module EmployeePanel
 
       private
 
-      def send_block_notification!(order)
+      def order
+        @order ||= Order.find_by_order_number(session[:order_number])
+      end
+
+      def update_blocking_status!
+        order.update(status: Status.find_by_name('bloqueado'))
+      end
+
+      def send_block_notification!
         Notifications::Order.warn_about_blocking(
           order_number: order.order_number,
           blocking_date: order.updated_at,
-          customer_token: session[:customer_token]
+          employee_token: session[:employee_token]
         ).deliver_now!
       end
 

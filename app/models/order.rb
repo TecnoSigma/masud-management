@@ -31,18 +31,17 @@ class Order < ApplicationRecord
 
   ALLOWED_STATUSES = {
     scheduled: 'agendado',
+    blocked: 'bloqueado',
     confirmed: 'confirmado',
     refused: 'recusado',
     cancelled_by_customer: 'cancelado pelo cliente'
   }.freeze
 
-  INTERNAL_STATUSES = { blocked: 'bloqueado' }.freeze
-
   PER_PAGE_IN_CUSTOMER_DASHBOARD = 20
   PER_PAGE_IN_EMPLOYEE_DASHBOARD = 20
   CANCELLATION_DEADLINE = 3.0
 
-  private_constant :CANCELLATION_DEADLINE, :INTERNAL_STATUSES
+  private_constant :CANCELLATION_DEADLINE
 
   scope :filtered_escorts_by, lambda { |status|
     where(type: 'EscortScheduling')
@@ -107,8 +106,6 @@ class Order < ApplicationRecord
   end
 
   def check_allowed_status
-    return if INTERNAL_STATUSES.values.include?(status.name)
-
     error_message = I18n.t('messages.errors.invalid_status')
 
     errors.add(:status, error_message) if ALLOWED_STATUSES.values.exclude?(status.name)
