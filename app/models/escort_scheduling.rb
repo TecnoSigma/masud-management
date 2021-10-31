@@ -6,6 +6,7 @@ class EscortScheduling < Escort
   ALLOWED_STATUSES = [
     'agendado',
     'bloqueado',
+    'cancelada',
     'cancelado pelo cliente'
   ].freeze
 

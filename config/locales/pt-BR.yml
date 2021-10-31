@@ -64,7 +64,6 @@ pt-BR:
       find_failed: 'Falha ao procurar dados!'
       update_failed: 'Falha ao atualizar dados!'
       remove_failed: 'Falha ao remover dados!'
-      unblock_failed: 'Falha ao desbloquear pedido %{order_number}!'
       escort:
         not_found: 'Escolta não encontrada!'
       customer:
@@ -90,11 +89,15 @@ pt-BR:
         create_failed: 'Erro ao criar nova viatura!'
       order:
         blocked: 'O pedido de escolta %{order_number} foi bloqueado por excesso de recusas. Para desbloqueá-lo, solicite ao administrador'
+        refuse_failed: 'Falha na recusa do pedido!'
+        unblock_failed: 'Falha ao desbloquear pedido %{order_number}!'
     infos:
       scheduling_cancelation: 'Importante: Todo agendamento poderá ser cancelado em até trẽs horas antes da execução do serviço.'
-      password_strength: 'Dica; Utilize letras, números e caracteres especiais (&, @, !, #) '
+      password_strength: 'Dica: Utilize letras, números e caracteres especiais (&, @, !, #) '
       munition_stock_update: 'Estoque de munição calibre %{caliber} atualizado para %{quantity}!'
       blocking_reason: 'Bloqueio por excesso de recusas do %{employee_name}'
+      refuse_operation: 'IMPORTANTE: Essa operação não poderá ser cancelada.'
+      refuse_reason: 'Motivo: %{reason} | Cancelado por: %{employee}'
     successes:
       scheduling_creation_successfully: 'Agendamento criado com sucesso!'
       scheduling_cancelation_successfully: 'Agendamento cancelado com sucesso!'
@@ -104,6 +107,7 @@ pt-BR:
         unblocked_successfully: 'Desbloqueio do pedido %{order_number} executado com sucesso!'
         items_confirmation: 'Itens confirmados!'
         team_confirmation: 'Time confirmado!'
+        refused_successfully: 'Pedido %{order_number} recusado com sucesso!'
       customer:
         created_successfully: 'Cliente %{company} criado com sucesso!'
         updated_successfully: 'Dados do cliente atualizados com sucesso!'
@@ -647,6 +651,7 @@ pt-BR:
         scheduled: 'Agendadas'
         confirmed: 'Confirmadas'
         refused: 'Recusadas'
+        cancelled: 'Canceladas'
         cancelled_by_customer: 'Canceladas pelo Cliente'
         general_report: 'Relatório Geral'
       customer:
@@ -697,6 +702,10 @@ pt-BR:
       new_password: 'Nova Senha'
       confirm_password: 'Confirme nova senha'
       change_password_btn: 'Alterar Senha'
+    refuse_modal:
+      title: 'Confirmação de Recusa de Pedido'
+      inform_reason: 'Informe o motivo da recusa'
+      refuse_order_confirmation_btn: 'Confirmação de Recusa'
   notifications:
     customer:
       orders:

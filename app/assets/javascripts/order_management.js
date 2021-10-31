@@ -41,9 +41,7 @@ $(document).on('turbolinks:load', function() {
         });
 
         $('#confirmOrderBtn').click(function(){
-                var order_number = window.location.pathname.split('/').slice(-1)[0];
-
-                missionInfo.order_number = order_number;
+                missionInfo.order_number = orderNumber();
 
                 $.ajax({
                         url: "/gestao/operador/dashboard/gerenciamento/confirm_order",
@@ -178,6 +176,33 @@ $(document).on('turbolinks:load', function() {
                 document.getElementById("teamConfirmation").style.display = "";
         });
 
+        $("#closeRefuseModalBtn").click(function(){
+                document.getElementById("refuseModal").style.display = "none";
+        });
+
+        $("#refuseOrderBtn").click(function(){
+                document.getElementById("refuseModal").style.display = "block";
+        });
+
+        $("#refuseOrderConfirmationBtn").click(function(){
+                if($('#refuseReason').val() != '') {
+                        var refuse_info = {}
+
+                        refuse_info.order_number = orderNumber();
+                        refuse_info.reason = $('#refuseReason').val();
+
+                        $.ajax({
+                                url: "/gestao/operador/dashboard/gerenciamento/refuse_order",
+                                type: "POST",
+                                data: { refuse_info },
+                                success: function(data, status, xhr) {},
+                                error: function(xhr, status, error) {
+                                        console.log(error);
+                                }
+                        });
+                }
+        });
+
         $('#refuseTeamBtn').click(function(){
                 const counter = 1;
 
@@ -206,10 +231,14 @@ $(document).on('turbolinks:load', function() {
                         error: function(xhr, status, error) {
                                 console.log(error);
                         }
-                })
+                });
         });
 
 });
+
+function orderNumber() {
+        return window.location.pathname.split('/').slice(-1)[0];
+}
 
 function showConfirmOrderBtn() {
         if(document.getElementById("mountTeamBtn").style.display == "none" && document.getElementById("mountItemsListBtn").style.display == "none") {

@@ -423,4 +423,151 @@ RSpec.describe 'EmployeePanel::OperatorPanel::Dashboard', type: :request do
       end
     end
   end
+
+  describe '#refuse_order' do
+    context 'when pass valid params' do
+      it 'updates order status to \'cancelada\'' do
+        FactoryBot.create(:status, name: 'cancelada')
+        order = FactoryBot.create(:order)
+        employee_name = 'João'
+        reason = 'Carga inapropriada'
+
+        allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
+
+        allow(Order).to receive(:find_by_order_number) { order }
+        allow(ServiceToken)
+          .to receive_message_chain(:find_by_token, :employee, :name) { employee_name }
+
+        post '/gestao/operador/dashboard/gerenciamento/refuse_order',
+             params: { refuse_info: { order_number: order.order_number, reason: reason } }
+
+        result = Order.find_by_order_number(order.order_number).status.name
+
+        expect(result).to eq('cancelada')
+      end
+
+      it 'adds refuse reason' do
+        FactoryBot.create(:status, name: 'cancelada')
+        order = FactoryBot.create(:order)
+        employee_name = 'João'
+        reason = 'Carga inapropriada'
+
+        allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
+
+        allow(Order).to receive(:find_by_order_number) { order }
+        allow(ServiceToken)
+          .to receive_message_chain(:find_by_token, :employee, :name) { employee_name }
+
+        post '/gestao/operador/dashboard/gerenciamento/refuse_order',
+             params: { refuse_info: { order_number: order.order_number, reason: reason } }
+
+        result = Order.find_by_order_number(order.order_number).reason
+
+        expected_result = "Motivo: #{reason} | Cancelado por: #{employee_name}"
+
+        expect(result).to eq(expected_result)
+      end
+
+      it 'shows success message' do
+        FactoryBot.create(:status, name: 'cancelada')
+        order = FactoryBot.create(:order)
+        employee_name = 'João'
+        reason = 'Carga inapropriada'
+
+        allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
+
+        allow(Order).to receive(:find_by_order_number) { order }
+        allow(ServiceToken)
+          .to receive_message_chain(:find_by_token, :employee, :name) { employee_name }
+
+        post '/gestao/operador/dashboard/gerenciamento/refuse_order',
+             params: { refuse_info: { order_number: order.order_number, reason: reason } }
+
+        expect(flash[:notice]).to eq("Pedido #{order.order_number} recusado com sucesso!")
+      end
+
+      it 'redirects to orders page' do
+        order = FactoryBot.create(:order)
+        employee_name = 'João'
+        reason = 'Carga inapropriada'
+
+        allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
+
+        allow(Order).to receive(:find_by_order_number) { order }
+        allow(ServiceToken)
+          .to receive_message_chain(:find_by_token, :employee, :name) { employee_name }
+
+        post '/gestao/operador/dashboard/gerenciamento/refuse_order',
+             params: { refuse_info: { order_number: order.order_number, reason: reason } }
+
+        expect(response).to redirect_to(employee_panel_operator_dashboard_index_path)
+      end
+    end
+
+    context 'when pass invalid params' do
+      it 'no updates order status to \'cancelada\'' do
+        order = FactoryBot.create(:order)
+        employee_name = 'João'
+
+        allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
+
+        allow(Order).to receive(:find_by_order_number) { order }
+        allow(ServiceToken)
+          .to receive_message_chain(:find_by_token, :employee, :name) { employee_name }
+
+        post '/gestao/operador/dashboard/gerenciamento/refuse_order',
+             params: { refuse_info: { order_number: order.order_number, reason: nil } }
+
+        result = Order.find_by_order_number(order.order_number).status.name
+
+        expect(result).not_to eq('cancelada')
+      end
+
+      it 'shows error message' do
+        order = FactoryBot.create(:order)
+        employee_name = 'João'
+
+        allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
+
+        allow(Order).to receive(:find_by_order_number) { order }
+        allow(ServiceToken)
+          .to receive_message_chain(:find_by_token, :employee, :name) { employee_name }
+
+        post '/gestao/operador/dashboard/gerenciamento/refuse_order',
+             params: { refuse_info: { order_number: order.order_number, reason: nil } }
+
+        expect(flash[:alert]).to eq('Falha na recusa do pedido!')
+      end
+
+      it 'redirects to orders page' do
+        order = FactoryBot.create(:order)
+        employee_name = 'João'
+
+        allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
+
+        allow(Order).to receive(:find_by_order_number) { order }
+        allow(ServiceToken)
+          .to receive_message_chain(:find_by_token, :employee, :name) { employee_name }
+
+        post '/gestao/operador/dashboard/gerenciamento/refuse_order',
+             params: { refuse_info: { order_number: order.order_number, reason: nil } }
+
+        expect(response).to redirect_to(employee_panel_operator_dashboard_index_path)
+      end
+    end
+  end
 end

@@ -1,0 +1,31 @@
+<div id="refuseModal" class="w3-modal">
+  <div id="layoutAuthentication">
+    <div id="layoutAuthentication_content">
+      <main>
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-4">
+              <div class="card shadow-lg border-0 rounded-lg mt-5">
+                <div class="card-header">
+                  <span id="closeRefuseModalBtn" class="w3-button w3-display-topright">&times;</span>
+                  <h3 class="text-center font-weight-light my-4"><%= t('.title') %></h3>
+                </div>
+                <div class="card-body">
+                  <div class="form-floating mb-3">
+                    <input type="text" id="refuseReason" class="form-control"><br>
+                    <label for="fname"><%= t('.inform_reason') %></label>
+                    <small><%= t('messages.infos.refuse_operation') %></small>
+                    <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                      <span class="btn btn-danger" id="refuseOrderConfirmationBtn"><%= t('.refuse_order_confirmation_btn') %></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer text-center py-3"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</div>

@@ -12,14 +12,19 @@ RSpec.describe OrdersHelper, type: :helper do
       expected_result = '<a class="nav-link" href="/gestao/admin/dashboard/escoltas/scheduled">' \
                         'Agendadas' \
                         '</a>' \
+                        '<a class="nav-link" href="/gestao/admin/dashboard/escoltas/blocked">' \
+                        'Bloqueadas' \
+                        '</a>' \
                         '<a class="nav-link" href="/gestao/admin/dashboard/escoltas/confirmed">' \
                         'Confirmadas' \
                         '</a>' \
                         '<a class="nav-link" href="/gestao/admin/dashboard/escoltas/refused">' \
                         'Recusadas' \
                         '</a>' \
-                        '<a class="nav-link" ' \
-                        'href="/gestao/admin/dashboard/escoltas/cancelled_by_customer">' \
+                        '<a class="nav-link" href="/gestao/admin/dashboard/escoltas/cancelled">' \
+                        'Canceladas' \
+                        '</a>' \
+                        '<a class="nav-link" href="/gestao/admin/dashboard/escoltas/cancelled_by_customer">' \
                         'Canceladas pelo Cliente' \
                         '</a>'
 

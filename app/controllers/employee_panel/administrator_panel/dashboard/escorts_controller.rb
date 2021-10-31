@@ -17,13 +17,13 @@ module EmployeePanel
           update_escort!
 
           redirect_to '/gestao/admin/dashboard/escoltas/blocked',
-                      notice: t('messages.successes.order_unblocked_successfully',
+                      notice: t('messages.successes.order.unblocked_successfully',
                                 order_number: order.order_number)
         rescue StandardError => error
           Rails.logger.error("Message: #{error.message} - Backtrace: #{error.backtrace}")
 
           redirect_to '/gestao/admin/dashboard/escoltas/blocked',
-                      alert: t('messages.errors.unblock_failed',
+                      alert: t('messages.errors.order.unblock_failed',
                                order_number: params['order_number'])
         end
 
