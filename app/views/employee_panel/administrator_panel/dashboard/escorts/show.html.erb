@@ -25,7 +25,7 @@
                       <%= @escort.status.name.upcase %>
                     </span>
                   </p>
-                  <% if @escort.status.name == Order::ALLOWED_STATUSES[:blocked] %>
+                  <% if show_reasons?(@escort.status.name) %>
                     <p>
                       <strong><%= t('.reason') %></strong>
                       <span>

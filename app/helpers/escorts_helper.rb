@@ -13,4 +13,8 @@ module EscortsHelper
                            .join
                            .html_safe
   end
+
+  def show_reasons?(order_status)
+    [Order::ALLOWED_STATUSES[:blocked], Order::ALLOWED_STATUSES[:cancelled]].include?(order_status)
+  end
 end

@@ -34,4 +34,30 @@ RSpec.describe EscortsHelper, type: :helper do
       end
     end
   end
+
+  describe '#show_reasons?' do
+    it 'returns \'true\' when status is blocked' do
+      status = 'bloqueado'
+
+      result = helper.show_reasons?(status)
+
+      expect(result).to eq(true)
+    end
+
+    it 'returns \'true\' when status is cancelled' do
+      status = 'cancelada'
+
+      result = helper.show_reasons?(status)
+
+      expect(result).to eq(true)
+    end
+
+    it 'returns \'false\' when status is invalid' do
+      status = 'any_status'
+
+      result = helper.show_reasons?(status)
+
+      expect(result).to eq(false)
+    end
+  end
 end
