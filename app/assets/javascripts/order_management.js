@@ -3,47 +3,64 @@ $(document).on('turbolinks:load', function() {
 
         initializers();
 
-        $("#employee_agents_quantity").change(function(){
-                if (document.getElementById("employee_agents_quantity").value == '0') {
+        $("#order_agents_quantity").change(function(){
+                if (document.getElementById("order_agents_quantity").value == '0') {
                         document.getElementById("teamLabel").innerHTML = "<i>Nome do Time: </i>";
                         document.getElementById("agentsLabel").innerHTML = "<i>Agentes: </i>";
 
-                        switchTeamActionsButtons("hidden");
+                        switchTeamActionsButtons("none");
                 }
         });
 
-        $("#employee_caliber_12").change(function(){
-                enableDropDown(this, document.getElementById("employee_calibers_12_quantity"));
+        $("#order_caliber_12").change(function(){
+                enableDropDown(this, document.getElementById("order_calibers_12_quantity"));
         });
 
-        $("#employee_caliber_38").change(function(){
-                enableDropDown(this, document.getElementById("employee_calibers_38_quantity"));
+        $("#order_caliber_38").change(function(){
+                enableDropDown(this, document.getElementById("order_calibers_38_quantity"));
         });
 
-        $("#employee_munition_12").change(function(){
-                enableDropDown(this, document.getElementById("employee_munitions_12_quantity"));
+        $("#order_munition_12").change(function(){
+                enableDropDown(this, document.getElementById("order_munitions_12_quantity"));
         });
 
-        $("#employee_munition_38").change(function(){
-                enableDropDown(this, document.getElementById("employee_munitions_38_quantity"));
+        $("#order_munition_38").change(function(){
+                enableDropDown(this, document.getElementById("order_munitions_38_quantity"));
         });
 
-        $("#employee_waistcoat").change(function(){
-                enableDropDown(this, document.getElementById("employee_waistcoats_quantity"));
+        $("#order_waistcoat").change(function(){
+                enableDropDown(this, document.getElementById("order_waistcoats_quantity"));
         });
 
-        $("#employee_radio").change(function(){
-                enableDropDown(this, document.getElementById("employee_radios_quantity"));
+        $("#order_radio").change(function(){
+                enableDropDown(this, document.getElementById("order_radios_quantity"));
         });
 
-        $("#employee_vehicle").change(function(){
-                enableDropDown(this, document.getElementById("employee_vehicles_quantity"));
+        $("#order_vehicle").change(function(){
+                enableDropDown(this, document.getElementById("order_vehicles_quantity"));
+        });
+
+        $('#confirmOrderBtn').click(function(){
+                var order_number = window.location.pathname.split('/').slice(-1)[0];
+
+                missionInfo.order_number = order_number;
+
+                $.ajax({
+                        url: "/gestao/operador/dashboard/gerenciamento/confirm_order",
+                        type: "POST",
+                        data: { mission_info: missionInfo },
+                        success: function(data, status, xhr) {
+                        },
+                        error: function(xhr, status, error) {
+                                console.log(error);
+                        }
+                });
         });
 
         $("#mountTeamBtn").click(function(){
-                if (document.getElementById("employee_agents_quantity").value == '0') return
+                if (document.getElementById("order_agents_quantity").value == '0') return
 
-                var agentsQuantity = { quantity: document.getElementById("employee_agents_quantity").value };
+                var agentsQuantity = { quantity: document.getElementById("order_agents_quantity").value };
 
                 $.ajax({
                         url: "/gestao/operador/dashboard/gerenciamento/mount_team",
@@ -53,27 +70,83 @@ $(document).on('turbolinks:load', function() {
                                 populateLabel(data.team['team_name'], document.getElementById("teamLabel"), "<i>Nome do Time: </i>");
                                 populateLabel(data.team['agents'], document.getElementById("agentsLabel"), "<i>Agentes: </i>");
 
-                                switchTeamActionsButtons("visible");
+                                switchTeamActionsButtons('');
 
                                 missionInfo.team = data.team;
 
-                                document.getElementById("mountTeamBtn").style.visibility = "hidden";
+                                document.getElementById("mountTeamBtn").style.display = "none";
                         },
                         error: function(xhr, status, error) {
                                 console.log(error);
                         }
-                })
+                });
+        });
+
+        $('#clearItemsListBtn').click(function(){
+                enableDropDown(this, document.getElementById("order_calibers_12_quantity"));
+                enableDropDown(this, document.getElementById("order_calibers_38_quantity"));
+                enableDropDown(this, document.getElementById("order_munitions_12_quantity"));
+                enableDropDown(this, document.getElementById("order_munitions_38_quantity"));
+                enableDropDown(this, document.getElementById("order_waistcoats_quantity"));
+                enableDropDown(this, document.getElementById("order_radios_quantity"));
+                enableDropDown(this, document.getElementById("order_vehicles_quantity"));
+
+                $('#order_caliber_12').prop( "checked", false);
+                $('#order_caliber_38').prop("checked", false);
+                $('#order_munition_12').prop("checked", false);
+                $('#order_munition_38').prop("checked", false);
+                $('#order_waistcoat').prop("checked", false);
+                $('#order_radio').prop("checked", false);
+                $('#order_vehicle').prop("checked", false);
+
+                document.getElementById("chosenCaliber12").innerHTML = "<i>Calibre 12 (Espingarda): </i>";
+                document.getElementById("chosenCaliber38").innerHTML = "<i>Calibre 38 (Pistola): </i>";
+                document.getElementById("chosenMunition12").innerHTML = "<i>Munição Calibre 12: </i>";
+                document.getElementById("chosenMunition38").innerHTML = "<i>Munição Calibre 38: </i>";
+                document.getElementById("chosenWaistcoat").innerHTML = "<i>Colete: </i>";
+                document.getElementById("chosenRadio").innerHTML = "<i>Rádio: </i>";
+                document.getElementById("chosenVehicle").innerHTML = "<i>Viatura: </i>";
+
+                switchItemsActionsButtons("none");
+        });
+
+        $('#confirmItemsListBtn').click(function(){
+                document.getElementById("order_caliber_12").disabled = true;
+                document.getElementById("order_caliber_38").disabled = true;
+                document.getElementById("order_munition_12").disabled = true;
+                document.getElementById("order_munition_38").disabled = true;
+                document.getElementById("order_waistcoat").disabled = true;
+                document.getElementById("order_radio").disabled = true;
+                document.getElementById("order_vehicle").disabled = true;
+
+                document.getElementById("order_calibers_12_quantity").disabled = true;
+                document.getElementById("order_calibers_38_quantity").disabled = true;
+                document.getElementById("order_munitions_12_quantity").disabled = true;
+                document.getElementById("order_munitions_38_quantity").disabled = true;
+                document.getElementById("order_waistcoats_quantity").disabled = true;
+                document.getElementById("order_radios_quantity").disabled = true;
+                document.getElementById("order_vehicles_quantity").disabled = true;
+
+                document.getElementById("mountItemsListBtn").style.display = "none";
+
+                switchItemsActionsButtons("none");
+
+                document.getElementById("itemConfirmation").style.display = "";
+
+                showConfirmOrderBtn();
+
+                missionInfo.descriptive_items = data.descriptive_items;
         });
 
         $("#mountItemsListBtn").click(function(){
                 var missionItens = {
-                        calibers_12_quantity: document.getElementById("employee_calibers_12_quantity").value,
-                        calibers_38_quantity: document.getElementById("employee_calibers_38_quantity").value,
-                        munitions_12_quantity: document.getElementById("employee_munitions_12_quantity").value,
-                        munitions_38_quantity: document.getElementById("employee_munitions_38_quantity").value,
-                        waistcoats_quantity: document.getElementById("employee_waistcoats_quantity").value,
-                        radios_quantity: document.getElementById("employee_radios_quantity").value,
-                        vehicles_quantity: document.getElementById("employee_vehicles_quantity").value
+                        calibers_12_quantity: document.getElementById("order_calibers_12_quantity").value,
+                        calibers_38_quantity: document.getElementById("order_calibers_38_quantity").value,
+                        munitions_12_quantity: document.getElementById("order_munitions_12_quantity").value,
+                        munitions_38_quantity: document.getElementById("order_munitions_38_quantity").value,
+                        waistcoats_quantity: document.getElementById("order_waistcoats_quantity").value,
+                        radios_quantity: document.getElementById("order_radios_quantity").value,
+                        vehicles_quantity: document.getElementById("order_vehicles_quantity").value
                 }
 
                 $.ajax({
@@ -89,7 +162,7 @@ $(document).on('turbolinks:load', function() {
                                 populateLabel(data.descriptive_items['radios'], document.getElementById("chosenRadio"), "<i>Rádio: </i>");
                                 populateLabel(data.descriptive_items['vehicles'], document.getElementById("chosenVehicle"), "<i>Viatura: </i>");
 
-                                missionInfo.descriptive_items = data.descriptive_items;
+                                switchItemsActionsButtons("");
                         },
                         error: function(xhr, status, error) {
                                 console.log(error);
@@ -98,7 +171,11 @@ $(document).on('turbolinks:load', function() {
         });
 
         $("#confirmTeamBtn").click(function(){
-                switchTeamActionsButtons("hidden");
+                switchTeamActionsButtons("none");
+
+                showConfirmOrderBtn();
+
+                document.getElementById("teamConfirmation").style.display = "";
         });
 
         $('#refuseTeamBtn').click(function(){
@@ -112,17 +189,17 @@ $(document).on('turbolinks:load', function() {
                                 if (data.exceeded_attempts == true) {
                                         document.getElementById("refuseInfo").innerHTML = "<span style='color: red'>Quantidade de recusas excedidas. Solicite o desbloqueio ao Administrador.</span>";
 
-                                        switchTeamActionsButtons("hidden");
-                                        switchActionsButtons("hidden");
-                                        switchOrderButtons("hidden");
+                                        switchTeamActionsButtons("none");
+                                        switchItemsActionsButtons("none");
+                                        switchOrderButtons("none");
 
-                                        document.getElementById("mountTeamBtn").style.visibility = "hidden";
-                                        document.getElementById("mountItemsListBtn").style.visibility = "hidden";
-                                        document.getElementById("employee_agents_quantity").disabled = true;
+                                        document.getElementById("mountTeamBtn").style.display = "none";
+                                        document.getElementById("mountItemsListBtn").style.display = "none";
+                                        document.getElementById("order_agents_quantity").disabled = true;
 
                                         blockOrder();
                                 } else {
-                                        document.getElementById("mountTeamBtn").style.visibility = "visible";
+                                        document.getElementById("mountTeamBtn").style.display = "";
                                         document.getElementById("refuseInfo").innerHTML = "<span style='color: gray''>" + data.attempts + "ª recusa</span>";
                                 }
                         },
@@ -133,6 +210,12 @@ $(document).on('turbolinks:load', function() {
         });
 
 });
+
+function showConfirmOrderBtn() {
+        if(document.getElementById("mountTeamBtn").style.display == "none" && document.getElementById("mountItemsListBtn").style.display == "none") {
+                document.getElementById("confirmOrderBtn").style.display = "";
+        }
+}
 
 function populateLabel(newItemData, label, defaultLabel) {
         label.innerHTML = defaultLabel;
@@ -148,19 +231,19 @@ function enableDropDown(checkBox, dropDown) {
         dropDown.disabled = itemSwitch;
 }
 
-function switchActionsButtons(action) {
-        document.getElementById("confirmItemsListBtn").style.visibility = action;
-        document.getElementById("clearItemsListBtn").style.visibility = action;
+function switchItemsActionsButtons(action) {
+        document.getElementById("confirmItemsListBtn").style.display = action;
+        document.getElementById("clearItemsListBtn").style.display = action;
 }
 
 function switchOrderButtons(action) {
-        document.getElementById("confirmOrderBtn").style.visibility = action;
-        document.getElementById("refuseOrderBtn").style.visibility = action;
+        document.getElementById("confirmOrderBtn").style.display = action;
+        document.getElementById("refuseOrderBtn").style.display = action;
 }
 
 function switchTeamActionsButtons(action) {
-        document.getElementById("confirmTeamBtn").style.visibility = action;
-        document.getElementById("refuseTeamBtn").style.visibility = action;
+        document.getElementById("confirmTeamBtn").style.display = action;
+        document.getElementById("refuseTeamBtn").style.display = action;
 }
 
 function blockOrder() {
@@ -170,18 +253,27 @@ function blockOrder() {
                 data: { block: true },
                 success: function(data, status, xhr) { },
                 error: function(xhr, status, error) { console.log(error); }
-        })
+        });
+}
+
+function hiddenMessages() {
+        document.getElementById("teamConfirmation").style.display = "none";
+        document.getElementById("itemConfirmation").style.display = "none";
 }
 
 function initializers() {
-        document.getElementById("employee_calibers_12_quantity").disabled = true;
-        document.getElementById("employee_calibers_38_quantity").disabled = true;
-        document.getElementById("employee_munitions_12_quantity").disabled = true;
-        document.getElementById("employee_munitions_38_quantity").disabled = true;
-        document.getElementById("employee_waistcoats_quantity").disabled = true;
-        document.getElementById("employee_radios_quantity").disabled = true;
-        document.getElementById("employee_vehicles_quantity").disabled = true;
+        document.getElementById("order_calibers_12_quantity").disabled = true;
+        document.getElementById("order_calibers_38_quantity").disabled = true;
+        document.getElementById("order_munitions_12_quantity").disabled = true;
+        document.getElementById("order_munitions_38_quantity").disabled = true;
+        document.getElementById("order_waistcoats_quantity").disabled = true;
+        document.getElementById("order_radios_quantity").disabled = true;
+        document.getElementById("order_vehicles_quantity").disabled = true;
 
-        switchTeamActionsButtons("hidden");
-        switchActionsButtons("hidden");
+        switchTeamActionsButtons("none");
+        switchItemsActionsButtons("none");
+
+        hiddenMessages();
+
+        document.getElementById("confirmOrderBtn").style.display = "none";
 }

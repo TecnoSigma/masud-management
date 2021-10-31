@@ -57,7 +57,8 @@
                   <span><%= @order.observation %></span>
                 </small>
                 <hr>
-                <%= form_with scope: 'employee', url: employee_panel_administrator_dashboard_funcionario_create_path do |f| %>
+                <%= form_with scope: 'order',
+                             url: employee_panel_operator_dashboard_gerenciamento_confirm_order_path do |f| %>
                   <div class="form-floating mb-3">
                     <div>
                       <h5><%= t('.agents') %></h5>
@@ -88,6 +89,7 @@
                     </div>
                     <br>
                     <span id="refuseInfo">&nbsp;</span>
+                    <span id="teamConfirmation" class="success-message"><%= t('messages.successes.order.team_confirmation') %></span>
                     <hr>
                     <div>
                       <h5><%= t('.mission_items') %></h5>
@@ -197,12 +199,14 @@
                       <br>
                       <span id="confirmItemsListBtn" class="btn btn-success"><%= t('.confirm_items_list_btn') %></span>
                       <span id="clearItemsListBtn" class="btn btn-secondary"><%= t('.clear_items_list_btn') %></span>
+                      <br>
+                      <span id="itemConfirmation" class="success-message"><%= t('messages.successes.order.items_confirmation') %></span>
                     </div>
                     <hr>
                   </div>
                   <br>
                   <%= link_to t('.back_btn'), :back, class: 'btn btn-primary' %>
-                  <%= f.submit t('.confirm_order_btn'), { class: 'btn btn-primary', id: 'confirmOrderBtn' } %>
+                  <span class="btn btn-primary" id="confirmOrderBtn"><%= t('.confirm_order_btn') %></span>
                   <span class="btn btn-danger" id="refuseOrderBtn"><%= t('.refuse_order_btn') %></span>
                 <% end %>
               </div>

@@ -100,7 +100,10 @@ pt-BR:
       scheduling_cancelation_successfully: 'Agendamento cancelado com sucesso!'
       password_changed_successfully: 'Senha alterada com sucesso!'
       password_sent_successfully: 'Senha enviada com sucesso!'
-      order_unblocked_successfully: 'Desbloqueio do pedido %{order_number} executado com sucesso!'
+      order:
+        unblocked_successfully: 'Desbloqueio do pedido %{order_number} executado com sucesso!'
+        items_confirmation: 'Itens confirmados!'
+        team_confirmation: 'Time confirmado!'
       customer:
         created_successfully: 'Cliente %{company} criado com sucesso!'
         updated_successfully: 'Dados do cliente atualizados com sucesso!'

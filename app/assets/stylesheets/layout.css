@@ -11714,6 +11714,7 @@ body {
   color: red;
 }
 
+/*buttons*/
 .btn-delete-scheduling {
   color: red;
 }
@@ -11730,6 +11731,11 @@ body {
   .btn-delete:hover {
     color: black;
   }
+
+/*messages*/
+.success-message {
+  color: green;
+}
 
 .expired-cvn {
   color: red;
