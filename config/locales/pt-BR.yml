@@ -91,6 +91,7 @@ pt-BR:
         blocked: 'O pedido de escolta %{order_number} foi bloqueado por excesso de recusas. Para desbloqueá-lo, solicite ao administrador'
         refuse_failed: 'Falha na recusa do pedido!'
         unblock_failed: 'Falha ao desbloquear pedido %{order_number}!'
+        create_mission_failed: 'Falha na criação da missão!'
     infos:
       scheduling_cancelation: 'Importante: Todo agendamento poderá ser cancelado em até trẽs horas antes da execução do serviço.'
       password_strength: 'Dica: Utilize letras, números e caracteres especiais (&, @, !, #) '
@@ -108,6 +109,7 @@ pt-BR:
         items_confirmation: 'Itens confirmados!'
         team_confirmation: 'Time confirmado!'
         refused_successfully: 'Pedido %{order_number} recusado com sucesso!'
+        created_mission_successfully: 'Missão criada com sucesso!'
       customer:
         created_successfully: 'Cliente %{company} criado com sucesso!'
         updated_successfully: 'Dados do cliente atualizados com sucesso!'

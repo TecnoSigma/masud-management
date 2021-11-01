@@ -570,4 +570,104 @@ RSpec.describe 'EmployeePanel::OperatorPanel::Dashboard', type: :request do
       end
     end
   end
+
+  describe '#confirm_order' do
+    before(:each) do
+      allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
+      allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
+      allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
+    end
+
+    context 'when pass valid params' do
+      it 'redirects to orders page' do
+        mission_info = {"mission_info"=>
+                         { "team"=>{ "team_name"=>"Charlie",
+                                     "agents"=>"Coelho | Paz | Wanderson"},
+                           "descriptive_items"=>{ "calibers12"=>"Nº E5189308 | Nº G06375711",
+                                                  "calibers38"=>"Nº UH902995 | Nº WH146314",
+                                                  "munitions12"=>"140 projéteis",
+                                                  "munitions38"=>"50 projéteis",
+                                                  "waistcoats"=>"Nº Série 160122345 | " \
+                                                                "Nº Série 64151537",
+                                                  "radios"=>"Nº Série 64",
+                                                  "vehicles"=>"Moby Branco - FZL 9E48" },
+                           "order_number"=>"20211029223838" }
+        }
+
+        allow(Builders::Mission).to receive_message_chain(:new, :mount!) { true }
+
+        post '/gestao/operador/dashboard/gerenciamento/confirm_order', params: mission_info
+
+        expect(response).to redirect_to(employee_panel_operator_dashboard_index_path)
+      end
+
+      it 'shows success message' do
+        mission_info = {"mission_info"=>
+                         { "team"=>{ "team_name"=>"Charlie",
+                                     "agents"=>"Coelho | Paz | Wanderson"},
+                           "descriptive_items"=>{ "calibers12"=>"Nº E5189308 | Nº G06375711",
+                                                  "calibers38"=>"Nº UH902995 | Nº WH146314",
+                                                  "munitions12"=>"140 projéteis",
+                                                  "munitions38"=>"50 projéteis",
+                                                  "waistcoats"=>"Nº Série 160122345 | " \
+                                                                "Nº Série 64151537",
+                                                  "radios"=>"Nº Série 64",
+                                                  "vehicles"=>"Moby Branco - FZL 9E48" },
+                           "order_number"=>"20211029223838" }
+        }
+
+        allow(Builders::Mission).to receive_message_chain(:new, :mount!) { true }
+
+        post '/gestao/operador/dashboard/gerenciamento/confirm_order', params: mission_info
+
+        expect(flash[:notice]).to eq('Missão criada com sucesso!')
+      end
+    end
+
+    context 'when pass invalid params' do
+      it 'redirects to orders page' do
+        mission_info = {"mission_info"=>
+                         { "team"=>{ "team_name"=>"Charlie",
+                                     "agents"=>"Coelho | Paz | Wanderson"},
+                           "descriptive_items"=>{ "calibers12"=>"Nº E5189308 | Nº G06375711",
+                                                  "calibers38"=>"Nº UH902995 | Nº WH146314",
+                                                  "munitions12"=>"140 projéteis",
+                                                  "munitions38"=>"50 projéteis",
+                                                  "waistcoats"=>"Nº Série 160122345 | " \
+                                                                "Nº Série 64151537",
+                                                  "radios"=>"Nº Série 64",
+                                                  "vehicles"=>"Moby Branco - FZL 9E48" },
+                           "order_number"=>"20211029223838" }
+        }
+
+        allow(Builders::Mission).to receive_message_chain(:new, :mount!) { raise StandardError }
+
+        post '/gestao/operador/dashboard/gerenciamento/confirm_order', params: mission_info
+
+        expect(response).to redirect_to(employee_panel_operator_dashboard_index_path)
+      end
+
+      it 'shows error message' do
+        mission_info = {"mission_info"=>
+                         { "team"=>{ "team_name"=>"Charlie",
+                                     "agents"=>"Coelho | Paz | Wanderson"},
+                           "descriptive_items"=>{ "calibers12"=>"Nº E5189308 | Nº G06375711",
+                                                  "calibers38"=>"Nº UH902995 | Nº WH146314",
+                                                  "munitions12"=>"140 projéteis",
+                                                  "munitions38"=>"50 projéteis",
+                                                  "waistcoats"=>"Nº Série 160122345 | " \
+                                                                "Nº Série 64151537",
+                                                  "radios"=>"Nº Série 64",
+                                                  "vehicles"=>"Moby Branco - FZL 9E48" },
+                           "order_number"=>"20211029223838" }
+        }
+
+        allow(Builders::Mission).to receive_message_chain(:new, :mount!) { raise StandardError }
+
+        post '/gestao/operador/dashboard/gerenciamento/confirm_order', params: mission_info
+
+        expect(flash[:alert]).to eq('Falha na criação da missão!')
+      end
+    end
+  end
 end

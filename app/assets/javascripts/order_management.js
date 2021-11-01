@@ -132,8 +132,6 @@ $(document).on('turbolinks:load', function() {
                 document.getElementById("itemConfirmation").style.display = "";
 
                 showConfirmOrderBtn();
-
-                missionInfo.descriptive_items = data.descriptive_items;
         });
 
         $("#mountItemsListBtn").click(function(){
@@ -161,6 +159,8 @@ $(document).on('turbolinks:load', function() {
                                 populateLabel(data.descriptive_items['vehicles'], document.getElementById("chosenVehicle"), "<i>Viatura: </i>");
 
                                 switchItemsActionsButtons("");
+
+                                missionInfo.descriptive_items = data.descriptive_items;
                         },
                         error: function(xhr, status, error) {
                                 console.log(error);

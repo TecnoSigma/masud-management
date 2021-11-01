@@ -81,9 +81,17 @@ module EmployeePanel
                     alert: t('messages.errors.order.refuse_failed')
       end
 
-      def confirm_order; end
+      def confirm_order
+        Builders::Mission.new(params['mission_info']).mount!
 
-      # {"mission_info"=>{"team"=>{"team_name"=>"Charlie", "agents"=>"Coelho | Paz | Wanderson"}, "descriptive_items"=>{"calibers12"=>"Nº E5189308 | Nº G06375711", "calibers38"=>"Nº UH902995 | Nº WH146314", "munitions12"=>"140 projéteis", "munitions38"=>"50 projéteis", "waistcoats"=>"Nº Série 160122345 | Nº Série 64151537", "radios"=>"Nº Série 64", "vehicles"=>"Moby Branco - FZL 9E48"}, "order_number"=>"20211029223838"}, "controller"=>"employee_panel/operator_panel/dashboard", "action"=>"confirm_order"}
+        redirect_to employee_panel_operator_dashboard_index_path,
+                    notice: t('messages.successes.order.created_mission_successfully')
+      rescue StandardError => error
+        Rails.logger.error("Message: #{error.message} - Backtrace: #{error.backtrace}")
+
+        redirect_to employee_panel_operator_dashboard_index_path,
+                    alert: t('messages.errors.order.create_mission_failed')
+      end
 
       private
 

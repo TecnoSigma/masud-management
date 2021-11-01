@@ -5,6 +5,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.2'
 
+gem 'aasm'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'i18n'
 gem 'jbuilder', '~> 2.5'
