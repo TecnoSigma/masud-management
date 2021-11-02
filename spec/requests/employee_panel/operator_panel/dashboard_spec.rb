@@ -666,4 +666,16 @@ RSpec.describe 'EmployeePanel::OperatorPanel::Dashboard', type: :request do
       end
     end
   end
+
+  describe '#missions' do
+    it 'renders missions page' do
+      allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
+      allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
+      allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
+
+      get '/gestao/operador/dashboard/missoes'
+
+      expect(response).to render_template(:missions)
+    end
+  end
 end

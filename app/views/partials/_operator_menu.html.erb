@@ -1,0 +1,34 @@
+<div class="nav">
+  <a class="nav-link" href="/gestao/dashboard/index">
+   <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+   <%= t('.dashboard') %>
+  </a>
+
+  <div class="sb-sidenav-menu-heading"><%= t('.requests') %></div>
+
+  <!-- REQUESTS -->
+  <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseEscorts" aria-expanded="false" aria-controls="collapseLayouts">
+    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+    <%= t('.escorts') %>
+    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+  </a>
+  <div class="collapse" id="collapseEscorts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+    <nav class="sb-sidenav-menu-nested nav">
+      <%= link_to t('.list'), employee_panel_operator_dashboard_index_path, class: 'nav-link' %>
+    </nav>
+  </div>
+
+  <div class="sb-sidenav-menu-heading"><%= t('.missions') %></div>
+
+  <!-- MISSIONS -->
+  <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseCustomers" aria-expanded="false" aria-controls="collapseLayouts">
+    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+    <%= t('.escorts') %>
+    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+  </a>
+  <div class="collapse" id="collapseCustomers" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+    <nav class="sb-sidenav-menu-nested nav">
+      <%= link_to t('.list'), employee_panel_operator_dashboard_missoes_path, class: 'nav-link' %>
+    </nav>
+  </div>
+</div>

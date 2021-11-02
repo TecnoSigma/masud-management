@@ -108,6 +108,8 @@ Rails.application.routes.draw do
       post 'dashboard/gerenciamento/block_order',      to: 'dashboard#block_order'
       post 'dashboard/gerenciamento/confirm_order',    to: 'dashboard#confirm_order'
       post 'dashboard/gerenciamento/refuse_order',     to: 'dashboard#refuse_order'
+
+      get 'dashboard/missoes', to: 'dashboard#missions'
     end
   end
 end

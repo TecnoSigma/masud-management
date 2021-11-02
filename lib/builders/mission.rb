@@ -240,7 +240,7 @@ module Builders
     end
 
     def team
-      @team ||= Team.find_by_name(team_name)
+      @team ||= ::Team.find_by_name(team_name)
     end
 
     def munitions_quantity(caliber, type)

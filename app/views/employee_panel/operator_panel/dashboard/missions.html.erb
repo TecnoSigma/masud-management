@@ -1,0 +1,54 @@
+<h1 class="mt-4"><%= t('.title') %></h1>
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item active"><%= t('breadcrumbs.escort_missions') %></li>
+</ol>
+<%= render './partials/messages' %>
+<div class="card mb-4">
+  <div class="card-header">
+    <i class="fas fa-table me-1"></i>
+    <%= t('.missions_list') %>
+  </div>
+  <div class="card-body">
+    <table id="tableOperatorEscort" class="table table-striped" width="100%">
+      <thead>
+        <tr>
+          <th><%= t('.order') %></th>
+          <th><%= t('.team') %></th>
+          <th><%= t('.started_at') %></th>
+          <th><%= t('.finished_at') %></th>
+          <th><%= t('.status') %></th>
+          <th></th>
+        </tr>
+      </thead>
+      <% if @missions.any? %>
+        <tfoot>
+          <tr>
+            <th><%= t('.order') %></th>
+            <th><%= t('.team') %></th>
+            <th><%= t('.started_at') %></th>
+            <th><%= t('.finished_at') %></th>
+            <th><%= t('.status') %></th>
+            <th></th>
+          </tr>
+        </tfoot>
+      <% end %>
+      <tbody>
+        <% @missions.each do |mission| %>
+          <tr>
+            <td><%= mission.escort_service.order_number %></td>
+            <td><%= mission.team.name %></td>
+            <td><%= mission.started_at %></td>
+            <td><%= mission.finished_at %></td>
+            <td><%= mission.status.name %></td>
+            <td>
+              <%= link_to root_path do %>
+                <i class="fas fa-calendar-check me-1"></i></td>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= will_paginate @missions, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+  </div>
+</div>

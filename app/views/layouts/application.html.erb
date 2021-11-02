@@ -58,6 +58,7 @@
             <div class="sb-sidenav-menu">
               <%= render 'partials/customer_menu' if session[:customer_token] %>
               <%= render 'partials/admin_menu' if session[:employee_token] && Employee.admin?(session[:employee_token]) %>
+              <%= render 'partials/operator_menu' if session[:employee_token] && !Employee.admin?(session[:employee_token]) %>
             </div>
             <div class="sb-sidenav-footer">
               <div class="small"><%= t('.logged_in_as') %></div>

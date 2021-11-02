@@ -36,6 +36,7 @@ pt-BR:
     escort_requests: 'Pedidos de Escolta'
     orders_list: 'Lista de Pedidos'
     order_number: 'Pedido %{order_number}'
+    escort_missions: 'Missões de Escolta'
   error:
     unauthorized:
       code: '401'
@@ -213,6 +214,14 @@ pt-BR:
       password_placeholder: 'Senha'
     operator_panel:
       dashboard:
+        missions:
+          title: 'Missões de Escolta'
+          missions_list: 'Lista de Missões'
+          order: 'Pedido'
+          team: 'Time'
+          started_at: 'Iniciada em'
+          finished_at: 'Finalizada em'
+          status: 'Status'
         index:
           title: 'Pedidos de Escolta'
           requests_list: 'Lista de Pedidos'
@@ -642,6 +651,12 @@ pt-BR:
             status: 'Status *'
             update_vehicle_btn: 'Atualizar Dados'
   partials:
+    operator_menu:
+      escorts: 'Escoltas'
+      dashoboard: 'dashboard'
+      requests: 'Pedidos'
+      list: 'Lista'
+      missions: 'Missões'
     admin_menu:
       dashboard: 'dashboard'
       orders: 'Serviços'

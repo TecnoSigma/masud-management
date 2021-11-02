@@ -9,6 +9,13 @@ module EmployeePanel
         check_internal_profile(params['controller'])
       end
 
+      def missions
+        @missions = Mission
+                    .all
+                    .paginate(per_page: Order::PER_PAGE_IN_EMPLOYEE_DASHBOARD,
+                              page: params[:page])
+      end
+
       def index
         @scheduled_escorts = Order
                              .scheduled('EscortScheduling')
