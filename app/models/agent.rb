@@ -5,7 +5,6 @@ class Agent < Employee
             format: { with: Regex.cvn_number,
                       message: I18n.t('messages.errors.invalid_format') }
 
-  has_many :tackles
   belongs_to :team, optional: true
 
   before_create :clear_password

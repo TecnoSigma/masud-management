@@ -27,6 +27,9 @@ class Employee < ApplicationRecord
 
   belongs_to :status
   has_one :service_token
+  has_many :arsenals
+  has_many :tackles
+  has_many :bullets
 
   ACTIVE_STATUS = 'ativo'
   MASTER_PROFILE = 'Administrator'

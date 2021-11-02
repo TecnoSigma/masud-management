@@ -580,19 +580,18 @@ RSpec.describe 'EmployeePanel::OperatorPanel::Dashboard', type: :request do
 
     context 'when pass valid params' do
       it 'redirects to orders page' do
-        mission_info = {"mission_info"=>
-                         { "team"=>{ "team_name"=>"Charlie",
-                                     "agents"=>"Coelho | Paz | Wanderson"},
-                           "descriptive_items"=>{ "calibers12"=>"Nº E5189308 | Nº G06375711",
-                                                  "calibers38"=>"Nº UH902995 | Nº WH146314",
-                                                  "munitions12"=>"140 projéteis",
-                                                  "munitions38"=>"50 projéteis",
-                                                  "waistcoats"=>"Nº Série 160122345 | " \
-                                                                "Nº Série 64151537",
-                                                  "radios"=>"Nº Série 64",
-                                                  "vehicles"=>"Moby Branco - FZL 9E48" },
-                           "order_number"=>"20211029223838" }
-        }
+        mission_info = { 'mission_info' =>
+                         { 'team' => { 'team_name' => 'Charlie',
+                                       'agents' => 'Coelho | Paz | Wanderson' },
+                           'descriptive_items' => { 'calibers12' => 'Nº E5189308 | Nº G06375711',
+                                                    'calibers38' => 'Nº UH902995 | Nº WH146314',
+                                                    'munitions12' => '140 projéteis',
+                                                    'munitions38' => '50 projéteis',
+                                                    'waistcoats' => 'Nº Série 160122345 | ' \
+                                                                    'Nº Série 64151537',
+                                                    'radios' => 'Nº Série 64',
+                                                    'vehicles' => 'Moby Branco - FZL 9E48' },
+                           'order_number' => '20211029223838' } }
 
         allow(Builders::Mission).to receive_message_chain(:new, :mount!) { true }
 
@@ -602,19 +601,18 @@ RSpec.describe 'EmployeePanel::OperatorPanel::Dashboard', type: :request do
       end
 
       it 'shows success message' do
-        mission_info = {"mission_info"=>
-                         { "team"=>{ "team_name"=>"Charlie",
-                                     "agents"=>"Coelho | Paz | Wanderson"},
-                           "descriptive_items"=>{ "calibers12"=>"Nº E5189308 | Nº G06375711",
-                                                  "calibers38"=>"Nº UH902995 | Nº WH146314",
-                                                  "munitions12"=>"140 projéteis",
-                                                  "munitions38"=>"50 projéteis",
-                                                  "waistcoats"=>"Nº Série 160122345 | " \
-                                                                "Nº Série 64151537",
-                                                  "radios"=>"Nº Série 64",
-                                                  "vehicles"=>"Moby Branco - FZL 9E48" },
-                           "order_number"=>"20211029223838" }
-        }
+        mission_info = { 'mission_info' =>
+                         { 'team' => { 'team_name' => 'Charlie',
+                                       'agents' => 'Coelho | Paz | Wanderson' },
+                           'descriptive_items' => { 'calibers12' => 'Nº E5189308 | Nº G06375711',
+                                                    'calibers38' => 'Nº UH902995 | Nº WH146314',
+                                                    'munitions12' => '140 projéteis',
+                                                    'munitions38' => '50 projéteis',
+                                                    'waistcoats' => 'Nº Série 160122345 | ' \
+                                                                    'Nº Série 64151537',
+                                                    'radios' => 'Nº Série 64',
+                                                    'vehicles' => 'Moby Branco - FZL 9E48' },
+                           'order_number' => '20211029223838' } }
 
         allow(Builders::Mission).to receive_message_chain(:new, :mount!) { true }
 
@@ -626,19 +624,18 @@ RSpec.describe 'EmployeePanel::OperatorPanel::Dashboard', type: :request do
 
     context 'when pass invalid params' do
       it 'redirects to orders page' do
-        mission_info = {"mission_info"=>
-                         { "team"=>{ "team_name"=>"Charlie",
-                                     "agents"=>"Coelho | Paz | Wanderson"},
-                           "descriptive_items"=>{ "calibers12"=>"Nº E5189308 | Nº G06375711",
-                                                  "calibers38"=>"Nº UH902995 | Nº WH146314",
-                                                  "munitions12"=>"140 projéteis",
-                                                  "munitions38"=>"50 projéteis",
-                                                  "waistcoats"=>"Nº Série 160122345 | " \
-                                                                "Nº Série 64151537",
-                                                  "radios"=>"Nº Série 64",
-                                                  "vehicles"=>"Moby Branco - FZL 9E48" },
-                           "order_number"=>"20211029223838" }
-        }
+        mission_info = { 'mission_info' =>
+                         { 'team' => { 'team_name' => 'Charlie',
+                                       'agents' => 'Coelho | Paz | Wanderson' },
+                           'descriptive_items' => { 'calibers12' => 'Nº E5189308 | Nº G06375711',
+                                                    'calibers38' => 'Nº UH902995 | Nº WH146314',
+                                                    'munitions12' => '140 projéteis',
+                                                    'munitions38' => '50 projéteis',
+                                                    'waistcoats' => 'Nº Série 160122345 | ' \
+                                                                    'Nº Série 64151537',
+                                                    'radios' => 'Nº Série 64',
+                                                    'vehicles' => 'Moby Branco - FZL 9E48' },
+                           'order_number' => '20211029223838' } }
 
         allow(Builders::Mission).to receive_message_chain(:new, :mount!) { raise StandardError }
 
@@ -648,19 +645,18 @@ RSpec.describe 'EmployeePanel::OperatorPanel::Dashboard', type: :request do
       end
 
       it 'shows error message' do
-        mission_info = {"mission_info"=>
-                         { "team"=>{ "team_name"=>"Charlie",
-                                     "agents"=>"Coelho | Paz | Wanderson"},
-                           "descriptive_items"=>{ "calibers12"=>"Nº E5189308 | Nº G06375711",
-                                                  "calibers38"=>"Nº UH902995 | Nº WH146314",
-                                                  "munitions12"=>"140 projéteis",
-                                                  "munitions38"=>"50 projéteis",
-                                                  "waistcoats"=>"Nº Série 160122345 | " \
-                                                                "Nº Série 64151537",
-                                                  "radios"=>"Nº Série 64",
-                                                  "vehicles"=>"Moby Branco - FZL 9E48" },
-                           "order_number"=>"20211029223838" }
-        }
+        mission_info = { 'mission_info' =>
+                         { 'team' => { 'team_name' => 'Charlie',
+                                       'agents' => 'Coelho | Paz | Wanderson' },
+                           'descriptive_items' => { 'calibers12' => 'Nº E5189308 | Nº G06375711',
+                                                    'calibers38' => 'Nº UH902995 | Nº WH146314',
+                                                    'munitions12' => '140 projéteis',
+                                                    'munitions38' => '50 projéteis',
+                                                    'waistcoats' => 'Nº Série 160122345 | ' \
+                                                                    'Nº Série 64151537',
+                                                    'radios' => 'Nº Série 64',
+                                                    'vehicles' => 'Moby Branco - FZL 9E48' },
+                           'order_number' => '20211029223838' } }
 
         allow(Builders::Mission).to receive_message_chain(:new, :mount!) { raise StandardError }
 

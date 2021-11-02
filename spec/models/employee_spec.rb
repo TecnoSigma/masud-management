@@ -55,6 +55,12 @@ RSpec.describe Employee, type: :model do
 
       expect(employee).to respond_to(:service_token)
     end
+
+    it 'validates optional relationship (1:N) between Employee and Bullet' do
+      employee = Employee.new
+
+      expect(employee).to respond_to(:bullets)
+    end
   end
 
   describe 'validates presences' do

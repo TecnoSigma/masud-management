@@ -20,22 +20,10 @@ RSpec.describe Operator, type: :model do
       expect(operator).not_to respond_to(:team)
     end
 
-    it 'no validates relationship (1:N) between Arsenal and Operator' do
-      operator = Operator.new
-
-      expect(operator).not_to respond_to(:arsenals)
-    end
-
     it 'no validates relationship (1:N) between Clothing and Operator' do
       operator = Operator.new
 
       expect(operator).not_to respond_to(:clothes)
-    end
-
-    it 'no validates relationship (1:N) between Operator and Tackle' do
-      operator = Operator.new
-
-      expect(operator).not_to respond_to(:tackles)
     end
   end
 end

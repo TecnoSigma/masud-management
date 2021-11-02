@@ -5,6 +5,8 @@ class Munition < Arsenal
             :quantity,
             presence: true
 
+  # TODO: Adicionar observer para criar novo bullet quando criar novo tipo de munição
+
   def available
     return quantity unless item_movimentations
 
