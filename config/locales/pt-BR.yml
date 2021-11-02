@@ -708,6 +708,8 @@ pt-BR:
       title: 'Confirmação de Recusa de Pedido'
       inform_reason: 'Informe o motivo da recusa'
       refuse_order_confirmation_btn: 'Confirmação de Recusa'
+    footer:
+      copyright: 'Copyright © TecnoSigma %{year}'
   notifications:
     customer:
       orders:
