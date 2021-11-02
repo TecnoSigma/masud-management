@@ -261,10 +261,10 @@ module Builders
         end
       end
 
-      agents_list.map(&:bullets)
-                 .flatten
-                 .map { |bullet| bullet.caliber == caliber }
-                 .include?(true)
+      agents_list
+        .map(&:id)
+        .map { |employee_id| Agent.find(employee_id).bullets.where(caliber: caliber).any? }
+        .include?(true)
     end
   end
 end
