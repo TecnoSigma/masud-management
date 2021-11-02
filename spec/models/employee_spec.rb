@@ -3,6 +3,32 @@
 require 'rails_helper'
 
 RSpec.describe Employee, type: :model do
+  describe '.profiles' do
+    it 'returns profiles when is production environment' do
+      allow(Rails).to receive_message_chain(:env, :production?) { true }
+
+      expected_result = { administrator: 'Administrador', operator: 'Operador' }
+
+      result = described_class.profiles
+
+      expect(result).to eq(expected_result)
+    end
+
+    it 'returns profiles when isn\'t production environment' do
+      allow(Rails).to receive_message_chain(:env, :production?) { false }
+
+      expected_result = { administrator: 'Administrador',
+                          agent: 'Agente',
+                          approver: 'Aprovador',
+                          lecturer: 'Conferente',
+                          operator: 'Operador' }
+
+      result = described_class.profiles
+
+      expect(result).to eq(expected_result)
+    end
+  end
+
   describe '.admin?' do
     it 'returns \'true\' when employee is admin' do
       service_token = FactoryBot.create(:service_token)

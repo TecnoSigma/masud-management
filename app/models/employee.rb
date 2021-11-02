@@ -34,13 +34,21 @@ class Employee < ApplicationRecord
   ACTIVE_STATUS = 'ativo'
   MASTER_PROFILE = 'Administrator'
   PER_PAGE_IN_EMPLOYEE_DASHBOARD = 20
+
+  ALL_PROFILES = { administrator: 'Administrador',
+                   agent: 'Agente',
+                   approver: 'Aprovador',
+                   lecturer: 'Conferente',
+                   operator: 'Operador' }.freeze
+
   PROFILES = { administrator: 'Administrador',
-               agent: 'Agente',
-               approver: 'Aprovador',
-               lecturer: 'Conferente',
                operator: 'Operador' }.freeze
 
   private_constant :ACTIVE_STATUS
+
+  def self.profiles
+    Rails.env.production? ? PROFILES : ALL_PROFILES
+  end
 
   def self.admin?(token)
     employee = ServiceToken.find_by_token(token).employee

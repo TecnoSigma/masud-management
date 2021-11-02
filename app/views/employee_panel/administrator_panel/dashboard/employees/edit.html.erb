@@ -103,7 +103,7 @@
                   <div class="form-floating mb-3">
                     <%= f.select :profile,
                                  options_for_select(
-                                   Employee::PROFILES.invert.to_a.collect {|profile| [ profile.first.titleize, profile.last ] },
+                                   Employee.profiles.invert.to_a.collect {|profile| [ profile.first.titleize, profile.last ] },
                                    @employee.type.downcase
                                  ),
                                  { class: 'form-control',

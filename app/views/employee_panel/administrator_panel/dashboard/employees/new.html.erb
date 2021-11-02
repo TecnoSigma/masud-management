@@ -99,7 +99,7 @@
                   <div class="form-floating mb-3">
                   <div class="form-floating mb-3">
                     <%= f.select :profile,
-                                 Employee::PROFILES.invert.to_a,
+                                 Employee.profiles.invert.to_a,
                                  { class: 'form-control',
                                    prompt: t('.profile') },
                                    required:  true %>

@@ -72,7 +72,9 @@ module EmployeePanel
         def employee_klass
           return Employee unless params['employee']['profile']
 
-          Employee::PROFILES
+          profiles = Rails.env.production? ? Employee::PROFILES : Employee::ALL_PROFILES
+
+          profiles
             .keys
             .map(&:to_s)
             .detect { |profile| profile if profile == params['employee']['profile'] }

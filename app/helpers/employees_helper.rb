@@ -2,7 +2,7 @@
 
 module EmployeesHelper
   def profile(profile)
-    Employee::PROFILES[profile.downcase.to_sym]
+    Employee.profiles[profile.downcase.to_sym]
   end
 
   def highlight_expired_cvn(employee)
