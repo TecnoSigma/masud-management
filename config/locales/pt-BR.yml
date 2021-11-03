@@ -36,6 +36,7 @@ pt-BR:
     escort_requests: 'Pedidos de Escolta'
     orders_list: 'Lista de Pedidos'
     order_number: 'Pedido %{order_number}'
+    mission_number: 'Missão %{mission_number}'
     escort_missions: 'Missões de Escolta'
   error:
     unauthorized:
@@ -214,6 +215,34 @@ pt-BR:
       password_placeholder: 'Senha'
     operator_panel:
       dashboard:
+        mission:
+          way: 'Trajeto'
+          source: 'Origem'
+          destiny: 'Destino'
+          job_day: 'Data da Missão: '
+          job_horary: 'Horário da Missão: '
+          address: 'Endereço: '
+          number: 'Número: '
+          complement: 'Complemento: '
+          district: 'Bairro: '
+          city: 'Cidade: '
+          state: 'Estado: '
+          observation: 'Observação: '
+          team: 'Time'
+          team_name: 'Nome: '
+          agents:
+            one: 'Agente: '
+            other: 'Agentes: '
+          arsenal: 'Arsenal'
+          guns: 'Armas: '
+          munitions: 'Munição'
+          description: 'Descrição: '
+          tackles: 'Equipamentos'
+          waistcoats: 'Coletes: '
+          radios: 'Rádios: '
+          vehicles: 'Viaturas'
+          start_mission_btn: 'Iniciar Missão'
+          finish_mission_btn: 'Finalizar Missão'
         missions:
           title: 'Missões de Escolta'
           missions_list: 'Lista de Missões'

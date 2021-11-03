@@ -16,6 +16,10 @@ module EmployeePanel
                               page: params[:page])
       end
 
+      def mission
+        @mission = Mission.find(params['mission_number'])
+      end
+
       def index
         @scheduled_escorts = Order
                              .scheduled('EscortScheduling')

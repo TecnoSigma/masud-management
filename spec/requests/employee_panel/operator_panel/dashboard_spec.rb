@@ -678,4 +678,28 @@ RSpec.describe 'EmployeePanel::OperatorPanel::Dashboard', type: :request do
       expect(response).to render_template(:missions)
     end
   end
+
+  describe '#mission' do
+    it 'renders mission page' do
+      employee = FactoryBot.create(:employee, :agent)
+      agent = Agent.find(employee.id)
+
+      team = FactoryBot.create(:team)
+      team.agents << agent
+      team.save
+
+      order = FactoryBot.create(:order, :confirmed)
+      escort_service = EscortService.find(order.id)
+
+      mission = FactoryBot.create(:mission, team: team, escort_service: escort_service)
+
+      allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
+      allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
+      allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
+
+      get "/gestao/operador/dashboard/missao/#{mission.id}"
+
+      expect(response).to render_template(:mission)
+    end
+  end
 end

@@ -1,0 +1,127 @@
+<h1 class="mt-4"><%= t('.title') %></h1>
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item">
+    <%= link_to t('breadcrumbs.orders_list'), employee_panel_operator_dashboard_index_path %>
+  </li>
+  <li class="breadcrumb-item active"><%= t('breadcrumbs.mission_number', mission_number: @mission.id) %></li>
+</ol>
+<hr>
+<div id="layoutOrderManagementt">
+  <div id="layoutOrderManagementt_content">
+    <main>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-12">
+            <br>
+            <%= render './partials/messages' %>
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+              <div class="card-body">
+
+                <!-- CUSTOMER DATA -->
+                <h5><%= t('.way') %></h5>
+                <h6><%= t('.source') %></h6>
+                <strong><%= t('.job_day') %></strong>
+                <span><%= @mission.escort_service.job_day %></span>
+                <br>
+                <strong><%= t('.job_horary') %></strong>
+                <span><%= @mission.escort_service.job_horary %></span>
+                <br>
+                <strong><%= t('.address') %></strong>
+                <span><%= @mission.escort_service.source_address %></span>
+                <br>
+                <strong><%= t('.number') %></strong>
+                <span><%= @mission.escort_service.source_number %></span>
+                <br>
+                <strong><%= t('.complement') %></strong>
+                <span><%= @mission.escort_service.source_complement %></span>
+                <br>
+                <strong><%= t('.district') %></strong>
+                <span><%= @mission.escort_service.source_district %></span>
+                <br>
+                <strong><%= t('.city') %></strong>
+                <span><%= @mission.escort_service.source_city %></span>
+                <br>
+                <strong><%= t('.state') %></strong>
+                <span><%= @mission.escort_service.source_state %></span>
+                <br><br>
+                <h6><%= t('.destiny') %></h6>
+                <strong><%= t('.address') %></strong>
+                <span><%= @mission.escort_service.destiny_address %></span>
+                <br>
+                <strong><%= t('.number') %></strong>
+                <span><%= @mission.escort_service.destiny_number %></span>
+                <br>
+                <strong><%= t('.complement') %></strong>
+                <span><%= @mission.escort_service.destiny_complement %></span>
+                <br>
+                <strong><%= t('.district') %></strong>
+                <span><%= @mission.escort_service.destiny_district %></span>
+                <br>
+                <strong><%= t('.city') %></strong>
+                <span><%= @mission.escort_service.destiny_city %></span>
+                <br>
+                <strong><%= t('.state') %></strong>
+                <span><%= @mission.escort_service.destiny_state %></span>
+                <br><br>
+                <strong><%= t('.observation') %></strong>
+                <span><%= @mission.escort_service.observation %></span>
+                <br>
+
+                <hr>
+
+                <!-- TEAM DATA-->
+                <h5><%= t('.team') %></h5>
+                <strong><%= t('.team_name') %></strong>
+                <span><%= @mission.team.name %></span>
+                <br>
+                <strong><%= t('.agents', count: @mission.team.agents.count) %></strong>
+                <span><%= codenames(@mission.team.agents) %></span>
+                <br>
+
+                <hr>
+
+                <!-- GUNS DATA-->
+                <h5><%= t('.arsenal') %></h5>
+                <strong><%= t('.guns') %></strong>
+                <span><%= guns(@mission.team.agents) %></span>
+                <br>
+
+                <hr>
+
+                <!-- MUNITIONS DATA-->
+                <h5><%= t('.munitions') %></h5>
+                <strong><%= t('.description') %></strong>
+                <span><%= munitions(@mission.team.agents) %></span>
+                <br>
+
+                <hr>
+
+                <!-- TACKLES DATA-->
+                <h5><%= t('.tackles') %></h5>
+                <strong><%= t('.waistcoats') %></strong>
+                <span><%= waistcoats(@mission.team.agents) %></span>
+                <br>
+                <strong><%= t('.radios') %></strong>
+                <span><%= radios(@mission.team.agents) %></span>
+                <br>
+
+                <hr>
+
+                <!-- VEHICLES DATA-->
+                <h5><%= t('.vehicles') %></h5>
+                <strong><%= t('.description') %></strong>
+                <span><%= vehicles(@mission.team) %></span>
+                <br>
+
+                <hr>
+                <%= link_to t('.start_mission_btn'), :back, class: 'btn btn-success' %>
+                <%= link_to t('.finish_mission_btn'), :back, class: 'btn btn-danger' %>
+              </div>
+              <div class="card-footer text-center py-3"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

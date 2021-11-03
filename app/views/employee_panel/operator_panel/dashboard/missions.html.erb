@@ -41,8 +41,8 @@
             <td><%= mission.finished_at %></td>
             <td><%= mission.status.name %></td>
             <td>
-              <%= link_to root_path do %>
-                <i class="fas fa-calendar-check me-1"></i></td>
+              <%= link_to employee_panel_operator_dashboard_mission_path(mission.id) do %>
+                <i class="fas fa-align-justify me-1"></i></td>
               <% end %>
             </td>
           </tr>
