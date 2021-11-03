@@ -27,6 +27,19 @@ module EmployeePanel
                                        page: params[:page])
       end
 
+      def start_mission
+        mission = Mission.find(params['mission_number'])
+        mission.update(started_at: DateTime.now, status: Status.find_by_name('iniciada'))
+
+        redirect_to employee_panel_operator_dashboard_missoes_path,
+                    notice: t('messages.successes.mission.started_successfully')
+      rescue StandardError => error
+        Rails.logger.error("Message: #{error.message} - Backtrace: #{error.backtrace}")
+
+        redirect_to employee_panel_operator_dashboard_missoes_path,
+                    alert: t('messages.errors.mission.start_failed')
+      end
+
       def order_management
         session[:order_number] = params['order_number']
 

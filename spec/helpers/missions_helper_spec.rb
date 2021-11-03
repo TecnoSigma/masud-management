@@ -97,7 +97,7 @@ RSpec.describe MissionsHelper, type: :helper do
       caliber = '12'
       employee = FactoryBot.create(:employee, :agent)
       agent = Agent.find(employee.id)
-      bullet = FactoryBot.create(:bullet, employee: agent, quantity: quantity, caliber: caliber)
+      FactoryBot.create(:bullet, employee: agent, quantity: quantity, caliber: caliber)
 
       result = helper.munitions([agent])
 

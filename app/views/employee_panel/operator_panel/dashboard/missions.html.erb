@@ -37,8 +37,8 @@
           <tr>
             <td><%= mission.escort_service.order_number %></td>
             <td><%= mission.team.name %></td>
-            <td><%= mission.started_at %></td>
-            <td><%= mission.finished_at %></td>
+            <td><%= convert_date_time(mission.started_at) if mission.started_at %></td>
+            <td><%= convert_date_time(mission.finished_at) if mission.finished_at %></td>
             <td><%= mission.status.name %></td>
             <td>
               <%= link_to employee_panel_operator_dashboard_mission_path(mission.id) do %>

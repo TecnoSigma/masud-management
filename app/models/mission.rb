@@ -5,4 +5,8 @@ class Mission < ApplicationRecord
   belongs_to :team
   belongs_to :escort_service
   belongs_to :status
+
+  def started?
+    started_at.present?
+  end
 end

@@ -28,4 +28,48 @@ RSpec.describe Mission, type: :model do
       expect(mission).to respond_to(:status)
     end
   end
+
+  describe '#started?' do
+    it 'returns \'true\' when mission is started' do
+      FactoryBot.create(:status, name: 'confirmada')
+      employee = FactoryBot.create(:employee, :agent)
+      agent = Agent.find(employee.id)
+
+      team = FactoryBot.create(:team)
+      team.agents << agent
+      team.save
+
+      order = FactoryBot.create(:order, :confirmed)
+      escort_service = EscortService.find(order.id)
+
+      mission = FactoryBot.create(:mission,
+                                  team: team,
+                                  escort_service:
+                                  escort_service,
+                                  started_at: DateTime.now)
+
+      expect(mission.started?).to eq(true)
+    end
+
+    it 'returns \'false\' when mission isn\'t started' do
+      FactoryBot.create(:status, name: 'confirmada')
+      employee = FactoryBot.create(:employee, :agent)
+      agent = Agent.find(employee.id)
+
+      team = FactoryBot.create(:team)
+      team.agents << agent
+      team.save
+
+      order = FactoryBot.create(:order, :confirmed)
+      escort_service = EscortService.find(order.id)
+
+      mission = FactoryBot.create(:mission,
+                                  team: team,
+                                  escort_service:
+                                  escort_service,
+                                  started_at: nil)
+
+      expect(mission.started?).to eq(false)
+    end
+  end
 end
