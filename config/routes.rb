@@ -112,6 +112,7 @@ Rails.application.routes.draw do
       get 'dashboard/missoes',                to: 'dashboard#missions'
       get 'dashboard/missao/:mission_number', to: 'dashboard#mission', as: 'dashboard_mission'
       post 'dashboard/missao/start_mission',  to: 'dashboard#start_mission'
+      post 'dashboard/missao/finish_mission', to: 'dashboard#finish_mission'
     end
   end
 end

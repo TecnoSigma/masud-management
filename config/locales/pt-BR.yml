@@ -96,6 +96,7 @@ pt-BR:
         create_mission_failed: 'Falha na criação da missão!'
       mission:
         start_failed: 'Falha ao iniciar a missão!'
+        finish_failed: 'Falha ao finalizar a missão!'
     infos:
       scheduling_cancelation: 'Importante: Todo agendamento poderá ser cancelado em até trẽs horas antes da execução do serviço.'
       password_strength: 'Dica: Utilize letras, números e caracteres especiais (&, @, !, #) '
@@ -141,6 +142,7 @@ pt-BR:
         removed_successfully: 'Viatura %{license_plate} removida com sucesso!'
       mission:
         started_successfully: 'Missão iniciada com sucesso!'
+        finished_successfully: 'Missão finalizada com sucesso!'
   layouts:
     application:
       logout: 'Logout'
