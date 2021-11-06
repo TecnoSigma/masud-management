@@ -38,4 +38,20 @@ RSpec.describe Team, type: :model do
       expect(result).to eq([team])
     end
   end
+
+  it 'returns valid team prefix' do
+    team_prefix = 'M'
+
+    result = Team::PREFIX
+
+    expect(result).to eq(team_prefix)
+  end
+
+  it 'returns maximum quantity teams' do
+    maximum_quantity = 99
+
+    result = Team::MAXIMUM_QUANTITY
+
+    expect(result).to eq(maximum_quantity)
+  end
 end

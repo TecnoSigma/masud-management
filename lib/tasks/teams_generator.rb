@@ -8,12 +8,13 @@ module Tasks
       def call!
         sleep(2)
 
-        CSV.foreach('././db/migrate/data/teams.csv', headers: true).map do |row|
-          to_hash = row.to_hash
+        for number in 1..Team::MAXIMUM_QUANTITY
+          team_number = "%02d" % number
+          team_name = "#{Team::PREFIX}-#{team_number}"
 
-          Team.create!(name: to_hash['name'])
+          Team.create!(name: team_name)
 
-          puts "--- Team #{to_hash['name']} created!"
+          puts "--- Team #{team_name} created!"
         end
 
         puts "-- #{Team.count} teams created!"
