@@ -61,7 +61,7 @@ module EmployeePanel
       end
 
       def mount_team
-        team = Builders::Team.new(team_params['quantity']).mount!
+        team = Builders::Team.mount!
 
         render json: { 'team' => team }, status: :ok
       rescue StandardError => error

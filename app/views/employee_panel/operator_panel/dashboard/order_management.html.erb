@@ -61,19 +61,6 @@
                              url: employee_panel_operator_dashboard_gerenciamento_confirm_order_path do |f| %>
                   <div class="form-floating mb-3">
                     <div>
-                      <h5><%= t('.agents') %></h5>
-                      <table>
-                        <tr>
-                          <td width='300px'>
-                            <label><%= t('.quantity') %></label>
-                          </td>
-                          <td width='100px'>
-                            <%= f.select :agents_quantity,
-                                         available_agents,
-                                         { class: 'order-management-select', required: true } %>
-                          </td>
-                        </tr>
-                      </table>
                       <br>
                       <span id="mountTeamBtn" class="btn btn-primary"><%= t('.mount_team_btn') %></span>
                       <br><br>

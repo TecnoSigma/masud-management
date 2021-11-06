@@ -4,27 +4,21 @@ module Builders
   class Team
     attr_reader :agent_quantity
 
-    def initialize(agent_quantity)
-      @agent_quantity = agent_quantity.to_i
-    end
-
-    def mount!
+    def self.mount!
       { team_name: mount_team, agents: mount_agents }
     end
 
-    private
-
-    def mount_team
+    def self.mount_team
       ::Team
         .available
         .map(&:name)
         .sample
     end
 
-    def mount_agents
+    def self.mount_agents
       Agent
         .available
-        .first(agent_quantity)
+        .first(::Team::COMPONENTS)
         .map(&:codename)
         .sort
         .join(I18n.t('builders.mission_items.separator'))

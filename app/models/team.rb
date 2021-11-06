@@ -9,6 +9,7 @@ class Team < ApplicationRecord
 
   PREFIX = 'M'
   MAXIMUM_QUANTITY = 99
+  COMPONENTS = 2
 
   scope :available, -> { select { |team| team.agents.empty? } }
 end

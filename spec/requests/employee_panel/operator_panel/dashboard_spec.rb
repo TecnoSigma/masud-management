@@ -203,10 +203,9 @@ RSpec.describe 'EmployeePanel::OperatorPanel::Dashboard', type: :request do
 
         team = { agents: 'Alves | Silva', team_name: 'Tango' }
 
-        allow(Builders::Team).to receive_message_chain(:new, :mount!) { team }
+        allow(Builders::Team).to receive(:mount!) { team }
 
-        post '/gestao/operador/dashboard/gerenciamento/mount_team.json',
-             params: { 'agent' => { 'quantity' => '2' } }
+        post '/gestao/operador/dashboard/gerenciamento/mount_team.json'
 
         expected_result = { team: team }.to_json
 
@@ -220,10 +219,9 @@ RSpec.describe 'EmployeePanel::OperatorPanel::Dashboard', type: :request do
 
         team = { agents: 'Alves | Silva', team_name: 'Tango' }
 
-        allow(Builders::Team).to receive_message_chain(:new, :mount!) { team }
+        allow(Builders::Team).to receive(:mount!) { team }
 
-        post '/gestao/operador/dashboard/gerenciamento/mount_team.json',
-             params: { 'agent' => { 'quantity' => '2' } }
+        post '/gestao/operador/dashboard/gerenciamento/mount_team.json'
 
         expect(response).to have_http_status(200)
       end
@@ -235,10 +233,9 @@ RSpec.describe 'EmployeePanel::OperatorPanel::Dashboard', type: :request do
         allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
         allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
 
-        allow(Builders::Team).to receive_message_chain(:new, :mount!) { raise StandardError }
+        allow(Builders::Team).to receive(:mount!) { raise StandardError }
 
-        post '/gestao/operador/dashboard/gerenciamento/mount_team.json',
-             params: { 'agent' => { 'quantity' => '2' } }
+        post '/gestao/operador/dashboard/gerenciamento/mount_team.json'
 
         expected_result = { team: {} }.to_json
 
@@ -250,10 +247,9 @@ RSpec.describe 'EmployeePanel::OperatorPanel::Dashboard', type: :request do
         allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
         allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
 
-        allow(Builders::Team).to receive_message_chain(:new, :mount!) { raise StandardError }
+        allow(Builders::Team).to receive(:mount!) { raise StandardError }
 
-        post '/gestao/operador/dashboard/gerenciamento/mount_team.json',
-             params: { 'agent' => { 'quantity' => '2' } }
+        post '/gestao/operador/dashboard/gerenciamento/mount_team.json'
 
         expect(response).to have_http_status(500)
       end

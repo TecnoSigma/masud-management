@@ -13,7 +13,7 @@ RSpec.describe 'Builders::Team' do
 
       expected_result = { agents: "#{agents.first} | #{agents.last}", team_name: team_name }
 
-      result = Builders::Team.new(agents.count).mount!
+      result = Builders::Team.mount!
 
       expect(result).to eq(expected_result)
     end

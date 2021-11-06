@@ -3,15 +3,6 @@ $(document).on('turbolinks:load', function() {
 
         initializers();
 
-        $("#order_agents_quantity").change(function(){
-                if (document.getElementById("order_agents_quantity").value == '0') {
-                        document.getElementById("teamLabel").innerHTML = "<i>Nome do Time: </i>";
-                        document.getElementById("agentsLabel").innerHTML = "<i>Agentes: </i>";
-
-                        switchTeamActionsButtons("none");
-                }
-        });
-
         $("#order_caliber_12").change(function(){
                 enableDropDown(this, document.getElementById("order_calibers_12_quantity"));
         });
@@ -56,14 +47,11 @@ $(document).on('turbolinks:load', function() {
         });
 
         $("#mountTeamBtn").click(function(){
-                if (document.getElementById("order_agents_quantity").value == '0') return
-
-                var agentsQuantity = { quantity: document.getElementById("order_agents_quantity").value };
-
                 $.ajax({
                         url: "/gestao/operador/dashboard/gerenciamento/mount_team",
                         type: "POST",
-                        data: { agent: agentsQuantity },
+
+                        data: {},
                         success: function(data, status, xhr) {
                                 populateLabel(data.team['team_name'], document.getElementById("teamLabel"), "<i>Nome do Time: </i>");
                                 populateLabel(data.team['agents'], document.getElementById("agentsLabel"), "<i>Agentes: </i>");
@@ -220,7 +208,6 @@ $(document).on('turbolinks:load', function() {
 
                                         document.getElementById("mountTeamBtn").style.display = "none";
                                         document.getElementById("mountItemsListBtn").style.display = "none";
-                                        document.getElementById("order_agents_quantity").disabled = true;
 
                                         blockOrder();
                                 } else {
