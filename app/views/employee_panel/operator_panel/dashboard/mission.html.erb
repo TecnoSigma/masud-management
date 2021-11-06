@@ -81,7 +81,7 @@
                 <span><%= @mission.team.name %></span>
                 <br>
                 <strong><%= t('.agents', count: @mission.team.agents.count) %></strong>
-                <span><%= codenames(@mission.team.agents) %></span>
+                <span><%= fullnames_with_document(@mission.team.agents) %></span>
                 <br>
 
                 <hr>

@@ -34,6 +34,13 @@ module MissionsHelper
       .join(' | ')
   end
 
+  def fullnames_with_document(agents)
+    agents
+      .sort_by(&:name)
+      .map { |agent| "#{agent.name} - RG: #{agent.rg}" }
+      .join(' | ')
+  end
+
   def codenames(agents)
     agents
       .map(&:codename)

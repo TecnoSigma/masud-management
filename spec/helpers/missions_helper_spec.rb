@@ -78,14 +78,14 @@ RSpec.describe MissionsHelper, type: :helper do
     end
   end
 
-  describe '#codenames' do
+  describe '#fullnames_with_document' do
     it 'returns sorted agent codenames' do
-      agent1 = FactoryBot.create(:employee, :agent, codename: 'Souza')
-      agent2 = FactoryBot.create(:employee, :agent, codename: 'Silva')
+      agent1 = FactoryBot.create(:employee, :agent, name: 'Zeca')
+      agent2 = FactoryBot.create(:employee, :agent, name: 'Antônio')
 
-      result = helper.codenames([agent1, agent2])
+      result = helper.fullnames_with_document([agent1, agent2])
 
-      expected_result = "#{agent2.codename} | #{agent1.codename}"
+      expected_result = "#{agent2.name} - RG: #{agent2.rg} | #{agent1.name} - RG: #{agent1.rg}"
 
       expect(result).to eq(expected_result)
     end
