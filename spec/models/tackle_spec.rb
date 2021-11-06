@@ -66,30 +66,68 @@ RSpec.describe Tackle, type: :model do
 
       expect(result).to eq([regular_status, irregular_status])
     end
+  end
 
+  describe '.available' do
     context 'when is a radio' do
-      it 'returns only available radios' do
+      it 'returns available radios when pass tackle type' do
         agent = FactoryBot.create(:employee, :agent)
         FactoryBot.create(:tackle, :radio, employee: agent)
-        FactoryBot.create(:tackle, :radio, employee: nil)
+        FactoryBot.create_list(:tackle, 3, :radio, employee: nil)
 
-        expected_result = Radio.where(employee: nil)
+        expected_result = 1
 
-        result = Radio.available
+        result = Radio.available('radio')
+
+        expect(result).to eq(expected_result)
+      end
+
+      it 'returns available radios when pass tackle type and have one radio in stock' do
+        FactoryBot.create_list(:tackle, 3, :radio, employee: nil)
+
+        expected_result = 1
+
+        result = Radio.available('radio')
+
+        expect(result).to eq(expected_result)
+      end
+
+      it 'no returns available radios when pass tackle type and don\'t have radios in stock' do
+        expected_result = 0
+
+        result = Radio.available('radio')
 
         expect(result).to eq(expected_result)
       end
     end
 
     context 'when is a waistcoat' do
-      it 'returns only available waistcoats' do
+      it 'returns available waistcoats when pass tackle type' do
         agent = FactoryBot.create(:employee, :agent)
         FactoryBot.create(:tackle, :waistcoat, employee: agent)
+        FactoryBot.create_list(:tackle, 3, :waistcoat, employee: nil)
+
+        expected_result = 2
+
+        result = Waistcoat.available('waistcoat')
+
+        expect(result).to eq(expected_result)
+      end
+
+      it 'returns available waistcoats when pass tackle type and have one waistcoat in stock' do
         FactoryBot.create(:tackle, :waistcoat, employee: nil)
 
-        expected_result = Waistcoat.where(employee: nil)
+        expected_result = 1
 
-        result = Waistcoat.available
+        result = Waistcoat.available('waistcoat')
+
+        expect(result).to eq(expected_result)
+      end
+
+      it 'no returns available waistcoats when pass tackle type and don\'t have waistcoat in stock' do
+        expected_result = 0
+
+        result = Waistcoat.available('waistcoat')
 
         expect(result).to eq(expected_result)
       end

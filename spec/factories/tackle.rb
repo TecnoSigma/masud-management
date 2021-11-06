@@ -12,7 +12,7 @@ FactoryBot.define do
 
     trait :radio do
       type { 'Radio' }
-      serial_number { Random.rand(100) }
+      serial_number { Random.rand(1000) }
     end
 
     trait :waistcoat do

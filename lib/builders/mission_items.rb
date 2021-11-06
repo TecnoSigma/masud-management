@@ -53,12 +53,12 @@ module Builders
     end
 
     def mount_waistcoats
-      item_list = Waistcoat.available.sample(waistcoats).map(&:serial_number)
+      item_list = Waistcoat.where(employee: nil).sample(waistcoats).map(&:serial_number)
       items_description(item_list, 'serial_number')
     end
 
     def mount_radios
-      item_list = Radio.available.sample(radios).map(&:serial_number)
+      item_list = Radio.where(employee: nil).sample(radios).map(&:serial_number)
       items_description(item_list, 'serial_number')
     end
 

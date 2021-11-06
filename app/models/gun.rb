@@ -18,9 +18,13 @@ class Gun < Arsenal
 
   def self.available(caliber)
     total = total_by_caliber(caliber).count
-    quantity = const_get("CALIBER_#{caliber}_MAXIMUM_QUANTITY")
+    allowed_quantity = const_get("CALIBER_#{caliber}_MAXIMUM_QUANTITY")
 
-    (caliber == CALIBERS[CALIBERS.key(caliber)] && total < quantity) ? total : quantity
+    if caliber == CALIBERS[CALIBERS.key(caliber)] && total < allowed_quantity
+      total
+    else
+      allowed_quantity
+    end
   end
 
   def self.total_by_caliber(caliber)

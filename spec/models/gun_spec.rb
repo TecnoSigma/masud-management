@@ -82,28 +82,25 @@ RSpec.describe Gun, type: :model do
 
         result = described_class.available('12')
 
-       expected_result = 1
+        expected_result = 1
 
         expect(result).to eq(expected_result)
       end
 
       it 'returns available guns when pass gun type and have one gun in stock' do
-        employee = FactoryBot.create(:employee, :agent)
         FactoryBot.create(:arsenal, :gun, caliber: '12', employee: nil)
 
         result = described_class.available('12')
 
-       expected_result = 1
+        expected_result = 1
 
         expect(result).to eq(expected_result)
       end
 
       it 'returns available guns when pass gun type and don\'t have guns in stock' do
-        employee = FactoryBot.create(:employee, :agent)
-
         result = described_class.available('12')
 
-       expected_result = 0
+        expected_result = 0
 
         expect(result).to eq(expected_result)
       end
@@ -119,25 +116,22 @@ RSpec.describe Gun, type: :model do
 
         result = described_class.available('38')
 
-       expected_result = 2
+        expected_result = 2
 
         expect(result).to eq(expected_result)
       end
 
       it 'returns available guns when pass gun type and have one gun in stock' do
-        employee = FactoryBot.create(:employee, :agent)
         FactoryBot.create(:arsenal, :gun, caliber: '38', employee: nil)
 
         result = described_class.available('38')
 
-       expected_result = 1
+        expected_result = 1
 
         expect(result).to eq(expected_result)
       end
 
       it 'returns available guns when pass gun type and don\'t have guns in stock' do
-        employee = FactoryBot.create(:employee, :agent)
-
         result = described_class.available('38')
 
         expected_result = 0
