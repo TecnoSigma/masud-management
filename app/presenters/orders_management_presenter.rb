@@ -4,7 +4,7 @@ class OrdersManagementPresenter
   def self.available_items(type, caliber = nil)
     available_quantity = case type
                          when :gun
-                           Gun.available(caliber).count
+                           Gun.available(caliber)
                          when :munition
                            Munition.find_by_kind(caliber).try(:available)
                          else

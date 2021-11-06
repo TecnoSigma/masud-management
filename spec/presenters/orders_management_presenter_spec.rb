@@ -22,74 +22,28 @@ RSpec.describe OrdersManagementPresenter do
   end
 
   describe '#available_items' do
-    it 'counts available guns (caliber 38) when pass gun type' do
-      guns_quantity = 10
+    context 'when caliber is 38' do
+      it 'counts available guns when pass gun type' do
+        allow(Gun).to receive(:available) { 2 }
 
-      employee = FactoryBot.create(:employee, :agent)
-      FactoryBot.create(:arsenal, :gun, caliber: '38', employee: employee)
-      FactoryBot.create_list(:arsenal, guns_quantity, :gun, caliber: '38', employee: nil)
+        result = described_class.available_items(:gun, '38')
 
-      result = described_class.available_items(:gun, '38')
+        expected_result = [0, 1, 2]
 
-      expected_result = (0..guns_quantity).to_a
-
-      expect(result).to eq(expected_result)
+        expect(result).to eq(expected_result)
+      end
     end
 
-    it 'counts available guns (caliber 12) when pass gun type' do
-      guns_quantity = 10
+    context 'when caliber is 12' do
+      it 'counts available guns when pass gun type' do
+        allow(Gun).to receive(:available) { 2 }
 
-      employee = FactoryBot.create(:employee, :agent)
-      FactoryBot.create(:arsenal, :gun, caliber: '12', employee: employee)
-      FactoryBot.create_list(:arsenal, guns_quantity, :gun, caliber: '12', employee: nil)
+        result = described_class.available_items(:gun, '12')
 
-      result = described_class.available_items(:gun, '12')
+       expected_result = [0, 1, 2]
 
-      expected_result = (0..guns_quantity).to_a
-
-      expect(result).to eq(expected_result)
-    end
-
-    it 'counts available waistcoats when pass waistcoat type' do
-      waistcoats_quantity = 50
-
-      employee = FactoryBot.create(:employee, :agent)
-      FactoryBot.create(:tackle, :waistcoat, employee: employee)
-      FactoryBot.create_list(:tackle, waistcoats_quantity, :waistcoat, employee: nil)
-
-      result = described_class.available_items(:waistcoat)
-
-      expected_result = (0..waistcoats_quantity).to_a
-
-      expect(result).to eq(expected_result)
-    end
-
-    it 'counts available radios when pass radio type' do
-      radios_quantity = 2
-
-      employee = FactoryBot.create(:employee, :agent)
-      FactoryBot.create(:tackle, :radio, employee: employee)
-      FactoryBot.create_list(:tackle, radios_quantity, :radio, employee: nil)
-
-      result = described_class.available_items(:radio)
-
-      expected_result = (0..radios_quantity).to_a
-
-      expect(result).to eq(expected_result)
-    end
-
-    it 'counts available vehicles when pass radio type' do
-      vehicles_quantity = 10
-
-      team = FactoryBot.create(:team)
-      FactoryBot.create(:vehicle, team: team)
-      FactoryBot.create_list(:vehicle, vehicles_quantity, team: nil)
-
-      result = described_class.available_items(:vehicle)
-
-      expected_result = (0..vehicles_quantity).to_a
-
-      expect(result).to eq(expected_result)
+        expect(result).to eq(expected_result)
+      end
     end
   end
 end

@@ -71,36 +71,78 @@ RSpec.describe Gun, type: :model do
     expect(result).to eq(expected_result)
   end
 
-  describe 'validates scopes' do
-    context 'when is a gun' do
-      context 'caliber is 38' do
-        it 'returns only available guns with caliber 38' do
-          agent = FactoryBot.create(:employee, :agent)
-          FactoryBot.create(:arsenal, :gun, employee: agent)
-          FactoryBot.create(:arsenal, :gun, employee: nil, caliber: '12')
-          FactoryBot.create(:arsenal, :gun, employee: nil, caliber: '38')
+  describe '.available' do
+    context 'when caliber is 12' do
+      it 'returns available guns when pass gun type' do
+        guns_quantity = 10
 
-          expected_result = Gun.where(caliber: '38').where(employee: nil)
+        employee = FactoryBot.create(:employee, :agent)
+        FactoryBot.create(:arsenal, :gun, caliber: '12', employee: employee)
+        FactoryBot.create_list(:arsenal, guns_quantity, :gun, caliber: '12', employee: nil)
 
-          result = Gun.available('38')
+        result = described_class.available('12')
 
-          expect(result).to eq(expected_result)
-        end
+       expected_result = 1
+
+        expect(result).to eq(expected_result)
       end
 
-      context 'caliber is 12' do
-        it 'returns only available guns with caliber 12' do
-          agent = FactoryBot.create(:employee, :agent)
-          FactoryBot.create(:arsenal, :gun, employee: agent)
-          FactoryBot.create(:arsenal, :gun, employee: nil, caliber: '12')
-          FactoryBot.create(:arsenal, :gun, employee: nil, caliber: '38')
+      it 'returns available guns when pass gun type and have one gun in stock' do
+        employee = FactoryBot.create(:employee, :agent)
+        FactoryBot.create(:arsenal, :gun, caliber: '12', employee: nil)
 
-          expected_result = Gun.where(caliber: '12').where(employee: nil)
+        result = described_class.available('12')
 
-          result = Gun.available('12')
+       expected_result = 1
 
-          expect(result).to eq(expected_result)
-        end
+        expect(result).to eq(expected_result)
+      end
+
+      it 'returns available guns when pass gun type and don\'t have guns in stock' do
+        employee = FactoryBot.create(:employee, :agent)
+
+        result = described_class.available('12')
+
+       expected_result = 0
+
+        expect(result).to eq(expected_result)
+      end
+    end
+
+    context 'when caliber is 38' do
+      it 'returns available guns when pass gun type' do
+        guns_quantity = 10
+
+        employee = FactoryBot.create(:employee, :agent)
+        FactoryBot.create(:arsenal, :gun, caliber: '38', employee: employee)
+        FactoryBot.create_list(:arsenal, guns_quantity, :gun, caliber: '38', employee: nil)
+
+        result = described_class.available('38')
+
+       expected_result = 2
+
+        expect(result).to eq(expected_result)
+      end
+
+      it 'returns available guns when pass gun type and have one gun in stock' do
+        employee = FactoryBot.create(:employee, :agent)
+        FactoryBot.create(:arsenal, :gun, caliber: '38', employee: nil)
+
+        result = described_class.available('38')
+
+       expected_result = 1
+
+        expect(result).to eq(expected_result)
+      end
+
+      it 'returns available guns when pass gun type and don\'t have guns in stock' do
+        employee = FactoryBot.create(:employee, :agent)
+
+        result = described_class.available('38')
+
+        expected_result = 0
+
+        expect(result).to eq(expected_result)
       end
     end
   end
