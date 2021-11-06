@@ -118,8 +118,8 @@ RSpec.describe Builders::FinishMission do
 
       stock_quantity12 = 2000
       stock_quantity38 = 1500
-      stock12 = FactoryBot.create(:munition_stock, caliber: '12', quantity: stock_quantity12)
-      stock38 = FactoryBot.create(:munition_stock, caliber: '38', quantity: stock_quantity38)
+      FactoryBot.create(:munition_stock, caliber: '12', quantity: stock_quantity12)
+      FactoryBot.create(:munition_stock, caliber: '38', quantity: stock_quantity38)
 
       employee = FactoryBot.create(:employee, :agent)
       agent = Agent.find(employee.id)
@@ -142,7 +142,7 @@ RSpec.describe Builders::FinishMission do
 
       mission = FactoryBot.create(:mission, team: team, escort_service: escort_service)
 
-      result = described_class.new(mission).send(:update_munitions_stock!)
+      described_class.new(mission).send(:update_munitions_stock!)
     end
   end
 

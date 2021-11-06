@@ -108,13 +108,19 @@ RSpec.describe Agent, type: :model do
       employee1 = FactoryBot.create(:employee,
                                     :agent,
                                     status: active_status,
-                                    last_mission: 14.hours.ago,
+                                    last_mission: 12.5.hours.ago,
                                     in_mission: false)
 
       employee2 = FactoryBot.create(:employee,
                                     :agent,
                                     status: active_status,
                                     last_mission: nil)
+
+      employee3 = FactoryBot.create(:employee,
+                                    :agent,
+                                    status: active_status,
+                                    last_mission: 11.5.hours.ago,
+                                    in_mission: false)
 
       beginner = Agent.find(employee2.id)
       rested = Agent.find(employee1.id)
@@ -124,6 +130,7 @@ RSpec.describe Agent, type: :model do
       result = Agent.available
 
       expect(result).to eq(expected_result)
+      expect(result.include?(employee3)).to eq(false)
     end
 
     context 'returns list agents' do

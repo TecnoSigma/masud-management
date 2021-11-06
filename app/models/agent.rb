@@ -9,7 +9,7 @@ class Agent < Employee
 
   before_create :clear_password
 
-  INTERVAL_BETWEEN_MISSIONS = 13 # in hours
+  INTERVAL_BETWEEN_MISSIONS = 12 # in hours
 
   scope :actives, -> { where(status: Status.find_by_name('ativo')) }
 

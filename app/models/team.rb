@@ -7,8 +7,8 @@ class Team < ApplicationRecord
   has_many :vehicles
   has_many :agents
 
-  PREFIX = 'M'.freeze
-  MAXIMUM_QUANTITY = 99.freeze
+  PREFIX = 'M'
+  MAXIMUM_QUANTITY = 99
 
   scope :available, -> { select { |team| team.agents.empty? } }
 end

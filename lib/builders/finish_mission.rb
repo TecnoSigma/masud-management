@@ -110,7 +110,7 @@ module Builders
     def update_agents_last_mission!
       agents.each { |agent| agent.update(last_mission: DateTime.now) }
 
-      !(agents.map { |agent| agent.last_mission }.any?(&:nil?))
+      agents.map(&:last_mission).none?(&:nil?)
     end
 
     def dismember_team!
@@ -122,7 +122,7 @@ module Builders
     end
 
     def update_munitions_stock!
-      #munitions = mission
+      # munitions = mission
       #  .team
       #  .agents
       #  .map { |agent| agent.arsenals }
@@ -137,13 +137,13 @@ module Builders
     def return_arsenal!
       agents.each { |agent| agent.update(arsenals: []) }
 
-      agents.map { |agent| agent.arsenals }.flatten.empty?
+      agents.map(&:arsenals).flatten.empty?
     end
 
     def return_tackles!
       agents.each { |agent| agent.update(tackles: []) }
 
-      agents.map { |agent| agent.tackles }.flatten.empty?
+      agents.map(&:tackles).flatten.empty?
     end
 
     def return_vehicles!
@@ -170,7 +170,7 @@ module Builders
 
     def tackles
       agents
-        .map { |agent| agent.tackles }
+        .map(&:tackles)
         .flatten
         .map { |tackle| "#{tackle.type} - #{tackle.serial_number}" }
         .uniq
@@ -178,7 +178,7 @@ module Builders
 
     def arsenals
       agents
-        .map { |agent| agent.arsenals }
+        .map(&:arsenals)
         .flatten
         .map { |arsenal| "#{arsenal.type} - #{arsenal.number}" }
         .uniq
