@@ -47,8 +47,8 @@ RSpec.describe EscortService, type: :model do
   end
 
   describe 'no validates when status isn\'t allowed' do
-    it 'no validates \'agendado\'' do
-      status = FactoryBot.create(:status, name: 'agendado')
+    it 'no validates \'aguardando confirmação\'' do
+      status = FactoryBot.create(:status, name: 'aguardando confirmação')
       escort_service = EscortService.new(
         FactoryBot.attributes_for(:order, :confirmed, status: status)
       )

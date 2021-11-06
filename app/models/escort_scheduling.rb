@@ -4,7 +4,7 @@ class EscortScheduling < Escort
   validate :check_allowed_internal_status
 
   ALLOWED_STATUSES = [
-    'agendado',
+    'aguardando confirmação',
     'bloqueado',
     'cancelada',
     'cancelado pelo cliente'

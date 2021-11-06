@@ -30,7 +30,7 @@ class Order < ApplicationRecord
   ALLOWED_REFUSES = 2
 
   ALLOWED_STATUSES = {
-    scheduled: 'agendado',
+    scheduled: 'aguardando confirmação',
     blocked: 'bloqueado',
     confirmed: 'confirmado',
     refused: 'recusado',

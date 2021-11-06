@@ -57,8 +57,8 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Escorts', type: :r
 
   describe '#unblock' do
     context 'when pass valid params' do
-      it 'updates order status to \'agendado\'' do
-        scheduled_status = FactoryBot.create(:status, name: 'agendado')
+      it 'updates order status to \'aguardando confirmação\'' do
+        scheduled_status = FactoryBot.create(:status, name: 'aguardando confirmação')
         customer = FactoryBot.create(:customer)
         escort = FactoryBot.create(:order, :blocked, customer: customer)
 
@@ -70,7 +70,7 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Escorts', type: :r
       end
 
       it 'nullify reason' do
-        FactoryBot.create(:status, name: 'agendado')
+        FactoryBot.create(:status, name: 'aguardando confirmação')
         customer = FactoryBot.create(:customer)
         escort = FactoryBot.create(:order, :blocked, customer: customer, reason: 'any reason')
 
@@ -82,7 +82,7 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Escorts', type: :r
       end
 
       it 'shows success message' do
-        FactoryBot.create(:status, name: 'agendado')
+        FactoryBot.create(:status, name: 'aguardando confirmação')
         customer = FactoryBot.create(:customer)
         escort = FactoryBot.create(:order, :blocked, customer: customer)
 
@@ -93,7 +93,7 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Escorts', type: :r
       end
 
       it 'redirects to blocked escorts page' do
-        FactoryBot.create(:status, name: 'agendado')
+        FactoryBot.create(:status, name: 'aguardando confirmação')
         customer = FactoryBot.create(:customer)
         escort = FactoryBot.create(:order, :blocked, customer: customer)
 
@@ -104,8 +104,8 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Escorts', type: :r
     end
 
     context 'when pass invalid params' do
-      it 'no updates order status to \'agendado\'' do
-        scheduled_status = FactoryBot.create(:status, name: 'agendado')
+      it 'no updates order status to \'aguardando confirmação\'' do
+        scheduled_status = FactoryBot.create(:status, name: 'aguardando confirmação')
         customer = FactoryBot.create(:customer)
         escort = FactoryBot.create(:order, :blocked, customer: customer)
 

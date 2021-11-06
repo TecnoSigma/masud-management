@@ -562,7 +562,7 @@ RSpec.describe Builders::Mission do
             'vehicles' => 'Moby Branco - FZL 9E48 | Kwid Branco - ABC 9999' },
                        'order_number' => order_number }
 
-      FactoryBot.create(:status, name: 'agendado')
+      FactoryBot.create(:status, name: 'aguardando confirmação')
       confirmed_status = FactoryBot.create(:status, name: 'confirmado')
 
       order = FactoryBot.create(:order, :scheduled)

@@ -42,7 +42,7 @@ module EmployeePanel
         def update_escort!
           raise FindEscortError unless order
 
-          order.update(status: Status.find_by_name('agendado'), reason: nil)
+          order.update(status: Status.find_by_name('aguardando confirmação'), reason: nil)
         end
 
         def order

@@ -86,7 +86,7 @@ module CustomerPanel
         :source_district, :source_city, :source_state, :destiny_address, :destiny_number,
         :destiny_complement, :destiny_district, :destiny_city, :destiny_state, :observation
       ).merge('customer' => customer,
-              'status' => Status.find_by_name('agendado'))
+              'status' => Status.find_by_name('aguardando confirmação'))
     end
 
     def customer

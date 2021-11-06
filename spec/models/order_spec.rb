@@ -92,8 +92,8 @@ RSpec.describe Order, type: :model do
   end
 
   describe 'validates allowed status' do
-    it 'validates \'agendado\'' do
-      status = FactoryBot.create(:status, name: 'agendado')
+    it 'validates \'aguardando confirmação\'' do
+      status = FactoryBot.create(:status, name: 'aguardando confirmação')
       order = FactoryBot.build(:order, status: status)
 
       expect(order).to be_valid
@@ -168,7 +168,7 @@ RSpec.describe Order, type: :model do
   describe '#deletable?' do
     it 'returns \'false\' when order creation date is less than 3 hours' do
       customer = FactoryBot.create(:customer)
-      status = FactoryBot.create(:status, name: 'agendado')
+      status = FactoryBot.create(:status, name: 'aguardando confirmação')
 
       escort = FactoryBot.create(:order,
                                  :scheduled,
@@ -198,7 +198,7 @@ RSpec.describe Order, type: :model do
   end
 
   describe 'validates scope that filter escorts by status' do
-    context 'agendado' do
+    context 'aguardando confirmação' do
       it 'returns scheduled escorts' do
         customer = FactoryBot.create(:customer)
         FactoryBot.create(

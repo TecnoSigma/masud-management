@@ -8,8 +8,8 @@ RSpec.describe EscortScheduling, type: :model do
   end
 
   describe 'validates allowed status' do
-    it 'validates \'agendado\'' do
-      status = FactoryBot.create(:status, name: 'agendado')
+    it 'validates \'aguardando confirmação\'' do
+      status = FactoryBot.create(:status, name: 'aguardando confirmação')
       escort_scheduling = EscortScheduling.new(
         FactoryBot.attributes_for(:order, :scheduled, status: status)
       )

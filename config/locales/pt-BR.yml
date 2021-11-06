@@ -702,7 +702,7 @@ pt-BR:
       escort:
         type: 'Escoltas'
         blocked: 'Bloqueadas'
-        scheduled: 'Agendadas'
+        scheduled: 'Aguardando Confirmação'
         confirmed: 'Confirmadas'
         refused: 'Recusadas'
         cancelled: 'Canceladas'

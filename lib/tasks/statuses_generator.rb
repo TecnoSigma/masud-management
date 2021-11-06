@@ -5,7 +5,7 @@ require 'csv'
 module Tasks
   class StatusesGenerator
     class << self
-      STATUSES_LIST = ["agendado",
+      STATUSES_LIST = ["aguardando confirmação",
                        "ativo",
                        "cancelada",
                        "cancelado pelo cliente",

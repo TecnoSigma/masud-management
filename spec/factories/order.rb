@@ -15,13 +15,13 @@ FactoryBot.define do
     destiny_city { FactoryBot.create(:city).name }
     destiny_state { FactoryBot.create(:state).name }
     observation { Faker::Lorem.sentence }
-    status { Status.find_by_name('agendado') || FactoryBot.create(:status, name: 'agendado') }
+    status { Status.find_by_name('aguardando confirmação') || FactoryBot.create(:status, name: 'aguardando confirmação') }
     customer { FactoryBot.create(:customer) }
   end
 
   trait :scheduled do
     type { 'EscortScheduling' }
-    status { Status.find_by_name('agendado') || FactoryBot.create(:status, name: 'agendado') }
+    status { Status.find_by_name('aguardando confirmação') || FactoryBot.create(:status, name: 'aguardando confirmação') }
   end
 
   trait :blocked do
