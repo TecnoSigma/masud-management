@@ -20,7 +20,7 @@ RSpec.describe Notifications::Order, type: :mailer do
                )
                .to
 
-      expect(result).to eq(['tecnooxossi@gmail.com'])
+      expect(result).to eq(['tecnosigmamasud@gmail.com'])
     end
 
     it 'renders #subject' do
@@ -58,7 +58,7 @@ RSpec.describe Notifications::Order, type: :mailer do
                )
                .from
 
-      expect(result).to eq(['tecnooxossi@gmail.com'])
+      expect(result).to eq(['tecnosigmamasud@gmail.com'])
     end
   end
 end

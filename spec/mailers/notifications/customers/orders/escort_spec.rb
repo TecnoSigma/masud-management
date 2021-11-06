@@ -28,7 +28,7 @@ RSpec.describe Notifications::Customers::Orders::Escort, type: :mailer do
 
       result = described_class.scheduling(order_number: order_number, email: email).from
 
-      expect(result).to eq(['tecnooxossi@gmail.com'])
+      expect(result).to eq(['tecnosigmamasud@gmail.com'])
     end
   end
 end

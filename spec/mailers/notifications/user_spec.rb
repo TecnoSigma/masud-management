@@ -28,7 +28,7 @@ RSpec.describe Notifications::User, type: :mailer do
 
       result = described_class.forgot_your_password(email: email, password: password).from
 
-      expect(result).to eq(['tecnooxossi@gmail.com'])
+      expect(result).to eq(['tecnosigmamasud@gmail.com'])
     end
   end
 end
