@@ -6,7 +6,7 @@ RSpec.describe 'Panel', type: :request do
   describe '#send_password' do
     context 'when user is a customer' do
       context 'and pass valid params' do
-        it 'redirects to forgot your password page' do
+        it 'redirects to customer login page' do
           customer = FactoryBot.create(:customer)
 
           allow(Notifications::User)
@@ -14,7 +14,7 @@ RSpec.describe 'Panel', type: :request do
 
           post '/send_password', params: { user: { email: customer.email } }
 
-          expect(response).to redirect_to(cliente_esqueceu_sua_senha_path)
+          expect(response).to redirect_to(customer_panel_login_path)
         end
 
         it 'shows success message' do
@@ -68,7 +68,7 @@ RSpec.describe 'Panel', type: :request do
 
     context 'when user is an employee' do
       context 'and pass valid params' do
-        it 'redirects to forgot your password page' do
+        it 'redirects to employee login page' do
           employee = FactoryBot.create(:employee, :admin)
 
           allow(Notifications::User)
@@ -76,7 +76,7 @@ RSpec.describe 'Panel', type: :request do
 
           post '/send_password', params: { user: { email: employee.email } }
 
-          expect(response).to redirect_to(gestao_esqueceu_sua_senha_path)
+          expect(response).to redirect_to(employee_panel_login_path)
         end
 
         it 'shows success message' do

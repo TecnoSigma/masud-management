@@ -49,7 +49,7 @@ class PanelsController < ApplicationController
       .forgot_your_password(email: user.email, password: user.password)
       .deliver_now!
 
-    redirect_to "/#{@type}/esqueceu_sua_senha",
+    redirect_to "/#{@type}/login",
                 notice: t('messages.successes.password_sent_successfully')
   rescue FindUserError, StandardError => error
     error_message = case error.class
