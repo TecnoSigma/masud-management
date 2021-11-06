@@ -722,6 +722,7 @@ pt-BR:
         general_report: 'Relatório Geral'
       arsenal:
         type: 'Arsenais'
+        general_report: 'Relatório Geral'
         guns:
           list: 'Lista de Armas'
         munitions:
