@@ -291,18 +291,25 @@ function hiddenMessages() {
 }
 
 function initializers() {
-        document.getElementById("order_calibers_12_quantity").disabled = true;
-        document.getElementById("order_calibers_38_quantity").disabled = true;
-        document.getElementById("order_munitions_12_quantity").disabled = true;
-        document.getElementById("order_munitions_38_quantity").disabled = true;
-        document.getElementById("order_waistcoats_quantity").disabled = true;
-        document.getElementById("order_radios_quantity").disabled = true;
-        document.getElementById("order_vehicles_quantity").disabled = true;
+        const managementPath = '/gestao/operador/dashboard/gerenciamento';
+        var splittedPath = window.location.pathname.split('/');
 
-        switchTeamActionsButtons("none");
-        switchItemsActionsButtons("none");
+        splittedPath.pop();
 
-        hiddenMessages();
+        if(splittedPath.join('/') == managementPath) {
+                document.getElementById("order_calibers_12_quantity").disabled = true;
+                document.getElementById("order_calibers_38_quantity").disabled = true;
+                document.getElementById("order_munitions_12_quantity").disabled = true;
+                document.getElementById("order_munitions_38_quantity").disabled = true;
+                document.getElementById("order_waistcoats_quantity").disabled = true;
+                document.getElementById("order_radios_quantity").disabled = true;
+                document.getElementById("order_vehicles_quantity").disabled = true;
 
-        document.getElementById("confirmOrderBtn").style.display = "none";
+                switchTeamActionsButtons("none");
+                switchItemsActionsButtons("none");
+
+                hiddenMessages();
+
+                document.getElementById("confirmOrderBtn").style.display = "none";
+        }
 }
