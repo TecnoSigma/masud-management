@@ -741,6 +741,7 @@ pt-BR:
       title: 'Esqueceu sua senha?'
       email: 'Email'
       email_placeholder: 'name@example.com'
+      back_btn: 'Voltar'
       send_password_btn: 'Enviar Senha'
     notifications:
       external_footer:
