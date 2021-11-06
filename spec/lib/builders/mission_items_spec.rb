@@ -30,7 +30,7 @@ RSpec.describe 'Builders::MissionItems' do
       car_color = 'Preto'
       car_license_plate = 'XYZ 9999'
 
-      allow(Gun).to receive_message_chain(:available, :sample, :map) { guns_list }
+      allow(Gun).to receive_message_chain(:where, :where, :sample, :map) { guns_list }
       allow(Waistcoat).to receive_message_chain(:where, :sample, :map) { waistcoats_list }
       allow(Radio).to receive_message_chain(:where, :sample, :map) { radios_list }
 

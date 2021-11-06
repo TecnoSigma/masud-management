@@ -2,10 +2,11 @@
 
 class OrdersManagementPresenter
   def self.available_items(type, caliber = nil)
+    return [Vehicle::MAXIMUM_QUANTITY] if type == :vehicle
+
     available_quantity = case type
                          when :gun       then Gun.available(caliber)
                          when :munition  then Munition.find_by_kind(caliber).try(:available)
-                         when :vehicle   then 1
                          else                 Tackle.available(type.to_s)
                          end
 

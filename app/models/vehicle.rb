@@ -17,6 +17,8 @@ class Vehicle < ApplicationRecord
   belongs_to :team, optional: true
   belongs_to :status
 
+  MAXIMUM_QUANTITY = 1
+
   scope :available, -> { where(team: nil) }
   scope :statuses, -> { Status.where(name: 'ativo').or(Status.where(name: 'desativado')) }
 end

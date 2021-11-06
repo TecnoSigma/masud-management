@@ -35,12 +35,12 @@ module Builders
     private
 
     def mount_calibers12
-      item_list = Gun.available('12').sample(calibers12).map(&:number)
+      item_list = Gun.where(caliber: '12').where(employee: nil).sample(calibers12).map(&:number)
       items_description(item_list, 'number')
     end
 
     def mount_calibers38
-      item_list = Gun.available('38').sample(calibers38).map(&:number)
+      item_list = Gun.where(caliber: '38').where(employee: nil).sample(calibers38).map(&:number)
       items_description(item_list, 'number')
     end
 

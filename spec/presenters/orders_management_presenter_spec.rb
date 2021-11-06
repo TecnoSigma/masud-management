@@ -58,6 +58,16 @@ RSpec.describe OrdersManagementPresenter do
       end
     end
 
+    context 'when is a vehicle' do
+      it 'counts available radios' do
+        result = described_class.available_items(:vehicle)
+
+        expected_result = [1]
+
+        expect(result).to eq(expected_result)
+      end
+    end
+
     context 'when is a waistcoat' do
       it 'counts available waistcoats' do
         allow(Tackle).to receive(:available) { 2 }
