@@ -158,6 +158,34 @@ pt-BR:
       email_placeholder: 'name@example.com'
       password_placeholder: 'Senha'
     escort:
+      pre_alert:
+        file_title: 'Pré-Alerta - Order de Serviço Nº %{order_number}'
+        title: 'Pré-Alerta: Ordem de Serviço Nº %{order_number}'
+        way: 'Trajeto'
+        source: 'Origem'
+        destiny: 'Destino'
+        job_day: 'Data da Missão: '
+        job_horary: 'Horário da Missão: '
+        address: 'Endereço: '
+        number: 'Número: '
+        complement: 'Complemento: '
+        district: 'Bairro: '
+        city: 'Cidade: '
+        state: 'Estado: '
+        observation: 'Observação: '
+        team: 'Time'
+        team_name: 'Nome: '
+        agents:
+          one: 'Agente: '
+          other: 'Agentes: '
+        arsenal: 'Arsenal'
+        guns: 'Armas: '
+        munitions: 'Munição'
+        description: 'Descrição: '
+        tackles: 'Equipamentos'
+        waistcoats: 'Coletes: '
+        radios: 'Rádios: '
+        vehicles: 'Viaturas'
       list:
         title: 'Escoltas'
         escorts_list: 'Lista de Escoltas'
@@ -167,7 +195,9 @@ pt-BR:
         destiny: 'Destino'
         observation: 'Observação'
         status: 'Status'
-        details: 'detalhes'
+        details: 'Detalhes'
+        pre_alert: 'Exportar Pré-Alerta'
+        cancel: 'Cancelar'
       new:
         title: 'Escoltas'
         job_day: 'Data da Escolta *'
@@ -765,6 +795,11 @@ pt-BR:
     footer:
       copyright: 'Copyright © TecnoSigma %{year}'
   notifications:
+    pdf:
+      footer:
+        line_1: 'Masud Segurança EIRELI'
+        line_2: 'Rua Maria Curupaiti, 1112 - Vila Ester - São Paulo - SP - Fone: (11) 2239-1085'
+        line_3: 'masudseguranca.com.br'
     customer:
       orders:
         escort:

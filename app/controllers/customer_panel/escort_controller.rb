@@ -26,6 +26,17 @@ module CustomerPanel
                   alert: t('messages.errors.scheduling_creation_failed')
     end
 
+    def pre_alert
+      @mission = escort.mission
+
+      respond_to do |format|
+        format.pdf do
+          render template: 'customer_panel/escort/pre_alert',
+                 pdf: t('.file_title', order_number: escort.order_number)
+        end
+      end
+    end
+
     def cancel
       raise DeleteEscortSchedulingError unless escort.deletable?
 

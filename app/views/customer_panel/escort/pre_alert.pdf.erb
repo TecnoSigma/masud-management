@@ -1,0 +1,99 @@
+  <%= render '/partials/header' %>
+  <h1><%= t('.title', order_number: @mission.escort_service.order_number) %></h1>
+  <hr>
+  <!-- CUSTOMER DATA -->
+  <h2><%= t('.way') %></h2>
+  <h4><%= t('.source') %></h4>
+  <strong><%= t('.job_day') %></strong>
+  <span><%= @mission.escort_service.job_day %></span>
+  <br>
+  <strong><%= t('.job_horary') %></strong>
+  <span><%= @mission.escort_service.job_horary %></span>
+  <br>
+  <strong><%= t('.address') %></strong>
+  <span><%= @mission.escort_service.source_address %></span>
+  <br>
+  <strong><%= t('.number') %></strong>
+  <span><%= @mission.escort_service.source_number %></span>
+  <br>
+  <strong><%= t('.complement') %></strong>
+  <span><%= @mission.escort_service.source_complement %></span>
+  <br>
+  <strong><%= t('.district') %></strong>
+  <span><%= @mission.escort_service.source_district %></span>
+  <br>
+  <strong><%= t('.city') %></strong>
+  <span><%= @mission.escort_service.source_city %></span>
+  <br>
+  <strong><%= t('.state') %></strong>
+  <span><%= @mission.escort_service.source_state %></span>
+  <br><br>
+
+  <h4><%= t('.destiny') %></h4>
+  <strong><%= t('.address') %></strong>
+  <span><%= @mission.escort_service.destiny_address %></span>
+  <br>
+  <strong><%= t('.number') %></strong>
+  <span><%= @mission.escort_service.destiny_number %></span>
+  <br>
+  <strong><%= t('.complement') %></strong>
+  <span><%= @mission.escort_service.destiny_complement %></span>
+  <br>
+  <strong><%= t('.district') %></strong>
+  <span><%= @mission.escort_service.destiny_district %></span>
+  <br>
+  <strong><%= t('.city') %></strong>
+  <span><%= @mission.escort_service.destiny_city %></span>
+  <br>
+  <strong><%= t('.state') %></strong>
+  <span><%= @mission.escort_service.destiny_state %></span>
+  <br><br>
+  <strong><%= t('.observation') %></strong>
+  <span><%= @mission.escort_service.observation %></span>
+  <br>
+
+  <hr>
+
+  <!-- TEAM DATA-->
+  <h2><%= t('.team') %></h2>
+  <strong><%= t('.team_name') %></strong>
+  <span><%= @mission.team.name %></span>
+  <br>
+  <strong><%= t('.agents', count: @mission.team.agents.count) %></strong>
+  <span><%= fullnames_with_document(@mission.team.agents) %></span>
+  <br>
+
+  <hr>
+
+  <!-- GUNS DATA-->
+  <h2><%= t('.arsenal') %></h2>
+  <strong><%= t('.guns') %></strong>
+  <span><%= guns(@mission.team.agents) %></span>
+  <br>
+
+  <hr>
+
+  <!-- MUNITIONS DATA-->
+  <h2><%= t('.munitions') %></h2>
+  <strong><%= t('.description') %></strong>
+  <span><%= munitions(@mission.team.agents) %></span>
+  <br>
+
+  <hr>
+
+  <!-- TACKLES DATA-->
+  <h2><%= t('.tackles') %></h2>
+  <strong><%= t('.waistcoats') %></strong>
+  <span><%= waistcoats(@mission.team.agents) %></span>
+  <br>
+  <strong><%= t('.radios') %></strong>
+  <span><%= radios(@mission.team.agents) %></span>
+  <br>
+
+  <hr>
+
+  <!-- VEHICLES DATA-->
+  <h2><%= t('.vehicles') %></h2>
+  <strong><%= t('.description') %></strong>
+  <span><%= vehicles(@mission.team) %></span>
+  <%= render '/partials/footer' %>

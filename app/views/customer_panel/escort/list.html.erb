@@ -21,6 +21,7 @@
           <th><%= t('.status') %></th>
           <th></th>
           <th></th>
+          <th></th>
         </tr>
       </thead>
       <tfoot>
@@ -31,6 +32,7 @@
           <th><%= t('.destiny') %></th>
           <th><%= t('.observation') %></th>
           <th><%= t('.status') %></th>
+          <th></th>
           <th></th>
           <th></th>
         </tr>
@@ -45,12 +47,22 @@
             <td><%= order.observation %></td>
             <td><%= order.status.name %></td>
             <td>
-              <%= link_to customer_panel_escort_show_path(order.order_number) do %>
-                <i class="fas fa-align-justify me-1"></i></td>
+              <%= link_to customer_panel_escort_show_path(order.order_number), title: t('.details') do %>
+                <i class="fas fa-align-justify me-1"></i>
               <% end %>
+            </td>
+            <td>
+              <% if order.confirmed? %>
+                <%= link_to customer_panel_escort_pre_alert_path(order.order_number, format: :pdf),
+                            title: t('.pre_alert'),
+                            target: '_blank' do %>
+                  <i class="fas fa-file-download me-1"></i>
+                <% end %>
+              <% end %>
+            </td>
             <td>
             <% if order.scheduled? && order.deletable? %>
-              <%= link_to({ action: 'cancel', order_number: order.order_number }, method: :delete) do %>
+              <%= link_to({ action: 'cancel', order_number: order.order_number }, method: :delete, title: t('.cancel')) do %>
                 <i class="fas fa-times me-1 btn-delete-scheduling"></i>
               <% end %>
             <% end %>

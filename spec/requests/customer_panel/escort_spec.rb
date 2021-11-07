@@ -270,6 +270,33 @@ RSpec.describe 'CustomerPanel::Escort', type: :request do
     end
   end
 
+  describe '#pre_alert' do
+    it 'renders pre alert page in PDF format' do
+      customer = FactoryBot.create(:customer)
+
+      FactoryBot.create(:status, name: 'iniciada')
+      employee = FactoryBot.create(:employee, :agent)
+      agent = Agent.find(employee.id)
+
+      team = FactoryBot.create(:team)
+      team.agents << agent
+      team.save
+
+      order = FactoryBot.create(:order, :confirmed, customer: customer)
+      escort_service = EscortService.find(order.id)
+
+      FactoryBot.create(:mission, team: team, escort_service: escort_service)
+
+      allow_any_instance_of(PanelsController).to receive(:tokenized?) { true }
+      allow_any_instance_of(PanelsController).to receive(:authorized?) { true }
+      allow_any_instance_of(CustomerPanel::EscortController).to receive(:customer) { customer }
+
+      get "/cliente/dashboard/escolta/pre_alert/#{escort_service.order_number}.pdf"
+
+      expect(response).to render_template(:pre_alert)
+    end
+  end
+
   describe '#create' do
     context 'when pass valid params' do
       it 'creates a new escort' do

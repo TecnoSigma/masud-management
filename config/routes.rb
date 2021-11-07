@@ -26,9 +26,10 @@ Rails.application.routes.draw do
     get 'dashboard/index'
     get 'dashboard/escolta/lista',                   to: 'escort#list'
     get 'dashboard/escolta/novo',                    to: 'escort#new'
-    get 'dashboard/escolta/:order_number',           to: 'escort#show',   as: 'escort_show'
+    get 'dashboard/escolta/:order_number',           to: 'escort#show',      as: 'escort_show'
+    get 'dashboard/escolta/pre_alert/:order_number', to: 'escort#pre_alert', as: 'escort_pre_alert'
     post 'dashboard/escolta/create',                 to: 'escort#create'
-    delete 'dashboard/escolta/cancel/:order_number', to: 'escort#cancel', as: 'escort_cancel'
+    delete 'dashboard/escolta/cancel/:order_number', to: 'escort#cancel',    as: 'escort_cancel'
   end
 
   scope module: 'employee_panel', path: 'gestao', as: 'employee_panel' do
