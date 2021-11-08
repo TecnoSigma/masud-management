@@ -81,7 +81,7 @@
                 <span><%= @mission.team.name %></span>
                 <br>
                 <strong><%= t('.agents', count: @mission.team.agents.count) %></strong>
-                <span><%= fullnames_with_document(@mission.team.agents) %></span>
+                <span><%= MissionPresenter.fullnames_with_document(@mission.team.agents) %></span>
                 <br>
 
                 <hr>
@@ -89,7 +89,7 @@
                 <!-- GUNS DATA-->
                 <h5><%= t('.arsenal') %></h5>
                 <strong><%= t('.guns') %></strong>
-                <span><%= guns(@mission.team.agents) %></span>
+                <span><%= MissionPresenter.guns(@mission.team.agents) %></span>
                 <br>
 
                 <hr>
@@ -97,7 +97,7 @@
                 <!-- MUNITIONS DATA-->
                 <h5><%= t('.munitions') %></h5>
                 <strong><%= t('.description') %></strong>
-                <span><%= munitions(@mission.team.agents) %></span>
+                <span><%= MissionPresenter.munitions(@mission.team.agents) %></span>
                 <br>
 
                 <hr>
@@ -105,10 +105,10 @@
                 <!-- TACKLES DATA-->
                 <h5><%= t('.tackles') %></h5>
                 <strong><%= t('.waistcoats') %></strong>
-                <span><%= waistcoats(@mission.team.agents) %></span>
+                <span><%= MissionPresenter.waistcoats(@mission.team.agents) %></span>
                 <br>
                 <strong><%= t('.radios') %></strong>
-                <span><%= radios(@mission.team.agents) %></span>
+                <span><%= MissionPresenter.radios(@mission.team.agents) %></span>
                 <br>
 
                 <hr>
@@ -116,19 +116,13 @@
                 <!-- VEHICLES DATA-->
                 <h5><%= t('.vehicles') %></h5>
                 <strong><%= t('.description') %></strong>
-                <span><%= vehicles(@mission.team) %></span>
+                <span><%= MissionPresenter.vehicles(@mission.team) %></span>
                 <br>
 
                 <hr>
                 <% if @mission.exit_from_base.nil? && @mission.arrival_at_base.nil? && @mission.started_at.nil? && @mission.finished_at.nil? %>
                   <%= link_to t('.exit_from_base_btn'),
                               employee_panel_operator_dashboard_missao_exit_from_base_path(order_number: @mission.escort_service.order_number),
-                              method: :patch,
-                              class: 'btn btn-primary' %>
-                <% end %>
-                <% if @mission.exit_from_base.present? && @mission.arrival_at_base.nil? && @mission.started_at.present? && @mission.finished_at.present? %>
-                  <%= link_to t('.arrival_at_base_btn'),
-                              employee_panel_operator_dashboard_missao_arrival_at_base_path(order_number: @mission.escort_service.order_number),
                               method: :patch,
                               class: 'btn btn-primary' %>
                 <% end %>
@@ -143,6 +137,13 @@
                                 employee_panel_operator_dashboard_missao_finish_mission_path(order_number: @mission.escort_service.order_number),
                               method: :post,
                               class: 'btn btn-danger' %>
+                <% end %>
+
+                <% if @mission.exit_from_base.present? && @mission.arrival_at_base.nil? && @mission.started_at.present? && @mission.finished_at.present? %>
+                  <%= link_to t('.arrival_at_base_btn'),
+                              employee_panel_operator_dashboard_missao_arrival_at_base_path(order_number: @mission.escort_service.order_number),
+                              method: :patch,
+                              class: 'btn btn-primary' %>
                 <% end %>
               </div>
               <div class="card-footer text-center py-3"></div>
