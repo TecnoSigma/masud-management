@@ -60,7 +60,7 @@
   <span><%= @mission.team.name %></span>
   <br>
   <strong><%= t('.agents', count: @mission.team.agents.count) %></strong>
-  <span><%= fullnames_with_document(@mission.team.agents) %></span>
+  <span><%= MissionPresenter.fullnames_with_document(@mission.team.agents) %></span>
   <br>
 
   <hr>
@@ -68,7 +68,7 @@
   <!-- GUNS DATA-->
   <h2><%= t('.arsenal') %></h2>
   <strong><%= t('.guns') %></strong>
-  <span><%= guns(@mission.team.agents) %></span>
+  <span><%= MissionPresenter.guns(@mission.team.agents) %></span>
   <br>
 
   <hr>
@@ -76,7 +76,7 @@
   <!-- MUNITIONS DATA-->
   <h2><%= t('.munitions') %></h2>
   <strong><%= t('.description') %></strong>
-  <span><%= munitions(@mission.team.agents) %></span>
+  <span><%= MissionPresenter.munitions(@mission.team.agents) %></span>
   <br>
 
   <hr>
@@ -84,10 +84,10 @@
   <!-- TACKLES DATA-->
   <h2><%= t('.tackles') %></h2>
   <strong><%= t('.waistcoats') %></strong>
-  <span><%= waistcoats(@mission.team.agents) %></span>
+  <span><%= MissionPresenter.waistcoats(@mission.team.agents) %></span>
   <br>
   <strong><%= t('.radios') %></strong>
-  <span><%= radios(@mission.team.agents) %></span>
+  <span><%= MissionPresenter.radios(@mission.team.agents) %></span>
   <br>
 
   <hr>
@@ -95,5 +95,5 @@
   <!-- VEHICLES DATA-->
   <h2><%= t('.vehicles') %></h2>
   <strong><%= t('.description') %></strong>
-  <span><%= vehicles(@mission.team) %></span>
+  <span><%= MissionPresenter.vehicles(@mission.team) %></span>
   <%= render '/partials/footer' %>
