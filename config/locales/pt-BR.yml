@@ -95,6 +95,7 @@ pt-BR:
         unblock_failed: 'Falha ao desbloquear pedido %{order_number}!'
         create_mission_failed: 'Falha na criação da missão!'
       mission:
+        update_failed: 'Falha ao atualizar dados da missão!'
         start_failed: 'Falha ao iniciar a missão!'
         finish_failed: 'Falha ao finalizar a missão!'
     infos:
@@ -141,6 +142,7 @@ pt-BR:
         updated_successfully: 'Dados da viatura atualizados com sucesso!'
         removed_successfully: 'Viatura %{license_plate} removida com sucesso!'
       mission:
+        updated_successfully:  'Dados da missão atualizados com sucesso!'
         started_successfully: 'Missão iniciada com sucesso!'
         finished_successfully: 'Missão finalizada com sucesso!'
   layouts:
@@ -279,6 +281,8 @@ pt-BR:
           waistcoats: 'Coletes: '
           radios: 'Rádios: '
           vehicles: 'Viaturas'
+          exit_from_base_btn: 'Marcar Saída da Base'
+          arrival_at_base_btn: 'Marcar Chegada na Base'
           start_mission_btn: 'Iniciar Missão'
           finish_mission_btn: 'Finalizar Missão'
         missions:
@@ -286,9 +290,12 @@ pt-BR:
           missions_list: 'Lista de Missões'
           order: 'Pedido'
           team: 'Time'
-          started_at: 'Iniciada em'
-          finished_at: 'Finalizada em'
+          exit_from_base: 'Saída da Base'
+          arrival_at_base: 'Chegada na Base'
+          started_at: 'Iniciada'
+          finished_at: 'Finalizada'
           status: 'Status'
+          details: 'Detalhes'
         index:
           title: 'Pedidos de Escolta'
           requests_list: 'Lista de Pedidos'

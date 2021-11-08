@@ -14,8 +14,10 @@
         <tr>
           <th><%= t('.order') %></th>
           <th><%= t('.team') %></th>
+          <th><%= t('.exit_from_base') %></th>
           <th><%= t('.started_at') %></th>
           <th><%= t('.finished_at') %></th>
+          <th><%= t('.arrival_at_base') %>
           <th><%= t('.status') %></th>
           <th></th>
         </tr>
@@ -25,8 +27,10 @@
           <tr>
             <th><%= t('.order') %></th>
             <th><%= t('.team') %></th>
+            <th><%= t('.exit_from_base') %></th>
             <th><%= t('.started_at') %></th>
             <th><%= t('.finished_at') %></th>
+            <th><%= t('.arrival_at_base') %>
             <th><%= t('.status') %></th>
             <th></th>
           </tr>
@@ -37,11 +41,13 @@
           <tr>
             <td><%= mission.escort_service.order_number %></td>
             <td><%= mission.team.name %></td>
+            <td><%= convert_date_time(mission.exit_from_base) if mission.exit_from_base %></td>
             <td><%= convert_date_time(mission.started_at) if mission.started_at %></td>
             <td><%= convert_date_time(mission.finished_at) if mission.finished_at %></td>
+            <td><%= convert_date_time(mission.arrival_at_base) if mission.arrival_at_base %></td>
             <td><%= mission.status.name %></td>
             <td>
-              <%= link_to employee_panel_operator_dashboard_mission_path(mission.id) do %>
+              <%= link_to employee_panel_operator_dashboard_mission_path(mission.escort_service.order_number), title: t('.details') do %>
                 <i class="fas fa-align-justify me-1"></i></td>
               <% end %>
             </td>

@@ -111,6 +111,8 @@ ActiveRecord::Schema.define(version: 2021_11_01_162717) do
   end
 
   create_table "missions", force: :cascade do |t|
+    t.datetime "exit_from_base"
+    t.datetime "arrival_at_base"
     t.datetime "started_at"
     t.datetime "finished_at"
     t.bigint "team_id"

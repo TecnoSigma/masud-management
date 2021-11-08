@@ -687,13 +687,13 @@ RSpec.describe 'EmployeePanel::OperatorPanel::Dashboard', type: :request do
       order = FactoryBot.create(:order, :confirmed)
       escort_service = EscortService.find(order.id)
 
-      mission = FactoryBot.create(:mission, team: team, escort_service: escort_service)
+      FactoryBot.create(:mission, team: team, escort_service: escort_service)
 
       allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
       allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
       allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
 
-      get "/gestao/operador/dashboard/missao/#{mission.id}"
+      get "/gestao/operador/dashboard/missao/#{escort_service.order_number}"
 
       expect(response).to render_template(:mission)
     end
@@ -739,7 +739,7 @@ RSpec.describe 'EmployeePanel::OperatorPanel::Dashboard', type: :request do
         order = FactoryBot.create(:order, :confirmed)
         escort_service = EscortService.find(order.id)
 
-        mission = FactoryBot.create(:mission, team: team, escort_service: escort_service)
+        FactoryBot.create(:mission, team: team, escort_service: escort_service)
 
         allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
         allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
@@ -748,7 +748,7 @@ RSpec.describe 'EmployeePanel::OperatorPanel::Dashboard', type: :request do
         allow(Builders::FinishMission).to receive_message_chain(:new, :dismount!) { true }
 
         post '/gestao/operador/dashboard/missao/finish_mission',
-             params: { mission_number: mission.id }
+             params: { order_number: escort_service.order_number }
 
         expect(flash[:notice]).to eq('Missão finalizada com sucesso!')
       end
@@ -831,8 +831,8 @@ RSpec.describe 'EmployeePanel::OperatorPanel::Dashboard', type: :request do
         allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
         allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
 
-        post '/gestao/operador/dashboard/missao/start_mission',
-             params: { mission_number: mission.id }
+        patch '/gestao/operador/dashboard/missao/start_mission',
+              params: { order_number: escort_service.order_number }
 
         result = Mission.find(mission.id).started_at
 
@@ -851,14 +851,14 @@ RSpec.describe 'EmployeePanel::OperatorPanel::Dashboard', type: :request do
         order = FactoryBot.create(:order, :confirmed)
         escort_service = EscortService.find(order.id)
 
-        mission = FactoryBot.create(:mission, team: team, escort_service: escort_service)
+        FactoryBot.create(:mission, team: team, escort_service: escort_service)
 
         allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
         allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
         allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
 
-        post '/gestao/operador/dashboard/missao/start_mission',
-             params: { mission_number: mission.id }
+        patch '/gestao/operador/dashboard/missao/start_mission',
+              params: { order_number: escort_service.order_number }
 
         expect(response).to redirect_to(employee_panel_operator_dashboard_missoes_path)
       end
@@ -875,14 +875,14 @@ RSpec.describe 'EmployeePanel::OperatorPanel::Dashboard', type: :request do
         order = FactoryBot.create(:order, :confirmed)
         escort_service = EscortService.find(order.id)
 
-        mission = FactoryBot.create(:mission, team: team, escort_service: escort_service)
+        FactoryBot.create(:mission, team: team, escort_service: escort_service)
 
         allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
         allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
         allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
 
-        post '/gestao/operador/dashboard/missao/start_mission',
-             params: { mission_number: mission.id }
+        patch '/gestao/operador/dashboard/missao/start_mission',
+              params: { order_number: escort_service.order_number }
 
         expect(flash[:notice]).to eq('Missão iniciada com sucesso!')
       end
@@ -909,8 +909,8 @@ RSpec.describe 'EmployeePanel::OperatorPanel::Dashboard', type: :request do
 
         allow(Status).to receive(:find_by_name) { raise StandardError }
 
-        post '/gestao/operador/dashboard/missao/start_mission',
-             params: { mission_number: mission.id }
+        patch '/gestao/operador/dashboard/missao/start_mission',
+              params: { order_number: escort_service.order_number }
 
         result = Mission.find(mission.id).started_at
 
@@ -929,7 +929,7 @@ RSpec.describe 'EmployeePanel::OperatorPanel::Dashboard', type: :request do
         order = FactoryBot.create(:order, :confirmed)
         escort_service = EscortService.find(order.id)
 
-        mission = FactoryBot.create(:mission, team: team, escort_service: escort_service)
+        FactoryBot.create(:mission, team: team, escort_service: escort_service)
 
         allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
         allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
@@ -937,13 +937,43 @@ RSpec.describe 'EmployeePanel::OperatorPanel::Dashboard', type: :request do
 
         allow(Status).to receive(:find_by_name) { raise StandardError }
 
-        post '/gestao/operador/dashboard/missao/start_mission',
-             params: { mission_number: mission.id }
+        patch '/gestao/operador/dashboard/missao/start_mission',
+              params: { order_number: escort_service.order_number }
 
         expect(response).to redirect_to(employee_panel_operator_dashboard_missoes_path)
       end
 
       it 'shows error message' do
+        FactoryBot.create(:status, name: 'iniciada')
+        employee = FactoryBot.create(:employee, :agent)
+        agent = Agent.find(employee.id)
+
+        team = FactoryBot.create(:team)
+        team.agents << agent
+        team.save
+
+        order = FactoryBot.create(:order, :confirmed)
+        escort_service = EscortService.find(order.id)
+
+        FactoryBot.create(:mission, team: team, escort_service: escort_service)
+
+        allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
+
+        allow(Status).to receive(:find_by_name) { raise StandardError }
+
+        patch '/gestao/operador/dashboard/missao/start_mission',
+              params: { order_number: escort_service.order_number }
+
+        expect(flash[:alert]).to eq('Falha ao iniciar a missão!')
+      end
+    end
+  end
+
+  describe '#arrival_at_base' do
+    context 'when pass valid params' do
+      it 'saves mission arrival at base timestamp' do
         FactoryBot.create(:status, name: 'iniciada')
         employee = FactoryBot.create(:employee, :agent)
         agent = Agent.find(employee.id)
@@ -961,12 +991,302 @@ RSpec.describe 'EmployeePanel::OperatorPanel::Dashboard', type: :request do
         allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
         allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
 
-        allow(Status).to receive(:find_by_name) { raise StandardError }
+        patch '/gestao/operador/dashboard/missao/arrival_at_base',
+              params: { order_number: escort_service.order_number }
 
-        post '/gestao/operador/dashboard/missao/start_mission',
-             params: { mission_number: mission.id }
+        result = Mission.find(mission.id).arrival_at_base
 
-        expect(flash[:alert]).to eq('Falha ao iniciar a missão!')
+        expect(result).to be_present
+      end
+
+      it 'redirects to missions page' do
+        FactoryBot.create(:status, name: 'iniciada')
+        employee = FactoryBot.create(:employee, :agent)
+        agent = Agent.find(employee.id)
+
+        team = FactoryBot.create(:team)
+        team.agents << agent
+        team.save
+
+        order = FactoryBot.create(:order, :confirmed)
+        escort_service = EscortService.find(order.id)
+
+        FactoryBot.create(:mission, team: team, escort_service: escort_service)
+
+        allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
+
+        patch '/gestao/operador/dashboard/missao/arrival_at_base',
+              params: { order_number: escort_service.order_number }
+
+        expect(response).to redirect_to(employee_panel_operator_dashboard_missoes_path)
+      end
+
+      it 'shows success message' do
+        FactoryBot.create(:status, name: 'iniciada')
+        employee = FactoryBot.create(:employee, :agent)
+        agent = Agent.find(employee.id)
+
+        team = FactoryBot.create(:team)
+        team.agents << agent
+        team.save
+
+        order = FactoryBot.create(:order, :confirmed)
+        escort_service = EscortService.find(order.id)
+
+        FactoryBot.create(:mission, team: team, escort_service: escort_service)
+
+        allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
+
+        patch '/gestao/operador/dashboard/missao/arrival_at_base',
+              params: { order_number: escort_service.order_number }
+
+        expect(flash[:notice]).to eq('Dados da missão atualizados com sucesso!')
+      end
+    end
+
+    context 'when occurs errors' do
+      it 'no saves mission start timestamp' do
+        FactoryBot.create(:status, name: 'iniciada')
+        employee = FactoryBot.create(:employee, :agent)
+        agent = Agent.find(employee.id)
+
+        team = FactoryBot.create(:team)
+        team.agents << agent
+        team.save
+
+        order = FactoryBot.create(:order, :confirmed)
+        escort_service = EscortService.find(order.id)
+
+        mission = FactoryBot.create(:mission, team: team, escort_service: escort_service)
+
+        allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
+
+        allow(EscortService).to receive(:find_by_order_number) { raise StandardError }
+
+        patch '/gestao/operador/dashboard/missao/arrival_at_base',
+              params: { order_number: escort_service.order_number }
+
+        result = Mission.find(mission.id).started_at
+
+        expect(result).to be_nil
+      end
+
+      it 'redirects to missions page' do
+        FactoryBot.create(:status, name: 'iniciada')
+        employee = FactoryBot.create(:employee, :agent)
+        agent = Agent.find(employee.id)
+
+        team = FactoryBot.create(:team)
+        team.agents << agent
+        team.save
+
+        order = FactoryBot.create(:order, :confirmed)
+        escort_service = EscortService.find(order.id)
+
+        FactoryBot.create(:mission, team: team, escort_service: escort_service)
+
+        allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
+
+        allow(EscortService).to receive(:find_by_order_number) { raise StandardError }
+
+        patch '/gestao/operador/dashboard/missao/arrival_at_base',
+              params: { order_number: escort_service.order_number }
+
+        expect(response).to redirect_to(employee_panel_operator_dashboard_missoes_path)
+      end
+
+      it 'shows error message' do
+        FactoryBot.create(:status, name: 'iniciada')
+        employee = FactoryBot.create(:employee, :agent)
+        agent = Agent.find(employee.id)
+
+        team = FactoryBot.create(:team)
+        team.agents << agent
+        team.save
+
+        order = FactoryBot.create(:order, :confirmed)
+        escort_service = EscortService.find(order.id)
+
+        FactoryBot.create(:mission, team: team, escort_service: escort_service)
+
+        allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
+
+        allow(EscortService).to receive(:find_by_order_number) { raise StandardError }
+
+        patch '/gestao/operador/dashboard/missao/arrival_at_base',
+              params: { order_number: escort_service.order_number }
+
+        expect(flash[:alert]).to eq('Falha ao atualizar dados da missão!')
+      end
+    end
+  end
+
+  describe '#exit_from_base' do
+    context 'when pass valid params' do
+      it 'saves mission exit from base timestamp' do
+        FactoryBot.create(:status, name: 'iniciada')
+        employee = FactoryBot.create(:employee, :agent)
+        agent = Agent.find(employee.id)
+
+        team = FactoryBot.create(:team)
+        team.agents << agent
+        team.save
+
+        order = FactoryBot.create(:order, :confirmed)
+        escort_service = EscortService.find(order.id)
+
+        mission = FactoryBot.create(:mission, team: team, escort_service: escort_service)
+
+        allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
+
+        patch '/gestao/operador/dashboard/missao/exit_from_base',
+              params: { order_number: escort_service.order_number }
+
+        result = Mission.find(mission.id).exit_from_base
+
+        expect(result).to be_present
+      end
+
+      it 'redirects to missions page' do
+        FactoryBot.create(:status, name: 'iniciada')
+        employee = FactoryBot.create(:employee, :agent)
+        agent = Agent.find(employee.id)
+
+        team = FactoryBot.create(:team)
+        team.agents << agent
+        team.save
+
+        order = FactoryBot.create(:order, :confirmed)
+        escort_service = EscortService.find(order.id)
+
+        FactoryBot.create(:mission, team: team, escort_service: escort_service)
+
+        allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
+
+        patch '/gestao/operador/dashboard/missao/exit_from_base',
+              params: { order_number: escort_service.order_number }
+
+        expect(response).to redirect_to(employee_panel_operator_dashboard_missoes_path)
+      end
+
+      it 'shows success message' do
+        FactoryBot.create(:status, name: 'iniciada')
+        employee = FactoryBot.create(:employee, :agent)
+        agent = Agent.find(employee.id)
+
+        team = FactoryBot.create(:team)
+        team.agents << agent
+        team.save
+
+        order = FactoryBot.create(:order, :confirmed)
+        escort_service = EscortService.find(order.id)
+
+        FactoryBot.create(:mission, team: team, escort_service: escort_service)
+
+        allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
+
+        patch '/gestao/operador/dashboard/missao/exit_from_base',
+              params: { order_number: escort_service.order_number }
+
+        expect(flash[:notice]).to eq('Dados da missão atualizados com sucesso!')
+      end
+    end
+
+    context 'when occurs errors' do
+      it 'no saves mission start timestamp' do
+        FactoryBot.create(:status, name: 'iniciada')
+        employee = FactoryBot.create(:employee, :agent)
+        agent = Agent.find(employee.id)
+
+        team = FactoryBot.create(:team)
+        team.agents << agent
+        team.save
+
+        order = FactoryBot.create(:order, :confirmed)
+        escort_service = EscortService.find(order.id)
+
+        mission = FactoryBot.create(:mission, team: team, escort_service: escort_service)
+
+        allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
+
+        allow(EscortService).to receive(:find_by_order_number) { raise StandardError }
+
+        patch '/gestao/operador/dashboard/missao/exit_from_base',
+              params: { order_number: escort_service.order_number }
+
+        result = Mission.find(mission.id).started_at
+
+        expect(result).to be_nil
+      end
+
+      it 'redirects to missions page' do
+        FactoryBot.create(:status, name: 'iniciada')
+        employee = FactoryBot.create(:employee, :agent)
+        agent = Agent.find(employee.id)
+
+        team = FactoryBot.create(:team)
+        team.agents << agent
+        team.save
+
+        order = FactoryBot.create(:order, :confirmed)
+        escort_service = EscortService.find(order.id)
+
+        FactoryBot.create(:mission, team: team, escort_service: escort_service)
+
+        allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
+
+        allow(EscortService).to receive(:find_by_order_number) { raise StandardError }
+
+        patch '/gestao/operador/dashboard/missao/exit_from_base',
+              params: { order_number: escort_service.order_number }
+
+        expect(response).to redirect_to(employee_panel_operator_dashboard_missoes_path)
+      end
+
+      it 'shows error message' do
+        FactoryBot.create(:status, name: 'iniciada')
+        employee = FactoryBot.create(:employee, :agent)
+        agent = Agent.find(employee.id)
+
+        team = FactoryBot.create(:team)
+        team.agents << agent
+        team.save
+
+        order = FactoryBot.create(:order, :confirmed)
+        escort_service = EscortService.find(order.id)
+
+        FactoryBot.create(:mission, team: team, escort_service: escort_service)
+
+        allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
+        allow_any_instance_of(EmployeePanelController).to receive(:profile) { 'operator' }
+
+        allow(EscortService).to receive(:find_by_order_number) { raise StandardError }
+
+        patch '/gestao/operador/dashboard/missao/exit_from_base',
+              params: { order_number: escort_service.order_number }
+
+        expect(flash[:alert]).to eq('Falha ao atualizar dados da missão!')
       end
     end
   end

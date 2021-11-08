@@ -17,7 +17,7 @@ module EmployeePanel
       end
 
       def mission
-        @mission = Mission.find(params['mission_number'])
+        @mission = escort_service.mission
       end
 
       def index
@@ -27,8 +27,34 @@ module EmployeePanel
                                        page: params[:page])
       end
 
+      def exit_from_base
+        mission = escort_service.mission
+        mission.update(exit_from_base: DateTime.now)
+
+        redirect_to employee_panel_operator_dashboard_missoes_path,
+                    notice: t('messages.successes.mission.updated_successfully')
+      rescue StandardError => error
+        Rails.logger.error("Message: #{error.message} - Backtrace: #{error.backtrace}")
+
+        redirect_to employee_panel_operator_dashboard_missoes_path,
+                    alert: t('messages.errors.mission.update_failed')
+      end
+
+      def arrival_at_base
+        mission = escort_service.mission
+        mission.update(arrival_at_base: DateTime.now)
+
+        redirect_to employee_panel_operator_dashboard_missoes_path,
+                    notice: t('messages.successes.mission.updated_successfully')
+      rescue StandardError => error
+        Rails.logger.error("Message: #{error.message} - Backtrace: #{error.backtrace}")
+
+        redirect_to employee_panel_operator_dashboard_missoes_path,
+                    alert: t('messages.errors.mission.update_failed')
+      end
+
       def start_mission
-        mission = Mission.find(params['mission_number'])
+        mission = escort_service.mission
         mission.update(started_at: DateTime.now, status: Status.find_by_name('iniciada'))
 
         redirect_to employee_panel_operator_dashboard_missoes_path,
@@ -41,9 +67,11 @@ module EmployeePanel
       end
 
       def finish_mission
-        mission = Mission.find(params['mission_number'])
+        mission = escort_service.mission
 
         Builders::FinishMission.new(mission).dismount!
+
+        mission.update(finished_at: DateTime.now)
 
         redirect_to employee_panel_operator_dashboard_missoes_path,
                     notice: t('messages.successes.mission.finished_successfully')
@@ -141,6 +169,10 @@ module EmployeePanel
 
       def order
         @order ||= Order.find_by_order_number(session[:order_number])
+      end
+
+      def escort_service
+        @escort_service ||= EscortService.find_by_order_number(params['order_number'])
       end
 
       def update_blocking_status!

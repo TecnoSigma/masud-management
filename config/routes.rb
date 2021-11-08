@@ -110,10 +110,13 @@ Rails.application.routes.draw do
       post 'dashboard/gerenciamento/confirm_order',    to: 'dashboard#confirm_order'
       post 'dashboard/gerenciamento/refuse_order',     to: 'dashboard#refuse_order'
 
-      get 'dashboard/missoes',                to: 'dashboard#missions'
-      get 'dashboard/missao/:mission_number', to: 'dashboard#mission', as: 'dashboard_mission'
-      post 'dashboard/missao/start_mission',  to: 'dashboard#start_mission'
-      post 'dashboard/missao/finish_mission', to: 'dashboard#finish_mission'
+      get 'dashboard/missoes',                  to: 'dashboard#missions'
+      get 'dashboard/missao/:order_number',     to: 'dashboard#mission', as: 'dashboard_mission'
+      post 'dashboard/missao/start_mission',    to: 'dashboard#start_mission'
+      post 'dashboard/missao/finish_mission',   to: 'dashboard#finish_mission'
+      patch 'dashboard/missao/start_mission',   to: 'dashboard#start_mission'
+      patch 'dashboard/missao/exit_from_base',  to: 'dashboard#exit_from_base'
+      patch 'dashboard/missao/arrival_at_base', to: 'dashboard#arrival_at_base'
     end
   end
 end

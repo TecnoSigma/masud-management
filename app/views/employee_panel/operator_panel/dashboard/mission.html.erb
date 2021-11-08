@@ -120,16 +120,29 @@
                 <br>
 
                 <hr>
-                <%if @mission.started? %>
+                <% if @mission.exit_from_base.nil? && @mission.arrival_at_base.nil? && @mission.started_at.nil? && @mission.finished_at.nil? %>
+                  <%= link_to t('.exit_from_base_btn'),
+                              employee_panel_operator_dashboard_missao_exit_from_base_path(order_number: @mission.escort_service.order_number),
+                              method: :patch,
+                              class: 'btn btn-primary' %>
+                <% end %>
+                <% if @mission.exit_from_base.present? && @mission.arrival_at_base.nil? && @mission.started_at.present? && @mission.finished_at.present? %>
+                  <%= link_to t('.arrival_at_base_btn'),
+                              employee_panel_operator_dashboard_missao_arrival_at_base_path(order_number: @mission.escort_service.order_number),
+                              method: :patch,
+                              class: 'btn btn-primary' %>
+                <% end %>
+                <% if @mission.exit_from_base.present? && @mission.arrival_at_base.nil? && @mission.started_at.nil? && @mission.finished_at.nil?%>
+                  <%= link_to t('.start_mission_btn'),
+                                employee_panel_operator_dashboard_missao_start_mission_path(order_number: @mission.escort_service.order_number),
+                                method: :patch,
+                                class: 'btn btn-success' %>
+                <% end %>
+                <% if @mission.exit_from_base.present? && @mission.arrival_at_base.nil? && @mission.started_at.present? && @mission.finished_at.nil? %>
                   <%= link_to t('.finish_mission_btn'),
-                              employee_panel_operator_dashboard_missao_finish_mission_path(mission_number: @mission.id),
+                                employee_panel_operator_dashboard_missao_finish_mission_path(order_number: @mission.escort_service.order_number),
                               method: :post,
                               class: 'btn btn-danger' %>
-                <% else %>
-                  <%= link_to t('.start_mission_btn'),
-                              employee_panel_operator_dashboard_missao_start_mission_path(mission_number: @mission.id),
-                              method: :post,
-                              class: 'btn btn-success' %>
                 <% end %>
               </div>
               <div class="card-footer text-center py-3"></div>
