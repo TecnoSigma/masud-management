@@ -133,12 +133,12 @@
                                 class: 'btn btn-success' %>
                 <% end %>
                 <% if @mission.exit_from_base.present? && @mission.arrival_at_base.nil? && @mission.started_at.present? && @mission.finished_at.nil? %>
-                  <%= link_to t('.finish_mission_btn'),
-                                employee_panel_operator_dashboard_missao_finish_mission_path(order_number: @mission.escort_service.order_number),
-                              method: :post,
-                              class: 'btn btn-danger' %>
-                <% end %>
+                  <button class="btn btn-danger" id="finishMissionObservationModalBtn">
+                    <%= t('.finish_mission_btn') %>
+                  </button>
 
+                  <%= render './partials/finish_mission_observation_modal' %>
+                <% end %>
                 <% if @mission.exit_from_base.present? && @mission.arrival_at_base.nil? && @mission.started_at.present? && @mission.finished_at.present? %>
                   <%= link_to t('.arrival_at_base_btn'),
                               employee_panel_operator_dashboard_missao_arrival_at_base_path(order_number: @mission.escort_service.order_number),

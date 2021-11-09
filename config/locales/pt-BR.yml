@@ -105,6 +105,7 @@ pt-BR:
       blocking_reason: 'Bloqueio por excesso de recusas do %{employee_name}'
       refuse_operation: 'IMPORTANTE: Essa operação não poderá ser cancelada.'
       refuse_reason: 'Motivo: %{reason} | Cancelado por: %{employee}'
+      finish_mission_observation: 'Estes dados serão enviados ao cliente com o relatório da missão'
     successes:
       scheduling_creation_successfully: 'Agendamento criado com sucesso!'
       scheduling_cancelation_successfully: 'Agendamento cancelado com sucesso!'
@@ -801,6 +802,11 @@ pt-BR:
       refuse_order_confirmation_btn: 'Confirmação de Recusa'
     footer:
       copyright: 'Copyright © TecnoSigma %{year}'
+    finish_mission_observation_modal:
+      title: 'Considerações Finais'
+      final_considerations: 'Considerações finais referentes à missão'
+      final_considerations_placeholder: 'Considerações Finais'
+      confirm_finish_mission: 'Confirmar Finalização da Missão'
   notifications:
     pdf:
       footer:

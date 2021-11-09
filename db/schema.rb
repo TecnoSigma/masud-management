@@ -115,6 +115,7 @@ ActiveRecord::Schema.define(version: 2021_11_01_162717) do
     t.datetime "arrival_at_base"
     t.datetime "started_at"
     t.datetime "finished_at"
+    t.string "observation"
     t.bigint "team_id"
     t.bigint "escort_service_id"
     t.bigint "status_id"

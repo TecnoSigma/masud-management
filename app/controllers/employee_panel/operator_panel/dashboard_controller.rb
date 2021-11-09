@@ -71,7 +71,7 @@ module EmployeePanel
 
         Builders::FinishMission.new(mission).dismount!
 
-        mission.update(finished_at: DateTime.now)
+        mission.update(finished_at: DateTime.now, observation: mission_params[:observation])
 
         redirect_to employee_panel_operator_dashboard_missoes_path,
                     notice: t('messages.successes.mission.finished_successfully')
@@ -221,6 +221,12 @@ module EmployeePanel
         params
           .require(:refuse_info)
           .permit(:order_number, :reason)
+      end
+
+      def mission_params
+        params
+          .require(:mission)
+          .permit(:observation)
       end
 
       def mission_item_params

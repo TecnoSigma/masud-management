@@ -713,7 +713,7 @@ RSpec.describe 'EmployeePanel::OperatorPanel::Dashboard', type: :request do
         order = FactoryBot.create(:order, :confirmed)
         escort_service = EscortService.find(order.id)
 
-        mission = FactoryBot.create(:mission, team: team, escort_service: escort_service)
+        FactoryBot.create(:mission, team: team, escort_service: escort_service)
 
         allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
         allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
@@ -722,7 +722,8 @@ RSpec.describe 'EmployeePanel::OperatorPanel::Dashboard', type: :request do
         allow(Builders::FinishMission).to receive_message_chain(:new, :dismount!) { true }
 
         post '/gestao/operador/dashboard/missao/finish_mission',
-             params: { mission_number: mission.id }
+             params: { order_number: escort_service.order_number,
+                       mission: { observation: 'Any observation' } }
 
         expect(response).to redirect_to(employee_panel_operator_dashboard_missoes_path)
       end
@@ -748,7 +749,8 @@ RSpec.describe 'EmployeePanel::OperatorPanel::Dashboard', type: :request do
         allow(Builders::FinishMission).to receive_message_chain(:new, :dismount!) { true }
 
         post '/gestao/operador/dashboard/missao/finish_mission',
-             params: { order_number: escort_service.order_number }
+             params: { order_number: escort_service.order_number,
+                       mission: { observation: 'Any observation' } }
 
         expect(flash[:notice]).to eq('Missão finalizada com sucesso!')
       end
@@ -767,7 +769,7 @@ RSpec.describe 'EmployeePanel::OperatorPanel::Dashboard', type: :request do
         order = FactoryBot.create(:order, :confirmed)
         escort_service = EscortService.find(order.id)
 
-        mission = FactoryBot.create(:mission, team: team, escort_service: escort_service)
+        FactoryBot.create(:mission, team: team, escort_service: escort_service)
 
         allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
         allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
@@ -777,7 +779,7 @@ RSpec.describe 'EmployeePanel::OperatorPanel::Dashboard', type: :request do
           .to receive_message_chain(:new, :dismount!) { raise StandardError }
 
         post '/gestao/operador/dashboard/missao/finish_mission',
-             params: { mission_number: mission.id }
+             params: { order_number: escort_service.order_number }
 
         expect(response).to redirect_to(employee_panel_operator_dashboard_missoes_path)
       end
@@ -794,7 +796,7 @@ RSpec.describe 'EmployeePanel::OperatorPanel::Dashboard', type: :request do
         order = FactoryBot.create(:order, :confirmed)
         escort_service = EscortService.find(order.id)
 
-        mission = FactoryBot.create(:mission, team: team, escort_service: escort_service)
+        FactoryBot.create(:mission, team: team, escort_service: escort_service)
 
         allow_any_instance_of(EmployeePanelController).to receive(:tokenized?) { true }
         allow_any_instance_of(EmployeePanelController).to receive(:authorized?) { true }
@@ -804,7 +806,7 @@ RSpec.describe 'EmployeePanel::OperatorPanel::Dashboard', type: :request do
           .to receive_message_chain(:new, :dismount!) { raise StandardError }
 
         post '/gestao/operador/dashboard/missao/finish_mission',
-             params: { mission_number: mission.id }
+             params: { order_number: escort_service.order_number }
 
         expect(flash[:alert]).to eq('Falha ao finalizar a missão!')
       end
