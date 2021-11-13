@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class MissionPresenter
+class MissionsPresenter
   def self.fullnames_with_document(agents)
     agents
       .sort_by(&:name)

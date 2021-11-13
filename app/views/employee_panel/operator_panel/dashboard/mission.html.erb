@@ -81,7 +81,7 @@
                 <span><%= @mission.team.name %></span>
                 <br>
                 <strong><%= t('.agents', count: @mission.team.agents.count) %></strong>
-                <span><%= MissionPresenter.fullnames_with_document(@mission.team.agents) %></span>
+                <span><%= mission_fullnames_with_document(@mission) %><span>
                 <br>
 
                 <hr>
@@ -89,7 +89,7 @@
                 <!-- GUNS DATA-->
                 <h5><%= t('.arsenal') %></h5>
                 <strong><%= t('.guns') %></strong>
-                <span><%= MissionPresenter.guns(@mission.team.agents) %></span>
+                <span><%= mission_guns(@mission) %></span>
                 <br>
 
                 <hr>
@@ -97,7 +97,7 @@
                 <!-- MUNITIONS DATA-->
                 <h5><%= t('.munitions') %></h5>
                 <strong><%= t('.description') %></strong>
-                <span><%= MissionPresenter.munitions(@mission.team.agents) %></span>
+                <span><%= mission_munitions(@mission) %></span>
                 <br>
 
                 <hr>
@@ -105,10 +105,10 @@
                 <!-- TACKLES DATA-->
                 <h5><%= t('.tackles') %></h5>
                 <strong><%= t('.waistcoats') %></strong>
-                <span><%= MissionPresenter.waistcoats(@mission.team.agents) %></span>
+                <span><%= mission_waistcoats(@mission) %></span>
                 <br>
                 <strong><%= t('.radios') %></strong>
-                <span><%= MissionPresenter.radios(@mission.team.agents) %></span>
+                <span><%= mission_radios(@mission) %></span>
                 <br>
 
                 <hr>
@@ -116,7 +116,7 @@
                 <!-- VEHICLES DATA-->
                 <h5><%= t('.vehicles') %></h5>
                 <strong><%= t('.description') %></strong>
-                <span><%= MissionPresenter.vehicles(@mission.team) %></span>
+                <span><%= mission_vehicles(@mission) %></span>
                 <br>
 
                 <hr>

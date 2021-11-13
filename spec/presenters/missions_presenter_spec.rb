@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe MissionPresenter do
+RSpec.describe MissionsPresenter do
   describe '.radios' do
     it 'returns radios description when exist radios' do
       tackle = FactoryBot.create(:tackle, :radio)
