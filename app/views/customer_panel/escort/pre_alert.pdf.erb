@@ -1,53 +1,23 @@
   <%= render '/partials/header' %>
   <h1><%= t('.title', order_number: @mission.escort_service.order_number) %></h1>
   <hr>
-  <!-- CUSTOMER DATA -->
-  <h2><%= t('.way') %></h2>
-  <h4><%= t('.source') %></h4>
-  <strong><%= t('.job_day') %></strong>
+    <strong><%= t('.job_day') %></strong>
   <span><%= @mission.escort_service.job_day %></span>
   <br>
-  <strong><%= t('.job_horary') %></strong>
+  <strong><%= t('.start_horary') %></strong>
   <span><%= @mission.escort_service.job_horary %></span>
   <br>
+  <hr>
+  <!-- CUSTOMER DATA -->
+  <h2><%= t('.way') %></h2>
+  <h4 style='text-decoration: underline'><%= t('.source') %></h4>
   <strong><%= t('.address') %></strong>
-  <span><%= @mission.escort_service.source_address %></span>
-  <br>
-  <strong><%= t('.number') %></strong>
-  <span><%= @mission.escort_service.source_number %></span>
-  <br>
-  <strong><%= t('.complement') %></strong>
-  <span><%= @mission.escort_service.source_complement %></span>
-  <br>
-  <strong><%= t('.district') %></strong>
-  <span><%= @mission.escort_service.source_district %></span>
-  <br>
-  <strong><%= t('.city') %></strong>
-  <span><%= @mission.escort_service.source_city %></span>
-  <br>
-  <strong><%= t('.state') %></strong>
-  <span><%= @mission.escort_service.source_state %></span>
+  <span><%= full_address(@mission.escort_service, :source) %></span>
   <br><br>
-
-  <h4><%= t('.destiny') %></h4>
+  <h4 style='text-decoration: underline'><%= t('.destiny') %></h4>
   <strong><%= t('.address') %></strong>
-  <span><%= @mission.escort_service.destiny_address %></span>
-  <br>
-  <strong><%= t('.number') %></strong>
-  <span><%= @mission.escort_service.destiny_number %></span>
-  <br>
-  <strong><%= t('.complement') %></strong>
-  <span><%= @mission.escort_service.destiny_complement %></span>
-  <br>
-  <strong><%= t('.district') %></strong>
-  <span><%= @mission.escort_service.destiny_district %></span>
-  <br>
-  <strong><%= t('.city') %></strong>
-  <span><%= @mission.escort_service.destiny_city %></span>
-  <br>
-  <strong><%= t('.state') %></strong>
-  <span><%= @mission.escort_service.destiny_state %></span>
-  <br><br>
+  <span><%= full_address(@mission.escort_service, :destiny) %></span>
+  <br><br><br>
   <strong><%= t('.observation') %></strong>
   <span><%= @mission.escort_service.observation %></span>
   <br>
@@ -96,4 +66,5 @@
   <h2><%= t('.vehicles') %></h2>
   <strong><%= t('.description') %></strong>
   <span><%= MissionsPresenter.vehicles(@mission.team) %></span>
+
   <%= render '/partials/footer' %>

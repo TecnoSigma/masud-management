@@ -34,6 +34,7 @@ class Order < ApplicationRecord
     blocked: 'bloqueado',
     confirmed: 'confirmado',
     refused: 'recusado',
+    finished: 'finalizada',
     cancelled: 'cancelada',
     cancelled_by_customer: 'cancelado pelo cliente'
   }.freeze

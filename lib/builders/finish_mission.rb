@@ -4,7 +4,7 @@ module Builders
   class FinishMission
     include AASM
 
-    attr_reader :mission
+    attr_reader :mission, :observation
 
     aasm do
       state :created_mission_history, initial: true
@@ -16,7 +16,8 @@ module Builders
       state :returned_vehicles
       state :updated_mission_status
       state :added_finish_timestamp
-      state :created_mission_history
+      state :added_observation
+      state :updated_order_status
       state :finished
 
       event :create_mission_history do
@@ -69,13 +70,26 @@ module Builders
 
       event :add_finish_timestamp do
         transitions from: :added_finish_timestamp,
-                    to: :finished,
+                    to: :added_observation,
                     if: :add_finish_timestamp!
+      end
+
+      event :add_observation do
+        transitions from: :added_observation,
+                    to: :updated_order_status,
+                    if: :add_observation!
+      end
+
+      event :update_order_status do
+        transitions from: :updated_order_status,
+                    to: :finished,
+                    if: :update_order_status!
       end
     end
 
-    def initialize(mission)
+    def initialize(mission, observation)
       @mission = mission
+      @observation = observation
     end
 
     def dismount!
@@ -85,15 +99,17 @@ module Builders
     private
 
     def execute_actions!
-      create_mission_history       if created_mission_history?
-      update_agents_last_mission   if updated_agents_last_mission?
-      dismember_team               if dismembered_team?
-      update_munitions_stock       if updated_munitions_stock?
-      return_arsenal               if returned_arsenal?
-      return_tackles               if returned_tackles?
-      return_vehicles              if returned_vehicles?
-      update_mission_status        if updated_mission_status?
-      add_finish_timestamp         if added_finish_timestamp?
+      create_mission_history      if created_mission_history?
+      update_agents_last_mission  if updated_agents_last_mission?
+      dismember_team              if dismembered_team?
+      update_munitions_stock      if updated_munitions_stock?
+      return_arsenal              if returned_arsenal?
+      return_tackles              if returned_tackles?
+      return_vehicles             if returned_vehicles?
+      update_mission_status       if updated_mission_status?
+      add_finish_timestamp        if added_finish_timestamp?
+      add_observation             if added_observation?
+      update_order_status         if updated_order_status?
     end
 
     def create_mission_history!
@@ -158,6 +174,17 @@ module Builders
 
     def add_finish_timestamp!
       mission.update!(finished_at: DateTime.now)
+    end
+
+    def add_observation!
+      mission.update!(observation: observation)
+    end
+
+    def update_order_status!
+      order_number = mission.escort_service.order_number
+
+      order = Order.find_by_order_number(order_number)
+      order.update!(status: Status.find_by_name('finalizada'))
     end
 
     def vehicles

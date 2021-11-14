@@ -2,11 +2,17 @@
 
 module CustomerPanel
   class EscortController < PanelsController
-    def list
+    def not_finished
       @orders = customer
                 .escorts
                 .paginate(per_page: Order::PER_PAGE_IN_CUSTOMER_DASHBOARD,
                           page: params[:page])
+    end
+
+    def finished
+      @orders = customer.finished_escorts
+                        .paginate(per_page: Order::PER_PAGE_IN_CUSTOMER_DASHBOARD,
+                                  page: params[:page])
     end
 
     def create
@@ -17,13 +23,24 @@ module CustomerPanel
 
       send_scheduling_notifications(escort.order_number)
 
-      redirect_to customer_panel_dashboard_escolta_lista_path,
+      redirect_to customer_panel_dashboard_escolta_nao_finalizadas_path,
                   notice: t('messages.successes.scheduling_creation_successfully')
     rescue StandardError => error
       Rails.logger.error("Message: #{error.message} - Backtrace: #{error.backtrace}")
 
-      redirect_to customer_panel_dashboard_escolta_lista_path,
+      redirect_to customer_panel_dashboard_escolta_nao_finalizadas_path,
                   alert: t('messages.errors.scheduling_creation_failed')
+    end
+
+    def service_order
+      @mission_history = escort.mission.mission_history
+
+      respond_to do |format|
+        format.pdf do
+          render template: 'customer_panel/escort/order_service',
+                 pdf: t('.file_title', order_number: escort.order_number)
+        end
+      end
     end
 
     def pre_alert
@@ -42,12 +59,12 @@ module CustomerPanel
 
       update_escort!
 
-      redirect_to customer_panel_dashboard_escolta_lista_path,
+      redirect_to customer_panel_dashboard_escolta_nao_finalizadas_path,
                   notice: t('messages.successes.scheduling_cancelation_successfully')
     rescue DeleteEscortSchedulingError, StandardError => error
       Rails.logger.error("Message: #{error.message} - Backtrace: #{error.backtrace}")
 
-      redirect_to customer_panel_dashboard_escolta_lista_path,
+      redirect_to customer_panel_dashboard_escolta_nao_finalizadas_path,
                   alert: t('messages.errors.scheduling_cancelation_failed')
     end
 

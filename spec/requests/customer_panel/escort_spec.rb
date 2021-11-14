@@ -63,7 +63,7 @@ RSpec.describe 'CustomerPanel::Escort', type: :request do
 
         delete "/cliente/dashboard/escolta/cancel/#{escort.order_number}"
 
-        expect(response).to redirect_to(customer_panel_dashboard_escolta_lista_path)
+        expect(response).to redirect_to(customer_panel_dashboard_escolta_nao_finalizadas_path)
       end
 
       it 'shows sucess message' do
@@ -116,7 +116,7 @@ RSpec.describe 'CustomerPanel::Escort', type: :request do
 
         delete '/cliente/dashboard/escolta/cancel/any_invalid_order_number'
 
-        expect(response).to redirect_to(customer_panel_dashboard_escolta_lista_path)
+        expect(response).to redirect_to(customer_panel_dashboard_escolta_nao_finalizadas_path)
       end
 
       it 'shows error message' do
@@ -168,7 +168,7 @@ RSpec.describe 'CustomerPanel::Escort', type: :request do
 
         delete "/cliente/dashboard/escolta/cancel/#{escort.order_number}"
 
-        expect(response).to redirect_to(customer_panel_dashboard_escolta_lista_path)
+        expect(response).to redirect_to(customer_panel_dashboard_escolta_nao_finalizadas_path)
       end
 
       it 'shows error message' do
@@ -231,7 +231,7 @@ RSpec.describe 'CustomerPanel::Escort', type: :request do
 
         delete "/cliente/dashboard/escolta/cancel/#{escort.order_number}"
 
-        expect(response).to redirect_to(customer_panel_dashboard_escolta_lista_path)
+        expect(response).to redirect_to(customer_panel_dashboard_escolta_nao_finalizadas_path)
       end
 
       it 'shows error message' do
@@ -257,16 +257,66 @@ RSpec.describe 'CustomerPanel::Escort', type: :request do
     end
   end
 
-  describe '#list' do
-    it 'renders escorts list page' do
+  describe '#not_finished' do
+    it 'renders not finished escorts list page' do
       customer = FactoryBot.create(:customer)
       allow_any_instance_of(PanelsController).to receive(:tokenized?) { true }
       allow_any_instance_of(PanelsController).to receive(:authorized?) { true }
       allow_any_instance_of(CustomerPanel::EscortController).to receive(:customer) { customer }
 
-      get '/cliente/dashboard/escolta/lista'
+      get '/cliente/dashboard/escolta/nao_finalizadas'
 
-      expect(response).to render_template(:list)
+      expect(response).to render_template(:not_finished)
+    end
+  end
+
+  describe '#finished' do
+    it 'renders finished escorts list page' do
+      customer = FactoryBot.create(:customer)
+      allow_any_instance_of(PanelsController).to receive(:tokenized?) { true }
+      allow_any_instance_of(PanelsController).to receive(:authorized?) { true }
+      allow_any_instance_of(CustomerPanel::EscortController).to receive(:customer) { customer }
+
+      get '/cliente/dashboard/escolta/finalizadas'
+
+      expect(response).to render_template(:finished)
+    end
+  end
+
+  describe '#service_order' do
+    it 'renders service order page in PDF format' do
+      FactoryBot.create(:status, name: 'iniciada')
+      FactoryBot.create(:status, name: 'finalizada')
+
+      customer = FactoryBot.create(:customer)
+      employee = FactoryBot.create(:employee, :agent, last_mission: nil)
+      agent = Agent.find(employee.id)
+
+      team = FactoryBot.create(:team)
+      team.agents << agent
+      team.save
+
+      order = FactoryBot.create(:order,
+                                :confirmed,
+                                customer: customer)
+
+      escort_service = EscortService.find(order.id)
+
+      mission = FactoryBot.create(:mission,
+                                  team: team,
+                                  escort_service: escort_service,
+                                  observation: nil)
+
+      FactoryBot.create(:mission_history, mission: mission)
+
+      allow_any_instance_of(PanelsController).to receive(:tokenized?) { true }
+      allow_any_instance_of(PanelsController).to receive(:authorized?) { true }
+      allow_any_instance_of(CustomerPanel::EscortController).to receive(:customer) { customer }
+      allow(MissionsHistoryPresenter).to receive(:fullnames_with_document) { '' }
+
+      get "/cliente/dashboard/escolta/service_order/#{escort_service.order_number}.pdf"
+
+      expect(response).to render_template(:order_service)
     end
   end
 
@@ -342,7 +392,7 @@ RSpec.describe 'CustomerPanel::Escort', type: :request do
 
         post '/cliente/dashboard/escolta/create', params: { escort: escort_params }
 
-        expect(response).to redirect_to(customer_panel_dashboard_escolta_lista_path)
+        expect(response).to redirect_to(customer_panel_dashboard_escolta_nao_finalizadas_path)
       end
 
       it 'shows success message' do
@@ -406,7 +456,7 @@ RSpec.describe 'CustomerPanel::Escort', type: :request do
 
         post '/cliente/dashboard/escolta/create', params: { escort: escort_params }
 
-        expect(response).to redirect_to(customer_panel_dashboard_escolta_lista_path)
+        expect(response).to redirect_to(customer_panel_dashboard_escolta_nao_finalizadas_path)
       end
 
       it 'shows error message' do

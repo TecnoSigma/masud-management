@@ -51,7 +51,7 @@ RSpec.describe ApplicationHelper, type: :helper do
   end
 
   describe '#convert_date_time' do
-    it 'returns converted date in format dd/mm/yyyy - hh:mm:ss' do
+    it 'returns converted date in dd/mm/yyyy - hh:mm:ss format' do
       scheduling = FactoryBot.create(:order, :scheduled)
 
       expected_result = DateTime.parse(scheduling.job_day.to_s).strftime('%d/%m/%Y - %H:%M')
@@ -63,7 +63,7 @@ RSpec.describe ApplicationHelper, type: :helper do
   end
 
   describe '#convert_date' do
-    it 'returns converted date in format dd/mm/yyyy' do
+    it 'returns converted date in dd/mm/yyyy format' do
       employee = FactoryBot.create(:employee, :admin)
 
       expected_result = employee.admission_date.strftime('%d/%m/%Y')
@@ -77,6 +77,18 @@ RSpec.describe ApplicationHelper, type: :helper do
       result = helper.convert_date('')
 
       expect(result).to eq('')
+    end
+  end
+
+  describe '#convert_time' do
+    it 'returns converted time in HH:MM format' do
+      horary = DateTime.now
+
+      expected_result = horary.strftime('%H:%M')
+
+      result = helper.convert_time(horary)
+
+      expect(result).to eq(expected_result)
     end
   end
 
@@ -119,6 +131,17 @@ RSpec.describe ApplicationHelper, type: :helper do
       expected_result = "#{order.source_address}, #{order.source_number} - " \
                         "#{order.source_complement} - #{order.source_district} - " \
                         "#{order.source_city} - #{order.source_state}"
+
+      result = helper.full_address(order, :source)
+
+      expect(result).to eq(expected_result)
+    end
+
+    it 'returns source full address without complement when haven\'t address complement' do
+      order = FactoryBot.create(:order, :scheduled, source_complement: nil)
+
+      expected_result = "#{order.source_address}, #{order.source_number} - " \
+                        "#{order.source_district} - #{order.source_city} - #{order.source_state}"
 
       result = helper.full_address(order, :source)
 

@@ -92,25 +92,13 @@ RSpec.describe Order, type: :model do
   end
 
   describe 'validates allowed status' do
-    it 'validates \'aguardando confirmação\'' do
-      status = FactoryBot.create(:status, name: 'aguardando confirmação')
-      order = FactoryBot.build(:order, status: status)
+    described_class::ALLOWED_STATUSES.each do |_, value|
+      it "validates '#{value}'" do
+        status = FactoryBot.create(:status, name: value)
+        order = FactoryBot.build(:order, status: status)
 
-      expect(order).to be_valid
-    end
-
-    it 'validates \'confirmado\'' do
-      status = FactoryBot.create(:status, name: 'confirmado')
-      order = FactoryBot.build(:order, status: status)
-
-      expect(order).to be_valid
-    end
-
-    it 'validates \'recusado\'' do
-      status = FactoryBot.create(:status, name: 'recusado')
-      order = FactoryBot.build(:order, status: status)
-
-      expect(order).to be_valid
+        expect(order).to be_valid
+      end
     end
   end
 

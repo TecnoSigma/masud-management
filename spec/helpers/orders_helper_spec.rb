@@ -21,6 +21,9 @@ RSpec.describe OrdersHelper, type: :helper do
                         '<a class="nav-link" href="/gestao/admin/dashboard/escoltas/refused">' \
                         'Recusadas' \
                         '</a>' \
+                        '<a class="nav-link" href="/gestao/admin/dashboard/escoltas/finished">' \
+                        'Finalizadas' \
+                        '</a>' \
                         '<a class="nav-link" href="/gestao/admin/dashboard/escoltas/cancelled">' \
                         'Canceladas' \
                         '</a>' \

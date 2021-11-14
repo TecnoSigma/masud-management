@@ -78,6 +78,51 @@ RSpec.describe Customer, type: :model do
     end
   end
 
+  describe '#finished_escorts' do
+    it 'returns only finished escort services' do
+      FactoryBot.create(:status, name: 'iniciada')
+      FactoryBot.create(:status, name: 'finalizada')
+
+      employee1 = FactoryBot.create(:employee, :agent)
+      agent1 = Agent.find(employee1.id)
+
+      team1 = FactoryBot.create(:team)
+      team1.agents << agent1
+      team1.save
+
+      order1 = FactoryBot.create(:order, :confirmed)
+      escort_service1 = EscortService.find(order1.id)
+      customer1 = escort_service1.customer
+
+      FactoryBot.create(:mission,
+                        team: team1,
+                        escort_service: escort_service1,
+                        finished_at: DateTime.now)
+
+      employee2 = FactoryBot.create(:employee, :agent)
+      agent2 = Agent.find(employee2.id)
+
+      team2 = FactoryBot.create(:team)
+      team2.agents << agent2
+      team2.save
+
+      order2 = FactoryBot.create(:order, :confirmed)
+      escort_service2 = EscortService.find(order2.id)
+      customer2 = escort_service2.customer
+
+      FactoryBot.create(:mission,
+                        team: team2,
+                        escort_service: escort_service2,
+                        finished_at: nil)
+
+      result1 = customer1.finished_escorts
+      result2 = customer2.finished_escorts
+
+      expect(result1).to eq([escort_service1])
+      expect(result2).not_to eq([escort_service2])
+    end
+  end
+
   it 'generates password when create a new customer' do
     company = 'XPTO S.A.'
     customer = FactoryBot.build(:customer, company: company, password: nil)

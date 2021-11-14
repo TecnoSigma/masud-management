@@ -69,9 +69,7 @@ module EmployeePanel
       def finish_mission
         mission = escort_service.mission
 
-        Builders::FinishMission.new(mission).dismount!
-
-        mission.update(finished_at: DateTime.now, observation: mission_params[:observation])
+        Builders::FinishMission.new(mission, mission_params[:observation]).dismount!
 
         redirect_to employee_panel_operator_dashboard_missoes_path,
                     notice: t('messages.successes.mission.finished_successfully')

@@ -40,7 +40,17 @@ class Customer < ApplicationRecord
      EscortService.where(customer: self)]
       .flatten
       .reject { |escort| escort.status.name == HIDDEN_STATUS }
+      .reject { |escort| escort.status == Status.find_by_name('finalizada') }
       .sort { |a, b| a.job_day <=> b.job_day }
+  end
+
+  def finished_escorts
+    escorts.map do |escort|
+      escort if escort.type == 'EscortService' &&
+                escort.mission.present? &&
+                escort.mission.finished_at.present?
+    end
+           .compact
   end
 
   def active?

@@ -5,6 +5,7 @@ require 'rails_helper'
 RSpec.describe Builders::FinishMission do
   describe '#dismount!' do
     it 'dismounts mission when pass all states' do
+      observation = 'Any observation'
       FactoryBot.create(:status, name: 'iniciada')
       employee = FactoryBot.create(:employee, :agent)
       agent = Agent.find(employee.id)
@@ -27,13 +28,16 @@ RSpec.describe Builders::FinishMission do
       allow_any_instance_of(described_class).to receive(:update_mission_status!) { true }
       allow_any_instance_of(described_class).to receive(:add_finish_timestamp!) { true }
       allow_any_instance_of(described_class).to receive(:create_mission_history!) { true }
+      allow_any_instance_of(described_class).to receive(:add_observation!) { true }
+      allow_any_instance_of(described_class).to receive(:update_order_status!) { true }
 
-      result = described_class.new(mission).send(:dismount!)
+      result = described_class.new(mission, observation).send(:dismount!)
 
       expect(result).to eq(true)
     end
 
     it 'no mounts mission when one pass fail' do
+      observation = 'Any observation'
       FactoryBot.create(:status, name: 'iniciada')
       employee = FactoryBot.create(:employee, :agent)
       agent = Agent.find(employee.id)
@@ -56,15 +60,18 @@ RSpec.describe Builders::FinishMission do
       allow_any_instance_of(described_class).to receive(:update_mission_status!) { true }
       allow_any_instance_of(described_class).to receive(:add_finish_timestamp!) { true }
       allow_any_instance_of(described_class).to receive(:create_mission_history!) { true }
+      allow_any_instance_of(described_class).to receive(:add_observation!) { true }
+      allow_any_instance_of(described_class).to receive(:update_order_status!) { true }
 
       expect do
-        described_class.new(mission).send(:dismount!)
+        described_class.new(mission, observation).send(:dismount!)
       end.to raise_error(AASM::InvalidTransition)
     end
   end
 
   describe '#update_agents_last_mission!' do
     it 'updates agents last mission' do
+      observation = 'Any observation'
       FactoryBot.create(:status, name: 'iniciada')
       employee = FactoryBot.create(:employee, :agent, last_mission: nil)
       agent = Agent.find(employee.id)
@@ -78,7 +85,7 @@ RSpec.describe Builders::FinishMission do
 
       mission = FactoryBot.create(:mission, team: team, escort_service: escort_service)
 
-      result = described_class.new(mission).send(:update_agents_last_mission!)
+      result = described_class.new(mission, observation).send(:update_agents_last_mission!)
 
       expected_result = Agent.find(agent.id).last_mission.present?
 
@@ -89,6 +96,7 @@ RSpec.describe Builders::FinishMission do
 
   describe '#dismember_team!' do
     it 'removes agents of team' do
+      observation = 'Any observation'
       FactoryBot.create(:status, name: 'iniciada')
       employee = FactoryBot.create(:employee, :agent)
       agent = Agent.find(employee.id)
@@ -102,7 +110,7 @@ RSpec.describe Builders::FinishMission do
 
       mission = FactoryBot.create(:mission, team: team, escort_service: escort_service)
 
-      result = described_class.new(mission).send(:dismember_team!)
+      result = described_class.new(mission, observation).send(:dismember_team!)
 
       expected_result = team.agents.empty?
 
@@ -116,6 +124,7 @@ RSpec.describe Builders::FinishMission do
     xit 'updates munitions stock with the quantities that the agents give back' do
       FactoryBot.create(:status, name: 'iniciada')
 
+      observation = 'Any observation'
       stock_quantity12 = 2000
       stock_quantity38 = 1500
       FactoryBot.create(:munition_stock, caliber: '12', quantity: stock_quantity12)
@@ -142,13 +151,14 @@ RSpec.describe Builders::FinishMission do
 
       mission = FactoryBot.create(:mission, team: team, escort_service: escort_service)
 
-      described_class.new(mission).send(:update_munitions_stock!)
+      described_class.new(mission, observation).send(:update_munitions_stock!)
     end
   end
 
   describe '#return_arsenal!' do
     it 'give back arsenal' do
       FactoryBot.create(:status, name: 'iniciada')
+      observation = 'Any observation'
       employee = FactoryBot.create(:employee, :agent)
       agent = Agent.find(employee.id)
 
@@ -167,7 +177,7 @@ RSpec.describe Builders::FinishMission do
 
       mission = FactoryBot.create(:mission, team: team, escort_service: escort_service)
 
-      result = described_class.new(mission).send(:return_arsenal!)
+      result = described_class.new(mission, observation).send(:return_arsenal!)
 
       result2 = Arsenal.find(gun.id).employee
       result3 = Arsenal.find(munition.id).employee
@@ -183,6 +193,7 @@ RSpec.describe Builders::FinishMission do
   describe '#return_tackles!' do
     it 'give back tackles' do
       FactoryBot.create(:status, name: 'iniciada')
+      observation = 'Any observation'
       employee = FactoryBot.create(:employee, :agent)
       agent = Agent.find(employee.id)
 
@@ -201,7 +212,7 @@ RSpec.describe Builders::FinishMission do
 
       mission = FactoryBot.create(:mission, team: team, escort_service: escort_service)
 
-      result = described_class.new(mission).send(:return_tackles!)
+      result = described_class.new(mission, observation).send(:return_tackles!)
 
       result2 = Tackle.find(radio.id).employee
       result3 = Tackle.find(waistcoat.id).employee
@@ -217,6 +228,7 @@ RSpec.describe Builders::FinishMission do
   describe '#return_vehicles!' do
     it 'give back vehicles' do
       FactoryBot.create(:status, name: 'iniciada')
+      observation = 'Any observation'
       employee = FactoryBot.create(:employee, :agent)
       agent = Agent.find(employee.id)
 
@@ -232,7 +244,7 @@ RSpec.describe Builders::FinishMission do
 
       mission = FactoryBot.create(:mission, team: team, escort_service: escort_service)
 
-      result = described_class.new(mission).send(:return_vehicles!)
+      result = described_class.new(mission, observation).send(:return_vehicles!)
 
       result2 = Vehicle.find(vehicle.id).team
       result3 = team.vehicles
@@ -244,10 +256,11 @@ RSpec.describe Builders::FinishMission do
   end
 
   describe '#update_mission_status!' do
-    it 'updates mission status to \'terminada\'' do
+    it 'updates mission status to \'finalizada\'' do
       started_status = FactoryBot.create(:status, name: 'iniciada')
       finished_status = FactoryBot.create(:status, name: 'finalizada')
 
+      observation = 'Any observation'
       employee = FactoryBot.create(:employee, :agent)
       agent = Agent.find(employee.id)
 
@@ -263,7 +276,7 @@ RSpec.describe Builders::FinishMission do
                                   escort_service: escort_service,
                                   status: started_status)
 
-      result = described_class.new(mission).send(:update_mission_status!)
+      result = described_class.new(mission, observation).send(:update_mission_status!)
 
       result2 = mission.status.name
 
@@ -275,6 +288,7 @@ RSpec.describe Builders::FinishMission do
   describe '#add_finish_timestamp!' do
     it 'adds finish timestamp in mission' do
       FactoryBot.create(:status, name: 'iniciada')
+      observation = 'Any observation'
       employee = FactoryBot.create(:employee, :agent)
       agent = Agent.find(employee.id)
 
@@ -290,7 +304,7 @@ RSpec.describe Builders::FinishMission do
                                   escort_service: escort_service,
                                   finished_at: nil)
 
-      result = described_class.new(mission).send(:add_finish_timestamp!)
+      result = described_class.new(mission, observation).send(:add_finish_timestamp!)
 
       result2 = mission.finished_at
 
@@ -302,6 +316,7 @@ RSpec.describe Builders::FinishMission do
   describe '#create_mission_history!' do
     it 'creates mission history' do
       FactoryBot.create(:status, name: 'iniciada')
+      observation = 'Any observation'
       employee = FactoryBot.create(:employee, :agent)
       agent = Agent.find(employee.id)
 
@@ -337,7 +352,7 @@ RSpec.describe Builders::FinishMission do
 
       mission = FactoryBot.create(:mission, team: team, escort_service: escort_service)
 
-      result = described_class.new(mission).send(:create_mission_history!)
+      result = described_class.new(mission, observation).send(:create_mission_history!)
 
       result2 = MissionHistory.last.agents
       result3 = MissionHistory.last.items
@@ -349,6 +364,63 @@ RSpec.describe Builders::FinishMission do
       expect(result3).to eq(items)
       expect(result4).to eq(team.name)
       expect(result5).to eq(mission)
+    end
+  end
+
+  describe '#add_observation!' do
+    it 'adds finished mission observation' do
+      FactoryBot.create(:status, name: 'iniciada')
+      observation = 'Any observation'
+      employee = FactoryBot.create(:employee, :agent, last_mission: nil)
+      agent = Agent.find(employee.id)
+
+      team = FactoryBot.create(:team)
+      team.agents << agent
+      team.save
+
+      order = FactoryBot.create(:order, :confirmed)
+      escort_service = EscortService.find(order.id)
+
+      mission = FactoryBot.create(:mission,
+                                  team: team,
+                                  escort_service: escort_service,
+                                  observation: nil)
+
+      result1 = described_class.new(mission, observation).send(:add_observation!)
+      result2 = mission.observation
+
+      expect(result1).to eq(true)
+      expect(result2).to eq(observation)
+    end
+  end
+
+  describe '#update_order_status!' do
+    it 'updates order status to \'finalizada\'' do
+      started_status = FactoryBot.create(:status, name: 'iniciada')
+      finished_status = FactoryBot.create(:status, name: 'finalizada')
+
+      observation = 'Any observation'
+      employee = FactoryBot.create(:employee, :agent)
+      agent = Agent.find(employee.id)
+
+      team = FactoryBot.create(:team)
+      team.agents << agent
+      team.save
+
+      order = FactoryBot.create(:order, :confirmed)
+      escort_service = EscortService.find(order.id)
+
+      mission = FactoryBot.create(:mission,
+                                  team: team,
+                                  escort_service: escort_service,
+                                  status: started_status)
+
+      result = described_class.new(mission, observation).send(:update_order_status!)
+
+      result2 = Order.find_by_order_number(escort_service.order_number).status.name
+
+      expect(result).to eq(true)
+      expect(result2).to eq(finished_status.name)
     end
   end
 end

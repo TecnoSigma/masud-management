@@ -24,6 +24,12 @@ module ApplicationHelper
     DateTime.parse(date_time.to_s).strftime('%d/%m/%Y - %H:%M')
   end
 
+  def convert_time(date)
+    return '' unless date.present?
+
+    date.strftime('%H:%M')
+  end
+
   def convert_date(date)
     return '' unless date.present?
 
@@ -44,7 +50,7 @@ module ApplicationHelper
     city = order.send("#{type}_city".to_sym)
     state = order.send("#{type}_state".to_sym)
 
-    "#{address}, #{number} - #{complement} - #{district} - #{city} - #{state}"
+    "#{address}, #{number} - #{complement(order, type)}#{district} - #{city} - #{state}"
   end
 
   def date_time(order)
@@ -57,5 +63,15 @@ module ApplicationHelper
 
   def available_agents
     OrdersManagementPresenter.available_agents
+  end
+
+  private
+
+  def complement(order, type)
+    address_complement = order.send("#{type}_complement".to_sym)
+
+    return unless address_complement
+
+    "#{address_complement} - "
   end
 end
