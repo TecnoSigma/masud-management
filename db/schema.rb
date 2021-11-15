@@ -28,7 +28,6 @@ ActiveRecord::Schema.define(version: 2021_11_01_162717) do
     t.string "situation"
     t.date "registration_validity"
     t.boolean "linked_at_post", default: false
-    t.integer "quantity", default: 0
     t.index ["employee_id"], name: "index_arsenals_on_employee_id"
     t.index ["status_id"], name: "index_arsenals_on_status_id"
   end

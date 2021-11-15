@@ -8,27 +8,27 @@ module EmployeePanel
           before_action { check_internal_profile(params['controller']) }
 
           def list
-            @munitions = Munition.all
+            @munitions = MunitionStock.all
           end
 
           def new; end
 
           def edit
-            @munition = Munition.find(params['id'])
+            @munition = MunitionStock.find(params['id'])
           rescue StandardError, ActiveRecord::RecordNotFound => error
             redirect_to employee_panel_administrator_dashboard_arsenais_municoes_path,
                         alert: error_message(error.class, :find)
           end
 
           def create
-            munition = Munition.new(munition_params)
+            munition = MunitionStock.new(munition_params)
 
             munition.validate
             munition.save!
 
             redirect_to employee_panel_administrator_dashboard_arsenais_municoes_path,
                         notice: t('messages.successes.arsenal.munition.created_successfully',
-                                  caliber_type: munition.kind)
+                                  caliber_type: munition.caliber)
           rescue StandardError => error
             Rails.logger.error("Message: #{error.message} - Backtrace: #{error.backtrace}")
 
@@ -37,7 +37,7 @@ module EmployeePanel
           end
 
           def update
-            munition = Munition.find(params['id'])
+            munition = MunitionStock.find(params['id'])
 
             munition.update!(munition_params)
 
@@ -53,7 +53,7 @@ module EmployeePanel
 
             redirect_to employee_panel_administrator_dashboard_arsenais_municoes_path,
                         notice: t('messages.successes.arsenal.munition.removed_successfully',
-                                  caliber_type: munition.kind)
+                                  caliber_type: munition.caliber)
           rescue StandardError, ActiveRecord::RecordNotFound => error
             redirect_to employee_panel_administrator_dashboard_arsenais_municoes_path,
                         alert: error_message(error.class, :remove)
@@ -62,7 +62,7 @@ module EmployeePanel
           private
 
           def munition
-            @munition ||= Munition.find(params['id'])
+            @munition ||= MunitionStock.find(params['id'])
           end
 
           def error_message(error_class, action)
@@ -74,7 +74,10 @@ module EmployeePanel
           end
 
           def munition_params
-            params.require(:munition).permit(:kind, :quantity)
+            params
+              .require(:munition)
+              .permit(:caliber, :quantity)
+              .merge!({ 'last_update' => DateTime.now })
           end
         end
       end

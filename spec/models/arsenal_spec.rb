@@ -61,38 +61,4 @@ RSpec.describe Arsenal, type: :model do
       expect(result).to eq([regular_status, irregular_status])
     end
   end
-
-  describe 'validates uniqueness' do
-    context 'when is a munition' do
-      it 'no validates when kind is duplicated' do
-        munition1 = FactoryBot.create(:arsenal, :munition)
-        munition2 = FactoryBot.build(:arsenal, :munition, kind: munition1.kind)
-
-        expect(munition2).to be_invalid
-      end
-    end
-
-    context 'when isn\'t a munition' do
-      it 'validates when kind is duplicated' do
-        gun1 = FactoryBot.create(:arsenal, :gun)
-        gun2 = FactoryBot.build(:arsenal, :gun, kind: gun1.kind)
-
-        expect(gun2).to be_valid
-      end
-    end
-  end
-
-  describe 'validates numericality' do
-    it 'no validates when quantity is a float number' do
-      munition = FactoryBot.build(:arsenal, :munition, quantity: 1.5)
-
-      expect(munition).to be_invalid
-    end
-
-    it 'no validates when quantity is less than zero' do
-      munition = FactoryBot.build(:arsenal, :munition, quantity: -10)
-
-      expect(munition).to be_invalid
-    end
-  end
 end

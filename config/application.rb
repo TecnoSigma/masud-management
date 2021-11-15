@@ -24,7 +24,7 @@ module MasudManagement
     ]
 
     # Observers
-    config.active_record.observers = :munition_observer
+    # config.active_record.observers = :munition_observer
 
     # Notifications
     unless Rails.env.test?

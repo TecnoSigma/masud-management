@@ -22,4 +22,18 @@ RSpec.describe MunitionStock, type: :model do
       expect(stock).to be_invalid
     end
   end
+
+  describe 'validates numericality' do
+    it 'no validates when quantity is a float number' do
+      munition = FactoryBot.build(:munition_stock, quantity: 1.5)
+
+      expect(munition).to be_invalid
+    end
+
+    it 'no validates when quantity is less than zero' do
+      munition = FactoryBot.build(:munition_stock, quantity: -10)
+
+      expect(munition).to be_invalid
+    end
+  end
 end

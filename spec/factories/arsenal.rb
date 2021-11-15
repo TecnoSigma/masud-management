@@ -10,11 +10,5 @@ FactoryBot.define do
       status { Status.find_by_name('ativo') || FactoryBot.create(:status, name: 'ativo') }
       registration_validity { 90.days.after }
     end
-
-    trait :munition do
-      type { 'Munition' }
-      kind { %w(12 38).sample }
-      quantity { Faker::Number.number(digits: 3) }
-    end
   end
 end

@@ -167,9 +167,7 @@ RSpec.describe Builders::FinishMission do
       team.save
 
       gun = FactoryBot.create(:arsenal, :gun)
-      munition = FactoryBot.create(:arsenal, :munition)
       agent.arsenals << gun
-      agent.arsenals << munition
       agent.save
 
       order = FactoryBot.create(:order, :confirmed)
@@ -180,13 +178,11 @@ RSpec.describe Builders::FinishMission do
       result = described_class.new(mission, observation).send(:return_arsenal!)
 
       result2 = Arsenal.find(gun.id).employee
-      result3 = Arsenal.find(munition.id).employee
-      result4 = agent.arsenals
+      result3 = agent.arsenals
 
       expect(result).to eq(true)
       expect(result2).to be_nil
-      expect(result3).to be_nil
-      expect(result4).to be_empty
+      expect(result3).to be_empty
     end
   end
 
@@ -324,10 +320,8 @@ RSpec.describe Builders::FinishMission do
       waistcoat = FactoryBot.create(:tackle, :waistcoat)
 
       gun = FactoryBot.create(:arsenal, :gun)
-      munition = FactoryBot.create(:arsenal, :munition)
 
       agent.arsenals << gun
-      agent.arsenals << munition
       agent.tackles << radio
       agent.tackles << waistcoat
       agent.save
@@ -346,7 +340,6 @@ RSpec.describe Builders::FinishMission do
         "Radio - #{radio.serial_number}",
         "Waistcoat - #{waistcoat.serial_number}",
         "Gun - #{gun.number}",
-        "Munition - #{munition.number}",
         "Vehicle - #{vehicle.license_plate}"
       ]
 

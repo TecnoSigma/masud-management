@@ -28,9 +28,9 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Arsenals::Munition
   describe '#edit' do
     context 'when pass valid params' do
       it 'renders edit page' do
-        gun = FactoryBot.create(:arsenal, :munition)
+        munition = FactoryBot.create(:munition_stock)
 
-        get "/gestao/admin/dashboard/arsenais/municao/#{gun.id}/editar"
+        get "/gestao/admin/dashboard/arsenais/municao/#{munition.id}/editar"
 
         expect(response).to render_template(:edit)
       end
@@ -52,9 +52,9 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Arsenals::Munition
 
     context 'when occurs errors' do
       it 'redirects to tackles list page' do
-        munition = FactoryBot.create(:arsenal, :munition)
+        munition = FactoryBot.create(:munition_stock)
 
-        allow(Munition).to receive(:find) { raise StandardError }
+        allow(MunitionStock).to receive(:find) { raise StandardError }
 
         get "/gestao/admin/dashboard/arsenais/municao/#{munition.id}/editar"
 
@@ -62,9 +62,9 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Arsenals::Munition
       end
 
       it 'shows error message' do
-        munition = FactoryBot.create(:arsenal, :munition)
+        munition = FactoryBot.create(:munition_stock)
 
-        allow(Munition).to receive(:find) { raise StandardError }
+        allow(MunitionStock).to receive(:find) { raise StandardError }
 
         get get "/gestao/admin/dashboard/arsenais/municao/#{munition.id}/editar"
 
@@ -77,18 +77,18 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Arsenals::Munition
     context 'when pass valid params' do
       it 'creates a new munition type' do
         caliber_type = '50'
-        munition_params = FactoryBot.attributes_for(:arsenal, :munition, kind: caliber_type)
+        munition_params = FactoryBot.attributes_for(:munition_stock, caliber: caliber_type)
 
         post '/gestao/admin/dashboard/arsenais/municao/create',
              params: { munition: munition_params }
 
-        result = Munition.find_by_kind(caliber_type)
+        result = MunitionStock.find_by_caliber(caliber_type)
 
         expect(result).to be_present
       end
 
       it 'redirects to munitions list page' do
-        munition_params = FactoryBot.attributes_for(:arsenal, :munition)
+        munition_params = FactoryBot.attributes_for(:munition_stock)
 
         post '/gestao/admin/dashboard/arsenais/municao/create',
              params: { munition: munition_params }
@@ -98,7 +98,7 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Arsenals::Munition
 
       it 'shows success message' do
         caliber_type = '50'
-        munition_params = FactoryBot.attributes_for(:arsenal, :munition, kind: caliber_type)
+        munition_params = FactoryBot.attributes_for(:munition_stock, caliber: caliber_type)
 
         post '/gestao/admin/dashboard/arsenais/municao/create',
              params: { munition: munition_params }
@@ -110,19 +110,19 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Arsenals::Munition
     context 'when pass invalid params' do
       it 'no creates a new munition' do
         caliber_type = ''
-        munition_params = FactoryBot.attributes_for(:arsenal, :munition, kind: caliber_type)
+        munition_params = FactoryBot.attributes_for(:munition_stock, caliber: caliber_type)
 
         post '/gestao/admin/dashboard/arsenais/municao/create',
              params: { munition: munition_params }
 
-        result = Munition.find_by_kind(caliber_type)
+        result = MunitionStock.find_by_caliber(caliber_type)
 
         expect(result).to be_nil
       end
 
       it 'redirects to new munition page' do
         caliber_type = ''
-        munition_params = FactoryBot.attributes_for(:arsenal, :munition, kind: caliber_type)
+        munition_params = FactoryBot.attributes_for(:munition_stock, caliber: caliber_type)
 
         post '/gestao/admin/dashboard/arsenais/municao/create',
              params: { munition: munition_params }
@@ -132,7 +132,7 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Arsenals::Munition
 
       it 'shows error message' do
         caliber_type = ''
-        munition_params = FactoryBot.attributes_for(:arsenal, :munition, kind: caliber_type)
+        munition_params = FactoryBot.attributes_for(:munition_stock, caliber: caliber_type)
 
         post '/gestao/admin/dashboard/arsenais/municao/create',
              params: { munition: munition_params }
@@ -146,19 +146,19 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Arsenals::Munition
     context 'when pass valid params' do
       it 'updates munition data' do
         new_quantity = 500
-        munition = FactoryBot.create(:arsenal, :munition)
+        munition = FactoryBot.create(:munition_stock)
 
         patch "/gestao/admin/dashboard/arsenais/municao/update/#{munition.id}",
               params: { munition: { quantity: new_quantity } }
 
-        result = Munition.find(munition.id).quantity
+        result = MunitionStock.find(munition.id).quantity
 
         expect(result).to eq(new_quantity)
       end
 
       it 'shows success message' do
         new_quantity = 500
-        munition = FactoryBot.create(:arsenal, :munition)
+        munition = FactoryBot.create(:munition_stock)
 
         patch "/gestao/admin/dashboard/arsenais/municao/update/#{munition.id}",
               params: { munition: { quantity: new_quantity } }
@@ -168,7 +168,7 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Arsenals::Munition
 
       it 'redirects to munution page' do
         new_quantity = 500
-        munition = FactoryBot.create(:arsenal, :munition)
+        munition = FactoryBot.create(:munition_stock)
 
         patch "/gestao/admin/dashboard/arsenais/municao/update/#{munition.id}",
               params: { munition: { quantity: new_quantity } }
@@ -180,19 +180,19 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Arsenals::Munition
     context 'when pass invalid params' do
       it 'no updates gun data' do
         new_quantity = -1
-        munition = FactoryBot.create(:arsenal, :munition)
+        munition = FactoryBot.create(:munition_stock)
 
         patch "/gestao/admin/dashboard/arsenais/municao/update/#{munition.id}",
               params: { munition: { quantity: new_quantity } }
 
-        result = Munition.find(munition.id).quantity
+        result = MunitionStock.find(munition.id).quantity
 
         expect(result).not_to eq(new_quantity)
       end
 
       it 'shows errors message' do
         new_quantity = -1
-        munition = FactoryBot.create(:arsenal, :munition)
+        munition = FactoryBot.create(:munition_stock)
 
         patch "/gestao/admin/dashboard/arsenais/municao/update/#{munition.id}",
               params: { munition: { quantity: new_quantity } }
@@ -202,7 +202,7 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Arsenals::Munition
 
       it 'redirects to customer page' do
         new_quantity = -1
-        munition = FactoryBot.create(:arsenal, :munition)
+        munition = FactoryBot.create(:munition_stock)
 
         patch "/gestao/admin/dashboard/arsenais/municao/update/#{munition.id}",
               params: { munition: { quantity: new_quantity } }
@@ -215,25 +215,25 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Arsenals::Munition
   describe '#remove' do
     context 'when pass valid params' do
       it 'remove a munition' do
-        munition = FactoryBot.create(:arsenal, :munition)
+        munition = FactoryBot.create(:munition_stock)
 
         delete "/gestao/admin/dashboard/arsenais/municao/remove/#{munition.id}"
 
-        result = Munition.find_by_id(munition.id)
+        result = MunitionStock.find_by_id(munition.id)
 
         expect(result).to be_nil
       end
 
       it 'shows success message' do
-        munition = FactoryBot.create(:arsenal, :munition)
+        munition = FactoryBot.create(:munition_stock)
 
         delete "/gestao/admin/dashboard/arsenais/municao/remove/#{munition.id}"
 
-        expect(flash[:notice]).to eq("Munição #{munition.kind} removida com sucesso!")
+        expect(flash[:notice]).to eq("Munição #{munition.caliber} removida com sucesso!")
       end
 
       it 'redirects to guns page' do
-        munition = FactoryBot.create(:arsenal, :munition)
+        munition = FactoryBot.create(:munition_stock)
 
         delete "/gestao/admin/dashboard/arsenais/municao/remove/#{munition.id}"
 

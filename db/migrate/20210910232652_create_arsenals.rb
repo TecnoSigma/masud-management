@@ -14,9 +14,6 @@ class CreateArsenals < ActiveRecord::Migration[5.2]
       t.string :situation
       t.date :registration_validity
       t.boolean :linked_at_post, default: false
-
-      # Munitions
-      t.integer :quantity, default: 0
     end
   end
 end

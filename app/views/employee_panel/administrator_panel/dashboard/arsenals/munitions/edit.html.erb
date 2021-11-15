@@ -1,9 +1,9 @@
-<h1 class="mt-4"><%= t('.title', caliber_type: @munition.kind) %></h1>
+<h1 class="mt-4"><%= t('.title', caliber_type: @munition.caliber) %></h1>
 <ol class="breadcrumb mb-4">
   <li class="breadcrumb-item">
     <%= link_to t('breadcrumbs.munitions_list'), employee_panel_administrator_dashboard_arsenais_armas_path %>
   </li>
-  <li class="breadcrumb-item active"><%= t('breadcrumbs.edit_munition', caliber_type: @munition.kind) %></li>
+  <li class="breadcrumb-item active"><%= t('breadcrumbs.edit_munition', caliber_type: @munition.caliber) %></li>
 </ol>
 <hr>
 <div id="layoutAuthentication">
@@ -22,7 +22,7 @@
                   <div class="form-floating mb-3">
                     <p>
                       <strong><%= t('.caliber') %></strong>
-                      <%= @munition.kind %>
+                      <%= @munition.caliber %>
                     </p>
                   </div>
                   <div class="form-floating mb-3">

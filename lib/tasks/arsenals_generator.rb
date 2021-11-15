@@ -7,7 +7,6 @@ module Tasks
     class << self
       def call!
         create_guns!
-        create_munitions!
       end
 
       def create_guns!
@@ -30,27 +29,11 @@ module Tasks
         puts "-- #{Gun.count} guns created!"
       end
 
-      def create_munitions!
-        sleep(2)
-
-        CSV.foreach('././db/migrate/data/munitions.csv', headers: true).map do |row|
-          to_hash = row.to_hash
-
-          Munition.create!(kind: to_hash['kind'],
-                           quantity: to_hash['quantity'].to_i,
-                           status: status)
-
-          puts "--- Munition #{to_hash['kind']} created!"
-        end
-
-        puts "-- #{Munition.count} munitions created!"
-      end
-
       def status
         @status ||= Status.find_by_name('ativo')
       end
     end
 
-    private_class_method :create_guns!,  :create_munitions!, :status
+    private_class_method :create_guns!, :status
   end
 end

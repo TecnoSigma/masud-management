@@ -6,7 +6,7 @@ class OrdersManagementPresenter
 
     available_quantity = case type
                          when :gun       then Gun.available(caliber)
-                         when :munition  then Munition.find_by_kind(caliber).try(:available)
+                         when :munition  then MunitionStock.find_by_caliber(caliber).try(:quantity)
                          else                 Tackle.available(type.to_s)
                          end
 
