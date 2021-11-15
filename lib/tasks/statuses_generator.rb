@@ -21,7 +21,11 @@ module Tasks
                        "pendente",
                        "recusado",
                        "regular",
-                       "suspenso"].freeze
+                       "suspenso",
+                       "ausente",
+                       "licença médica",
+                       "folga",
+                       "falta"].freeze
 
       private_constant :STATUSES_LIST
 

@@ -43,7 +43,7 @@
                                      class: 'form-control',
                                      id: 'inputEmail',
                                      placeholder: t('.email_placeholder'),
-                                     required: true %>
+                                     required: @employee.agent? ? false : true %>
                     <label for="inputEmail"><%= t('.email') %></label>
                   </div>
                   <div class="form-floating mb-3">

@@ -60,6 +60,11 @@ class Employee < ApplicationRecord
     Status.where(name: 'ativo')
           .or(Status.where(name: 'desligado'))
           .or(Status.where(name: 'suspenso'))
+          .or(Status.where(name: 'ausente'))
+          .or(Status.where(name: 'licença médica'))
+          .or(Status.where(name: 'folga'))
+          .or(Status.where(name: 'falta'))
+          .order(:name)
   end
 
   def self.generate_password
@@ -81,12 +86,16 @@ class Employee < ApplicationRecord
   def check_admission_date
     return unless admission_date
 
-    errors.add(:admission_date, message: I18n.t('messages.errors.invalid_date')) if admission_date > DateTime.now
+    message = I18n.t('messages.errors.invalid_date')
+
+    errors.add(:admission_date, message: message) if admission_date > DateTime.now
   end
 
   def check_resignation_date
     return unless resignation_date
 
-    errors.add(:resignation_date, message: I18n.t('messages.errors.invalid_date')) if admission_date > resignation_date
+    message = I18n.t('messages.errors.invalid_date')
+
+    errors.add(:resignation_date, message: message) if admission_date > resignation_date
   end
 end
