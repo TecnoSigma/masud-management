@@ -20,6 +20,8 @@ RSpec.describe Builders::Mission do
       allow_any_instance_of(described_class).to receive(:provide_guns!) { true }
       allow_any_instance_of(described_class).to receive(:provide_munitions12!) { true }
       allow_any_instance_of(described_class).to receive(:provide_munitions38!) { true }
+      allow_any_instance_of(described_class).to receive(:update_munition12_stock!) { true }
+      allow_any_instance_of(described_class).to receive(:update_munition38_stock!) { true }
       allow_any_instance_of(described_class).to receive(:provide_waistcoats!) { true }
       allow_any_instance_of(described_class).to receive(:provide_radios!) { true }
       allow_any_instance_of(described_class).to receive(:provide_vehicles!) { true }
@@ -47,6 +49,8 @@ RSpec.describe Builders::Mission do
       allow_any_instance_of(described_class).to receive(:provide_guns!) { true }
       allow_any_instance_of(described_class).to receive(:provide_munitions12!) { true }
       allow_any_instance_of(described_class).to receive(:provide_munitions38!) { true }
+      allow_any_instance_of(described_class).to receive(:update_munition12_stock!) { true }
+      allow_any_instance_of(described_class).to receive(:update_munition38_stock!) { true }
       allow_any_instance_of(described_class).to receive(:provide_waistcoats!) { false }
       allow_any_instance_of(described_class).to receive(:provide_radios!) { true }
       allow_any_instance_of(described_class).to receive(:provide_vehicles!) { true }
@@ -443,6 +447,238 @@ RSpec.describe Builders::Mission do
         result2 = Employee.find(agent.id).bullets.where(caliber: '38').first.quantity
 
         expected_result = munitions38.to_i
+
+        expect(result1).to eq(true)
+        expect(result2).to eq(expected_result)
+      end
+    end
+  end
+
+  describe '#update_munition12_stock!' do
+    context 'when no pass munitions quantity' do
+      it 'no updates munitions stock' do
+        quantity = 500
+        codename = 'Coelho'
+        mission_info = { 'team' => { 'team_name' => 'Alpha', 'agents' => codename.to_s },
+                         'descriptive_items' =>
+            { 'calibers12' => '',
+              'calibers38' => '',
+              'munitions12' => '0 projéteis',
+              'munitions38' => '0 projéteis',
+              'waistcoats' => 'Nº Série 64151537',
+              'radios' => 'Nº Série 64',
+              'vehicles' => 'Moby Branco - FZL 9E48' },
+                         'order_number' => '20211029223838' }
+
+        FactoryBot.create(:employee, :agent, codename: codename)
+        FactoryBot.create(:munition_stock, quantity: quantity, caliber: '12')
+
+        result1 = described_class.new(mission_info).send(:update_munition12_stock!)
+
+        result2 = MunitionStock.find_by_caliber('12').quantity
+
+        expect(result1).to eq(true)
+        expect(result2).to eq(quantity)
+      end
+    end
+
+    context 'when munitions quantity is greater than available quantity' do
+      it 'no updates munitions stock' do
+        quantity = 80
+        codename = 'Coelho'
+        mission_info = { 'team' => { 'team_name' => 'Alpha', 'agents' => codename.to_s },
+                         'descriptive_items' =>
+            { 'calibers12' => '',
+              'calibers38' => '',
+              'munitions12' => '100 projéteis',
+              'munitions38' => '0 projéteis',
+              'waistcoats' => 'Nº Série 64151537',
+              'radios' => 'Nº Série 64',
+              'vehicles' => 'Moby Branco - FZL 9E48' },
+                         'order_number' => '20211029223838' }
+
+        FactoryBot.create(:employee, :agent, codename: codename)
+        FactoryBot.create(:munition_stock, quantity: quantity, caliber: '12')
+
+        result1 = described_class.new(mission_info).send(:update_munition12_stock!)
+
+        result2 = MunitionStock.find_by_caliber('12').quantity
+
+        expect(result1).to eq(false)
+        expect(result2).to eq(quantity)
+      end
+    end
+
+    context 'when munitions quantity is less than available quantity' do
+      it 'updates munitions stock' do
+        quantity = 100
+        available_quantity = 300
+        codename = 'Coelho'
+        mission_info = { 'team' => { 'team_name' => 'Alpha', 'agents' => codename.to_s },
+                         'descriptive_items' =>
+            { 'calibers12' => '',
+              'calibers38' => '',
+              'munitions12' => "#{quantity} projéteis",
+              'munitions38' => '0 projéteis',
+              'waistcoats' => 'Nº Série 64151537',
+              'radios' => 'Nº Série 64',
+              'vehicles' => 'Moby Branco - FZL 9E48' },
+                         'order_number' => '20211029223838' }
+
+        FactoryBot.create(:employee, :agent, codename: codename)
+        FactoryBot.create(:munition_stock, quantity: available_quantity, caliber: '12')
+
+        result1 = described_class.new(mission_info).send(:update_munition12_stock!)
+
+        result2 = MunitionStock.find_by_caliber('12').quantity
+
+        expected_result = available_quantity - quantity
+
+        expect(result1).to eq(true)
+        expect(result2).to eq(expected_result)
+      end
+    end
+
+    context 'when munitions quantity is equal available quantity' do
+      it 'updates munitions stock' do
+        quantity = 200
+        available_quantity = quantity
+        codename = 'Coelho'
+        mission_info = { 'team' => { 'team_name' => 'Alpha', 'agents' => codename.to_s },
+                         'descriptive_items' =>
+            { 'calibers12' => '',
+              'calibers38' => '',
+              'munitions12' => "#{quantity} projéteis",
+              'munitions38' => '0 projéteis',
+              'waistcoats' => 'Nº Série 64151537',
+              'radios' => 'Nº Série 64',
+              'vehicles' => 'Moby Branco - FZL 9E48' },
+                         'order_number' => '20211029223838' }
+
+        FactoryBot.create(:employee, :agent, codename: codename)
+        FactoryBot.create(:munition_stock, quantity: available_quantity, caliber: '12')
+
+        result1 = described_class.new(mission_info).send(:update_munition12_stock!)
+
+        result2 = MunitionStock.find_by_caliber('12').quantity
+
+        expected_result = available_quantity - quantity
+
+        expect(result1).to eq(true)
+        expect(result2).to eq(expected_result)
+      end
+    end
+  end
+
+  describe '#update_munition38_stock!' do
+    context 'when no pass munitions quantity' do
+      it 'no updates munitions stock' do
+        quantity = 500
+        codename = 'Coelho'
+        mission_info = { 'team' => { 'team_name' => 'Alpha', 'agents' => codename.to_s },
+                         'descriptive_items' =>
+            { 'calibers12' => '',
+              'calibers38' => '',
+              'munitions12' => '0 projéteis',
+              'munitions38' => '0 projéteis',
+              'waistcoats' => 'Nº Série 64151537',
+              'radios' => 'Nº Série 64',
+              'vehicles' => 'Moby Branco - FZL 9E48' },
+                         'order_number' => '20211029223838' }
+
+        FactoryBot.create(:employee, :agent, codename: codename)
+        FactoryBot.create(:munition_stock, quantity: quantity, caliber: '38')
+
+        result1 = described_class.new(mission_info).send(:update_munition38_stock!)
+
+        result2 = MunitionStock.find_by_caliber('38').quantity
+
+        expect(result1).to eq(true)
+        expect(result2).to eq(quantity)
+      end
+    end
+
+    context 'when munitions quantity is greater than available quantity' do
+      it 'no updates munitions stock' do
+        quantity = 80
+        codename = 'Coelho'
+        mission_info = { 'team' => { 'team_name' => 'Alpha', 'agents' => codename.to_s },
+                         'descriptive_items' =>
+            { 'calibers12' => '',
+              'calibers38' => '',
+              'munitions12' => '0 projéteis',
+              'munitions38' => '100 projéteis',
+              'waistcoats' => 'Nº Série 64151537',
+              'radios' => 'Nº Série 64',
+              'vehicles' => 'Moby Branco - FZL 9E48' },
+                         'order_number' => '20211029223838' }
+
+        FactoryBot.create(:employee, :agent, codename: codename)
+        FactoryBot.create(:munition_stock, quantity: quantity, caliber: '38')
+
+        result1 = described_class.new(mission_info).send(:update_munition38_stock!)
+
+        result2 = MunitionStock.find_by_caliber('38').quantity
+
+        expect(result1).to eq(false)
+        expect(result2).to eq(quantity)
+      end
+    end
+
+    context 'when munitions quantity is less than available quantity' do
+      it 'updates munitions stock' do
+        quantity = 100
+        available_quantity = 300
+        codename = 'Coelho'
+        mission_info = { 'team' => { 'team_name' => 'Alpha', 'agents' => codename.to_s },
+                         'descriptive_items' =>
+            { 'calibers12' => '',
+              'calibers38' => '',
+              'munitions12' => '0 projéteis',
+              'munitions38' => "#{quantity} projéteis",
+              'waistcoats' => 'Nº Série 64151537',
+              'radios' => 'Nº Série 64',
+              'vehicles' => 'Moby Branco - FZL 9E48' },
+                         'order_number' => '20211029223838' }
+
+        FactoryBot.create(:employee, :agent, codename: codename)
+        FactoryBot.create(:munition_stock, quantity: available_quantity, caliber: '38')
+
+        result1 = described_class.new(mission_info).send(:update_munition38_stock!)
+
+        result2 = MunitionStock.find_by_caliber('38').quantity
+
+        expected_result = available_quantity - quantity
+
+        expect(result1).to eq(true)
+        expect(result2).to eq(expected_result)
+      end
+    end
+
+    context 'when munitions quantity is equal available quantity' do
+      it 'updates munitions stock' do
+        quantity = 200
+        available_quantity = quantity
+        codename = 'Coelho'
+        mission_info = { 'team' => { 'team_name' => 'Alpha', 'agents' => codename.to_s },
+                         'descriptive_items' =>
+            { 'calibers12' => '',
+              'calibers38' => '',
+              'munitions12' => '0 projéteis',
+              'munitions38' => "#{quantity} projéteis",
+              'waistcoats' => 'Nº Série 64151537',
+              'radios' => 'Nº Série 64',
+              'vehicles' => 'Moby Branco - FZL 9E48' },
+                         'order_number' => '20211029223838' }
+
+        FactoryBot.create(:employee, :agent, codename: codename)
+        FactoryBot.create(:munition_stock, quantity: available_quantity, caliber: '38')
+
+        result1 = described_class.new(mission_info).send(:update_munition38_stock!)
+
+        result2 = MunitionStock.find_by_caliber('38').quantity
+
+        expected_result = available_quantity - quantity
 
         expect(result1).to eq(true)
         expect(result2).to eq(expected_result)

@@ -16,6 +16,8 @@ module Builders
       state :provided_guns
       state :provided_munitions12
       state :provided_munitions38
+      state :updated_munition12_stock
+      state :updated_munition38_stock
       state :provided_waistcoats
       state :provided_radios
       state :provided_vehicles
@@ -43,8 +45,20 @@ module Builders
 
       event :provide_munitions38 do
         transitions from: :provided_munitions38,
-                    to: :provided_waistcoats,
+                    to: :updated_munition12_stock,
                     if: :provide_munitions38!
+      end
+
+      event :update_munition12_stock do
+        transitions from: :updated_munition12_stock,
+                    to: :updated_munition38_stock,
+                    if: :update_munition12_stock!
+      end
+
+      event :update_munition38_stock do
+        transitions from: :updated_munition38_stock,
+                    to: :provided_waistcoats,
+                    if: :update_munition38_stock!
       end
 
       event :provide_waistcoats do
@@ -98,15 +112,17 @@ module Builders
     private
 
     def execute_actions!
-      mount_team          if mounted_team?
-      provide_guns        if provided_guns?
-      provide_munitions12 if provided_munitions12?
-      provide_munitions38 if provided_munitions38?
-      provide_waistcoats  if provided_waistcoats?
-      provide_radios      if provided_radios?
-      provide_vehicles    if provided_vehicles?
-      update_service      if updated_service?
-      create_new_mission  if created_new_mission?
+      mount_team              if mounted_team?
+      provide_guns            if provided_guns?
+      provide_munitions12     if provided_munitions12?
+      provide_munitions38     if provided_munitions38?
+      update_munition12_stock if updated_munition12_stock?
+      update_munition38_stock if updated_munition38_stock?
+      provide_waistcoats      if provided_waistcoats?
+      provide_radios          if provided_radios?
+      provide_vehicles        if provided_vehicles?
+      update_service          if updated_service?
+      create_new_mission      if created_new_mission?
     end
 
     def mount_team!
@@ -140,6 +156,14 @@ module Builders
       return true unless calibers38.present?
 
       provide_munitions!(CALIBERS[:caliber38], munitions38)
+    end
+
+    def update_munition12_stock!
+      update_munition_stock!(CALIBERS[:caliber12], munitions12)
+    end
+
+    def update_munition38_stock!
+      update_munition_stock!(CALIBERS[:caliber38], munitions38)
     end
 
     def provide_waistcoats!
@@ -265,6 +289,17 @@ module Builders
         .map(&:id)
         .map { |employee_id| Agent.find(employee_id).bullets.where(caliber: caliber).any? }
         .include?(true)
+    end
+
+    def update_munition_stock!(caliber, quantity)
+      munitions = quantity.split.first.to_i
+      munition_stock = MunitionStock.find_by_caliber(caliber)
+      available_quantity = munition_stock.quantity
+
+      return true if munitions.zero?
+      return false if munitions > available_quantity
+
+      munition_stock.update!(quantity: (available_quantity - munitions))
     end
   end
 end
