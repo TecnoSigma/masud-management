@@ -22,7 +22,7 @@ RSpec.describe Builders::FinishMission do
       allow_any_instance_of(described_class).to receive(:update_agents_last_mission!) { true }
       allow_any_instance_of(described_class).to receive(:dismember_team!) { true }
       allow_any_instance_of(described_class).to receive(:return_arsenal!) { true }
-      allow_any_instance_of(described_class).to receive(:update_munitions_stock!) { true }
+      allow_any_instance_of(described_class).to receive(:return_munitions!) { true }
       allow_any_instance_of(described_class).to receive(:return_tackles!) { true }
       allow_any_instance_of(described_class).to receive(:return_vehicles!) { true }
       allow_any_instance_of(described_class).to receive(:update_mission_status!) { true }
@@ -54,7 +54,7 @@ RSpec.describe Builders::FinishMission do
       allow_any_instance_of(described_class).to receive(:update_agents_last_mission!) { true }
       allow_any_instance_of(described_class).to receive(:dismember_team!) { true }
       allow_any_instance_of(described_class).to receive(:return_arsenal!) { true }
-      allow_any_instance_of(described_class).to receive(:update_munitions_stock!) { true }
+      allow_any_instance_of(described_class).to receive(:return_munitions!) { true }
       allow_any_instance_of(described_class).to receive(:return_tackles!) { false }
       allow_any_instance_of(described_class).to receive(:return_vehicles!) { true }
       allow_any_instance_of(described_class).to receive(:update_mission_status!) { true }
@@ -120,38 +120,231 @@ RSpec.describe Builders::FinishMission do
     end
   end
 
-  describe '#update_munitions_stock!' do
-    xit 'updates munitions stock with the quantities that the agents give back' do
-      FactoryBot.create(:status, name: 'iniciada')
+  describe '#return_munitions!' do
+    context 'when haven\'t munitions' do
+      it 'no give back munition to stock' do
+        FactoryBot.create(:status, name: 'iniciada')
+        observation = 'Any observation'
+        employee = FactoryBot.create(:employee, :agent)
+        agent = Agent.find(employee.id)
 
-      observation = 'Any observation'
-      stock_quantity12 = 2000
-      stock_quantity38 = 1500
-      FactoryBot.create(:munition_stock, caliber: '12', quantity: stock_quantity12)
-      FactoryBot.create(:munition_stock, caliber: '38', quantity: stock_quantity38)
+        stock_quantity = 1000
+        FactoryBot.create(:munition_stock, caliber: '12', quantity: stock_quantity)
 
-      employee = FactoryBot.create(:employee, :agent)
-      agent = Agent.find(employee.id)
+        team = FactoryBot.create(:team)
+        team.agents << agent
+        team.save
 
-      team = FactoryBot.create(:team)
-      team.agents << agent
-      team.save
+        FactoryBot.create(:bullet, caliber: '12', quantity: 0, employee: agent)
 
-      gun = FactoryBot.create(:arsenal, :gun)
-      munition12 = FactoryBot.create(:arsenal, :munition, kind: '12')
-      munition38 = FactoryBot.create(:arsenal, :munition, kind: '38')
+        gun = FactoryBot.create(:arsenal, :gun)
+        agent.arsenals << gun
+        agent.save
 
-      agent.arsenals << gun
-      agent.arsenals << munition12
-      agent.arsenals << munition38
-      agent.save
+        order = FactoryBot.create(:order, :confirmed)
+        escort_service = EscortService.find(order.id)
 
-      order = FactoryBot.create(:order, :confirmed)
-      escort_service = EscortService.find(order.id)
+        mission = FactoryBot.create(:mission, team: team, escort_service: escort_service)
 
-      mission = FactoryBot.create(:mission, team: team, escort_service: escort_service)
+        result = described_class.new(mission, observation).send(:return_munitions!)
 
-      described_class.new(mission, observation).send(:update_munitions_stock!)
+        result2 = MunitionStock.find_by_caliber('12').quantity
+        result3 = Employee.find(agent.id).bullets
+
+        expect(result).to eq(true)
+        expect(result2).to eq(stock_quantity)
+        expect(result3).to be_empty
+      end
+    end
+
+    context 'when have munitions' do
+      context 'with same caliber' do
+        it 'give back munition to stock and clean mission bullets' do
+          FactoryBot.create(:status, name: 'iniciada')
+          observation = 'Any observation'
+          employee1 = FactoryBot.create(:employee, :agent)
+          agent1 = Agent.find(employee1.id)
+          employee2 = FactoryBot.create(:employee, :agent)
+          agent2 = Agent.find(employee2.id)
+
+          stock_quantity = 1000
+          FactoryBot.create(:munition_stock, caliber: '12', quantity: stock_quantity)
+
+          team = FactoryBot.create(:team)
+          team.agents << agent1
+          team.agents << agent2
+          team.save
+
+          returned_quantity1 = 200
+          returned_quantity2 = 50
+          bullet1 = FactoryBot.create(:bullet,
+                                      caliber: '12',
+                                      quantity: returned_quantity1,
+                                      employee: agent1)
+
+          bullet2 = FactoryBot.create(:bullet,
+                                      caliber: '12',
+                                      quantity: returned_quantity2,
+                                      employee: agent2)
+
+          gun1 = FactoryBot.create(:arsenal, :gun)
+          agent1.arsenals << gun1
+          agent1.save
+
+          gun2 = FactoryBot.create(:arsenal, :gun)
+          agent2.arsenals << gun2
+          agent2.save
+
+          order = FactoryBot.create(:order, :confirmed)
+          escort_service = EscortService.find(order.id)
+
+          mission = FactoryBot.create(:mission, team: team, escort_service: escort_service)
+
+          result = described_class.new(mission, observation).send(:return_munitions!)
+
+          result2 = MunitionStock.find_by_caliber('12').quantity
+          result3 = Employee.find(agent1.id).bullets
+          result4 = Employee.find(agent2.id).bullets
+          result5 = Bullet.where(id: bullet1.id)
+          result6 = Bullet.where(id: bullet2.id)
+
+          expected_result = stock_quantity + returned_quantity1 + returned_quantity2
+
+          expect(result).to eq(true)
+          expect(result2).to eq(expected_result)
+          expect(result3).to be_empty
+          expect(result4).to be_empty
+          expect(result5).to be_empty
+          expect(result6).to be_empty
+        end
+      end
+
+      context 'with different calibers to more one agent' do
+        it 'give back munition to stock and clean mission bullets' do
+          FactoryBot.create(:status, name: 'iniciada')
+          observation = 'Any observation'
+          employee1 = FactoryBot.create(:employee, :agent)
+          agent1 = Agent.find(employee1.id)
+          employee2 = FactoryBot.create(:employee, :agent)
+          agent2 = Agent.find(employee2.id)
+
+          stock_quantity12 = 1000
+          stock_quantity38 = 500
+          FactoryBot.create(:munition_stock, caliber: '12', quantity: stock_quantity12)
+          FactoryBot.create(:munition_stock, caliber: '38', quantity: stock_quantity38)
+
+          team = FactoryBot.create(:team)
+          team.agents << agent1
+          team.agents << agent2
+          team.save
+
+          returned_quantity12 = 200
+          returned_quantity38 = 50
+          bullet1 = FactoryBot.create(:bullet,
+                                      caliber: '12',
+                                      quantity: returned_quantity12,
+                                      employee: agent1)
+
+          bullet2 = FactoryBot.create(:bullet,
+                                      caliber: '38',
+                                      quantity: returned_quantity38,
+                                      employee: agent2)
+
+          gun1 = FactoryBot.create(:arsenal, :gun)
+          agent1.arsenals << gun1
+          agent1.save
+
+          gun2 = FactoryBot.create(:arsenal, :gun)
+          agent2.arsenals << gun2
+          agent2.save
+
+          order = FactoryBot.create(:order, :confirmed)
+          escort_service = EscortService.find(order.id)
+
+          mission = FactoryBot.create(:mission, team: team, escort_service: escort_service)
+
+          result = described_class.new(mission, observation).send(:return_munitions!)
+
+          result2 = MunitionStock.find_by_caliber('12').quantity
+          result3 = MunitionStock.find_by_caliber('38').quantity
+          result4 = Employee.find(agent1.id).bullets
+          result5 = Employee.find(agent2.id).bullets
+          result6 = Bullet.where(id: bullet1.id)
+          result7 = Bullet.where(id: bullet2.id)
+
+          expected_result12 = stock_quantity12 + returned_quantity12
+          expected_result38 = stock_quantity38 + returned_quantity38
+
+          expect(result).to eq(true)
+          expect(result2).to eq(expected_result12)
+          expect(result3).to eq(expected_result38)
+          expect(result4).to be_empty
+          expect(result5).to be_empty
+          expect(result6).to be_empty
+          expect(result7).to be_empty
+        end
+      end
+
+      context 'with different calibers to same agent' do
+        it 'give back munition to stock and clean mission bullets' do
+          FactoryBot.create(:status, name: 'iniciada')
+          observation = 'Any observation'
+          employee = FactoryBot.create(:employee, :agent)
+          agent = Agent.find(employee.id)
+
+          stock_quantity12 = 1000
+          stock_quantity38 = 500
+          FactoryBot.create(:munition_stock, caliber: '12', quantity: stock_quantity12)
+          FactoryBot.create(:munition_stock, caliber: '38', quantity: stock_quantity38)
+
+          team = FactoryBot.create(:team)
+          team.agents << agent
+          team.save
+
+          returned_quantity12 = 200
+          returned_quantity38 = 50
+          bullet1 = FactoryBot.create(:bullet,
+                                      caliber: '12',
+                                      quantity: returned_quantity12,
+                                      employee: agent)
+
+          bullet2 = FactoryBot.create(:bullet,
+                                      caliber: '38',
+                                      quantity: returned_quantity38,
+                                      employee: agent)
+
+          gun1 = FactoryBot.create(:arsenal, :gun)
+          agent.arsenals << gun1
+          agent.save
+
+          gun2 = FactoryBot.create(:arsenal, :gun)
+          agent.arsenals << gun2
+          agent.save
+
+          order = FactoryBot.create(:order, :confirmed)
+          escort_service = EscortService.find(order.id)
+
+          mission = FactoryBot.create(:mission, team: team, escort_service: escort_service)
+
+          result = described_class.new(mission, observation).send(:return_munitions!)
+
+          result2 = MunitionStock.find_by_caliber('12').quantity
+          result3 = MunitionStock.find_by_caliber('38').quantity
+          result4 = Employee.find(agent.id).bullets
+          result5 = Bullet.where(id: bullet1.id)
+          result6 = Bullet.where(id: bullet2.id)
+
+          expected_result12 = stock_quantity12 + returned_quantity12
+          expected_result38 = stock_quantity38 + returned_quantity38
+
+          expect(result).to eq(true)
+          expect(result2).to eq(expected_result12)
+          expect(result3).to eq(expected_result38)
+          expect(result4).to be_empty
+          expect(result5).to be_empty
+          expect(result6).to be_empty
+        end
+      end
     end
   end
 

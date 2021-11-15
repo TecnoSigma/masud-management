@@ -9,11 +9,11 @@ module Builders
     aasm do
       state :created_mission_history, initial: true
       state :updated_agents_last_mission
-      state :dismembered_team
-      state :updated_munitions_stock
+      state :returned_munitions
       state :returned_arsenal
       state :returned_tackles
       state :returned_vehicles
+      state :dismembered_team
       state :updated_mission_status
       state :added_finish_timestamp
       state :added_observation
@@ -28,20 +28,14 @@ module Builders
 
       event :update_agents_last_mission do
         transitions from: :updated_agents_last_mission,
-                    to: :dismembered_team,
+                    to: :returned_munitions,
                     if: :update_agents_last_mission!
       end
 
-      event :dismember_team do
-        transitions from: :dismembered_team,
-                    to: :updated_munitions_stock,
-                    if: :dismember_team!
-      end
-
-      event :update_munitions_stock do
-        transitions from: :updated_munitions_stock,
+      event :return_munitions do
+        transitions from: :returned_munitions,
                     to: :returned_arsenal,
-                    if: :update_munitions_stock!
+                    if: :return_munitions!
       end
 
       event :return_arsenal do
@@ -58,8 +52,14 @@ module Builders
 
       event :return_vehicles do
         transitions from: :returned_vehicles,
-                    to: :updated_mission_status,
+                    to: :dismembered_team,
                     if: :return_vehicles!
+      end
+
+      event :dismember_team do
+        transitions from: :dismembered_team,
+                    to: :updated_mission_status,
+                    if: :dismember_team!
       end
 
       event :update_mission_status do
@@ -99,17 +99,17 @@ module Builders
     private
 
     def execute_actions!
-      create_mission_history      if created_mission_history?
-      update_agents_last_mission  if updated_agents_last_mission?
-      dismember_team              if dismembered_team?
-      update_munitions_stock      if updated_munitions_stock?
-      return_arsenal              if returned_arsenal?
-      return_tackles              if returned_tackles?
-      return_vehicles             if returned_vehicles?
-      update_mission_status       if updated_mission_status?
-      add_finish_timestamp        if added_finish_timestamp?
-      add_observation             if added_observation?
-      update_order_status         if updated_order_status?
+      create_mission_history     if created_mission_history?
+      update_agents_last_mission if updated_agents_last_mission?
+      return_munitions           if returned_munitions?
+      return_arsenal             if returned_arsenal?
+      return_tackles             if returned_tackles?
+      return_vehicles            if returned_vehicles?
+      dismember_team             if dismembered_team?
+      update_mission_status      if updated_mission_status?
+      add_finish_timestamp       if added_finish_timestamp?
+      add_observation            if added_observation?
+      update_order_status        if updated_order_status?
     end
 
     def create_mission_history!
@@ -129,25 +129,8 @@ module Builders
       agents.map(&:last_mission).none?(&:nil?)
     end
 
-    def dismember_team!
-      team = mission.team
-      team.agents = []
-      team.save
-
-      team.agents.empty?
-    end
-
-    def update_munitions_stock!
-      # munitions = mission
-      #  .team
-      #  .agents
-      #  .map { |agent| agent.arsenals }
-      #  .flatten
-      #  .map { |arsenal| arsenal if arsenal.instance_of?(Munition) }
-      #  .compact
-      #  .map { |munition| { kind: munition.kind, quantity: munition.quantity } }
-
-      true
+    def return_munitions!
+      return_bullets! && update_munitions_stock!
     end
 
     def return_arsenal!
@@ -166,6 +149,14 @@ module Builders
       mission.team.update(vehicles: [])
 
       mission.team.vehicles.empty?
+    end
+
+    def dismember_team!
+      team = mission.team
+      team.agents = []
+      team.save
+
+      team.agents.empty?
     end
 
     def update_mission_status!
@@ -209,6 +200,29 @@ module Builders
         .flatten
         .map { |arsenal| "#{arsenal.type} - #{arsenal.number}" }
         .uniq
+    end
+
+    def return_bullets!
+      @bullets = agents
+                 .map(&:bullets)
+                 .flatten
+                 .map { |bullet| { id: bullet.id, caliber: bullet.caliber, quantity: bullet.quantity } }
+
+      @bullets.each { |bullet| Bullet.find(bullet[:id]).delete }
+
+      agents.reload
+
+      agents.map(&:bullets).flatten.empty?
+    end
+
+    def update_munitions_stock!
+      @bullets.inject([]) do |list, bullet|
+        munition_stock = MunitionStock.find_by_caliber(bullet[:caliber])
+
+        list << munition_stock.update!(quantity: munition_stock.quantity + bullet[:quantity])
+      end
+              .uniq
+              .exclude?(false)
     end
 
     def agents

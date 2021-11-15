@@ -45,7 +45,6 @@ module ApplicationHelper
   def full_address(order, type)
     address = order.send("#{type}_address".to_sym)
     number = order.send("#{type}_number".to_sym)
-    complement = order.send("#{type}_complement".to_sym)
     district = order.send("#{type}_district".to_sym)
     city = order.send("#{type}_city".to_sym)
     state = order.send("#{type}_state".to_sym)
