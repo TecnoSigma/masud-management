@@ -1,0 +1,43 @@
+  <%= render '/partials/header' %>
+  <h1 style="text-align: center"><%= t('.title') %></h1>
+  <hr>
+  <table style="font-size: small">
+    <thead>
+      <tr>
+        <th><%= t('.order') %></th>
+        <th><%= t('.customer') %></th>
+        <th><%= t('.job_horary') %></th>
+        <th><%= t('.source') %></th>
+        <th><%= t('.destiny') %></th>
+        <th><%= t('.observation') %>
+        <th><%= t('.status') %></th>
+        <th><%= t('.created_at') %></th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th><%= t('.order') %></th>
+        <th><%= t('.customer') %></th>
+        <th><%= t('.job_horary') %></th>
+        <th><%= t('.source') %></th>
+        <th><%= t('.destiny') %></th>
+        <th><%= t('.observation') %>
+        <th><%= t('.status') %></th>
+        <th><%= t('.created_at') %></th>
+      </tr>
+    </tfoot>
+    <tbody>
+      <% @escorts.each do |escort| %>
+        <tr style="text-align: center">
+          <td><%= escort.order_number %></td>
+          <td><%= escort.customer.company %></td>
+          <td><%= convert_date_time(escort.job_horary) %></td>
+          <td><%= escort.source_state %></td>
+          <td><%= escort.destiny_state %></td>
+          <td><%= escort.observation %></td>
+          <td><%= escort.status.name %></td>
+          <td><%= convert_date_time(escort.created_at) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>

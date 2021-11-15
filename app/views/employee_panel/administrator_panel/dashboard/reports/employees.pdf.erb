@@ -1,0 +1,34 @@
+  <%= render '/partials/header' %>
+  <h1 style="text-align: center"><%= t('.title') %></h1>
+  <hr>
+  <table width="100%">
+    <thead>
+      <tr>
+        <th><%= t('.name') %></th>
+        <th><%= t('.codename') %></th>
+        <th><%= t('.email') %></th>
+        <th><%= t('.profile') %></th>
+        <th><%= t('.status') %></th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th><%= t('.name') %></th>
+        <th><%= t('.codename') %></th>
+        <th><%= t('.email') %></th>
+        <th><%= t('.profile') %></th>
+        <th><%= t('.status') %></th>
+      </tr>
+    </tfoot>
+    <tbody>
+      <% @employees.each do |employee| %>
+        <tr>
+          <td><%= employee.name %></td>
+          <td style="text-align: center"><%= employee.codename %></td>
+          <td><%= employee.email %></td>
+          <td style="text-align: center"><%= profile(employee.type) %></td>
+          <td style="text-align: center"><%= employee.status.name %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>

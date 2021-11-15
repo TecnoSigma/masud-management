@@ -1,0 +1,37 @@
+  <%= render '/partials/header' %>
+  <h1 style="text-align: center"><%= t('.title') %></h1>
+  <hr>
+  <table width="100%">
+    <thead>
+      <tr>
+        <th><%= t('.kind') %></th>
+        <th><%= t('.serial_number') %></th>
+        <th><%= t('.register_number') %></th>
+        <th><%= t('.situation') %></th>
+        <th><%= t('.status') %></th>
+        <th><%= t('.in_mission') %></th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th><%= t('.kind') %></th>
+        <th><%= t('.serial_number') %></th>
+        <th><%= t('.register_number') %></th>
+        <th><%= t('.situation') %></th>
+        <th><%= t('.status') %></th>
+        <th><%= t('.in_mission') %></th>
+      </tr>
+    </tfoot>
+    <tbody>
+      <% @tackles.each do |tackle| %>
+        <tr style="text-align: center">
+          <td><%= t(".#{tackle.type.downcase}") %></td>
+          <td><%= tackle.serial_number %></td>
+          <td><%= tackle.register_number %></td>
+          <td><%= tackle.situation %></td>
+          <td><%= tackle.status.name %></td>
+          <td><%= t("#{tackle.in_mission?}").downcase %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>

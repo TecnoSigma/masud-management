@@ -1,0 +1,31 @@
+  <%= render '/partials/header' %>
+  <h1 style="text-align: center"><%= t('.title') %></h1>
+  <hr>
+  <table width="100%">
+    <thead>
+      <tr>
+        <th><%= t('.name') %></th>
+        <th><%= t('.license_plate') %></th>
+        <th><%= t('.color') %></th>
+        <th><%= t('.status') %></th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th><%= t('.name') %></th>
+        <th><%= t('.license_plate') %></th>
+        <th><%= t('.color') %></th>
+        <th><%= t('.status') %></th>
+      </tr>
+    </tfoot>
+    <tbody>
+      <% @vehicles.each do |vehicle| %>
+        <tr style="text-align: center">
+          <td><%= vehicle.name %></td>
+          <td><%= vehicle.license_plate %></td>
+          <td><%= vehicle.color %></td>
+          <td><%= vehicle.status.name %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>

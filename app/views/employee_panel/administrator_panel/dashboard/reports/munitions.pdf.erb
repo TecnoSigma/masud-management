@@ -1,0 +1,28 @@
+  <%= render '/partials/header' %>
+  <h1 style="text-align: center"><%= t('.title') %></h1>
+  <hr>
+  <table width="100%">
+    <thead>
+      <tr>
+        <th><%= t('.caliber') %></th>
+        <th><%= t('.quantity') %></th>
+        <th><%= t('.last_update') %></th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th><%= t('.caliber') %></th>
+        <th><%= t('.quantity') %></th>
+        <th><%= t('.last_update') %></th>
+      </tr>
+    </tfoot>
+    <tbody>
+      <% @munitions.each do |munition| %>
+        <tr style="text-align: center">
+          <td><%= munition.caliber %></td>
+          <td><%= munition.quantity %></td>
+          <td><%= convert_date_time(munition.last_update) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>

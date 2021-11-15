@@ -397,6 +397,59 @@ pt-BR:
           chosen_vehicle: 'Viatura: '
     administrator_panel:
       dashboard:
+        reports:
+          escorts:
+            title: 'Relatório Geral de Escoltas'
+            order: 'Pedido'
+            job_horary: 'Data/Hora da Escolta'
+            source: 'Origem'
+            destiny: 'Destino'
+            observation: 'Observação'
+            status: 'Status'
+            created_at: 'Criado em'
+          customers:
+            title: 'Relatório Geral de Clientes'
+            company: 'Empresa'
+            cnpj: 'CNPJ'
+            email: 'Email'
+            telephone: 'Telefone'
+            status: 'Status'
+          guns:
+            title: 'Relatório Geral de Armas'
+            kind: 'Tipo'
+            caliber: 'Calibre'
+            number: 'Número'
+            sinarm: 'SINARM'
+            situation: 'Situação'
+            in_mission: 'Em Missão'
+          munitions:
+            title: 'Relatório Geral de Munições'
+            caliber: 'Calibre'
+            quantity: 'Quantidade'
+            last_update: 'Última Atualização'
+          tackles:
+            title: 'Relatório Geral de Equipamentos'
+            radio: 'Rádio'
+            waistcoat: 'Colete'
+            kind: 'Tipo'
+            serial_number: 'Série'
+            register_number: 'Registro'
+            situation: 'Situação'
+            status: 'Status'
+            in_mission: 'Em Missão'
+          employees:
+            title: 'Relatório Geral de Funcionários'
+            name: 'Nome'
+            codename: 'Codinome'
+            email: 'Email'
+            profile: 'Perfil'
+            status: 'Status'
+          vehicles:
+            title: 'Relatório Geral de Viaturas'
+            name: 'Nome'
+            license_plate: 'Placa'
+            color: 'Cor'
+            status: 'Status'
         escorts:
           escorts:
             title: 'Escoltas'
@@ -804,11 +857,12 @@ pt-BR:
         general_report: 'Relatório Geral'
       arsenal:
         type: 'Arsenais'
-        general_report: 'Relatório Geral'
         guns:
           list: 'Lista de Armas'
+          general_report: 'Relatório Geral de Armas'
         munitions:
           list: 'Lista de Munições'
+          general_report: 'Relatório Geral de Munições'
       vehicle:
         type: 'Viaturas'
         list: 'Lista'
@@ -882,3 +936,13 @@ pt-BR:
         line_2: 'Nome do Operador: %{employee_name}'
         line_3: 'Data do Bloqueio: %{blocking_date}'
         line_4: 'Para desbloqueá-la, acesse-a através do seu dashboard.'
+  general_reports:
+    title: 'Relatório Geral de %{type}'
+    types:
+      escorts: 'Escoltas'
+      customers: 'Clientes'
+      guns: 'Armas'
+      munitions: 'Munições'
+      tackles: 'Equipamentos'
+      employees: 'Funcionários'
+      vehicles: 'Viaturas'

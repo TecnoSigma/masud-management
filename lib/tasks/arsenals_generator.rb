@@ -7,6 +7,7 @@ module Tasks
     class << self
       def call!
         create_guns!
+        create_munitions!
       end
 
       def create_guns!
@@ -21,7 +22,7 @@ module Tasks
                       sinarm: to_hash['sinarm'].to_s,
                       situation: to_hash['situation'].downcase,
                       registration_validity: to_hash['registration_validity'].to_date,
-                      status: status)
+                      status: Status.find_by_name('ativo'))
 
           puts "--- Gun #{to_hash['number']} created!"
         end
@@ -29,11 +30,23 @@ module Tasks
         puts "-- #{Gun.count} guns created!"
       end
 
-      def status
-        @status ||= Status.find_by_name('ativo')
+      def create_munitions!
+        sleep(2)
+
+        CSV.foreach('././db/migrate/data/munitions.csv', headers: true).map do |row|
+          to_hash = row.to_hash
+
+          MunitionStock.create!(caliber: to_hash['kind'],
+                                quantity: to_hash['quantity'].to_i,
+                                last_update: DateTime.now)
+
+          puts "--- Munition #{to_hash['kind']} created!"
+        end
+
+        puts "-- #{MunitionStock.count} munitions created!"
       end
     end
 
-    private_class_method :create_guns!, :status
+    private_class_method :create_guns!, :create_munitions!
   end
 end
