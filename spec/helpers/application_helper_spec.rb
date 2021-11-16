@@ -62,6 +62,18 @@ RSpec.describe ApplicationHelper, type: :helper do
     end
   end
 
+  describe '#last_update' do
+    it 'returns date/time of last update' do
+      date_time = '01/01/2012 - 21:30'
+
+      allow(helper).to receive(:convert_date_time) { date_time }
+
+      result = helper.last_update
+
+      expect(result).to eq(date_time)
+    end
+  end
+
   describe '#convert_date' do
     it 'returns converted date in dd/mm/yyyy format' do
       employee = FactoryBot.create(:employee, :admin)

@@ -397,6 +397,10 @@ pt-BR:
           chosen_vehicle: 'Viatura: '
     administrator_panel:
       dashboard:
+        index:
+         graphics:
+           last_update: 'Última Atualização: %{date_time}'
+           escorts_by_status: 'Escoltas por Status'
         reports:
           escorts:
             title: 'Relatório Geral de Escoltas'

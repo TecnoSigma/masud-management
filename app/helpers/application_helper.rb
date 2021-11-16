@@ -64,6 +64,10 @@ module ApplicationHelper
     OrdersManagementPresenter.available_agents
   end
 
+  def last_update
+    convert_date_time(DateTime.now)
+  end
+
   private
 
   def complement(order, type)
