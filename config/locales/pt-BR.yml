@@ -835,6 +835,7 @@ pt-BR:
       internal_management: 'gestão interna'
       escort:
         type: 'Escoltas'
+        started: 'Iniciadas'
         blocked: 'Bloqueadas'
         scheduled: 'Aguardando Confirmação'
         finished: 'Finalizadas'

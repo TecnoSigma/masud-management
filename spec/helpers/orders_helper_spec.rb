@@ -9,7 +9,10 @@ RSpec.describe OrdersHelper, type: :helper do
     it 'returns escort link' do
       result = helper.escort_links
 
-      expected_result = '<a class="nav-link" href="/gestao/admin/dashboard/escoltas/scheduled">' \
+      expected_result = '<a class="nav-link" href="/gestao/admin/dashboard/escoltas/started">' \
+                        'Iniciadas' \
+                        '</a>' \
+                        '<a class="nav-link" href="/gestao/admin/dashboard/escoltas/scheduled">' \
                         'Aguardando Confirmação' \
                         '</a>' \
                         '<a class="nav-link" href="/gestao/admin/dashboard/escoltas/blocked">' \

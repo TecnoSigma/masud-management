@@ -56,6 +56,7 @@ module EmployeePanel
       def start_mission
         mission = escort_service.mission
         mission.update(started_at: DateTime.now, status: Status.find_by_name('iniciada'))
+        escort_service.update!(status: Status.find_by_name('iniciada'))
 
         redirect_to employee_panel_operator_dashboard_missoes_path,
                     notice: t('messages.successes.mission.started_successfully')

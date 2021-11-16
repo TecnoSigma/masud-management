@@ -49,7 +49,7 @@ class Order < ApplicationRecord
     finished: '#28a745',
     cancelled: '#636363',
     cancelled_by_customer: '#ffc107'
-  }
+  }.freeze
 
   PER_PAGE_IN_CUSTOMER_DASHBOARD = 20
   PER_PAGE_IN_EMPLOYEE_DASHBOARD = 20
@@ -139,9 +139,9 @@ class Order < ApplicationRecord
       .count
       .map { |order| order }
       .map do |status|
-        piece_color = PIE_COLORS[ALLOWED_STATUSES.key(status.first[:name])]
+      piece_color = PIE_COLORS[ALLOWED_STATUSES.key(status.first[:name])]
 
-        { status: status.first[:name], quantity: status.last, piece_color: piece_color }
+      { status: status.first[:name], quantity: status.last, piece_color: piece_color }
     end
   end
 

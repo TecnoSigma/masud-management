@@ -11,9 +11,9 @@ RSpec.describe 'EmployeePanel::AdministratorPanel::Dashboard::Graphics', type: :
 
   describe '#escorts_by_status' do
     it 'returns data to escort chart by status' do
-      chart_data = [ { status: 'aguardando confirmação', quantity: 13, piece_color: '#2200eb' },
-                     { status: 'confirmado', quantity: 6, piece_color: '#28a745' },
-                     { status: 'recusado', quantity: 21, piece_color: '#ffc107' } ]
+      chart_data = [{ status: 'aguardando confirmação', quantity: 13, piece_color: '#2200eb' },
+                    { status: 'confirmado', quantity: 6, piece_color: '#28a745' },
+                    { status: 'recusado', quantity: 21, piece_color: '#ffc107' }]
 
       allow(Order).to receive(:chart_by_status) { chart_data }
 

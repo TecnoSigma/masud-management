@@ -316,7 +316,7 @@ RSpec.describe Order, type: :model do
 
       result = described_class.chart_by_status
 
-      expected_result = { colors: ["#ffff00"],
+      expected_result = { colors: ['#ffff00'],
                           quantities: [1],
                           statuses: ['aguardando confirmação'] }
 
