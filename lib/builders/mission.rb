@@ -210,14 +210,14 @@ module Builders
       scheduled.save!
 
       confirmed = Order.find_by_order_number(order_number)
-      confirmed.update!(status: Status.find_by_name('confirmado'))
+      confirmed.update!(status: Status.find_by_name('confirmada'))
     end
 
     def create_new_mission!
       mission = ::Mission.new(
         team: team,
         escort_service: EscortService.find_by_order_number(order_number),
-        status: Status.find_by_name('confirmado')
+        status: Status.find_by_name('confirmada')
       )
 
       mission.save!

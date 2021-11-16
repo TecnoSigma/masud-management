@@ -8,7 +8,7 @@ RSpec.describe 'CustomerPanel::Escort', type: :request do
       it 'runs logic deletion' do
         customer = FactoryBot.create(:customer)
         status = FactoryBot.create(:status, name: 'aguardando confirmação')
-        FactoryBot.create(:status, name: 'cancelado pelo cliente')
+        FactoryBot.create(:status, name: 'cancelada pelo cliente')
 
         allow_any_instance_of(PanelsController).to receive(:tokenized?) { true }
         allow_any_instance_of(PanelsController).to receive(:authorized?) { true }
@@ -26,10 +26,10 @@ RSpec.describe 'CustomerPanel::Escort', type: :request do
         expect(result).to be_present
       end
 
-      it 'changes status to \'cancelado pelo cliente\'' do
+      it 'changes status to \'cancelada pelo cliente\'' do
         customer = FactoryBot.create(:customer)
         status = FactoryBot.create(:status, name: 'aguardando confirmação')
-        cancellation_status = FactoryBot.create(:status, name: 'cancelado pelo cliente')
+        cancellation_status = FactoryBot.create(:status, name: 'cancelada pelo cliente')
 
         allow_any_instance_of(PanelsController).to receive(:tokenized?) { true }
         allow_any_instance_of(PanelsController).to receive(:authorized?) { true }
@@ -50,7 +50,7 @@ RSpec.describe 'CustomerPanel::Escort', type: :request do
       it 'redirects to escorts list page' do
         customer = FactoryBot.create(:customer)
         status = FactoryBot.create(:status, name: 'aguardando confirmação')
-        FactoryBot.create(:status, name: 'cancelado pelo cliente')
+        FactoryBot.create(:status, name: 'cancelada pelo cliente')
 
         allow_any_instance_of(PanelsController).to receive(:tokenized?) { true }
         allow_any_instance_of(PanelsController).to receive(:authorized?) { true }
@@ -69,7 +69,7 @@ RSpec.describe 'CustomerPanel::Escort', type: :request do
       it 'shows sucess message' do
         customer = FactoryBot.create(:customer)
         status = FactoryBot.create(:status, name: 'aguardando confirmação')
-        FactoryBot.create(:status, name: 'cancelado pelo cliente')
+        FactoryBot.create(:status, name: 'cancelada pelo cliente')
 
         allow_any_instance_of(PanelsController).to receive(:tokenized?) { true }
         allow_any_instance_of(PanelsController).to receive(:authorized?) { true }
@@ -87,7 +87,7 @@ RSpec.describe 'CustomerPanel::Escort', type: :request do
     end
 
     context 'when pass invalid params' do
-      it 'no changes status to \'cancelado pelo cliente\'' do
+      it 'no changes status to \'cancelada pelo cliente\'' do
         customer = FactoryBot.create(:customer)
         status = FactoryBot.create(:status, name: 'aguardando confirmação')
 
@@ -133,7 +133,7 @@ RSpec.describe 'CustomerPanel::Escort', type: :request do
     end
 
     context 'when occurs error' do
-      it 'no changes status to \'cancelado pelo cliente\'' do
+      it 'no changes status to \'cancelada pelo cliente\'' do
         customer = FactoryBot.create(:customer)
         status = FactoryBot.create(:status, name: 'aguardando confirmação')
 
@@ -191,7 +191,7 @@ RSpec.describe 'CustomerPanel::Escort', type: :request do
     end
 
     context 'when escort scheduling isn\'t deletable' do
-      it 'no changes status to \'cancelado pelo cliente\'' do
+      it 'no changes status to \'cancelada pelo cliente\'' do
         customer = FactoryBot.create(:customer)
         status = FactoryBot.create(:status, name: 'aguardando confirmação')
 
@@ -216,7 +216,7 @@ RSpec.describe 'CustomerPanel::Escort', type: :request do
       it 'redirects to escorts list page' do
         customer = FactoryBot.create(:customer)
         status = FactoryBot.create(:status, name: 'aguardando confirmação')
-        FactoryBot.create(:status, name: 'cancelado pelo cliente')
+        FactoryBot.create(:status, name: 'cancelada pelo cliente')
 
         allow_any_instance_of(PanelsController).to receive(:tokenized?) { true }
         allow_any_instance_of(PanelsController).to receive(:authorized?) { true }
@@ -237,7 +237,7 @@ RSpec.describe 'CustomerPanel::Escort', type: :request do
       it 'shows error message' do
         customer = FactoryBot.create(:customer)
         status = FactoryBot.create(:status, name: 'aguardando confirmação')
-        FactoryBot.create(:status, name: 'cancelado pelo cliente')
+        FactoryBot.create(:status, name: 'cancelada pelo cliente')
 
         allow_any_instance_of(PanelsController).to receive(:tokenized?) { true }
         allow_any_instance_of(PanelsController).to receive(:authorized?) { true }

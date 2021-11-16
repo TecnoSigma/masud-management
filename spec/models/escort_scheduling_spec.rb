@@ -19,8 +19,8 @@ RSpec.describe EscortScheduling, type: :model do
   end
 
   describe 'no validates when status isn\'t allowed' do
-    it 'no validates \'confirmado\'' do
-      status = FactoryBot.create(:status, name: 'confirmado')
+    it 'no validates \'confirmada\'' do
+      status = FactoryBot.create(:status, name: 'confirmada')
       escort_scheduling = EscortScheduling.new(
         FactoryBot.attributes_for(:order, :scheduled, status: status)
       )
@@ -28,8 +28,8 @@ RSpec.describe EscortScheduling, type: :model do
       expect(escort_scheduling).to be_invalid
     end
 
-    it 'no validates \'recusado\'' do
-      status = FactoryBot.create(:status, name: 'recusado')
+    it 'no validates \'recusada\'' do
+      status = FactoryBot.create(:status, name: 'recusada')
       escort_scheduling = EscortScheduling.new(
         FactoryBot.attributes_for(:order, :scheduled, status: status)
       )

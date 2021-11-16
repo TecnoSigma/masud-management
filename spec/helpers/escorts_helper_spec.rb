@@ -37,7 +37,7 @@ RSpec.describe EscortsHelper, type: :helper do
 
   describe '#show_reasons?' do
     it 'returns \'true\' when status is blocked' do
-      status = 'bloqueado'
+      status = 'bloqueada'
 
       result = helper.show_reasons?(status)
 

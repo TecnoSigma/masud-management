@@ -91,6 +91,23 @@ RSpec.describe Order, type: :model do
     end
   end
 
+  it 'validates graphic colors' do
+    expected_result = {
+      started: '#44a6c6',
+      scheduled: '#ffff00',
+      blocked: '#9800eb',
+      confirmed: '#4528a7',
+      refused: '#ff0000',
+      finished: '#28a745',
+      cancelled: '#636363',
+      cancelled_by_customer: '#ffc107'
+    }
+
+    result = described_class::PIE_COLORS
+
+    expect(result).to eq(expected_result)
+  end
+
   describe 'validates allowed status' do
     described_class::ALLOWED_STATUSES.each do |_, value|
       it "validates '#{value}'" do
@@ -202,7 +219,7 @@ RSpec.describe Order, type: :model do
       end
     end
 
-    context 'cancelado pelo cliente' do
+    context 'cancelada pelo cliente' do
       it 'returns scheduled escorts' do
         customer = FactoryBot.create(:customer)
         FactoryBot.create(
@@ -218,7 +235,7 @@ RSpec.describe Order, type: :model do
       end
     end
 
-    context 'recusado' do
+    context 'recusada' do
       it 'returns scheduled escorts' do
         customer = FactoryBot.create(:customer)
         FactoryBot.create(
@@ -234,7 +251,7 @@ RSpec.describe Order, type: :model do
       end
     end
 
-    context 'confirmado' do
+    context 'confirmada' do
       it 'returns confirmed escorts' do
         customer = FactoryBot.create(:customer)
         FactoryBot.create(

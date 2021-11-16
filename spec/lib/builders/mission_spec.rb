@@ -799,7 +799,7 @@ RSpec.describe Builders::Mission do
                        'order_number' => order_number }
 
       FactoryBot.create(:status, name: 'aguardando confirmação')
-      confirmed_status = FactoryBot.create(:status, name: 'confirmado')
+      confirmed_status = FactoryBot.create(:status, name: 'confirmada')
 
       order = FactoryBot.create(:order, :scheduled)
       order.update!(order_number: order_number)
@@ -834,7 +834,7 @@ RSpec.describe Builders::Mission do
                        'order_number' => order_number }
 
       FactoryBot.create(:team, name: team_name)
-      confirmed_status = FactoryBot.create(:status, name: 'confirmado')
+      confirmed_status = FactoryBot.create(:status, name: 'confirmada')
 
       service = FactoryBot.create(:order, type: 'EscortService', status: confirmed_status)
       service.order_number = order_number

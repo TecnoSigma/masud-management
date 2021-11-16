@@ -22,7 +22,7 @@ class Customer < ApplicationRecord
 
   ACTIVE_STATUS = 'ativo'
   DEFAULT_PASSWORD = 'inicial1234'
-  HIDDEN_STATUS = 'cancelado pelo cliente'
+  HIDDEN_STATUS = 'cancelada pelo cliente'
   PER_PAGE_IN_EMPLOYEE_DASHBOARD = 20
 
   private_constant :ACTIVE_STATUS, :HIDDEN_STATUS

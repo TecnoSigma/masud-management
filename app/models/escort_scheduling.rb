@@ -5,9 +5,9 @@ class EscortScheduling < Escort
 
   ALLOWED_STATUSES = [
     'aguardando confirmação',
-    'bloqueado',
+    'bloqueada',
     'cancelada',
-    'cancelado pelo cliente'
+    'cancelada pelo cliente'
   ].freeze
 
   private_constant :ALLOWED_STATUSES

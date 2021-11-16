@@ -16,8 +16,8 @@ RSpec.describe EscortService, type: :model do
   end
 
   describe 'validates presences' do
-    it 'of reason when status is \'recusado\'' do
-      status = FactoryBot.create(:status, name: 'recusado')
+    it 'of reason when status is \'recusada\'' do
+      status = FactoryBot.create(:status, name: 'recusada')
       escort_service = EscortService.new(
         FactoryBot.attributes_for(:order, :refused, status: status, reason: nil)
       )
@@ -27,8 +27,8 @@ RSpec.describe EscortService, type: :model do
   end
 
   describe 'validates allowed status' do
-    it 'validates \'confirmado\'' do
-      status = FactoryBot.create(:status, name: 'confirmado')
+    it 'validates \'confirmada\'' do
+      status = FactoryBot.create(:status, name: 'confirmada')
       escort_service = EscortService.new(
         FactoryBot.attributes_for(:order, :confirmed, status: status)
       )
@@ -36,8 +36,8 @@ RSpec.describe EscortService, type: :model do
       expect(escort_service).to be_valid
     end
 
-    it 'validates \'recusado\'' do
-      status = FactoryBot.create(:status, name: 'recusado')
+    it 'validates \'recusada\'' do
+      status = FactoryBot.create(:status, name: 'recusada')
       escort_service = EscortService.new(
         FactoryBot.attributes_for(:order, :refused, status: status)
       )

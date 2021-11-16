@@ -32,12 +32,12 @@ class Order < ApplicationRecord
   ALLOWED_STATUSES = {
     started: 'iniciada',
     scheduled: 'aguardando confirmação',
-    blocked: 'bloqueado',
-    confirmed: 'confirmado',
-    refused: 'recusado',
+    blocked: 'bloqueada',
+    confirmed: 'confirmada',
+    refused: 'recusada',
     finished: 'finalizada',
     cancelled: 'cancelada',
-    cancelled_by_customer: 'cancelado pelo cliente'
+    cancelled_by_customer: 'cancelada pelo cliente'
   }.freeze
 
   PIE_COLORS = {

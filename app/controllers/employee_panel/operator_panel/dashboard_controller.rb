@@ -176,7 +176,7 @@ module EmployeePanel
 
       def update_blocking_status!
         order.update(
-          status: Status.find_by_name('bloqueado'),
+          status: Status.find_by_name('bloqueada'),
           reason: t('messages.infos.blocking_reason', employee_name: employee_name)
         )
       end

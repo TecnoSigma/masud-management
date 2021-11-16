@@ -328,8 +328,8 @@ RSpec.describe 'EmployeePanel::OperatorPanel::Dashboard', type: :request do
 
   describe '#block_order' do
     context 'when pass valid params' do
-      it 'updates order status to \'bloqueado\'' do
-        FactoryBot.create(:status, name: 'bloqueado')
+      it 'updates order status to \'bloqueada\'' do
+        FactoryBot.create(:status, name: 'bloqueada')
         order = FactoryBot.create(:order)
         employee_name = 'João'
 
@@ -348,11 +348,11 @@ RSpec.describe 'EmployeePanel::OperatorPanel::Dashboard', type: :request do
 
         result = Order.find_by_order_number(order.order_number).status.name
 
-        expect(result).to eq('bloqueado')
+        expect(result).to eq('bloqueada')
       end
 
       it 'saves blocking reason' do
-        FactoryBot.create(:status, name: 'bloqueado')
+        FactoryBot.create(:status, name: 'bloqueada')
         order = FactoryBot.create(:order)
         employee_name = 'João'
 
@@ -375,7 +375,7 @@ RSpec.describe 'EmployeePanel::OperatorPanel::Dashboard', type: :request do
       end
 
       it 'redirects to orders page' do
-        FactoryBot.create(:status, name: 'bloqueado')
+        FactoryBot.create(:status, name: 'bloqueada')
         order = FactoryBot.create(:order)
         employee_name = 'João'
 
@@ -396,7 +396,7 @@ RSpec.describe 'EmployeePanel::OperatorPanel::Dashboard', type: :request do
       end
 
       it 'shows blocking message' do
-        FactoryBot.create(:status, name: 'bloqueado')
+        FactoryBot.create(:status, name: 'bloqueada')
         order = FactoryBot.create(:order)
         employee_name = 'João'
 

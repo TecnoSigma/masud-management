@@ -79,7 +79,7 @@ module CustomerPanel
     end
 
     def cancelled_status
-      Status.find_by_name('cancelado pelo cliente')
+      Status.find_by_name('cancelada pelo cliente')
     end
 
     def escort

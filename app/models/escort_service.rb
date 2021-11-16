@@ -7,8 +7,8 @@ class EscortService < Escort
 
   has_one :mission
 
-  ALLOWED_STATUSES = %w[iniciada confirmado recusado finalizada].freeze
-  REFUSE_STATUS = 'recusado'
+  ALLOWED_STATUSES = %w[iniciada confirmada recusada finalizada].freeze
+  REFUSE_STATUS = 'recusada'
 
   private_constant :ALLOWED_STATUSES, :REFUSE_STATUS
 

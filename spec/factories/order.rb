@@ -27,22 +27,22 @@ FactoryBot.define do
   trait :blocked do
     type { 'EscortScheduling' }
     reason { Faker::Lorem.sentence }
-    status { Status.find_by_name('bloqueado') || FactoryBot.create(:status, name: 'bloqueado') }
+    status { Status.find_by_name('bloqueada') || FactoryBot.create(:status, name: 'bloqueada') }
   end
 
   trait :cancelled_by_customer do
     type { 'EscortScheduling' }
-    status { Status.find_by_name('cancelado pelo cliente') || FactoryBot.create(:status, name: 'cancelado pelo cliente') }
+    status { Status.find_by_name('cancelada pelo cliente') || FactoryBot.create(:status, name: 'cancelada pelo cliente') }
   end
 
   trait :confirmed do
     type { 'EscortService' }
-    status { Status.find_by_name('confirmado') || FactoryBot.create(:status, name: 'confirmado') }
+    status { Status.find_by_name('confirmada') || FactoryBot.create(:status, name: 'confirmada') }
   end
 
   trait :refused do
     type { 'EscortService' }
     reason { Faker::Lorem.sentence }
-    status { Status.find_by_name('recusado') || FactoryBot.create(:status, name: 'recusado') }
+    status { Status.find_by_name('recusada') || FactoryBot.create(:status, name: 'recusada') }
   end
 end
