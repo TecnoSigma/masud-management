@@ -100,6 +100,8 @@ Rails.application.routes.draw do
       get 'dashboard/relatorios/equipamentos', to: 'dashboard/reports#tackles'
       get 'dashboard/relatorios/funcionarios', to: 'dashboard/reports#employees'
       get 'dashboard/relatorios/viaturas',     to: 'dashboard/reports#vehicles'
+
+      get 'dashboard/graficos/escorts_by_status', to: 'dashboard/graphics#escorts_by_status'
     end
 
     scope module: 'agent_panel', path: 'agente', as: 'agent' do

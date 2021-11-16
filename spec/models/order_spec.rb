@@ -303,4 +303,24 @@ RSpec.describe Order, type: :model do
       expect(result).to eq(expected_result)
     end
   end
+
+  describe '.chart_by_status' do
+    it 'returns data to chart by status' do
+      customer = FactoryBot.create(:customer)
+      FactoryBot.create(
+        :order,
+        :scheduled,
+        type: 'EscortScheduling',
+        customer: customer
+      )
+
+      result = described_class.chart_by_status
+
+      expected_result = { colors: ["#ffff00"],
+                          quantities: [1],
+                          statuses: ['aguardando confirmação'] }
+
+      expect(result).to eq(expected_result)
+    end
+  end
 end

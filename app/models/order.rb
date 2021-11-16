@@ -30,6 +30,7 @@ class Order < ApplicationRecord
   ALLOWED_REFUSES = 2
 
   ALLOWED_STATUSES = {
+    started: 'iniciada',
     scheduled: 'aguardando confirmação',
     blocked: 'bloqueado',
     confirmed: 'confirmado',
@@ -38,6 +39,17 @@ class Order < ApplicationRecord
     cancelled: 'cancelada',
     cancelled_by_customer: 'cancelado pelo cliente'
   }.freeze
+
+  PIE_COLORS = {
+    started: '#44a6c6',
+    scheduled: '#ffff00',
+    blocked: '#9800eb',
+    confirmed: '#4528a7',
+    refused: '#ff0000',
+    finished: '#28a745',
+    cancelled: '#636363',
+    cancelled_by_customer: '#ffc107'
+  }
 
   PER_PAGE_IN_CUSTOMER_DASHBOARD = 20
   PER_PAGE_IN_EMPLOYEE_DASHBOARD = 20
@@ -63,6 +75,12 @@ class Order < ApplicationRecord
 
       current_order <=> next_order
     end
+  end
+
+  def self.chart_by_status
+    { statuses: chart_by_status_data.map { |label| label[:status] },
+      quantities: chart_by_status_data.map { |label| label[:quantity] },
+      colors: chart_by_status_data.map { |label| label[:piece_color] } }
   end
 
   def create_order_number
@@ -112,4 +130,20 @@ class Order < ApplicationRecord
 
     errors.add(:status, error_message) if ALLOWED_STATUSES.values.exclude?(status.name)
   end
+
+  def self.chart_by_status_data
+    Order
+      .where(type: 'EscortService')
+      .or(Order.where(type: 'EscortScheduling'))
+      .group(:status)
+      .count
+      .map { |order| order }
+      .map do |status|
+        piece_color = PIE_COLORS[ALLOWED_STATUSES.key(status.first[:name])]
+
+        { status: status.first[:name], quantity: status.last, piece_color: piece_color }
+    end
+  end
+
+  private_class_method :chart_by_status_data
 end
