@@ -28,8 +28,7 @@ module EmployeePanel
       end
 
       def exit_from_base
-        mission = escort_service.mission
-        mission.update(exit_from_base: DateTime.now)
+        update_mission!({ exit_from_base: DateTime.now })
 
         redirect_to employee_panel_operator_dashboard_missoes_path,
                     notice: t('messages.successes.mission.updated_successfully')
@@ -41,8 +40,7 @@ module EmployeePanel
       end
 
       def arrival_at_base
-        mission = escort_service.mission
-        mission.update(arrival_at_base: DateTime.now)
+        update_mission!({ arrival_at_base: DateTime.now })
 
         redirect_to employee_panel_operator_dashboard_missoes_path,
                     notice: t('messages.successes.mission.updated_successfully')
@@ -54,8 +52,7 @@ module EmployeePanel
       end
 
       def start_mission
-        mission = escort_service.mission
-        mission.update(started_at: DateTime.now, status: Status.find_by_name('iniciada'))
+        update_mission!({ started_at: DateTime.now, status: Status.find_by_name('iniciada') })
         escort_service.update!(status: Status.find_by_name('iniciada'))
 
         redirect_to employee_panel_operator_dashboard_missoes_path,
@@ -159,6 +156,11 @@ module EmployeePanel
       end
 
       private
+
+      def update_mission!(params)
+        mission = escort_service.mission
+        mission.update(params)
+      end
 
       def reason
         raise StandardError unless refuse_params['reason']
