@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 module Builders
   class FinishMission
     include AASM
 
     attr_reader :mission, :observation
 
+    # rubocop:disable Metrics/BlockLength
     aasm do
       state :created_mission_history, initial: true
       state :updated_agents_last_mission
@@ -86,6 +88,7 @@ module Builders
                     if: :update_order_status!
       end
     end
+    # rubocop:enable Metrics/BlockLength
 
     def initialize(mission, observation)
       @mission = mission
@@ -98,6 +101,8 @@ module Builders
 
     private
 
+    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+    # rubocop:disable Metrics/MethodLength, Metrics/PerceivedComplexity
     def execute_actions!
       create_mission_history     if created_mission_history?
       update_agents_last_mission if updated_agents_last_mission?
@@ -111,6 +116,8 @@ module Builders
       add_observation            if added_observation?
       update_order_status        if updated_order_status?
     end
+    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
+    # rubocop:enable Metrics/MethodLength, Metrics/PerceivedComplexity
 
     def create_mission_history!
       history = MissionHistory.new(
@@ -206,13 +213,15 @@ module Builders
       @bullets = agents
                  .map(&:bullets)
                  .flatten
-                 .map { |bullet| { id: bullet.id, caliber: bullet.caliber, quantity: bullet.quantity } }
+                 .map do |bullet|
+        { id: bullet.id,
+          caliber: bullet.caliber,
+          quantity: bullet.quantity }
+      end
 
       @bullets.each { |bullet| Bullet.find(bullet[:id]).delete }
 
-      agents.reload
-
-      agents.map(&:bullets).flatten.empty?
+      agents.reload.map(&:bullets).flatten.empty?
     end
 
     def update_munitions_stock!
@@ -230,3 +239,4 @@ module Builders
     end
   end
 end
+# rubocop:enable Metrics/ClassLength

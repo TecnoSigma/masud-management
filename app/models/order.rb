@@ -1,26 +1,15 @@
 # frozen_string_literal: true
 
 class Order < ApplicationRecord
-  validates :job_day,
-            :job_horary,
-            :source_address,
-            :source_number,
-            :source_district,
-            :source_city,
-            :source_state,
-            :destiny_address,
-            :destiny_number,
-            :destiny_district,
-            :destiny_city,
+  validates :job_day, :job_horary, :source_address, :source_number, :source_district, :source_city,
+            :source_state, :destiny_address, :destiny_number, :destiny_district, :destiny_city,
             :destiny_state,
             presence: true
 
   validates :job_horary,
-            format: { with: Regex.horary,
-                      message: I18n.t('messages.errors.invalid_format') }
+            format: { with: Regex.horary, message: I18n.t('messages.errors.invalid_format') }
 
-  validate :check_start_day,
-           :check_allowed_status
+  validate :check_start_day, :check_allowed_status
 
   belongs_to :customer
   belongs_to :status
@@ -92,9 +81,7 @@ class Order < ApplicationRecord
   end
 
   def deletable?
-    difference = TimeDifference
-                 .between(prevision, Time.zone.now)
-                 .in_hours
+    difference = TimeDifference.between(prevision, Time.zone.now).in_hours
 
     difference >= CANCELLATION_DEADLINE
   end
@@ -120,9 +107,7 @@ class Order < ApplicationRecord
   def check_start_day
     return unless job_day
 
-    error_message = I18n.t('messages.errors.incorrect_start_day')
-
-    errors.add(:job_day, error_message) if prevision.past?
+    errors.add(:job_day, I18n.t('messages.errors.incorrect_start_day')) if prevision.past?
   end
 
   def check_allowed_status

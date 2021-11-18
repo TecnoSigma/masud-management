@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 module Builders
   class Mission
     include AASM
@@ -11,6 +12,7 @@ module Builders
 
     private_constant :CALIBERS
 
+    # rubocop:disable Metrics/BlockLength
     aasm do
       state :mounted_team, initial: true
       state :provided_guns
@@ -91,7 +93,9 @@ module Builders
                     if: :create_new_mission!
       end
     end
+    # rubocop:enable Metrics/BlockLength
 
+    # rubocop:disable Metrics/AbcSize
     def initialize(mission_info)
       @team_name = mission_info['team']['team_name']
       @agents = mission_info['team']['agents']
@@ -104,6 +108,7 @@ module Builders
       @vehicles = mission_info['descriptive_items']['vehicles']
       @order_number = mission_info['order_number']
     end
+    # rubocop:enable Metrics/AbcSize
 
     def mount!
       execute_actions!
@@ -111,6 +116,8 @@ module Builders
 
     private
 
+    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+    # rubocop:disable Metrics/MethodLength, Metrics/PerceivedComplexity
     def execute_actions!
       mount_team              if mounted_team?
       provide_guns            if provided_guns?
@@ -124,6 +131,8 @@ module Builders
       update_service          if updated_service?
       create_new_mission      if created_new_mission?
     end
+    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
+    # rubocop:enable Metrics/MethodLength, Metrics/PerceivedComplexity
 
     def mount_team!
       agents.split(' | ').each do |codename|
@@ -303,3 +312,4 @@ module Builders
     end
   end
 end
+# rubocop:enable Metrics/ClassLength
