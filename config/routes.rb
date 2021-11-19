@@ -114,21 +114,22 @@ Rails.application.routes.draw do
 
     scope module: 'operator_panel', path: 'operador', as: 'operator' do
       get 'dashboard/index'
-      get 'dashboard/gerenciamento/:order_number',     to: 'dashboard#order_management', as:  'dashboard_order_management'
-      post 'dashboard/gerenciamento/mount_items_list', to: 'dashboard#mount_items_list'
-      post 'dashboard/gerenciamento/mount_team',       to: 'dashboard#mount_team'
-      post 'dashboard/gerenciamento/refuse_team',      to: 'dashboard#refuse_team'
-      post 'dashboard/gerenciamento/block_order',      to: 'dashboard#block_order'
-      post 'dashboard/gerenciamento/confirm_order',    to: 'dashboard#confirm_order'
-      post 'dashboard/gerenciamento/refuse_order',     to: 'dashboard#refuse_order'
 
-      get 'dashboard/missoes',                  to: 'dashboard#missions'
-      get 'dashboard/missao/:order_number',     to: 'dashboard#mission', as: 'dashboard_mission'
-      post 'dashboard/missao/start_mission',    to: 'dashboard#start_mission'
-      post 'dashboard/missao/finish_mission',   to: 'dashboard#finish_mission'
-      patch 'dashboard/missao/start_mission',   to: 'dashboard#start_mission'
-      patch 'dashboard/missao/exit_from_base',  to: 'dashboard#exit_from_base'
-      patch 'dashboard/missao/arrival_at_base', to: 'dashboard#arrival_at_base'
+      get 'dashboard/gerenciamento/:order_number',     to: 'orders#order_management', as:  'dashboard_order_management'
+      post 'dashboard/gerenciamento/mount_items_list', to: 'missions#mount_items_list'
+      post 'dashboard/gerenciamento/mount_team',       to: 'teams#mount_team'
+      post 'dashboard/gerenciamento/refuse_team',      to: 'teams#refuse_team'
+      post 'dashboard/gerenciamento/block_order',      to: 'orders#block_order'
+      post 'dashboard/gerenciamento/confirm_order',    to: 'orders#confirm_order'
+      post 'dashboard/gerenciamento/refuse_order',     to: 'orders#refuse_order'
+
+      get 'dashboard/missoes',                  to: 'missions#missions'
+      get 'dashboard/missao/:order_number',     to: 'missions#mission', as: 'dashboard_mission'
+      post 'dashboard/missao/start_mission',    to: 'missions#start_mission'
+      post 'dashboard/missao/finish_mission',   to: 'missions#finish_mission'
+      patch 'dashboard/missao/start_mission',   to: 'missions#start_mission'
+      patch 'dashboard/missao/exit_from_base',  to: 'missions#exit_from_base'
+      patch 'dashboard/missao/arrival_at_base', to: 'missions#arrival_at_base'
     end
   end
 end
