@@ -5,10 +5,6 @@ module EmployeePanel
     class MissionsController < DashboardController
       protect_from_forgery with: :null_session, only: [:mount_items_list]
 
-      before_action except: [:mount_items_list] do
-        check_internal_profile(params['controller'])
-      end
-
       def missions
         @missions = Mission
                     .all
